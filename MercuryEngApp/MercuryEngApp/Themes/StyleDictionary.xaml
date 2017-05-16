@@ -1,0 +1,300 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="HeaderTextBlock" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Arial" />
+        <Setter Property="FontSize" Value="30" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Height" Value="36" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="TextAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="WhiteLable15pt" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontFamily" Value="Arial" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+    </Style>
+
+
+    <Style x:Key="WhiteLable15ptBold" BasedOn="{StaticResource WhiteLable15pt}" TargetType="TextBlock">
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+
+
+    <!--<TextBox Style>-->
+    <Style TargetType="{x:Type TextBox}" x:Key="MainTextbox">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="5">
+                        <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" TargetName="border" Value="0.46"/>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="BorderBrush" Value="#049fdf"/>
+                            <Setter Property="BorderThickness" Value="3"/>
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    
+    <Style  x:Key="TexboxDisable" TargetType="{x:Type TextBox}">
+       
+        <Setter Property="Background" Value="#FFBBC7CD"/>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="false">
+                
+            </Trigger>
+            </Style.Triggers>
+        
+      
+    </Style>
+
+    <!--Password Border CSS-->
+    <ControlTemplate x:Key="passwordbox" TargetType="{x:Type PasswordBox}">
+        <Border Background="{TemplateBinding Background}" 
+        x:Name="Bd" BorderBrush="#049fdf"
+        BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="20">
+            <ScrollViewer Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" TargetName="Bd"/>
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+            </Trigger>
+            <Trigger Property="Width" Value="Auto">
+                <Setter Property="MinWidth" Value="100"/>
+            </Trigger>
+            <Trigger Property="Height" Value="Auto">
+                <Setter Property="MinHeight" Value="20"/>
+            </Trigger>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="BorderBrush" Value="#049fdf"/>
+                <Setter Property="BorderThickness" Value="5"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!--Button Loging CSS-->
+    <Style TargetType="{x:Type Button}" x:Key="ButtonStyle1">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="NA_btn_262x62_selected.png"/>
+            </Setter.Value>
+        </Setter>
+         <Setter Property="FontFamily" Value="Arial" />
+        <Setter Property="FontSize" Value="17" />
+        <Setter Property="Foreground" Value="WhiteSmoke" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="border" 
+                        BorderThickness="0" 
+                        Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="NA_btn_262x62_down.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="NA_btn_262x62_down.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style TargetType="{x:Type Button}" x:Key="LargeButtonStyle">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="NA_btn_exam3_100x90_on.png"/>
+            </Setter.Value>
+        </Setter>
+       
+        <Setter Property="FontFamily" Value="Arial" />
+        <Setter Property="FontSize" Value="17" />
+        <Setter Property="Foreground" Value="WhiteSmoke" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="border" 
+                        BorderThickness="0" 
+                        Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="NA_btn_exam3_100x90_down.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="NA_btn_exam3_100x90_down.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+    <Style TargetType="{x:Type Button}" x:Key="ButtonEnvelopeToggle">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="NA_btn_exam_Envlope_100x90_on.png"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FontFamily" Value="Arial" />
+        <Setter Property="FontSize" Value="17" />
+        <Setter Property="Foreground" Value="WhiteSmoke" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="Width" Value="280" />
+        <Setter Property="Height" Value="48"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="border" 
+                        BorderThickness="0" 
+                        Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="NA_btn_exam_Envlope_100x90_down.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="NA_btn_exam_Envlope_100x90_down.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!--ToggleButton CSS-->
+    <Style TargetType="{x:Type ToggleButton}" x:Key="ButtonStyle2">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="NA_btn_180x60_selected.png"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Height" Value="60"/>
+        <Setter Property="Width" Value="160"/>
+        <Setter Property="FontFamily" Value="Arial" />
+        <Setter Property="FontSize" Value="17" />
+        <Setter Property="Foreground" Value="WhiteSmoke" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border Name="border" 
+                        BorderThickness="0" 
+                        Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="NA_btn_180x60_selected.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="NA_btn_180x60_selected.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+   
+    <!--Border rounded corner-->
+
+    <Style x:Key="RoundedBorderBlue" TargetType="Border">
+        <Setter Property="Control.BorderBrush" Value="#FF00AEEF" />
+        <Setter Property="Control.BorderThickness" Value="2" />
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+
+    <!--Rectangle rounded corner-->
+
+    <Style x:Key="RoundedRectangleBlue" BasedOn="{StaticResource RoundedBorderBlue}" TargetType="Border">
+        <Setter Property="CornerRadius" Value="8,8,0,0"/>
+        <Setter Property="Control.BorderBrush" Value="#FF00AEEF" />
+        <Setter Property="Control.BorderThickness" Value="2" />
+        <Setter Property="Background" Value="#FF16223D"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+
+   
+
+    <!--ComboBox Style-->
+
+    
+    <!--<Style TargetType="{x:Type ComboBox}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBox}">
+                    <Border CornerRadius="5">
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>-->
+
+</ResourceDictionary>
