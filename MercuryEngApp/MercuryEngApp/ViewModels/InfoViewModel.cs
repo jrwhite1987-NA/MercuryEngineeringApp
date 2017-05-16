@@ -14,7 +14,7 @@ namespace MercuryEngApp
 
         internal ProbeInfo Probeinfo { get; set; }
 
-        private string channelNumber;
+        private byte channelNumber;
 
         public InfoViewModel()
         {
@@ -22,7 +22,7 @@ namespace MercuryEngApp
             Probeinfo = new ProbeInfo();
         }
 
-        public string ChannelNumber
+        public byte ChannelNumber
         {
             get
             {
@@ -150,7 +150,7 @@ namespace MercuryEngApp
             }
         }
 
-        public string PhysicalID
+        public byte PhysicalID
         {
             get
             {
@@ -166,7 +166,7 @@ namespace MercuryEngApp
             }
         }
 
-        public string FormatID
+        public byte FormatID
         {
             get
             {
@@ -182,7 +182,7 @@ namespace MercuryEngApp
             }
         }
 
-        public string CenterFrequency
+        public ushort CenterFrequency
         {
             get
             {
@@ -198,7 +198,7 @@ namespace MercuryEngApp
             }
         }
 
-        public string Diameter
+        public ushort Diameter
         {
             get
             {
@@ -214,7 +214,7 @@ namespace MercuryEngApp
             }
         }
 
-        public string TankFocalLength
+        public ushort TankFocalLength
         {
             get
             {
@@ -230,7 +230,7 @@ namespace MercuryEngApp
             }
         }
 
-        public string InsertionLoss
+        public ushort InsertionLoss
         {
             get
             {
@@ -246,7 +246,7 @@ namespace MercuryEngApp
             }
         }
 
-        public string TIC
+        public ushort TIC
         {
             get
             {
@@ -262,7 +262,7 @@ namespace MercuryEngApp
             }
         }
 
-        public string Fractional3dbBW
+        public ushort Fractional3dbBW
         {
             get
             {
@@ -278,7 +278,7 @@ namespace MercuryEngApp
             }
         }
 
-        public string Impedance
+        public ushort Impedance
         {
             get
             {
@@ -294,7 +294,7 @@ namespace MercuryEngApp
             }
         }
 
-        public string PhaseAngle
+        public ushort PhaseAngle
         {
             get
             {

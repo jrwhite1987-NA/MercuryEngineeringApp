@@ -680,10 +680,12 @@ namespace UsbTcdLibrary
                     //Logs.Instance.ErrorLog<UsbTcdDll>("GetModuleInfoOfTCD ends for channel:" + requestObject.ChannelID.ToString(), "GetModuleInfoOfTCD", Severity.Debug);
                     if (requestObject.ChannelID == TCDHandles.Channel1)
                     {
+                        await dopplerModule.SetMode(TCDHandles.Channel1, TCDModes.Active);
                         readInfoResponse.Module = await TCDHandler.Current.GetModuleInfo(TCDHandles.Channel1);
                     }
                     else
                     {
+                        await dopplerModule.SetMode(TCDHandles.Channel2, TCDModes.Active);
                         readInfoResponse.Module = await TCDHandler.Current.GetModuleInfo(TCDHandles.Channel2);
                     }
                 }
@@ -836,12 +838,14 @@ namespace UsbTcdLibrary
                 {
                     if (requestObject.ChannelID == TCDHandles.Channel1)
                     {
+                        await dopplerModule.SetMode(TCDHandles.Channel1, TCDModes.Active);
                         response.Probe = await TCDHandler.Current.GetProbeInfoAsync(TCDHandler.Current.Channel1);
                     }
                     else 
                     {
                         if (requestObject.ChannelID == TCDHandles.Channel2)
                         {
+                            await dopplerModule.SetMode(TCDHandles.Channel2, TCDModes.Active);
                             response.Probe = await TCDHandler.Current.GetProbeInfoAsync(TCDHandler.Current.Channel2);
                         }
                     }

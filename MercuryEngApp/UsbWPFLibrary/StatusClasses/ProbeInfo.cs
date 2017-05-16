@@ -135,8 +135,13 @@ namespace UsbTcdLibrary.StatusClasses
             {
                 probeInfoObj = new ProbeInfo();
                 probeInfoObj.descriptionString = Helper.ConvertBytesToString(data, DESCRIPTION_STRING_INDEX, DESCRIPTION_STRING_COUNT);
+                probeInfoObj.descriptionString = probeInfoObj.descriptionString.Substring(0, probeInfoObj.descriptionString.IndexOf('\0'));
+
                 probeInfoObj.partNumber = Helper.ConvertBytesToString(data, PART_NUMBER_INDEX, PART_NUMBER_COUNT);
+                probeInfoObj.partNumber = probeInfoObj.partNumber.Substring(0, probeInfoObj.partNumber.IndexOf('\0'));
+
                 probeInfoObj.serialNumberString = Helper.ConvertBytesToString(data, SERIAL_NUMBER_STRING_INDEX, SERIAL_NUMBER_STRING_COUNT);
+                probeInfoObj.serialNumberString = probeInfoObj.serialNumberString.Substring(0, probeInfoObj.serialNumberString.IndexOf('\0'));
 
                 probeInfoObj.physicalId = data[PHYSICAL_ID_BUFFER_SIZE];
                 probeInfoObj.formatId = data[FORMAT_ID_BUFFER_SIZE];

@@ -1,4 +1,5 @@
-﻿// ***********************************************************************
+﻿using System;
+// ***********************************************************************
 // Assembly         : UsbTcdLibrary
 // Author           : Jagtap_R
 // Created          : 03-09-2017
@@ -18,7 +19,7 @@ namespace UsbTcdLibrary.CommunicationProtocol
     /// <summary>
     /// Class TCDWriteInfoRequest.
     /// </summary>
-    public class TCDWriteInfoRequest
+    public class TCDWriteInfoRequest: IDisposable
     {
         /// <summary>
         /// Gets or sets the channel identifier.
@@ -50,6 +51,11 @@ namespace UsbTcdLibrary.CommunicationProtocol
             Probe = null;
             Board = null;
             Calibration = null;
+        }
+
+        public void Dispose()
+        {
+
         }
     }
 }

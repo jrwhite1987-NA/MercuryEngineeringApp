@@ -38,33 +38,91 @@ namespace MercuryEngApp
             await UsbTcd.TCDObj.SetModeAsync(App.CurrentChannel, TCDModes.Service);
         }
 
-        private void ReadBoardInfoClick(object sender, RoutedEventArgs e)
+        private async void ReadBoardInfoClick(object sender, RoutedEventArgs e)
         {
+            using (TCDRequest request = new TCDRequest())
+            {
+                request.ChannelID = App.CurrentChannel;
+                TCDReadInfoResponse response = await UsbTcd.TCDObj.GetModuleInfo(request);
+                infoViewModelObj.BoardPartNumber = response.Module.partNumberString;
+                infoViewModelObj.BoardModelName = response.Module.modelString;
+                infoViewModelObj.HardwareRevision = response.Module.hardwareRevisionString;
+                infoViewModelObj.BoardSerialNumber = response.Module.serialNumberString;
+            }
         }
 
-        private void WriteBoardInfoClick(object sender, RoutedEventArgs e)
+        private async void WriteBoardInfoClick(object sender, RoutedEventArgs e)
         {
-
+            using (TCDWriteInfoRequest request = new TCDWriteInfoRequest())
+            {
+                request.ChannelID = App.CurrentChannel;
+                request.Board = new UsbTcdLibrary.StatusClasses.BoardInfo();
+                request.Board.partNumberString = infoViewModelObj.BoardPartNumber;
+                request.Board.modelString = infoViewModelObj.BoardModelName;
+                //request.Board.hardwareRevision = infoViewModelObj.HardwareRevision;
+                request.Board.serialNumberString = infoViewModelObj.BoardSerialNumber;
+                await UsbTcd.TCDObj.WriteBoardInfoAsync(request);
+            }
         }
 
-        private void ReadChannelClick(object sender, RoutedEventArgs e)
+        private async void ReadChannelClick(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
-        private void WriteChannelClick(object sender, RoutedEventArgs e)
+        private async void WriteChannelClick(object sender, RoutedEventArgs e)
         {
-
+            using(TCDRequest request = new TCDRequest())
+            {
+                request.ChannelID = App.CurrentChannel;
+                request.Value2 = infoViewModelObj.ChannelNumber;
+                await UsbTcd.TCDObj.AssignChannelAsync(request);
+            }
         }
 
-        private void ReadProbeInfoClick(object sender, RoutedEventArgs e)
+        private async void ReadProbeInfoClick(object sender, RoutedEventArgs e)
         {
-
+            using(TCDRequest request=new TCDRequest())
+            {
+               request.ChannelID = App.CurrentChannel;
+               TCDReadInfoResponse response = await UsbTcd.TCDObj.GetProbeInfo(request);
+               infoViewModelObj.ProbePartNumber = response.Probe.partNumber;
+               infoViewModelObj.ProbeModelName = response.Probe.descriptionString;
+               infoViewModelObj.PhysicalID = response.Probe.physicalId;
+               infoViewModelObj.ProbeSerialNumber = response.Probe.serialNumberString;
+               infoViewModelObj.FormatID = response.Probe.formatId;
+               infoViewModelObj.CenterFrequency = response.Probe.centerFrequency;
+               infoViewModelObj.Diameter = response.Probe.diameter;
+               infoViewModelObj.TankFocalLength = response.Probe.tankFocalLength;
+               infoViewModelObj.InsertionLoss = response.Probe.insertionLoss;
+               infoViewModelObj.TIC = response.Probe.TIC;
+               infoViewModelObj.Fractional3dbBW = response.Probe.fractionalBW;
+               infoViewModelObj.Impedance = response.Probe.impedance;
+               infoViewModelObj.PhaseAngle = response.Probe.phaseAngle;
+            }
         }
 
-        private void WriteProbeInfoClick(object sender, RoutedEventArgs e)
+        private async void WriteProbeInfoClick(object sender, RoutedEventArgs e)
         {
-
+            using (TCDWriteInfoRequest request = new TCDWriteInfoRequest())
+            {
+                request.ChannelID = App.CurrentChannel;
+                request.Probe = new UsbTcdLibrary.StatusClasses.ProbeInfo();
+                request.Probe.partNumber = infoViewModelObj.ProbePartNumber;
+                request.Probe.descriptionString = infoViewModelObj.ProbeModelName;
+                request.Probe.physicalId = infoViewModelObj.PhysicalID;
+                request.Probe.serialNumberString = infoViewModelObj.ProbeSerialNumber;
+                request.Probe.formatId = infoViewModelObj.FormatID;
+                request.Probe.centerFrequency = infoViewModelObj.CenterFrequency;
+                request.Probe.diameter = infoViewModelObj.Diameter;
+                request.Probe.tankFocalLength = infoViewModelObj.TankFocalLength;
+                request.Probe.insertionLoss = infoViewModelObj.InsertionLoss;
+                request.Probe.TIC = infoViewModelObj.TIC;
+                request.Probe.fractionalBW = infoViewModelObj.Fractional3dbBW;
+                request.Probe.impedance = infoViewModelObj.Impedance;
+                request.Probe.phaseAngle = infoViewModelObj.PhaseAngle;
+                await UsbTcd.TCDObj.WriteProbeInfoAsync(request);
+            }
         }
 
     }

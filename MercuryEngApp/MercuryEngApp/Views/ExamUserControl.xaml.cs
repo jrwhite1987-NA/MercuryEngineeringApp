@@ -55,9 +55,9 @@ namespace MercuryEngApp
             PowerController.Instance.OnDeviceStateChanged += MicrocontrollerOnDeviceStateChanged;
             this.DataContext = examViewModelObj;
 
-            TCDAudio = new AudioWrapper();
-            TCDAudio.PRF = 8000;
-            TCDAudio.SetVolume(100);    
+            //TCDAudio = new AudioWrapper();
+            //TCDAudio.PRF = 8000;
+            //TCDAudio.SetVolume(100);    
         }
 
         private async void MicrocontrollerOnDeviceStateChanged(bool flag)
@@ -90,7 +90,10 @@ namespace MercuryEngApp
             try
             {
                 App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
-                await UsbTcd.TCDObj.SetModeAsync(App.CurrentChannel, TCDModes.Active);
+                if (App.ActiveChannels == ActiveChannels.Channel1 || App.ActiveChannels == ActiveChannels.Channel2)
+                {
+                    await UsbTcd.TCDObj.SetModeAsync(App.CurrentChannel, TCDModes.Active);
+                }
                 await PlotGraph();
             }
             catch(Exception ex)
@@ -130,7 +133,7 @@ namespace MercuryEngApp
 
                     UsbTcd.TCDObj.OnPacketFormed += TCDObjOnPacketFormed;
                     UsbTcd.TCDObj.StartTCDReading();
-                    TCDAudio.AudioCollection.CollectionChanged += TCDAudio.AudioCollectionCollectionChanged;
+                    //TCDAudio.AudioCollection.CollectionChanged += TCDAudio.AudioCollectionCollectionChanged;
                 }
             }
             catch (Exception ex)
@@ -143,7 +146,7 @@ namespace MercuryEngApp
         void TCDObjOnPacketFormed(DMIPmdDataPacket[] packets)
         {
             PacketCollection.Enqueue(packets);
-            AddPacketsToAudioCollection(packets);
+           // AddPacketsToAudioCollection(packets);
         }
 
         private void AddPacketsToAudioCollection(DMIPmdDataPacket[] packets)

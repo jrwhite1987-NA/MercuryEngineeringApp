@@ -14,24 +14,24 @@ namespace MercuryEngApp
 
         public string SerialNumber { get; set; }
 
-        public string PhysicalID { get; set; }
+        public byte PhysicalID { get; set; }
 
-        public string FormatID { get; set; }
+        public byte FormatID { get; set; }
 
-        public string CenterFrequency { get; set; }
+        public ushort CenterFrequency { get; set; }
 
-        public string Diameter { get; set; }
+        public ushort Diameter { get; set; }
 
-        public string TankFocalLength { get; set; }
+        public ushort TankFocalLength { get; set; }
 
-        public string InsertionLoss { get; set; }
+        public ushort InsertionLoss { get; set; }
 
-        public string TIC { get; set; }
+        public ushort TIC { get; set; }
 
-        public string Fractional3dbBW { get; set; }
+        public ushort Fractional3dbBW { get; set; }
 
-        public string Impedance { get; set; }
+        public ushort Impedance { get; set; }
 
-        public string PhaseAngle { get; set; }
+        public ushort PhaseAngle { get; set; }
     }
 }

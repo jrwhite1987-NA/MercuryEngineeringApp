@@ -72,11 +72,23 @@ namespace UsbTcdLibrary.StatusClasses
                 {
                     ModuleInfo moduleInfoObj = new ModuleInfo();
                     moduleInfoObj.modelString = System.Text.Encoding.UTF8.GetString(data, INDEX_0, COUNT_40);
+
+                    moduleInfoObj.modelString = moduleInfoObj.modelString.Substring(0, moduleInfoObj.modelString.IndexOf('\0'));
+
                     moduleInfoObj.partNumberString = System.Text.Encoding.UTF8.GetString(data, INDEX_40, COUNT_20);
+                    moduleInfoObj.partNumberString = moduleInfoObj.partNumberString.Substring(0, moduleInfoObj.partNumberString.IndexOf('\0'));
+
                     moduleInfoObj.serialNumberString = System.Text.Encoding.UTF8.GetString(data, INDEX_60, COUNT_20);
+                    moduleInfoObj.serialNumberString = moduleInfoObj.serialNumberString.Substring(0, moduleInfoObj.serialNumberString.IndexOf('\0'));
+
                     moduleInfoObj.hardwareRevisionString = System.Text.Encoding.UTF8.GetString(data, INDEX_80, COUNT_20);
+                    moduleInfoObj.hardwareRevisionString = moduleInfoObj.hardwareRevisionString.Substring(0, moduleInfoObj.hardwareRevisionString.IndexOf('\0'));
+
                     moduleInfoObj.bootSWRevisionString = System.Text.Encoding.UTF8.GetString(data, INDEX_100, COUNT_20);
+                    moduleInfoObj.bootSWRevisionString = moduleInfoObj.bootSWRevisionString.Substring(0, moduleInfoObj.bootSWRevisionString.IndexOf('\0'));
+
                     moduleInfoObj.dopplerSWRevisionString = Helper.ConvertBytesToString(data, INDEX_120, COUNT_8);
+
                     DMIProtocol.CurrentFirmwareVersion = moduleInfoObj.dopplerSWRevisionString;
                     return moduleInfoObj;
                 }

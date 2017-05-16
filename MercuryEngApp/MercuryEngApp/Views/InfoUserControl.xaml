@@ -48,13 +48,13 @@
                         <TextBox Width="309" Height="25"
                                  Text="{Binding Path=BoardPartNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                  Grid.Row="1" Grid.Column="1" Margin="0,0,5,0" Background="White"/>
-                        <ComboBox Width="309" Height="25"
+                        <TextBox Width="309" Height="25"
                                   Text="{Binding Path=BoardModelName, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                   Grid.Row="2" Grid.Column="1" Margin="0,0,5,0" Background="White"/>
-                        <ComboBox Width="309" Height="25"
+                        <TextBox Width="309" Height="25"
                                   Text="{Binding Path=HardwareRevision, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                   Grid.Row="3" Grid.Column="1" Margin="0,0,5,0" Background="White"/>
-                        <ComboBox Width="309" Height="25" Grid.Row="4"
+                        <TextBox Width="309" Height="25" Grid.Row="4"
                                   Text="{Binding Path=BoardSerialNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                   Grid.Column="1" Margin="0,0,5,0" Background="White"/>
 
@@ -89,7 +89,7 @@
 
                         <TextBlock Height="17" Margin="13,15,0,0" Text="Part Number" Style="{StaticResource ResourceKey=WhiteLable15pt}" Grid.Row="1"/>
 
-                        <ComboBox Width="309" Height="25"
+                        <TextBox Width="309" Height="25"
                                   Text="{Binding Path=ChannelNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                   Grid.Row="1" Grid.Column="1" Margin="0,0,5,0" Background="White"/>
                         <Button Content="Read" Style="{StaticResource ResourceKey=ButtonStyle1}" Grid.Column="1" Grid.Row="5" Width="125" Height="45" HorizontalAlignment="Left" Click="ReadChannelClick"/>
@@ -152,7 +152,7 @@
                             <TextBlock Height="17" Margin="13,15,0,0" Text="Phase Angle (degrees)" Style="{StaticResource ResourceKey=WhiteLable15pt}" Grid.Row="13"/>
 
                             
-                            <ComboBox Width="290" Height="25"
+                            <TextBox Width="290" Height="25"
                                       Text="{Binding Path=ProbePartNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                       Grid.Row="1" Grid.Column="1" Margin="0,0,5,0" Background="White"/>
                             
