@@ -43,6 +43,8 @@ namespace MercuryEngApp
 
         private NaGraph NaGraph { get; set; }
 
+        public AudioWrapper TCDAudio { get; set; }
+
         #endregion
        
         public ExamUserControl()
@@ -52,6 +54,10 @@ namespace MercuryEngApp
             this.Unloaded += ExamUserControlUnloaded;
             PowerController.Instance.OnDeviceStateChanged += MicrocontrollerOnDeviceStateChanged;
             this.DataContext = examViewModelObj;
+
+            TCDAudio = new AudioWrapper();
+            TCDAudio.PRF = 8000;
+            TCDAudio.SetVolume(100);    
         }
 
         private async void MicrocontrollerOnDeviceStateChanged(bool flag)
@@ -100,6 +106,9 @@ namespace MercuryEngApp
                 InitializeBitmap();
                 CompositionTarget.Rendering += CompositionTargetRendering;
                 await UsbTcd.TCDObj.TurnTCDPowerOnAsync();
+
+
+
                 if (UsbTcd.TCDObj.InitializeTCD())
                 {
                     TCDRequest request = new TCDRequest();
@@ -121,6 +130,7 @@ namespace MercuryEngApp
 
                     UsbTcd.TCDObj.OnPacketFormed += TCDObjOnPacketFormed;
                     UsbTcd.TCDObj.StartTCDReading();
+                    TCDAudio.AudioCollection.CollectionChanged += TCDAudio.AudioCollectionCollectionChanged;
                 }
             }
             catch (Exception ex)
@@ -141,12 +151,12 @@ namespace MercuryEngApp
             var currentPacket = packets[0];
             if (currentPacket != null)
             {
-                //if (TCDAudio.PRF != currentPacket.parameter.PRF)
-                //{
-                //    TCDAudio.PRF = currentPacket.parameter.PRF;
-                //    TCDAudio.soundBuffer = new byte[sizeof(short) * TCDAudio.PRF / 5];
-                //}
-                //TCDAudio.AudioCollection.Add(currentPacket);
+                if (TCDAudio.PRF != currentPacket.parameter.PRF)
+                {
+                    TCDAudio.PRF = currentPacket.parameter.PRF;
+                    TCDAudio.soundBuffer = new byte[sizeof(short) * TCDAudio.PRF / 5];
+                }
+                TCDAudio.AudioCollection.Add(currentPacket);
             }
         }
 
