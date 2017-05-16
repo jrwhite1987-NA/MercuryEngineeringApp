@@ -41,6 +41,7 @@ namespace MercuryEngApp
         {
             ExamTab.Content = new ExamUserControl();
             InfoTab.Content = new InfoUserControl();
+            CalibrationTab.Content = new CalibrationUserControl();
         }
 
         private async void MicrocontrollerOnDeviceStateChanged(bool flag)

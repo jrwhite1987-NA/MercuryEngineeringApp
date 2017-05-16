@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		  xmlns:wpfsl="http://schemas.softarcs.com/wpfsmartlibrary"
 		  WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight"
-        xmlns:local="clr-namespace:MercuryEngApp"
+        xmlns:local="clr-namespace:MercuryEngApp" ResizeMode="CanResizeWithGrip" WindowState="Maximized"
 		MinWidth="1366" MinHeight="768" Title="Neural Analytics">
     <Window.Background>
         <ImageBrush ImageSource="/Themes/NA_background_NA0_blank_1366x768.png"/>
@@ -22,11 +22,20 @@
     </Window.Resources>-->
     <Grid x:Name="LayoutRoot" >
         <Grid Name="TCDControl" Width="185" HorizontalAlignment="Left" Margin='420,15,0,0'>
-            <Image x:Name="ControlTCDLeft" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Margin="-11,0,0,0"
-					 UseLayoutRounding="True" Source="/Themes/NA_btn_exam_split_l_262x62_on.png"/>
+            <Image x:Name="ControlTCDLeft" 
+                   HorizontalAlignment="Left" 
+                   Height="42" 
+                   VerticalAlignment="Top" 
+                   Margin="-11,0,0,0"
+                   UseLayoutRounding="True" 
+                   Source="/Themes/NA_btn_exam_split_l_262x62_on.png"/>
 
-            <Image x:Name="ControlTCDRight" HorizontalAlignment="Right" Height="42"  VerticalAlignment="Top" 
-					 UseLayoutRounding="True" Source="/Themes/NA_btn_exam_split_r_262x62_on.png"/>
+            <Image x:Name="ControlTCDRight" 
+                   HorizontalAlignment="Right" 
+                   Height="42"  
+                   VerticalAlignment="Top" 
+                   UseLayoutRounding="True" 
+                   Source="/Themes/NA_btn_exam_split_r_262x62_on.png"/>
         </Grid>
 
         <Grid Grid.Row="1" Margin="0,18,0,0" Width="1339">
@@ -40,7 +49,9 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="TabItem">
-                                        <Border Name="Border" BorderThickness="2,2,2,0" Margin="0,0,-1,0">
+                                        <Border Name="Border" 
+                                                BorderThickness="2,2,2,0" 
+                                                Margin="0,0,-1,0">
                                             <Border.BorderBrush>
                                                 <SolidColorBrush Color="#FF9CAFB6" Opacity="0.5"/>
                                             </Border.BorderBrush>
@@ -78,22 +89,31 @@
                     <TabItem Width="165" Height="38" x:Name="ExamTab" >
                         <TabItem.Header>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Exam" Foreground="White" FontSize="18" FontFamily="Arial" />
+                                <TextBlock Text="Exam" 
+                                           Foreground="White" 
+                                           FontSize="18" 
+                                           FontFamily="Arial" />
                             </StackPanel>
                         </TabItem.Header>
                     </TabItem>
                     <TabItem Width="165" Height="38" x:Name="InfoTab">
                         <TabItem.Header>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Info"  Foreground="White" FontSize="18" FontFamily="Arial" />
+                                <TextBlock Text="Info"  
+                                           Foreground="White" 
+                                           FontSize="18" 
+                                           FontFamily="Arial" />
                             </StackPanel>
                         </TabItem.Header>
 
                     </TabItem>
-                    <TabItem Width="165" Height="38"  >
+                    <TabItem Width="165" Height="38" x:Name="CalibrationTab" >
                         <TabItem.Header>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Calibration"  Foreground="White" FontSize="18" FontFamily="Arial" />
+                                <TextBlock Text="Calibration"  
+                                           Foreground="White" 
+                                           FontSize="18" 
+                                           FontFamily="Arial" />
                             </StackPanel>
                         </TabItem.Header>
 
@@ -102,7 +122,10 @@
                     <TabItem Width="165" Height="38">
                         <TabItem.Header>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Packet"  Foreground="White" FontSize="18" FontFamily="Arial" />
+                                <TextBlock Text="Packet"  
+                                           Foreground="White" 
+                                           FontSize="18" 
+                                           FontFamily="Arial" />
                             </StackPanel>
                         </TabItem.Header>
 
@@ -119,6 +142,7 @@
                     HorizontalAlignment="Right" 
                     Margin="0,0,12,97"
                     VerticalAlignment="Bottom"/>
+            
             <Border  VerticalAlignment="Bottom" 
                      Style="{StaticResource ResourceKey=RoundedBorderBlue}"  >
 

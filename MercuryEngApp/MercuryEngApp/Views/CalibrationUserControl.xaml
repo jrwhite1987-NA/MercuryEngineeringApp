@@ -6,6 +6,346 @@
               mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1340" >
     <Grid>
-            
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Name="LeftPanleCalibration">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="142"/>
+                <RowDefinition Height="180"/>
+                <RowDefinition Height="125"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
+                    Width="780"
+                    Height="128" 
+                    VerticalAlignment="Top" 
+                    Margin="10,5,0,0" 
+                    Grid.Column="0" 
+                    Grid.Row="0">
+                <Grid Name="LeftPanelCalibrationTop" >
+                    <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" Height="40" VerticalAlignment="Top" 
+                               Width="778" Margin="-1,-1,-1,0">
+
+                        <TextBlock Height="17" Margin="13,8,0,0" Text="Calibration Data" Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
+                    </Border>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="28"/>
+                            <RowDefinition Height="52"/>
+                            <RowDefinition Height="35"/>
+                            
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Height="auto" 
+                                   Margin="13,15,0,0" 
+                                   Style="{StaticResource ResourceKey=WhiteLable15pt}" 
+                                   Grid.Row="1" 
+                                   Width="350"> 
+                            The DAC Value where the Tx energy function intercepts zero
+Tx energy function intercepts zero
+                        </TextBlock>
+                        <TextBlock Height="Auto" 
+                                   Margin="13,15,0,0" 
+                                   Style="{StaticResource ResourceKey=WhiteLable15pt}" 
+                                   Grid.Row="1" 
+                                   Grid.Column="1" 
+                                   Width="350">
+                       The acoustics energy, in nanowatts* sec, per 2MHz cycle when the DAC is at its maximum
+                        </TextBlock>
+
+
+                        <TextBox Width="370" 
+                                 Height="30" 
+                                 FontSize="18" 
+                                 Text="{Binding Path=BoardPartNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                 Grid.Row="2" 
+                                 Grid.Column="0" 
+                                 Margin="0,0,5,0" 
+                                  Padding="5,0,1,0" 
+                                 Style="{StaticResource ResourceKey=MainTextbox}"/>
+                        
+                        <TextBox Width="370" 
+                                 Height="30"
+                                 FontSize="18" 
+                                 Text="{Binding Path=BoardPartNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                 Grid.Row="2" 
+                                 Grid.Column="1" 
+                                 Margin="10,0,8,0" 
+                                  Padding="5,0,1,0" 
+                                 Style="{StaticResource ResourceKey=MainTextbox}"/>
+                    </Grid>
+                    
+                </Grid>
+            </Border>
+
+            <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
+                    Width="780"
+                    Height="175" 
+                    VerticalAlignment="Top" 
+                    Margin="10,0,0,0" 
+                    Grid.Column="0" 
+                    Grid.Row="1">
+                
+                  <Grid Name="LeftPanelCalibrationCenter" >
+                    <Border Style="{StaticResource ResourceKey=RoundedRectangleBlue}" 
+                            Height="40" 
+                            VerticalAlignment="Top" 
+                            Width="778" 
+                            Margin="-1,-1,-1,0">
+
+                        <TextBlock Height="17" 
+                                   Margin="13,8,0,0" 
+                                   Text="Tx Calibration" 
+                                   Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
+                    </Border>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="29"/>
+                            <RowDefinition Height="38"/>
+                            <RowDefinition Height="42"/>
+                            <RowDefinition Height="22"/>
+                            <RowDefinition Height="40"/>
+
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Height="auto" 
+                                   Margin="13,15,0,0" 
+                                   Style="{StaticResource ResourceKey=WhiteLableSub15ptBold}" 
+                                   Grid.Row="1" 
+                                   Width="340" 
+                                   Text="Acoustic Measurement # 1"/> 
+                        <TextBlock Height="Auto" 
+                                   Margin="13,15,0,0" 
+                                   Style="{StaticResource ResourceKey=WhiteLableSub15ptBold}" 
+                                   Grid.Row="1" 
+                                   Grid.Column="1" 
+                                   Width="368" 
+                                   Text="Acoustic Measurement # 2"/>
+                        
+                        <Button Content="Start Measurement #1" 
+                                    Style="{StaticResource ResourceKey=ButtonStyle1}" 
+                                    Grid.Column="0" 
+                                    Grid.Row="2" 
+                                    Width="185" 
+                                    Height="35" 
+                                    HorizontalAlignment="Left" 
+                                    VerticalAlignment="Top" Margin="10,5,0,0" />
+                        
+                        <TextBox Height="30" 
+                                 Text="" 
+                                 FontSize="18" 
+                                 Style="{StaticResource ResourceKey=MainTextbox}" 
+                                 Margin="105,7,2,0" 
+                                 VerticalAlignment="Top" 
+                                 HorizontalAlignment="Center"
+                                  Padding="5,0,1,0" 
+                                 Width="90" 
+                                 Grid.Column="0" 
+                                 Grid.Row="2"/>
+
+                        <TextBlock Height="17" 
+                                   Margin="285,0,15,0" 
+                                   Text="mW/cm2" 
+                                   Style="{StaticResource ResourceKey=WhiteLable15pt}" 
+                                   Grid.Column="0" 
+                                   Grid.Row="2"
+                                   VerticalAlignment="Center" 
+                                 HorizontalAlignment="Center"/>
+
+
+                        <Button Content="Start Measurement #2" 
+                                    Style="{StaticResource ResourceKey=ButtonStyle1}" 
+                                    Grid.Column="1" 
+                                    Grid.Row="2" 
+                                    Width="185" 
+                                    Height="35" 
+                                    HorizontalAlignment="Left" 
+                                    VerticalAlignment="Top" Margin="10,5,0,0" />
+
+                        <TextBox Height="30" 
+                                 Text="" 
+                                 FontSize="18" 
+                                 Style="{StaticResource ResourceKey=MainTextbox}" 
+                                 Margin="115,7,2,0" 
+                                 VerticalAlignment="Top" 
+                                 HorizontalAlignment="Center"
+                                 Padding="5,0,1,0" 
+                                 Width="90" 
+                                 Grid.Column="1" 
+                                 Grid.Row="2"/>
+
+                        <TextBlock Height="17" 
+                                   Margin="20,0,20,0" 
+                                   Text="mW/cm2" 
+                                   Style="{StaticResource ResourceKey=WhiteLable15pt}" 
+                                   Grid.Column="1" 
+                                   Grid.Row="2"
+                                   VerticalAlignment="Center" 
+                                 HorizontalAlignment="Right"/>
+
+                        <CheckBox Grid.Column="0" 
+                                  Grid.Row="3"
+                                  Margin="15,0,20,0" 
+                                  VerticalAlignment="Center" 
+                                  HorizontalAlignment="left"
+                                  Style="{StaticResource ResourceKey=CheckBoxsize}"
+                                  />
+                        
+
+                        <TextBlock Height="17" 
+                                   Margin="40,0,15,0" 
+                                   Text="Not using reference transducer " 
+                                   Style="{StaticResource ResourceKey=WhiteLable15pt}" 
+                                   Grid.Column="0" 
+                                   Grid.Row="3"
+                                   VerticalAlignment="Center" 
+                                 HorizontalAlignment="Left"/>
+
+
+                        <Button Content="Apply Measurements" 
+                                    Style="{StaticResource ResourceKey=ButtonStyle1}" 
+                                    Grid.Column="0" 
+                                Grid.ColumnSpan="2"
+                                    Grid.Row="4" 
+                                    Width="185" 
+                                    Height="35" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Top" Margin="10,0,0,0" />
+
+
+                    </Grid>
+
+
+                </Grid>
+            </Border>
+
+            <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
+                    Width="780"
+                    Height="118" 
+                    VerticalAlignment="Top" 
+                    Margin="10,5,0,0" 
+                    Grid.Column="0" 
+                    Grid.Row="2">
+                <Grid Name="LeftPanelCalibrationbottom" >
+                    <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" Height="40" VerticalAlignment="Top" 
+                               Width="778" Margin="-1,-1,-1,0">
+
+                        <TextBlock Height="17" Margin="13,8,0,0" Text="Safety Calibration" Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
+                    </Border>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="195"/>
+                            <ColumnDefinition Width="195"/>
+                            <ColumnDefinition Width="195"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="32"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="38"/>
+
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Height="auto" 
+                                   Margin="13,15,0,0" 
+                                   Style="{StaticResource ResourceKey=WhiteLable15pt}" 
+                                   Grid.Row="1" 
+                                   Width="170"
+                                   Text="Safety Trip Status"/>
+
+
+                        <TextBlock Height="Auto" 
+                                   Margin="13,15,0,0" 
+                                   Style="{StaticResource ResourceKey=WhiteLable15pt}" 
+                                   Grid.Row="1" 
+                                   Grid.Column="1" 
+                                   Width="170"
+                                   Text="Sample"/>
+
+                        <TextBlock Height="Auto" 
+                                   Margin="13,15,0,0" 
+                                   Style="{StaticResource ResourceKey=WhiteLable15pt}" 
+                                   Grid.Row="1" 
+                                   Grid.Column="2" 
+                                   Width="170"
+                                   Text="PRF"/>
+
+                        <TextBlock Height="Auto" 
+                                   Margin="13,15,0,0" 
+                                   Style="{StaticResource ResourceKey=WhiteLable15pt}" 
+                                   Grid.Row="1" 
+                                   Grid.Column="3" 
+                                   Width="170"
+                                   Text="Power %"/>
+                       
+                        <TextBlock Height="17" 
+                                   Margin="0,8,0,0" 
+                                   Text="No Probe" 
+                                   Style="{StaticResource ResourceKey=WhiteLable15ptBold}"
+                                   Grid.Row="2" 
+                                   Grid.Column="0" 
+                                   HorizontalAlignment="Center"/>
+
+
+                        <TextBox Width="170" 
+                                 Height="32" 
+                                 FontSize="18" 
+                                 Text="{Binding Path=BoardPartNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                 Grid.Row="2" 
+                                 Grid.Column="1" 
+                                 Margin="0,5,5,0" 
+                                 Padding="5,0,1,0" 
+                                 Style="{StaticResource ResourceKey=MainTextbox}"/>
+
+                        <TextBox Width="170" 
+                                 Height="32" 
+                                 FontSize="18" 
+                                 Text="{Binding Path=BoardPartNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                 Grid.Row="2" 
+                                 Grid.Column="2" 
+                                 Margin="0,5,5,0"
+                                  Padding="5,0,1,0" 
+                                 Style="{StaticResource ResourceKey=MainTextbox}"/>
+                        <TextBox Width="170" 
+                                 Height="32"
+                                 FontSize="18" 
+                                 Text="{Binding Path=BoardPartNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                 Grid.Row="2" 
+                                 Grid.Column="3" 
+                                 Margin="10,5,8,0" 
+                                  Padding="5,0,1,0" 
+                                 Style="{StaticResource ResourceKey=MainTextbox}"/>
+                    </Grid>
+
+                    
+                </Grid>
+            </Border>
+
+            <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
+                    Width="1315"
+                    Height="42" 
+                    VerticalAlignment="Top" 
+                    Margin="10,7,0,0" 
+                    Grid.Column="0" 
+                    Grid.Row="4">
+            </Border>
+        </Grid>
+
+
     </Grid>
 </UserControl>
