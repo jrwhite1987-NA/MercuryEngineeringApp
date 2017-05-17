@@ -119,6 +119,9 @@
     <Compile Include="Views\CalibrationUserControl.xaml.cs">
       <DependentUpon>CalibrationUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\CustomSlider.xaml.cs">
+      <DependentUpon>CustomSlider.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ExamUserControl.xaml.cs">
       <DependentUpon>ExamUserControl.xaml</DependentUpon>
     </Compile>
@@ -139,6 +142,10 @@
     <Page Include="Views\CalibrationUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CustomSlider.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ExamUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -187,6 +194,8 @@
     <Content Include="LocalFolder\13-Channel1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Themes\NA_Blue_FulSize_Line.png" />
+    <Resource Include="Themes\NA_btn_exam_66x56_on.png" />
     <Resource Include="Themes\NA_btn_exam_Envlope_100x90_down.png" />
     <Resource Include="Themes\NA_btn_exam_Envlope_100x90_on.png" />
     <Resource Include="Themes\NA_btn_262x62_down.png" />

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:customControl="clr-namespace:MercuryEngApp.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1340" >
     <Grid>
@@ -488,6 +489,19 @@
         </Grid>
 
         <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Height="255" Grid.Column="1" Grid.Row="0" Width="715" Margin="0,5,10,0">
+            <customControl:CustomSlider
+                Visibility="Visible"
+                x:Name="SpectrogramSlider"
+                HorizontalAlignment="Right"   
+                VerticalAlignment="Center"
+                CustomVerticalDecreaseRectColor="Transparent"
+                CustomVerticalTrackRectColor="Transparent"                
+                CustomMinimum="0" IsHorizontalLineEnabled="Visible"
+                CustomMaximum="127"   IsHitTestVisible="True"                           
+                CustomValue="64" 
+                ScaleEnable="True" ScaleFor="EditSpectrogram" 
+                CustomHeight="255"  Height="255"              
+                CustomWidth="673" Width="673" FontFamily="Arial"  Canvas.ZIndex="10" />
             <Image Grid.Row="0" 
                    Margin="62,10,10,10" 
                    x:Name="imageSpectrogram" 
@@ -526,8 +540,24 @@
                   Y1="1" 
                   HorizontalAlignment="Left" 
                   Margin="60,0,0,0"/>
+        <customControl:CustomSlider
+        	    Visibility="Visible"
+        	    x:Name="customDepthSlider"
+        	    HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                CustomVerticalDecreaseRectColor="Transparent"
+                CustomVerticalTrackRectColor="Transparent"
+        	    CustomMaximum="90"
+        	    CustomMinimum="20"
+                IsHorizontalLineEnabled="Visible"
+        	    CustomHeight="232"
+                ScaleEnable="True"
+                CustomButtonTextUnit="Depth"
+        	    Width="673" CustomWidth="673"  
+                FontFamily="Arial" Canvas.ZIndex="10" 
+                />
+
+      
         </Grid>
-
-
     </Grid>
 </UserControl>
