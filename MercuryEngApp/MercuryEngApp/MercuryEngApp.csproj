@@ -135,6 +135,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\SplashScreen.xaml.cs">
+      <DependentUpon>SplashScreen.xaml</DependentUpon>
+    </Compile>
     <Page Include="Themes\StyleDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -158,6 +161,10 @@
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SplashScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -194,6 +201,7 @@
     <Content Include="LocalFolder\13-Channel1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Themes\GIF2V220160615.gif" />
     <Resource Include="Themes\NA_Blue_FulSize_Line.png" />
     <Resource Include="Themes\NA_btn_exam_66x56_on.png" />
     <Resource Include="Themes\NA_btn_exam_Envlope_100x90_down.png" />

@@ -68,5 +68,7 @@ namespace MercuryEngApp
         {
 
         }
+
+        public static MainViewModel MainViewModel { get; set; }
     }
 }
