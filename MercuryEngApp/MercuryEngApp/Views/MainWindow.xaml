@@ -119,7 +119,7 @@
 
                     </TabItem>
 
-                    <TabItem Width="165" Height="38">
+                    <TabItem Width="165" Height="38" x:Name="PacketTab">
                         <TabItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Packet"  

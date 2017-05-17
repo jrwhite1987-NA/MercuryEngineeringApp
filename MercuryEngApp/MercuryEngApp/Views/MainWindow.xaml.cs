@@ -1,6 +1,7 @@
 ﻿using Core.Constants;
 using Core.Models.ReportModels;
 using MercuryEngApp.Common;
+using MercuryEngApp.Views;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -42,6 +43,7 @@ namespace MercuryEngApp
             ExamTab.Content = new ExamUserControl();
             InfoTab.Content = new InfoUserControl();
             CalibrationTab.Content = new CalibrationUserControl();
+            PacketTab.Content = new PacketControl();
         }
 
         private async void MicrocontrollerOnDeviceStateChanged(bool flag)
