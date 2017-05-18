@@ -21,7 +21,11 @@
         </DataTemplate>
     </Window.Resources>-->
     <Grid x:Name="LayoutRoot" >
-        <Grid Name="TCDControl" Width="185" HorizontalAlignment="Left" Margin='420,15,0,0'>
+        <Grid Name="TCDControl" 
+              Width="185" 
+              HorizontalAlignment="Left" 
+              Margin='420,15,0,0'>
+            
             <Image x:Name="ControlTCDLeft" 
                    HorizontalAlignment="Left" 
                    Height="42" 
@@ -38,9 +42,12 @@
                    Source="/Themes/NA_btn_exam_split_r_262x62_on.png"/>
         </Grid>
 
-        <Grid Grid.Row="1" Margin="0,18,0,0" Width="1339">
+        <Grid Grid.Row="1" 
+              Margin="0,18,0,0" 
+              Width="1339">
             <Grid>
-                <TabControl Height="547" VerticalAlignment="Top">
+                <TabControl Height="547" 
+                            VerticalAlignment="Top">
                     <TabControl.Resources >
                         <Style TargetType="TabPanel">
                             <Setter Property="HorizontalAlignment" Value="Right"/>
@@ -135,7 +142,9 @@
                 </TabControl>
             </Grid>
         </Grid>
-        <Grid Name="FooterTextBox" Margin="25,0,20,20" Width="1315" >
+        <Grid Name="FooterTextBox" 
+              Margin="25,0,20,20" 
+              Width="1315" >
             <Button Content="Clear" 
                     Style="{StaticResource ResourceKey=ButtonStyle1}"  
                     Width="100" Height="30"
@@ -155,6 +164,7 @@
                            Width="1310" 
                            Foreground="White" 
                            Padding="5">
+                    
                     <TextBlock.Background>
                         <SolidColorBrush Color="#FF0EAACD" Opacity="0.3"/>
                     </TextBlock.Background>

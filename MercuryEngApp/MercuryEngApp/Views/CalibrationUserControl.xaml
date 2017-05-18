@@ -23,6 +23,7 @@
                 <RowDefinition Height="125"/>
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
+            
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
                     Width="780"
                     Height="128" 
@@ -30,11 +31,18 @@
                     Margin="10,5,0,0" 
                     Grid.Column="0" 
                     Grid.Row="0">
+                
                 <Grid Name="LeftPanelCalibrationTop" >
-                    <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" Height="40" VerticalAlignment="Top" 
-                               Width="778" Margin="-1,-1,-1,0">
+                    <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" 
+                             Height="40" 
+                             VerticalAlignment="Top" 
+                             Width="778" 
+                             Margin="-1,-1,-1,0">
 
-                        <TextBlock Height="17" Margin="13,8,0,0" Text="Calibration Data" Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
+                        <TextBlock Height="17" 
+                                   Margin="13,8,0,0" 
+                                   Text="Calibration Data" 
+                                   Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
                     </Border>
 
                     <Grid>
@@ -42,11 +50,11 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
+                        
                         <Grid.RowDefinitions>
                             <RowDefinition Height="28"/>
                             <RowDefinition Height="52"/>
                             <RowDefinition Height="35"/>
-
                         </Grid.RowDefinitions>
 
                         <TextBlock Height="auto" 
@@ -55,7 +63,7 @@
                                    Grid.Row="1" 
                                    Width="350"> 
                             The DAC Value where the Tx energy function intercepts zero
-Tx energy function intercepts zero
+                            Tx energy function intercepts zero
                         </TextBlock>
                         <TextBlock Height="Auto" 
                                    Margin="13,15,0,0" 
@@ -63,28 +71,23 @@ Tx energy function intercepts zero
                                    Grid.Row="1" 
                                    Grid.Column="1" 
                                    Width="350">
-                       The acoustics energy, in nanowatts* sec, per 2MHz cycle when the DAC is at its maximum
+                            The acoustics energy, 
+                            in nanowatts* sec, per 2MHz cycle when the DAC is at its maximum
                         </TextBlock>
-
 
                         <TextBox Width="370" 
                                  Height="30" 
-                                 FontSize="18" 
                                  Text="{Binding Path=BoardPartNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                  Grid.Row="2" 
                                  Grid.Column="0" 
-                                 Margin="0,0,5,0" 
-                                  Padding="5,0,1,0" 
-                                 Style="{StaticResource ResourceKey=MainTextbox}"/>
+                                 Margin="0,0,5,0"  Style="{StaticResource ResourceKey=MainTextbox}"/>
 
                         <TextBox Width="370" 
                                  Height="30"
-                                 FontSize="18" 
                                  Text="{Binding Path=BoardPartNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                  Grid.Row="2" 
                                  Grid.Column="1" 
                                  Margin="10,0,8,0" 
-                                  Padding="5,0,1,0" 
                                  Style="{StaticResource ResourceKey=MainTextbox}"/>
                     </Grid>
 
@@ -117,13 +120,13 @@ Tx energy function intercepts zero
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
+                        
                         <Grid.RowDefinitions>
                             <RowDefinition Height="29"/>
                             <RowDefinition Height="38"/>
                             <RowDefinition Height="42"/>
                             <RowDefinition Height="22"/>
                             <RowDefinition Height="40"/>
-
                         </Grid.RowDefinitions>
 
                         <TextBlock Height="auto" 
@@ -168,7 +171,6 @@ Tx energy function intercepts zero
                                    VerticalAlignment="Center" 
                                  HorizontalAlignment="Center"/>
 
-
                         <Button Content="Start Measurement #2" 
                                     Style="{StaticResource ResourceKey=ButtonStyle1}" 
                                     Grid.Column="1" 
@@ -202,9 +204,7 @@ Tx energy function intercepts zero
                                   Margin="15,0,20,0" 
                                   VerticalAlignment="Center" 
                                   HorizontalAlignment="left"
-                                  Style="{StaticResource ResourceKey=CheckBoxsize}"
-                                  />
-
+                                  Style="{StaticResource ResourceKey=CheckBoxsize}"/>
 
                         <TextBlock Height="17" 
                                    Margin="40,0,15,0" 
@@ -215,18 +215,15 @@ Tx energy function intercepts zero
                                    VerticalAlignment="Center" 
                                  HorizontalAlignment="Left"/>
 
-
                         <Button Content="Apply Measurements" 
-                                    Style="{StaticResource ResourceKey=ButtonStyle1}" 
-                                    Grid.Column="0" 
+                                Style="{StaticResource ResourceKey=ButtonStyle1}"
+                                Grid.Column="0"
                                 Grid.ColumnSpan="2"
-                                    Grid.Row="4" 
-                                    Width="185" 
-                                    Height="35" 
-                                    HorizontalAlignment="Center" 
-                                    VerticalAlignment="Top" Margin="10,0,0,0" />
-
-
+                                Grid.Row="4" 
+                                Width="185" 
+                                Height="35" 
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Top" Margin="10,0,0,0" />
                     </Grid>
 
 
@@ -240,11 +237,18 @@ Tx energy function intercepts zero
                     Margin="10,5,0,0" 
                     Grid.Column="0" 
                     Grid.Row="2">
+                
                 <Grid Name="LeftPanelCalibrationbottom" >
-                    <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" Height="40" VerticalAlignment="Top" 
-                               Width="778" Margin="-1,-1,-1,0">
+                    <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" 
+                             Height="40" 
+                             VerticalAlignment="Top" 
+                             Width="778" 
+                             Margin="-1,-1,-1,0">
 
-                        <TextBlock Height="17" Margin="13,8,0,0" Text="Safety Calibration" Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
+                        <TextBlock Height="17" 
+                                   Margin="13,8,0,0"
+                                   Text="Safety Calibration" 
+                                   Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
                     </Border>
 
                     <Grid>
@@ -254,11 +258,11 @@ Tx energy function intercepts zero
                             <ColumnDefinition Width="195"/>
                             <ColumnDefinition Width="195"/>
                         </Grid.ColumnDefinitions>
+                        
                         <Grid.RowDefinitions>
                             <RowDefinition Height="32"/>
                             <RowDefinition Height="35"/>
                             <RowDefinition Height="38"/>
-
                         </Grid.RowDefinitions>
 
                         <TextBlock Height="auto" 
@@ -267,7 +271,6 @@ Tx energy function intercepts zero
                                    Grid.Row="1" 
                                    Width="170"
                                    Text="Safety Trip Status"/>
-
 
                         <TextBlock Height="Auto" 
                                    Margin="13,15,0,0" 
@@ -301,7 +304,6 @@ Tx energy function intercepts zero
                                    Grid.Column="0" 
                                    HorizontalAlignment="Center"/>
 
-
                         <TextBox Width="170" 
                                  Height="32" 
                                  Text="{Binding Path=BoardPartNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
@@ -326,14 +328,10 @@ Tx energy function intercepts zero
                                  Margin="10,5,8,0" 
                                  Style="{StaticResource ResourceKey=MainTextbox}"/>
                     </Grid>
-
-
+                    
                 </Grid>
             </Border>
-
-
-
-
+            
         </Grid>
 
         <Grid Grid.Column="1" Margin="0,0,10,0">
@@ -342,6 +340,7 @@ Tx energy function intercepts zero
                 <RowDefinition Height="143"/>
                 <RowDefinition Height="143"/>
             </Grid.RowDefinitions>
+            
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
                     Width="515"
                     Height="155" 
@@ -349,11 +348,18 @@ Tx energy function intercepts zero
                     Margin="0,5,0,0" 
                     Grid.Column="1" 
                     Grid.Row="0">
+                
                 <Grid Name="RightanelCalibrationTop">
-                    <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" Height="40" VerticalAlignment="Top" 
-                               Width="515" Margin="-1,-1,-1,0">
+                    <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" 
+                             Height="40" 
+                             VerticalAlignment="Top" 
+                             Width="515" 
+                             Margin="-1,-1,-1,0">
 
-                        <TextBlock Height="17" Margin="13,8,0,0" Text="Calibration Override" Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
+                        <TextBlock Height="17" 
+                                   Margin="13,8,0,0" 
+                                   Text="Calibration Override" 
+                                   Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
                     </Border>
                     <Grid>
 
@@ -362,16 +368,14 @@ Tx energy function intercepts zero
                             <RowDefinition Height="30"/>
                             <RowDefinition Height="30"/>
                             <RowDefinition Height="40"/>
-
                         </Grid.RowDefinitions>
+                        
                         <CheckBox 
                                   Grid.Row="1"
                                   Margin="15,0,20,0" 
                                   VerticalAlignment="Center" 
                                   HorizontalAlignment="left"
-                                  Style="{StaticResource ResourceKey=CheckBoxsize}"
-                                  />
-
+                                  Style="{StaticResource ResourceKey=CheckBoxsize}"/>
 
                         <TextBlock Height="17" 
                                    Margin="40,0,15,0" 
@@ -382,15 +386,12 @@ Tx energy function intercepts zero
                                    VerticalAlignment="Center" 
                                  HorizontalAlignment="Left"/>
 
-
                         <CheckBox 
                                   Grid.Row="2"
                                   Margin="15,0,20,0" 
                                   VerticalAlignment="Center" 
                                   HorizontalAlignment="left"
-                                  Style="{StaticResource ResourceKey=CheckBoxsize}"
-                                  />
-
+                                  Style="{StaticResource ResourceKey=CheckBoxsize}"/>
 
                         <TextBlock Height="17" 
                                    Margin="40,0,15,0" 
@@ -399,16 +400,16 @@ Tx energy function intercepts zero
                                    Grid.Column="0" 
                                    Grid.Row="2"
                                    VerticalAlignment="Center" 
-                                 HorizontalAlignment="Left"/>
+                                   HorizontalAlignment="Left"/>
 
                         <Button Content="Write Calibration" 
-                                    Style="{StaticResource ResourceKey=ButtonStyle1}" 
-                                    Grid.Column="0" 
-                                   Grid.Row="3" 
-                                    Width="185" 
-                                    Height="35" 
-                                    HorizontalAlignment="Center" 
-                                    VerticalAlignment="Center" Margin="10,0,0,0" />
+                                Style="{StaticResource ResourceKey=ButtonStyle1}"
+                                Grid.Column="0" 
+                                Grid.Row="3"
+                                Width="185" 
+                                Height="35"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" Margin="10,0,0,0" />
                     </Grid>
                 </Grid>
             </Border>
@@ -420,11 +421,18 @@ Tx energy function intercepts zero
                     Margin="0,5,0,0" 
                     Grid.Column="1" 
                     Grid.Row="1">
+                
                 <Grid Name="RightanelCalibrationCenter">
-                    <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" Height="40" VerticalAlignment="Top" 
-                               Width="515" Margin="-1,-1,-1,0">
+                    <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" 
+                             Height="40" 
+                             VerticalAlignment="Top" 
+                             Width="515" 
+                             Margin="-1,-1,-1,0">
 
-                        <TextBlock Height="17" Margin="13,8,0,0" Text="Consistency Check" Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
+                        <TextBlock Height="17" 
+                                   Margin="13,8,0,0" 
+                                   Text="Consistency Check" 
+                                   Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
                     </Border>
                     <Grid>
 
@@ -432,25 +440,23 @@ Tx energy function intercepts zero
                             <RowDefinition Height="45"/>
                             <RowDefinition Height="40"/>
                             <RowDefinition Height="45"/>
-
                         </Grid.RowDefinitions>
-
-
+                        
                         <Button Content="Start" 
-                                    Style="{StaticResource ResourceKey=ButtonStyle1}" 
-                                   Grid.Row="1" 
-                                    Width="140" 
-                                    Height="35" 
-                                    HorizontalAlignment="Left" 
-                                    VerticalAlignment="Center" Margin="15,0,0,0" />
+                                Style="{StaticResource ResourceKey=ButtonStyle1}" 
+                                Grid.Row="1" 
+                                Width="140"
+                                Height="35"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center" Margin="15,0,0,0" />
 
                         <Button Content="Stop" 
-                                    Style="{StaticResource ResourceKey=ButtonStyle1}" 
-                                   Grid.Row="2" 
-                                    Width="140" 
-                                    Height="35" 
-                                    HorizontalAlignment="Left" 
-                                    VerticalAlignment="Center" Margin="15,0,0,0" />
+                                Style="{StaticResource ResourceKey=ButtonStyle1}" 
+                                Grid.Row="2" 
+                                Width="140" 
+                                Height="35"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center" Margin="15,0,0,0" />
                     </Grid>
                 </Grid>
             </Border>
@@ -462,11 +468,18 @@ Tx energy function intercepts zero
                     Margin="0,5,0,0" 
                     Grid.Column="1" 
                     Grid.Row="3">
+                
                 <Grid Name="RightanelCalibrationBottom">
-                    <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" Height="40" VerticalAlignment="Top" 
-                               Width="515" Margin="-1,-1,-1,0">
+                    <Border Style="{StaticResource ResourceKey=RoundedRectangleBlue}" 
+                            Height="40" 
+                            VerticalAlignment="Top"
+                            Width="515" 
+                            Margin="-1,-1,-1,0">
 
-                        <TextBlock Height="17" Margin="13,8,0,0" Text="Consistency Check" Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
+                        <TextBlock Height="17" 
+                                   Margin="13,8,0,0" 
+                                   Text="Consistency Check" 
+                                   Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
                     </Border>
                     <Grid>
 
@@ -474,10 +487,8 @@ Tx energy function intercepts zero
                             <RowDefinition Height="45"/>
                             <RowDefinition Height="40"/>
                             <RowDefinition Height="40"/>
-
                         </Grid.RowDefinitions>
-
-
+                        
                         <Button Content="Start" 
                                     Style="{StaticResource ResourceKey=ButtonStyle1}" 
                                    Grid.Row="1" 
@@ -497,21 +508,18 @@ Tx energy function intercepts zero
                 </Grid>
             </Border>
 
-
         </Grid>
 
-        <Border Name="bottomLarge"  Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
-                    Width="1315"
-                    Height="42" 
-                    VerticalAlignment="Top" 
-                    Margin="10,7,0,0" 
-                    Grid.Column="0" 
+        <Border Name="bottomLarge" 
+                Style="{StaticResource ResourceKey=RoundedBorderBlue}"
+                Width="1315"
+                Height="42"
+                VerticalAlignment="Top"
+                Margin="10,7,0,0"
+                Grid.Column="0" 
                 Grid.ColumnSpan="2"
-                    Grid.Row="1">
+                Grid.Row="1">
         </Border>
-
-
-
-
+        
     </Grid>
 </UserControl>
