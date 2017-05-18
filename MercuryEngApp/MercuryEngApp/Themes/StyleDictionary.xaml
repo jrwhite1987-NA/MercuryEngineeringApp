@@ -32,11 +32,15 @@
     <Style x:Key="WhiteLableSub15ptBold" BasedOn="{StaticResource WhiteLable15pt}" TargetType="TextBlock">
         <Setter Property="FontWeight" Value="Bold" />
     </Style>
-    
 
 
+    <Style x:Key="TextFontSize" TargetType="TextBox">
+        <Setter Property="Padding" Value="5,1,0,0"/>
+        <Setter Property="FontSize" Value="17" />
+        <Setter Property="FontFamily" Value="Arial" />
+    </Style>
     <!--<TextBox Style>-->
-    <Style TargetType="{x:Type TextBox}" x:Key="MainTextbox">
+    <Style TargetType="{x:Type TextBox}" x:Key="MainTextbox" BasedOn="{StaticResource TextFontSize}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBoxBase}">
@@ -318,7 +322,17 @@
 
     <!--ComboBox Style-->
 
-    
+    <Style x:Key="ComboBoxBorder" TargetType="ComboBox">
+        <Setter Property="BorderBrush" Value="#FF049FDF"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="BorderThickness" Value="3"/>
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="3" />
+            </Style>
+        </Style.Resources>
+    </Style>
+
     <!--<Style TargetType="{x:Type ComboBox}">
         <Setter Property="Template">
             <Setter.Value>

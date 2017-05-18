@@ -151,12 +151,10 @@ Tx energy function intercepts zero
 
                         <TextBox Height="30" 
                                  Text="" 
-                                 FontSize="18" 
                                  Style="{StaticResource ResourceKey=MainTextbox}" 
                                  Margin="105,7,2,0" 
                                  VerticalAlignment="Top" 
                                  HorizontalAlignment="Center"
-                                  Padding="5,0,1,0" 
                                  Width="90" 
                                  Grid.Column="0" 
                                  Grid.Row="2"/>
@@ -182,12 +180,10 @@ Tx energy function intercepts zero
 
                         <TextBox Height="30" 
                                  Text="" 
-                                 FontSize="18" 
                                  Style="{StaticResource ResourceKey=MainTextbox}" 
                                  Margin="115,7,2,0" 
                                  VerticalAlignment="Top" 
                                  HorizontalAlignment="Center"
-                                 Padding="5,0,1,0" 
                                  Width="90" 
                                  Grid.Column="1" 
                                  Grid.Row="2"/>
@@ -308,31 +304,26 @@ Tx energy function intercepts zero
 
                         <TextBox Width="170" 
                                  Height="32" 
-                                 FontSize="18" 
                                  Text="{Binding Path=BoardPartNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                  Grid.Row="2" 
                                  Grid.Column="1" 
                                  Margin="0,5,5,0" 
-                                 Padding="5,0,1,0" 
                                  Style="{StaticResource ResourceKey=MainTextbox}"/>
 
                         <TextBox Width="170" 
                                  Height="32" 
-                                 FontSize="18" 
                                  Text="{Binding Path=BoardPartNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                  Grid.Row="2" 
                                  Grid.Column="2" 
                                  Margin="0,5,5,0"
-                                  Padding="5,0,1,0" 
                                  Style="{StaticResource ResourceKey=MainTextbox}"/>
+                        
                         <TextBox Width="170" 
                                  Height="32"
-                                 FontSize="18" 
                                  Text="{Binding Path=BoardPartNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                  Grid.Row="2" 
                                  Grid.Column="3" 
                                  Margin="10,5,8,0" 
-                                  Padding="5,0,1,0" 
                                  Style="{StaticResource ResourceKey=MainTextbox}"/>
                     </Grid>
 

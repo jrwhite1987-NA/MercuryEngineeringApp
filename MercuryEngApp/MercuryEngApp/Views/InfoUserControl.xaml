@@ -77,30 +77,22 @@
 
                         <TextBox Width="309" 
                                  Height="25"
-                                 FontSize="16"
-                                 Padding="5,-3,0,0" 
                                  Text="{Binding Path=BoardPartNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                  Style="{StaticResource ResourceKey=MainTextbox}"
                                  Grid.Row="1" 
                                  Grid.Column="1" 
-                                 Margin="0,0,5,0" 
-                                 Background="White"/>
+                                 Margin="0,0,5,0"/>
                         
                         <TextBox Width="309" 
                                  Height="25"
-                                 FontSize="16"
-                                 Padding="5,-3,0,0" 
                                  Text="{Binding Path=BoardModelName, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                  Style="{StaticResource ResourceKey=MainTextbox}"
                                  Grid.Row="2" 
                                  Grid.Column="1" 
-                                 Margin="0,0,5,0" 
-                                 Background="White"/>
+                                 Margin="0,0,5,0"/>
                         
                         <TextBox Width="309" 
                                  Height="25"
-                                 FontSize="16"
-                                 Padding="5,-3,0,0" 
                                  Text="{Binding Path=HardwareRevision, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                  Style="{StaticResource ResourceKey=MainTextbox}"
                                  Grid.Row="3" 
@@ -111,13 +103,10 @@
                         <TextBox Width="309" 
                                  Height="25" 
                                  Grid.Row="4"
-                                 FontSize="16"
-                                 Padding="5,-3,0,0" 
                                  Text="{Binding Path=BoardSerialNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                  Style="{StaticResource ResourceKey=MainTextbox}"
                                  Grid.Column="1" 
-                                 Margin="0,0,5,0" 
-                                 Background="White"/>
+                                 Margin="0,0,5,0"/>
 
                             <Button Content="Read" 
                                     Style="{StaticResource ResourceKey=ButtonStyle1}" 
@@ -184,12 +173,11 @@
                                    Grid.Row="1"/>
 
                         <TextBox Width="309" Height="25"
-
+                                  Style="{StaticResource ResourceKey=MainTextbox}"
                                   Text="{Binding Path=ChannelNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                   Grid.Row="1" 
                                   Grid.Column="1" 
-                                  Margin="0,0,5,0" 
-                                  Background="White"/>
+                                  Margin="0,0,5,0"/>
                         
                         <Button Content="Read" 
                                 Style="{StaticResource ResourceKey=ButtonStyle1}" 
@@ -340,13 +328,11 @@
                                       Grid.Row="1" 
                                       Grid.Column="1" 
                                       Margin="0,0,5,0" 
-                                      Background="White"/>
+                                      Style="{StaticResource ResourceKey=ComboBoxBorder}" />
                             
                             <TextBox Height="25"
                                      Text="{Binding Path=ProbeModelName, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                                     FontSize="16" 
                                      Style="{StaticResource ResourceKey=MainTextbox}" 
-                                     Padding="5,-3,0,0" 
                                      Width="290" 
                                      TextAlignment="Center" 
                                      Grid.Row="2" 
@@ -354,9 +340,7 @@
                             
                             <TextBox Height="25"
                                      Text="{Binding Path=ProbeSerialNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                                     FontSize="16" 
                                      Style="{StaticResource ResourceKey=MainTextbox}"
-                                    Padding="5,-3,0,0" 
                                      Width="290" 
                                      TextAlignment="Center" 
                                      Grid.Row="3" 
@@ -364,8 +348,7 @@
                             
                             <TextBox Height="25"
                                      Text="{Binding Path=PhysicalID, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                                     FontSize="16" Style="{StaticResource ResourceKey=MainTextbox}" 
-                                    Padding="5,-3,0,0"
+                                     Style="{StaticResource ResourceKey=MainTextbox}" 
                                      Width="290" 
                                      TextAlignment="Center" 
                                      Grid.Row="4" 
@@ -373,9 +356,7 @@
                             
                             <TextBox Height="25"
                                      Text="{Binding Path=FormatID, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                                     FontSize="16" 
                                      Style="{StaticResource ResourceKey=MainTextbox}" 
-                                    Padding="5,-3,0,0" 
                                      Width="290" 
                                      TextAlignment="Center" 
                                      Grid.Row="5" 
@@ -383,9 +364,7 @@
                             
                             <TextBox Height="25"
                                      Text="{Binding Path=CenterFrequency, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                                     FontSize="16" 
                                      Style="{StaticResource ResourceKey=MainTextbox}" 
-                                     Padding="5,-3,0,0" 
                                      Width="290" 
                                      TextAlignment="Center" 
                                      Grid.Row="6" 
@@ -393,9 +372,7 @@
                             
                             <TextBox Height="25"
                                      Text="{Binding Path=Diameter, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                                     FontSize="16" 
                                      Style="{StaticResource ResourceKey=MainTextbox}" 
-                                     Padding="5,-3,0,0"
                                      Width="290" 
                                      TextAlignment="Center" 
                                      Grid.Row="7" 
@@ -403,9 +380,7 @@
                             
                             <TextBox Height="25"
                                      Text="{Binding Path=TankFocalLength, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                                     FontSize="16" 
                                      Style="{StaticResource ResourceKey=MainTextbox}" 
-                                     Padding="5,-3,0,0" 
                                      Width="290" 
                                      TextAlignment="Center" 
                                      Grid.Row="8" 
@@ -413,9 +388,7 @@
                             
                             <TextBox Height="25"
                                      Text="{Binding Path=InsertionLoss, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                                     FontSize="16" 
                                      Style="{StaticResource ResourceKey=MainTextbox}" 
-                                     Padding="5,-3,0,0" 
                                      Width="290" 
                                      TextAlignment="Center" 
                                      Grid.Row="9" 
@@ -423,9 +396,7 @@
                             
                             <TextBox Height="25"
                                      Text="{Binding Path=TIC, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                                     FontSize="16" 
                                      Style="{StaticResource ResourceKey=MainTextbox}" 
-                                     Padding="5,-3,0,0" 
                                      Width="290" 
                                      TextAlignment="Center" 
                                      Grid.Row="10" 
@@ -433,9 +404,7 @@
                             
                             <TextBox Height="25"
                                      Text="{Binding Path=Fractional3dbBW, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                                     FontSize="16" 
                                      Style="{StaticResource ResourceKey=MainTextbox}" 
-                                     Padding="5,-3,0,0" 
                                      Width="290" 
                                      TextAlignment="Center" 
                                      Grid.Row="11" 
@@ -443,18 +412,15 @@
                             
                             <TextBox Height="25"
                                      Text="{Binding Path=Impedance, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                                     FontSize="16" 
                                      Style="{StaticResource ResourceKey=MainTextbox}" 
-                                     Padding="5,-3,0,0" 
                                      Width="290" 
                                      TextAlignment="Center" 
                                      Grid.Row="12" 
                                      Grid.Column="1"/>
+                            
                             <TextBox Height="25"
                                      Text="{Binding Path=PhaseAngle, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                                     FontSize="16" 
                                      Style="{StaticResource ResourceKey=MainTextbox}" 
-                                     Padding="5,-3,0,0" 
                                      Width="290" 
                                      TextAlignment="Center" 
                                      Grid.Row="13" 
