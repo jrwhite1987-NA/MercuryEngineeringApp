@@ -75,6 +75,22 @@
       
     </Style>
 
+    <Style x:Key="RunningText" TargetType="TextBox">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Height" Value="505"/>
+        <Setter Property="Margin" Value="10,10,10,20"/>
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontFamily" Value="Arial" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="Padding" Value="6"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="AcceptsReturn" Value="True"/>
+        <Setter Property="VerticalScrollBarVisibility" Value="Visible"/>
+      
+    </Style>
+    
     <!--Password Border CSS-->
     <ControlTemplate x:Key="passwordbox" TargetType="{x:Type PasswordBox}">
         <Border Background="{TemplateBinding Background}" 
@@ -343,5 +359,13 @@
             </Setter.Value>
         </Setter>
     </Style>-->
+    
+    <!--Windows background color change -->
+
+    <Style TargetType="{x:Type Window}">
+        <Setter Property="Background" Value="#16213b"/>
+        <Setter Property="WindowState" Value="Maximized"/>
+        <Setter Property="WindowStyle" Value="None"/>
+    </Style>
 
 </ResourceDictionary>
