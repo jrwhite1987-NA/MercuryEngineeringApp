@@ -8,7 +8,7 @@
          <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
                       Width="1052">
             </Border>
-        <Grid Name="Popup">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50" />
                 <RowDefinition Height="530"/>

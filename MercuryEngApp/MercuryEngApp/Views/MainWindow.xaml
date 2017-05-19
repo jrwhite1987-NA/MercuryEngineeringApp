@@ -25,21 +25,17 @@
               Width="185" 
               HorizontalAlignment="Left" 
               Margin='420,15,0,0'>
-            
-            <Image x:Name="ControlTCDLeft" 
-                   HorizontalAlignment="Left" 
-                   Height="42" 
-                   VerticalAlignment="Top" 
-                   Margin="-11,0,0,0"
-                   UseLayoutRounding="True" 
-                   Source="/Themes/NA_btn_exam_split_l_262x62_on.png"/>
 
-            <Image x:Name="ControlTCDRight" 
-                   HorizontalAlignment="Right" 
-                   Height="42"  
-                   VerticalAlignment="Top" 
-                   UseLayoutRounding="True" 
-                   Source="/Themes/NA_btn_exam_split_r_262x62_on.png"/>
+            <Button Style="{StaticResource ResourceKey=ButttonSplitL}" 
+                    HorizontalAlignment="Left" 
+                    UseLayoutRounding="True" 
+                    VerticalAlignment="Top"/>
+
+            <Button Style="{StaticResource ResourceKey=ButttonSplitR}" 
+                    HorizontalAlignment="Right" 
+                    UseLayoutRounding="True" 
+                    VerticalAlignment="Top"/>
+
         </Grid>
 
         <Grid Grid.Row="1" 

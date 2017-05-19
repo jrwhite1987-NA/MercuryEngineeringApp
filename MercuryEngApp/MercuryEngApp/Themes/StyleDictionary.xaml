@@ -157,7 +157,6 @@
         </Setter>
     </Style>
 
-
     <Style TargetType="{x:Type Button}" x:Key="LargeButtonStyle">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="Background">
@@ -198,7 +197,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
 
     <Style TargetType="{x:Type Button}" x:Key="ButtonEnvelopeToggle">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
@@ -242,7 +240,84 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
+    <Style TargetType="{x:Type Button}" x:Key="ButttonSplitL">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="NA_btn_exam_split_l_262x62_on.png"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Width" Value="98" />
+        <Setter Property="Height" Value="42"/>
+        <Setter Property="Margin" Value="-10,0,0,0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="border" 
+                        BorderThickness="0" 
+                        Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="NA_btn_exam_split_l_262x62_selected.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="NA_btn_exam_split_l_262x62_selected.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="ButttonSplitR">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="NA_btn_exam_split_r_262x62_on.png"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Width" Value="98" />
+        <Setter Property="Height" Value="42"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="border" 
+                        BorderThickness="0" 
+                        Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="NA_btn_exam_split_r_262x62_selected.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="NA_btn_exam_split_r_262x62_selected.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!--ToggleButton CSS-->
     <Style TargetType="{x:Type ToggleButton}" x:Key="ButtonStyle2">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
