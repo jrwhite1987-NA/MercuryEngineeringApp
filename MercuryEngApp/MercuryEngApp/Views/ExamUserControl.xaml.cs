@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -45,6 +46,11 @@ namespace MercuryEngApp
 
         public AudioWrapper TCDAudio { get; set; }
 
+        public int VelocityRange { get; set; }
+
+        public int Depth { get; set; }
+
+        public int PRF { get; set; }
         #endregion
        
         public ExamUserControl()
@@ -72,6 +78,8 @@ namespace MercuryEngApp
             }
         }
 
+     
+
 
         async void ExamUserControlUnloaded(object sender, RoutedEventArgs e)
         {
@@ -83,24 +91,50 @@ namespace MercuryEngApp
 
             UsbTcd.TCDObj.TurnTCDPowerOff();
             //Clear graph data
+           
         }
+      
+
+       
 
         async void ExamUserControlLoaded(object sender, RoutedEventArgs e)
         {
             try
-            {
+            {                
                 App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
                 if (App.ActiveChannels == ActiveChannels.Channel1 || App.ActiveChannels == ActiveChannels.Channel2)
                 {
                     await UsbTcd.TCDObj.SetModeAsync(App.CurrentChannel, TCDModes.Active);
                 }
                 await PlotGraph();
+                CreateVerticalScales();              
             }
             catch(Exception ex)
             {
 
             }
         }
+
+        private void CreateVerticalScales()
+        {
+            VelocityRange = 308;
+            Depth = 48;
+            PRF = 8000;
+            Scale.CreateScale(new ScaleParameters
+            {
+                ParentControl = scaleGrid,
+                ScreenCoords = new Point(-17, 107),
+                VelocityRange = VelocityRange,
+                ScaleType = ScaleTypeEnum.Spectrogram,
+                BitmapHeight = imageSpectrogram.Height
+            });
+
+            MmodeSetting mModeSetting = MmodeSetting.GetDepthRange(Depth, PRF, false);
+            customDepthSlider.Maximum = mModeSetting.MaxDepthDisplay;
+            customDepthSlider.Minimum = mModeSetting.MinDepthDisplay;
+            Scale.CreateMmodeScale(scaleDepthGrid, mModeSetting.MinDepthDisplay, mModeSetting.MaxDepthDisplay);
+
+        }  
 
         async Task PlotGraph()
         {
@@ -109,8 +143,6 @@ namespace MercuryEngApp
                 InitializeBitmap();
                 CompositionTarget.Rendering += CompositionTargetRendering;
                 await UsbTcd.TCDObj.TurnTCDPowerOnAsync();
-
-
 
                 if (UsbTcd.TCDObj.InitializeTCD())
                 {
@@ -268,7 +300,80 @@ namespace MercuryEngApp
                 requestObject.Value2 = (byte)examViewModelObj.StartDepth;
                 await UsbTcd.TCDObj.SetPRF(requestObject);
             }
-
         }
+        /// <summary>
+        /// The leftcurrent base line postion
+        /// </summary>
+        private int leftcurrentBaseLinePosition = 0;
+
+        /// <summary>
+        /// Gets or sets the left baseline postion.
+        /// </summary>
+        /// <value>The left baseline postion.</value>
+        public int LeftBaselinePosition
+        {
+            get { return leftcurrentBaseLinePosition; }
+            set
+            {
+                leftcurrentBaseLinePosition = value - Constants.BaselineValue;
+            }
+        }
+
+       
+        private void CusomSlider_LostMouseCapture(object sender, MouseEventArgs e)
+        {
+            Constants.BaselineValue = 64;
+            LeftBaselinePosition = (int)CustomSlider.Value;
+
+            NaGraph.LeftSpectrogram.BaseLinePosition = LeftBaselinePosition;
+            
+            Point screenCoords = Thumb.TransformToVisual(scaleGrid).Transform(new Point(0, 0));
+            screenCoords.Y = screenCoords.Y  + 25;
+            Scale.CreateScale(new ScaleParameters
+            {
+                ParentControl = scaleGrid,
+                ScreenCoords = screenCoords,
+                VelocityRange = VelocityRange,
+                ScaleType = ScaleTypeEnum.Spectrogram,
+                BitmapHeight = imageSpectrogram.Height
+            });           
+        }
+
+
+        public Thumb Thumb
+        {
+            get
+            {
+                return GetThumb(this) as Thumb;
+            }
+        }
+        private DependencyObject GetThumb(DependencyObject root)
+        {
+            if (root is Thumb)
+            {
+                return root;
+            }
+
+            DependencyObject thumb = null;
+
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(root); i++)
+            {
+                thumb = GetThumb(VisualTreeHelper.GetChild(root, i));
+
+                if (thumb is Thumb)
+                {
+                    return thumb;
+                }
+            }
+
+            return thumb;
+        }
+
+        private void customDepthSlider_LostMouseCapture(object sender, MouseEventArgs e)
+        {
+            customDepthSlider.Resources["textValue"] = Convert.ToInt32(customDepthSlider.Value).ToString();
+        }
+       
     }
+  
 }

@@ -443,4 +443,56 @@
         <Setter Property="WindowStyle" Value="None"/>
     </Style>
 
+    <Thickness x:Key="SliderBorderThemeThickness">0</Thickness>
+    <Thickness x:Key="SliderHeaderThemeMargin">0</Thickness>
+    <FontWeight x:Key="SliderHeaderThemeFontWeight">Normal</FontWeight>
+
+    <Style x:Key="SliderThumbStyle" TargetType="Thumb">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Thumb">
+                    <Grid HorizontalAlignment="Stretch">
+                        <Image Name="backGroundImage" HorizontalAlignment="Left"
+                                   Stretch="Fill"
+                                   Source="\Themes\NA_btn_exam_66x56_on.png" />
+                        <!--<Image Name="HLine" Visibility="Visible"
+                                   Height="4" Width="1100"
+                                   Margin="56,10,0,0" Stretch="UniformToFill"
+                                   HorizontalAlignment="Left" Source="\Themes\NA_Blue_FulSize_Line.png"  Panel.ZIndex="105"/>-->
+                        <TextBlock HorizontalAlignment="Left" Text="{DynamicResource ResourceKey=textValue}"
+                                       Style="{StaticResource ResourceKey=TextBlockCenterWhite25}" Margin="7,10,0,11"></TextBlock>
+                        <TextBlock HorizontalAlignment="Left" Text="{DynamicResource ResourceKey=textUnit}"
+                                       Style="{StaticResource ResourceKey=SliderLabelSmall}" Margin="8,34,0,-13"></TextBlock>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <ControlTemplate x:Key="SliderVertical" TargetType="{x:Type Slider}">
+        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition MinWidth="{TemplateBinding MinWidth}" Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Track x:Name="PART_Track" Grid.Column="1">
+                    <Track.Thumb>
+                        <Thumb x:Name="Thumb" Focusable="False" Height="50" OverridesDefaultStyle="True" Style="{StaticResource SliderThumbStyle}" VerticalAlignment="Top" Width="60"/>
+                    </Track.Thumb>
+                </Track>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+    <Style x:Key="SliderStyle" TargetType="{x:Type Slider}">
+        <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Vertical">
+                <Setter Property="Template" Value="{StaticResource SliderVertical}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

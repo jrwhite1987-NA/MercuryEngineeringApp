@@ -5,6 +5,7 @@ using System.IO;
 using Windows.UI;
 using UsbTcdLibrary.PacketFormats;
 using System.Windows.Media.Imaging;
+using UsbTcdLibrary;
 //using Windows.UI.Xaml.Media.Imaging;
 
 namespace PlottingLib
@@ -62,7 +63,7 @@ namespace PlottingLib
             {
                 var pixelsFactor = GraphBitmap.PixelWidth * Constants.BytesForColor;
                 var columnOffset = XStart * Constants.BytesForColor;
-                var index = 0;// SpectrogramSetting.GetIndexforBaseline(BaseLinePosition);
+                var index =  GetIndexforBaseline(BaseLinePosition);
                 
                 for (int i = VALUE_0; i < Constants.FFTSize; i++)
                 {
@@ -102,6 +103,23 @@ namespace PlottingLib
             {
                 throw;
             }
+        }
+       
+        public static int GetIndexforBaseline(int baseLinePosition)
+        {
+            const int DEFAULT_BASE_VALUE = 0;
+            Constants.DefaultBaseline = 64;
+
+            if (baseLinePosition < Constants.DefaultBaseline &&
+                baseLinePosition >= -Constants.DefaultBaseline && baseLinePosition != DEFAULT_BASE_VALUE)
+            {
+                if (baseLinePosition < Constants.VALUE_0)
+                {
+                    return DMIProtocol.FFTSize + baseLinePosition;
+                }
+                return baseLinePosition;
+            }
+            return DEFAULT_BASE_VALUE;
         }
 
         /// <summary>

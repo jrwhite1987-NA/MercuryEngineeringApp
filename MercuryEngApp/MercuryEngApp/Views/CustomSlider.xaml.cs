@@ -42,6 +42,13 @@ namespace MercuryEngApp.Controls
         {
             this.InitializeComponent();
             SpectrumScreenPoints = new Point(pointX, pointY);
+            this.Loaded += CustomSlider_Loaded;
+
+        }
+
+        void CustomSlider_Loaded(object sender, RoutedEventArgs e)
+        {
+            int f = 10;
         }
 
   
@@ -438,8 +445,8 @@ namespace MercuryEngApp.Controls
         }
         public void RearrangeThumb(Thumb thumb)
         {
-            Point screenCoords = thumb.TransformToVisual(parentGrid).Transform(new Point(0, 0));
-            SpectrumScreenPoints = screenCoords;
+            //Point screenCoords = thumb.TransformToVisual(parentGrid).Transform(new Point(0, 0));
+            //SpectrumScreenPoints = screenCoords;
             CustomSliderValue = CusomSlider.Value;
             //CreateScale(screenCoords);
         }
@@ -455,13 +462,13 @@ namespace MercuryEngApp.Controls
         public Point ThumbCoordinates(Thumb thumb)
         {
             UIElement scaleCtl = null;
-            foreach (var control in parentGrid.Children)
-            {
-                if(control.GetType() == typeof(Grid))
-                {
-                    scaleCtl = (UIElement)control;
-                }
-            }
+            //foreach (var control in parentGrid.Children)
+            //{
+            //    if(control.GetType() == typeof(Grid))
+            //    {
+            //        scaleCtl = (UIElement)control;
+            //    }
+            //}
             if (scaleCtl != null)
             {
                 return thumb.TransformToVisual(scaleCtl).Transform(new Point(0, 0));
@@ -497,6 +504,11 @@ namespace MercuryEngApp.Controls
         }
 
         private void CusomSlider_DragLeave(object sender, DragEventArgs e)
+        {
+
+        }
+
+        private void CusomSlider_DragEnter(object sender, DragEventArgs e)
         {
 
         }

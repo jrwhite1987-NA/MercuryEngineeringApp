@@ -108,6 +108,11 @@
     <Compile Include="Common\PowerController.cs" />
     <Compile Include="Common\SlimDxAudioWrapper.cs" />
     <Compile Include="Common\UsbTcd.cs" />
+    <Compile Include="Common\VerticalScale\MmodeSetting.cs" />
+    <Compile Include="Common\VerticalScale\Scale.cs" />
+    <Compile Include="Common\VerticalScale\ScaleGenerator.cs" />
+    <Compile Include="Common\VerticalScale\ScaleType.cs" />
+    <Compile Include="Common\VerticalScale\SpectrogramSetting.cs" />
     <Compile Include="Models\BoardInfo.cs" />
     <Compile Include="Models\Calibration.cs" />
     <Compile Include="Models\OutputMetrics.cs" />

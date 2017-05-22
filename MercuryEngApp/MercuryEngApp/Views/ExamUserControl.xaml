@@ -3,9 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+              xmlns:clr="clr-namespace:System;assembly=mscorlib"
              xmlns:customControl="clr-namespace:MercuryEngApp.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1340" >
+             d:DesignHeight="600" d:DesignWidth="1340" 
+             x:Name="ExamControl">
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -488,25 +491,24 @@
 
         </Grid>
 
-        <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Height="255" Grid.Column="1" Grid.Row="0" Width="715" Margin="0,5,10,0">
-            <customControl:CustomSlider
-                Visibility="Visible"
-                x:Name="SpectrogramSlider"
-                HorizontalAlignment="Right"   
-                VerticalAlignment="Center"
-                CustomVerticalDecreaseRectColor="Transparent"
-                CustomVerticalTrackRectColor="Transparent"                
-                CustomMinimum="0" IsHorizontalLineEnabled="Visible"
-                CustomMaximum="127"   IsHitTestVisible="True"                           
-                CustomValue="64" 
-                ScaleEnable="True" ScaleFor="EditSpectrogram" 
-                CustomHeight="255"  Height="255"              
-                CustomWidth="673" Width="673" FontFamily="Arial"  Canvas.ZIndex="10" />
+        <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Height="255" Grid.Column="1"  Grid.Row="0" Width="715" Margin="0,5,10,0">
+          
+            <Slider Name="CustomSlider" HorizontalAlignment="Left" 
+                  OverridesDefaultStyle="True" Value="64" Maximum="127" Minimum="0"
+                Height="255" Width="673" Orientation="Vertical" Grid.Column="1" VerticalAlignment="Stretch"  
+                Style="{StaticResource SliderStyle}"  Canvas.ZIndex="3" LostMouseCapture="CusomSlider_LostMouseCapture">
+                <Slider.Resources>
+                    <clr:String  x:Key="textValue">0</clr:String>
+                </Slider.Resources>
+            </Slider>
+            <Grid x:Name="scaleGrid" Width="55" HorizontalAlignment="Left" Height="215" Canvas.ZIndex="1" VerticalAlignment="Center" >
+                
+            </Grid>
             <Image Grid.Row="0" 
-                   Margin="62,10,10,10" 
+                   Margin="62,0,0,0" 
                    x:Name="imageSpectrogram" 
-                   Stretch="Fill" 
-                   Panel.ZIndex="2" >                
+                   Stretch="Fill"  Height="205" 
+                   Canvas.ZIndex="2" >                
             </Image>
             
             <Rectangle Stroke="#1c2040"  
@@ -521,7 +523,20 @@
                   HorizontalAlignment="Left" 
                   Margin="60,0,0,0" />
         </Grid>
-        <Grid HorizontalAlignment="Right" Grid.Column="1" VerticalAlignment="top" Height="232" Grid.Row="1" Width="715"  Margin="0,-0,10,0">
+        <Grid HorizontalAlignment="Right" Grid.Column="1" VerticalAlignment="top" Height="230" Grid.Row="1" Width="715"  Margin="0,-0,10,0">
+
+            <Slider Name="customDepthSlider" HorizontalAlignment="Left" 
+                  OverridesDefaultStyle="True" Value="48" Maximum="87" Minimum="23"
+                Height="232" Width="673" Orientation="Vertical" Grid.Column="1" VerticalAlignment="Stretch"  
+                Style="{StaticResource SliderStyle}"  Canvas.ZIndex="3" LostMouseCapture="customDepthSlider_LostMouseCapture">
+                <Slider.Resources>
+                    <clr:String  x:Key="textValue">48</clr:String>
+                    <clr:String  x:Key="textUnit">mm</clr:String>
+                </Slider.Resources>
+            </Slider>
+            <Grid x:Name="scaleDepthGrid" Height="190" Width="55" HorizontalAlignment="Left"  Canvas.ZIndex="1" VerticalAlignment="Center" >
+
+            </Grid>
             <Image Grid.Row="1" 
                    Margin="62,10,10,10" 
                    x:Name="imageMmode" 
@@ -539,25 +554,7 @@
                   Stroke="#FF1C2040" 
                   Y1="1" 
                   HorizontalAlignment="Left" 
-                  Margin="60,0,0,0"/>
-        <customControl:CustomSlider
-        	    Visibility="Visible"
-        	    x:Name="customDepthSlider"
-        	    HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                CustomVerticalDecreaseRectColor="Transparent"
-                CustomVerticalTrackRectColor="Transparent"
-        	    CustomMaximum="90"
-        	    CustomMinimum="20"
-                IsHorizontalLineEnabled="Visible"
-        	    CustomHeight="232"
-                ScaleEnable="True"
-                CustomButtonTextUnit="Depth"
-        	    Width="673" CustomWidth="673"  
-                FontFamily="Arial" Canvas.ZIndex="10" 
-                />
-
-      
+                  Margin="60,0,0,0"/>        
         </Grid>
     </Grid>
 </UserControl>

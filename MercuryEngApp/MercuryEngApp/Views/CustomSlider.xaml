@@ -7,7 +7,17 @@
              MaxHeight="{Binding Path=CustomHeight,ElementName=CustomSliderControl , Mode=TwoWay}"
     x:Name="CustomSliderControl">
     <UserControl.Resources>
-
+        <SolidColorBrush x:Key="SliderThumb.Static.Foreground" Color="#FFE5E5E5"/>
+        <SolidColorBrush x:Key="SliderThumb.MouseOver.Background" Color="#FFDCECFC"/>
+        <SolidColorBrush x:Key="SliderThumb.MouseOver.Border" Color="#FF7Eb4EA"/>
+        <SolidColorBrush x:Key="SliderThumb.Pressed.Background" Color="#FFDAECFC"/>
+        <SolidColorBrush x:Key="SliderThumb.Pressed.Border" Color="#FF569DE5"/>
+        <SolidColorBrush x:Key="SliderThumb.Disabled.Background" Color="#FFF0F0F0"/>
+        <SolidColorBrush x:Key="SliderThumb.Disabled.Border" Color="#FFD9D9D9"/>
+        <SolidColorBrush x:Key="SliderThumb.Static.Background" Color="Red"/>
+        <SolidColorBrush x:Key="SliderThumb.Static.Border" Color="#FFACACAC"/>
+        <SolidColorBrush x:Key="SliderThumb.Track.Border" Color="#FFD6D6D6"/>
+        <SolidColorBrush x:Key="SliderThumb.Track.Background" Color="#FFE7EAEA"/>
         <Style x:Key="SliderThumbStyle" TargetType="Thumb">
             <Setter Property="Template">
                 <Setter.Value>
@@ -15,12 +25,12 @@
                         <Grid HorizontalAlignment="Stretch"  Margin="-13,0,42,0">
                             <Image Name="backGroundImage" Margin="0,0,0,0"  HorizontalAlignment="Left"
                                    Stretch="Fill"
-                                   Source="/Themes/NA_btn_exam_66x56_on.png" />
+                                   Source="E:\MercuryEngineeringApp\MercuryEngApp\MercuryEngApp\Themes\NA_btn_exam_66x56_on.png" />
                             <Image Name="HLine" Visibility="{Binding Path=IsHorizontalLineEnabled, ElementName=CustomSliderControl}"
                                    Height="2" Width="1100"
                                    Margin="58,20,0,20" Stretch="UniformToFill"
                                    HorizontalAlignment="Left" Source="{Binding Path=HorizontalImageSource ,ElementName=CustomSliderControl}" />
-                            <TextBlock Name= "textValue" HorizontalAlignment="Left" Text="{Binding Path=CustomButtonText,ElementName=CustomSliderControl}"
+                            <TextBlock Name= "textValue" HorizontalAlignment="Left" Text="Mohan"
                                        Style="{StaticResource ResourceKey=TextBlockCenterWhite25}" Margin="7,10,0,11"></TextBlock>
                             <TextBlock Name= "textUnit" HorizontalAlignment="Left" Text="{Binding Path=CustomButtonTextUnit,ElementName=CustomSliderControl}"
                                        Style="{StaticResource ResourceKey=SliderLabelSmall}" Margin="8,34,0,-13"></TextBlock>
@@ -29,113 +39,54 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="Slider">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Slider">
-                        <Grid x:Name="VerticalTemplate" Visibility="Visible" Background="Transparent">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="17" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="17" />
-                            </Grid.ColumnDefinitions>
 
-                            <Rectangle x:Name="VerticalTrackRect" Visibility="Visible"
-                                   Fill="{Binding Path=CustomVerticalTrackRectColor,ElementName=CustomSliderControl}"
-                                   Grid.Column="1"
-                                       VerticalAlignment="Stretch"
-                                   Grid.RowSpan="2" Margin="0,0,5,0" />
-                            <Rectangle x:Name="VerticalDecreaseRect" Visibility="Visible"
-                                       VerticalAlignment="Stretch"
-                                   Fill="{Binding Path=CustomVerticalDecreaseRectColor,ElementName=CustomSliderControl}"
-                                   Grid.Column="1"
-                                   Grid.Row="2"
-                                   Margin="0,0,5,0" />
-                            <TickBar x:Name="LeftTickBar"
-                                 Visibility="Visible"
-                                 Fill="White"
-                                 Width="6"
-                                 HorizontalAlignment="Left"
-                                 Margin="0,0,2,0"
-                                 Grid.RowSpan="3"
-                                 AutomationProperties.HelpText="1" />
-                            <TickBar x:Name="VerticalInlineTickBar"
-                                 Visibility="Collapsed"
-                                 Fill="Red"
-                                 Width="11"
-                                 Grid.Column="1"
-                                 Grid.RowSpan="3" />
-                            <TickBar x:Name="RightTickBar"
-                                 Visibility="Collapsed"
-                                 Fill="#80FFFFFF"
-                                 Width="6"
-                                 HorizontalAlignment="Left"
-                                 Margin="2,0,0,0"
-                                 Grid.Column="2"
-                                 Grid.RowSpan="3" />
-                            <Rectangle x:Name="VerticalBorder" VerticalAlignment="Stretch"
-                                   Stroke="{TemplateBinding BorderBrush}"
-                                   StrokeThickness="{TemplateBinding BorderThickness}"
-                                   Grid.Column="1"
-                                   Grid.RowSpan="3" />
+        <ControlTemplate x:Key="SliderVertical" TargetType="{x:Type Slider}">
+            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition MinWidth="{TemplateBinding MinWidth}" Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-                            <Thumb x:Name="VerticalThumb"
-                                   Visibility="{Binding Path=IsThumbEnabled,ElementName=CustomSliderControl}"
-                                                    Style="{StaticResource SliderThumbStyle}"
-                                   Height="50"
-                              HorizontalAlignment="Left"
-                                   LostMouseCapture="VerticalThumb_LostMouseCapture"                                   
-                               Grid.Row="1"
-                               Grid.Column="1"
-                                   VerticalAlignment="Stretch" />
-                            <Rectangle x:Name="FocusVisualWhiteVertical"
-                                   IsHitTestVisible="False"
-                                   Stroke="White"
-                                   StrokeEndLineCap="Square"
-                                   StrokeDashArray="1,1"
-                                   Opacity="0"
-                                   StrokeDashOffset="1.5"
-                                   Grid.RowSpan="3"
-                                   Grid.ColumnSpan="3" />
-                            <Rectangle x:Name="FocusVisualBlackVertical"
-                                   IsHitTestVisible="False"
-                                   Stroke="Black"
-                                   StrokeEndLineCap="Square"
-                                   StrokeDashArray="1,1"
-                                   Opacity="0"
-                                   StrokeDashOffset="0.5"
-                                   Grid.RowSpan="3"
-                                   Grid.ColumnSpan="3" />
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
+                    <Track x:Name="PART_Track" Grid.Column="1">
+                        <Track.Thumb>
+                            <Thumb x:Name="Thumb" Focusable="False"   Height="50" OverridesDefaultStyle="True" Style="{StaticResource SliderThumbStyle}" VerticalAlignment="Top" Width="100"/>
+                        </Track.Thumb>
+                    </Track>
+                </Grid>
+            </Border>
+        </ControlTemplate>
+        <Style x:Key="SliderStyle" TargetType="{x:Type Slider}">         
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Red"/>
+            <Style.Triggers>
+                <Trigger Property="Orientation" Value="Vertical">
+                    <Setter Property="Template" Value="{StaticResource SliderVertical}"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
+
     </UserControl.Resources>
-    
-    <Grid x:Name="parentGrid">
-        <!--Height="{Binding Path=CustomHeight,ElementName=CustomSliderControl , Mode=TwoWay}"-->
+    <Slider Name="CusomSlider" HorizontalAlignment="Left" 
+                Margin="-40,105,0,0"  OverridesDefaultStyle="True"
+                Height="255" Width="673" Orientation="Vertical" Grid.Column="1" VerticalAlignment="Stretch"  
+                Style="{StaticResource SliderStyle}"  Canvas.ZIndex="1"/>
+    <!--<Grid x:Name="parentGrid">
+      
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Slider Name="CusomSlider" Grid.Column="1" Margin="0,0,0,0"
-            HorizontalAlignment="Left" VerticalAlignment="Stretch"
-                Width="{Binding Path=CustomWidth,ElementName=CustomSliderControl , Mode=TwoWay}"  Orientation="Vertical"
+       
+        --><!--<Slider Name="CusomSlider" Grid.Column="1" Margin="-40,0,0,0" VerticalAlignment="Stretch" OverridesDefaultStyle="True"
+                Width="{Binding Path=CustomWidth,ElementName=CustomSliderControl , Mode=TwoWay}" 
                  Height="{Binding Path=CustomHeight,ElementName=CustomSliderControl , Mode=TwoWay}"
                 Maximum="{Binding Path=CustomMaximum,ElementName=CustomSliderControl , Mode=TwoWay}"
                 Minimum="{Binding Path=CustomMinimum,ElementName=CustomSliderControl , Mode=TwoWay}"
-                Value="{Binding Path=CustomValue,ElementName=CustomSliderControl, Mode=TwoWay}"
-                TickPlacement="{Binding Path=CustomTickPlacement,ElementName=CustomSliderControl, Mode=TwoWay}"
-                                
-                 Canvas.ZIndex="1" DragLeave="CusomSlider_DragLeave"  IsSnapToTickEnabled="True"
-                 TickFrequency="1" IsMoveToPointEnabled="True" />
-    </Grid>
+                Value="{Binding Path=CustomValue,ElementName=CustomSliderControl, Mode=TwoWay}"                                             
+                 Canvas.ZIndex="1" />--><!--
+    </Grid>-->
    
 
 </UserControl>
