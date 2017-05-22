@@ -1904,7 +1904,7 @@ namespace UsbTcdLibrary
                     uint value = 0x5AFE;
                     byte[] bufferData = ProbeInfo.ConvertProbeInfoToArray(probeInfo);
 
-                    if (await TCDHandler.Current.SendControlCommandAsync(channelID, DMIProtocol.DMI_CMD_SERVICE_ACCESS_INFO, index, value, DMIProtocol.DMIProtocol.PROBE_INFO_REQUEST_LENGTH, bufferData) == 0)
+                    if (await TCDHandler.Current.SendControlCommandAsync(channelID, DMIProtocol.DMI_CMD_SERVICE_ACCESS_INFO, index, value, DMIProtocol.PROBE_INFO_REQUEST_LENGTH, bufferData) == 0)
                     {
                         result = true;
                     }

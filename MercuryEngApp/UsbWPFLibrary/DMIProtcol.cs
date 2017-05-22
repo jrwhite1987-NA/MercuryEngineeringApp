@@ -252,17 +252,17 @@ namespace UsbTcdLibrary
         /// <summary>
         /// The dmi PKT mmode PTS
         /// </summary>
-        internal const int DMI_PKT_MMODE_PTS = 64;
+        public const int DMI_PKT_MMODE_PTS = 64;
 
         /// <summary>
         /// The dmi audio array size
         /// </summary>
-        internal const int DMI_AUDIO_ARRAY_SIZE = 128;
+        public const int DMI_AUDIO_ARRAY_SIZE = 128;
 
         /// <summary>
         /// The dmi archive mmode gates
         /// </summary>
-        internal const int DMI_ARCHIVE_MMODE_GATES = 33;
+        public const int DMI_ARCHIVE_MMODE_GATES = 33;
 
         /// <summary>
         /// The dmi archive timeseries size
