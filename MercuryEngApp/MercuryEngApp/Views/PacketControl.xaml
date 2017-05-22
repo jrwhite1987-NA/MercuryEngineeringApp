@@ -43,6 +43,11 @@
                                     <TextBlock Text="{Binding Title}" />
                                 </HierarchicalDataTemplate>
                             </TreeView.ItemTemplate>
+                            <TreeView.ItemContainerStyle>
+                                <Style TargetType="TreeViewItem">
+                                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"></Setter>
+                                </Style>
+                            </TreeView.ItemContainerStyle>
                         </TreeView>
                     </Grid>
                 </Grid>

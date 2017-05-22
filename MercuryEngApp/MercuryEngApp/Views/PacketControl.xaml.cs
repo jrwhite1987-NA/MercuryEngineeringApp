@@ -39,6 +39,7 @@ namespace MercuryEngApp
         {
             //Root Item
             ItemsMenu PacketRoot = new ItemsMenu() { Title = "Packet" };
+            PacketRoot.IsExpanded = true;
             // 1th Element 
             ItemsMenu ChildP1 = GetMenuItem("Header", ServiceHeader.sync, "header");
             ChildP1.Items.Add(GetMenuItem("Sync", ServiceHeader.sync, "long"));
@@ -132,6 +133,7 @@ namespace MercuryEngApp
             trvMenu.Items.Add(PacketRoot);
 
             trvMenu.SelectedItemChanged += treeItem_Selected;
+
         }
 
         void treeItem_Selected(object sender, RoutedEventArgs e)
@@ -488,6 +490,8 @@ namespace MercuryEngApp
         public int StartColumn { get; set; }
         public int EndRow { get; set; }
         public int EndColumn { get; set; }
+
+        public bool IsExpanded { get; set; }
 
         public ObservableCollection<ItemsMenu> Items { get; set; }
 
