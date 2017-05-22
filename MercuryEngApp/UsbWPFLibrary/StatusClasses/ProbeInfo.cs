@@ -192,6 +192,7 @@ namespace UsbTcdLibrary.StatusClasses
             byteArray.AddRange(BitConverter.GetBytes(probeInfoObj.insertionLoss));
             byteArray.AddRange(BitConverter.GetBytes(probeInfoObj.adjustedM1));
             byteArray.AddRange(BitConverter.GetBytes(probeInfoObj.adjustedM2));
+            byteArray.AddRange(new byte[16]);
 
             return byteArray.ToArray();
         }

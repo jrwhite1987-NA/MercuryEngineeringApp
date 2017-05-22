@@ -752,7 +752,7 @@ namespace UsbTcdLibrary
         /// </summary>
         /// <param name="tempHandle">The temporary handle.</param>
         /// <returns>Task&lt;System.Byte&gt;.</returns>
-        private async Task<byte> GetChannelIdAsync(UsbDevice tempHandle)
+        internal async Task<byte> GetChannelIdAsync(UsbDevice tempHandle)
         {
             try
             {

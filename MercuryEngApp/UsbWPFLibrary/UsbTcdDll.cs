@@ -1526,5 +1526,22 @@ namespace UsbTcdLibrary
             return false;
         }
 
+
+        public async Task<byte> GetChannelNumber(TCDRequest requestObj)
+        {
+            byte channelNumber = 0;
+            if (TCDHandler.Current.isTCDWorking)
+            {
+                if (requestObj.ChannelID == TCDHandles.Channel1)
+                {
+                    channelNumber = await TCDHandler.Current.GetChannelIdAsync(TCDHandler.Current.Channel1.TCDHandleChannel);
+                }
+                else if (requestObj.ChannelID == TCDHandles.Channel2)
+                {
+                    channelNumber = await TCDHandler.Current.GetChannelIdAsync(TCDHandler.Current.Channel2.TCDHandleChannel);
+                }
+            }
+            return channelNumber;
+        }
     }
 }

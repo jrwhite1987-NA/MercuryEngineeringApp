@@ -14,6 +14,8 @@
 using Core.Common;
 using Core.Constants;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace UsbTcdLibrary.StatusClasses
 {
@@ -83,18 +85,20 @@ namespace UsbTcdLibrary.StatusClasses
         {
             try
             {
-                byte[] bufferData = new byte[BUFFER_LENGTH];
+                List<byte> bufferData = new List<byte>(BUFFER_LENGTH);
+                char[] bufferCharArr = new char[HARDWARE_VERSION_INDEX];
 
                 boardInfo.modelString.ToCharArray().CopyTo
-                    (bufferData, MODEL_STRING_INDEX);
+                    (bufferCharArr, MODEL_STRING_INDEX);
                 boardInfo.partNumberString.ToCharArray().CopyTo
-                    (bufferData, PART_NUMBER_STRING_INDEX);
+                    (bufferCharArr, PART_NUMBER_STRING_INDEX);
                 boardInfo.serialNumberString.ToCharArray().CopyTo
-                    (bufferData, SERIAL_NUMBER_STRING_INDEX);
-                BitConverter.GetBytes(boardInfo.hardwareRevision).CopyTo
-                    (bufferData, HARDWARE_VERSION_INDEX);
+                    (bufferCharArr, SERIAL_NUMBER_STRING_INDEX);
 
-                return bufferData;
+                bufferData.AddRange(Encoding.UTF8.GetBytes(bufferCharArr));
+                bufferData.AddRange(BitConverter.GetBytes(boardInfo.hardwareRevision));
+
+                return bufferData.ToArray();
             }
             catch (Exception ex)
             {

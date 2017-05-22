@@ -51,6 +51,8 @@ namespace MercuryEngApp
         public int Depth { get; set; }
 
         public int PRF { get; set; }
+
+        private bool IsPriorityToChannel1;
         #endregion
        
         public ExamUserControl()
@@ -78,9 +80,6 @@ namespace MercuryEngApp
             }
         }
 
-     
-
-
         async void ExamUserControlUnloaded(object sender, RoutedEventArgs e)
         {
             CompositionTarget.Rendering -= CompositionTargetRendering;
@@ -93,9 +92,6 @@ namespace MercuryEngApp
             //Clear graph data
            
         }
-      
-
-       
 
         async void ExamUserControlLoaded(object sender, RoutedEventArgs e)
         {
@@ -204,6 +200,7 @@ namespace MercuryEngApp
                     DMIPmdDataPacket[] packet = PacketCollection.Dequeue();
                     if (packet[0] != null)
                     {
+                        IsPriorityToChannel1 = true;
                         examViewModelObj.PosMean = packet[0].envelope.posMEAN/10;
                         examViewModelObj.PosMin = packet[0].envelope.posDIAS/10;
                         examViewModelObj.PosMax = packet[0].envelope.posPEAK/10;
@@ -220,9 +217,28 @@ namespace MercuryEngApp
                         examViewModelObj.PacketStartDepth = packet[0].mmode.startDepth;
                         examViewModelObj.PacketSVol = packet[0].parameter.sampleLength;
                         examViewModelObj.TIC = packet[0].parameter.TIC;
-
+                        NaGraph.ProcessPacket(packet, true, 1);
                     }
-                    NaGraph.ProcessPacket(packet, true, 1);
+                    else if(packet[1]!=null && !IsPriorityToChannel1 )
+                    {
+                        examViewModelObj.PosMean = packet[1].envelope.posMEAN/10;
+                        examViewModelObj.PosMin = packet[1].envelope.posDIAS/10;
+                        examViewModelObj.PosMax = packet[1].envelope.posPEAK/10;
+                        examViewModelObj.PosPI = packet[1].envelope.posPI/10;
+                        examViewModelObj.NegMean = packet[1].envelope.negMEAN/10;
+                        examViewModelObj.NegMin = packet[1].envelope.negDIAS/10;
+                        examViewModelObj.NegMax = packet[1].envelope.negPEAK/10;
+                        examViewModelObj.NegPI = packet[1].envelope.negPI/10;
+
+                        examViewModelObj.PacketDepth = packet[1].spectrum.depth;
+                        examViewModelObj.PacketFilter = packet[1].spectrum.clutterFilter;
+                        examViewModelObj.PacketPower = packet[1].parameter.acousticPower;
+                        examViewModelObj.PacketPRF = packet[1].parameter.PRF;
+                        examViewModelObj.PacketStartDepth = packet[1].mmode.startDepth;
+                        examViewModelObj.PacketSVol = packet[1].parameter.sampleLength;
+                        examViewModelObj.TIC = packet[1].parameter.TIC;
+                        NaGraph.ProcessPacket(packet, true, 2);
+                    }
                 }
                 catch (Exception)
                 {

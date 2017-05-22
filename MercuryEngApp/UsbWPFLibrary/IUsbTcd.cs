@@ -126,6 +126,16 @@ namespace UsbTcdLibrary
         Task<TCDResponse> SetLengthAsync(TCDRequest requestObj);
 
         /// <summary>
+        /// Sets the mode asynchronous.
+        /// </summary>
+        /// <param name="channelId">The channel identifier.</param>
+        /// <param name="modeToSet">The mode to set.</param>
+        /// <returns></returns>
+        Task<bool> SetModeAsync(TCDHandles channelId, TCDModes modeToSet);
+
+        Task<byte> GetChannelNumber(TCDRequest requestObj);
+
+        /// <summary>
         /// Clears the buffer of the specified TCD channel and endpoint
         /// </summary>
         /// <param name="channel">The channel.</param>
@@ -291,12 +301,6 @@ namespace UsbTcdLibrary
             get;
         }
 
-        /// <summary>
-        /// Sets the mode asynchronous.
-        /// </summary>
-        /// <param name="channelId">The channel identifier.</param>
-        /// <param name="modeToSet">The mode to set.</param>
-        /// <returns></returns>
-        Task<bool> SetModeAsync(TCDHandles channelId, TCDModes modeToSet);
+    
     }
 }

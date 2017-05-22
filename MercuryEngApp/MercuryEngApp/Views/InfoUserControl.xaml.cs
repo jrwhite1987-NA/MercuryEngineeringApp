@@ -59,7 +59,14 @@ namespace MercuryEngApp
                 request.Board = new UsbTcdLibrary.StatusClasses.BoardInfo();
                 request.Board.partNumberString = infoViewModelObj.BoardPartNumber;
                 request.Board.modelString = infoViewModelObj.BoardModelName;
-                //request.Board.hardwareRevision = infoViewModelObj.HardwareRevision;
+                string[] temp = infoViewModelObj.HardwareRevision.Split('.');
+                int strLen=temp.Length;
+                byte[] arr = new byte[4];
+                for (int i = 0; i < strLen ;i++ )
+                {
+                    arr[3-i] = Convert.ToByte(temp[i]);
+                }
+                request.Board.hardwareRevision = BitConverter.ToUInt32(arr, 0);
                 request.Board.serialNumberString = infoViewModelObj.BoardSerialNumber;
                 await UsbTcd.TCDObj.WriteBoardInfoAsync(request);
             }
@@ -67,7 +74,11 @@ namespace MercuryEngApp
 
         private async void ReadChannelClick(object sender, RoutedEventArgs e)
         {
-            
+            using (TCDRequest request = new TCDRequest())
+            {
+                request.ChannelID = App.CurrentChannel;
+                infoViewModelObj.ChannelNumber = await UsbTcd.TCDObj.GetChannelNumber(request);
+            }
         }
 
         private async void WriteChannelClick(object sender, RoutedEventArgs e)
