@@ -790,13 +790,11 @@ namespace UsbTcdLibrary
                 //Logs.Instance.ErrorLog<TCDHandler>("async GetProbeInfoAsync begins for channel:" + tempDevice.ToString(), "GetProbeInfoAsync", Severity.Debug);
                 const int REQUEST_INDEX = 0;
                 const int REQUEST_VALUE = 0;
-                const int REQUEST_LENGTH = 84;
-                const int BUFFER_SIZE = 96;
-
-                IBuffer probeInfo = new Windows.Storage.Streams.Buffer(BUFFER_SIZE);
+                
+                IBuffer probeInfo = new Windows.Storage.Streams.Buffer(DMIProtocol.PROBE_INFO_REQUEST_LENGTH);
 
                 UsbSetupPacket setupPacket = SetupPacket(DMIProtocol.DMI_REQ_PROBE_INFO,
-                   REQUEST_INDEX, REQUEST_VALUE, DMIProtocol.DOPPLER_REQUEST, UsbTransferDirection.In, REQUEST_LENGTH);
+                   REQUEST_INDEX, REQUEST_VALUE, DMIProtocol.DOPPLER_REQUEST, UsbTransferDirection.In, DMIProtocol.PROBE_INFO_REQUEST_LENGTH);
 
                 await tempDevice.TCDHandleChannel.SendControlInTransferAsync(setupPacket, probeInfo);
                 tempDevice.IsChannelEnabled = true;

@@ -1861,8 +1861,6 @@ namespace UsbTcdLibrary
         internal async Task<bool> WriteBoardInfoAsync(TCDHandles channelID, BoardInfo boardInfo)
         {
             bool result = false;
-
-            const int BUFFER_LENGTH = 84;
             uint bytesTransferred = 0;
             try
             {
@@ -1875,7 +1873,7 @@ namespace UsbTcdLibrary
 
                     await TCDHandler.Current.SendControlCommandAsync
                         (channelID, DMIProtocol.DMI_CMD_SERVICE_ACCESS_INFO,
-                        index, value, BUFFER_LENGTH, bufferData);
+                        index, value, DMIProtocol.BOARD_INFO_REQUEST_LENGTH, bufferData);
                     result = true;
                 }
             }
@@ -1896,7 +1894,6 @@ namespace UsbTcdLibrary
         internal async Task<bool> WriteProbeInfoAsync(TCDHandles channelID, ProbeInfo probeInfo)
         {
             bool result = false;
-            const int BUFFER_LENGTH = 96;
             uint bytesTransferred = 0;
             try
             {
@@ -1907,7 +1904,7 @@ namespace UsbTcdLibrary
                     uint value = 0x5AFE;
                     byte[] bufferData = ProbeInfo.ConvertProbeInfoToArray(probeInfo);
 
-                    if (await TCDHandler.Current.SendControlCommandAsync(channelID, DMIProtocol.DMI_CMD_SERVICE_ACCESS_INFO, index, value, BUFFER_LENGTH, bufferData) == 0)
+                    if (await TCDHandler.Current.SendControlCommandAsync(channelID, DMIProtocol.DMI_CMD_SERVICE_ACCESS_INFO, index, value, DMIProtocol.DMIProtocol.PROBE_INFO_REQUEST_LENGTH, bufferData) == 0)
                     {
                         result = true;
                     }

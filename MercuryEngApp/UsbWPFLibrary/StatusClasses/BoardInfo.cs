@@ -45,10 +45,6 @@ namespace UsbTcdLibrary.StatusClasses
         public uint hardwareRevision;
 
         /// <summary>
-        /// The buffer length
-        /// </summary>
-        private const int BUFFER_LENGTH = 84;
-        /// <summary>
         /// The model string index
         /// </summary>
         private const int MODEL_STRING_INDEX = 0;
@@ -85,7 +81,7 @@ namespace UsbTcdLibrary.StatusClasses
         {
             try
             {
-                List<byte> bufferData = new List<byte>(BUFFER_LENGTH);
+                List<byte> bufferData = new List<byte>(DMIProtocol.BOARD_INFO_REQUEST_LENGTH);
                 char[] bufferCharArr = new char[HARDWARE_VERSION_INDEX];
 
                 boardInfo.modelString.ToCharArray().CopyTo

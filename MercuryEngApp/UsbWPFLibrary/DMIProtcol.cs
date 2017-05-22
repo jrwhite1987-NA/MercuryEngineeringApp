@@ -461,6 +461,7 @@ namespace UsbTcdLibrary
         internal const int MODULE_INFO_REQUEST_LENGTH = 140;
 
         internal const int PROBE_INFO_REQUEST_LENGTH = 84;
+        internal const int BOARD_INFO_REQUEST_LENGTH = 84;
 
         private static bool is256 = false;
 

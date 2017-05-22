@@ -171,7 +171,7 @@ namespace UsbTcdLibrary.StatusClasses
         /// <returns></returns>
         internal static byte[] ConvertProbeInfoToArray(ProbeInfo probeInfoObj)
         {
-            List<byte> byteArray = new List<byte>(96);
+            List<byte> byteArray = new List<byte>(84);
             char[] bufferCharArr = new char[58];
 
             probeInfoObj.descriptionString.ToCharArray().CopyTo(bufferCharArr, DESCRIPTION_STRING_INDEX);
@@ -192,7 +192,7 @@ namespace UsbTcdLibrary.StatusClasses
             byteArray.AddRange(BitConverter.GetBytes(probeInfoObj.insertionLoss));
             byteArray.AddRange(BitConverter.GetBytes(probeInfoObj.adjustedM1));
             byteArray.AddRange(BitConverter.GetBytes(probeInfoObj.adjustedM2));
-            byteArray.AddRange(new byte[16]);
+            byteArray.AddRange(new byte[4]);
 
             return byteArray.ToArray();
         }
