@@ -61,7 +61,7 @@
                                Width="745" Margin="-1,-1,-1,0" HorizontalAlignment="Right"/>
                     <TextBlock Height="17" Margin="13,8,0,0" Text="Hex Editor " Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
                     <Grid>
-                        <DataGrid Name="grdMailbag"  Grid.Column="1" DataContext="{StaticResource ItemCollectionViewSource}" AutoGenerateColumns="False"  CanUserAddRows="False" ItemsSource="{Binding}">
+                        <DataGrid Name="grdMailbag" IsReadOnly="True"  Grid.Column="1" DataContext="{StaticResource ItemCollectionViewSource}" AutoGenerateColumns="False" SelectionUnit="Cell" CanUserAddRows="False" ItemsSource="{Binding}">
                             <DataGrid.Columns>
                                 <DataGridTextColumn x:Name="Offset" Width="100" Binding="{Binding Path=Offset}" Header="Offset" />
                                 <DataGridTextColumn x:Name="cHx_00" Binding="{Binding Path=Hx_00}" Header="00" />
@@ -81,6 +81,15 @@
                                 <DataGridTextColumn x:Name="cHx_0e" Binding="{Binding Path=Hx_0e}" Header="0e" />
                                 <DataGridTextColumn x:Name="cHx_0f" Binding="{Binding Path=Hx_0f}" Header="0f" />
                             </DataGrid.Columns>
+                            <DataGrid.Resources>
+                                <Style TargetType="DataGridCell">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" Value="Red"></Setter>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGrid.Resources>
                         </DataGrid>
                     </Grid>
                 </Grid>

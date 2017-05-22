@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using System.Numerics;
 using System.IO;
 using System.Globalization;
+using System.Windows.Controls.Primitives;
 
 namespace MercuryEngApp
 {
@@ -141,7 +142,21 @@ namespace MercuryEngApp
 
         void treeItem_Selected(object sender, RoutedEventArgs e)
         {
+            ItemsMenu item = (ItemsMenu)trvMenu.SelectedItem;
+            KeyValuePair<int, int> fromIndex;
+            KeyValuePair<int, int> toIndex;
 
+            if (item.Title == "Packet")
+            {
+                fromIndex = new KeyValuePair<int, int>(1, 1);
+                toIndex = new KeyValuePair<int, int>(10, 5);
+            }
+            else
+            {
+                fromIndex = new KeyValuePair<int, int>(3, 3);
+                toIndex = new KeyValuePair<int, int>(3, 7);
+            }
+            SelectCellsByIndexes(fromIndex, toIndex);
         }
 
         public void LoadBinaryData()
@@ -258,6 +273,145 @@ namespace MercuryEngApp
             CollectionViewSource itemCollectionViewSource;
             itemCollectionViewSource = (CollectionViewSource)(FindResource("ItemCollectionViewSource"));
             itemCollectionViewSource.Source = listHexRecord;
+        }
+
+        private void SelectCellsByIndexes(KeyValuePair<int,int> fromIndex, KeyValuePair<int,int> toIndex)
+        {
+            grdMailbag.SelectedItems.Clear();
+            grdMailbag.SelectedCells.Clear();
+            int fromRowIndex = fromIndex.Key;
+            int fromColumnIndex = fromIndex.Value;
+            int toRowIndex = toIndex.Key;
+            int toColumnIndex = toIndex.Value;
+
+            for (int i = fromRowIndex; i <= toRowIndex; i++)
+            {
+                int rowIndex = i;
+                int columnIndex = 1;
+                if (rowIndex == fromRowIndex)
+                {
+                    columnIndex = fromColumnIndex;
+                }
+                else
+                {
+                    columnIndex = 1;
+                }
+
+                while (columnIndex < grdMailbag.Columns.Count)
+                {
+                    if (rowIndex == toRowIndex && columnIndex > toColumnIndex)
+                    {
+                        break;
+                    }
+                    SelectCellByIndex(rowIndex, columnIndex);
+                    columnIndex++;
+                }
+            }
+
+            
+            //foreach (KeyValuePair<int, int> cellIndex in cellIndexes)
+            //{
+            //    int rowIndex = cellIndex.Key;
+            //    int columnIndex = cellIndex.Value;
+
+            //    if (rowIndex < 0 || rowIndex > (grdMailbag.Items.Count - 1))
+            //        throw new ArgumentException(string.Format("{0} is an invalid row index.", rowIndex));
+
+            //    if (columnIndex < 0 || columnIndex > (grdMailbag.Columns.Count - 1))
+            //        throw new ArgumentException(string.Format("{0} is an invalid column index.", columnIndex));
+
+            //    object item = grdMailbag.Items[rowIndex]; //= Product X
+            //    DataGridRow row = grdMailbag.ItemContainerGenerator.ContainerFromIndex(rowIndex) as DataGridRow;
+            //    if (row == null)
+            //    {
+            //        grdMailbag.ScrollIntoView(item);
+            //        row = grdMailbag.ItemContainerGenerator.ContainerFromIndex(rowIndex) as DataGridRow;
+            //    }
+            //    if (row != null)
+            //    {
+            //        DataGridCell cell = GetCell(grdMailbag, row, columnIndex);
+            //        if (cell != null)
+            //        {
+            //            DataGridCellInfo dataGridCellInfo = new DataGridCellInfo(cell);
+            //            grdMailbag.SelectedCells.Add(dataGridCellInfo);
+            //            cell.Focus();
+            //        }
+            //    }
+            //}
+        }
+
+        public void SelectCellByIndex(int rowIndex, int columnIndex)
+        {
+            object item = grdMailbag.Items[rowIndex]; //=Product X
+            DataGridRow row = grdMailbag.ItemContainerGenerator.ContainerFromIndex(rowIndex) as DataGridRow;
+            if (row == null)
+            {
+                grdMailbag.ScrollIntoView(item);
+                row = grdMailbag.ItemContainerGenerator.ContainerFromIndex(rowIndex) as DataGridRow;
+            }
+            if (row != null)
+            {
+                DataGridCell cell = GetCell(grdMailbag, row, columnIndex);
+                if (cell != null)
+                {
+                    //SolidColorBrush color = (SolidColorBrush)cell.Background;
+                    //MessageBox.Show(color.Color.ToString());
+                    //cell.Background = new SolidColorBrush(Colors.Red);
+                    //MessageBox.Show(cell.Background.ToString());
+                    DataGridCellInfo dataGridCellInfo = new DataGridCellInfo(cell);
+                    if (!grdMailbag.SelectedCells.Contains(dataGridCellInfo))
+                    {
+                        grdMailbag.SelectedCells.Add(dataGridCellInfo);
+                        //cell.Focus();
+                    }
+                }
+            }
+        }
+
+        public DataGridCell GetCell(DataGrid dataGrid, DataGridRow rowContainer, int column)
+        {
+            if (rowContainer != null)
+            {
+                DataGridCellsPresenter presenter = FindVisualChild<DataGridCellsPresenter>(rowContainer);
+                if (presenter == null)
+                {
+                    /* if the row has been virtualized away, call its ApplyTemplate() method
+                     * to build its visual tree in order for the DataGridCellsPresenter
+                     * and the DataGridCells to be created */
+                    rowContainer.ApplyTemplate();
+                    presenter = FindVisualChild<DataGridCellsPresenter>(rowContainer);
+                }
+                if (presenter != null)
+                {
+                    DataGridCell cell = presenter.ItemContainerGenerator.ContainerFromIndex(column) as DataGridCell;
+                    if (cell == null)
+                    {
+                        /* bring the column into view
+                         * in case it has been virtualized away */
+                        dataGrid.ScrollIntoView(rowContainer, dataGrid.Columns[column]);
+                        cell = presenter.ItemContainerGenerator.ContainerFromIndex(column) as DataGridCell;
+                    }
+                    return cell;
+                }
+            }
+            return null;
+        }
+
+        public T FindVisualChild<T>(DependencyObject obj) where T : DependencyObject
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+            {
+                DependencyObject child = VisualTreeHelper.GetChild(obj, i);
+                if (child != null && child is T)
+                    return (T)child;
+                else
+                {
+                    T childOfChild = FindVisualChild<T>(child);
+                    if (childOfChild != null)
+                        return childOfChild;
+                }
+            }
+            return null;
         }
     }
 
