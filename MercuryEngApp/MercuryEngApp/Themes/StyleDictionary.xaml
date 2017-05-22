@@ -344,14 +344,14 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" TargetName="border">
                                 <Setter.Value>
-                                    <ImageBrush ImageSource="NA_btn_180x60_selected.png"/>
+                                    <ImageBrush ImageSource="NA_btn_262x62_down.png"/>
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
                         <Trigger Property="IsChecked" Value="True">
                             <Setter Property="Background" TargetName="border">
                                 <Setter.Value>
-                                    <ImageBrush ImageSource="NA_btn_180x60_selected.png"/>
+                                    <ImageBrush ImageSource="NA_btn_262x62_down.png"/>
                                 </Setter.Value>
                             </Setter>
                         </Trigger>

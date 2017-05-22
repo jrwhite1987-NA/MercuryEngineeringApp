@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1340">
+             d:DesignHeight="560" d:DesignWidth="1340">
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -24,22 +24,27 @@
                     Grid.Column="0" 
                     Grid.Row="0">
                 <Grid Name="LeftPanelInfoTop" >
-                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="90*"/>
+                    </Grid.ColumnDefinitions>
+
                     <Border Style="{StaticResource ResourceKey=RoundedRectangleBlue}" 
                             Height="40" 
                             VerticalAlignment="Top" 
-                            Width="548" 
-                            Margin="-1,-1,-1,0">
+                            Width="550" 
+                            Margin="-2,-2,-2,0" Grid.ColumnSpan="2">
 
-                    <TextBlock Height="17" 
+                        <TextBlock Height="17" 
                                Margin="13,8,0,0" 
                                Text="Board Info" 
                                Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
                     </Border>
 
-                    <Grid>
+                    <Grid Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="28*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
@@ -52,75 +57,75 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock Height="17" 
-                                   Margin="13,15,0,0" 
+                                   Margin="5,15,0,0" 
                                    Text="Part Number" 
                                    Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                                   Grid.Row="1"/>
-                        
+                                   Grid.Row="1" Grid.Column="1"/>
+
                         <TextBlock Height="17" 
-                                   Margin="13,15,0,0" 
+                                   Margin="5,15,0,0" 
                                    Text="Model Name" 
                                    Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                                   Grid.Row="2"/>
-                        
+                                   Grid.Row="2" Grid.Column="1"/>
+
                         <TextBlock Height="17" 
-                                   Margin="13,15,0,0" 
+                                   Margin="5,15,0,0" 
                                    Text="Hardware Revision" 
                                    Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                                   Grid.Row="3"/>
-                        
+                                   Grid.Row="3" Grid.Column="1"/>
+
                         <TextBlock Height="17" 
-                                   Margin="13,15,0,0" 
+                                   Margin="5,15,0,0" 
                                    Text="Serial Number" 
                                    Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                                   Grid.Row="4"/>
+                                   Grid.Row="4" Grid.Column="1"/>
 
                         <TextBox Width="309" 
                                  Height="25"
                                  Text="{Binding Path=BoardPartNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                  Style="{StaticResource ResourceKey=MainTextbox}"
                                  Grid.Row="1" 
-                                 Grid.Column="1" 
-                                 Margin="0,0,5,0"/>
-                        
+                                 Grid.Column="2" 
+                                 Margin="0,5,5,5"/>
+
                         <TextBox Width="309" 
                                  Height="25"
                                  Text="{Binding Path=BoardModelName, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                  Style="{StaticResource ResourceKey=MainTextbox}"
                                  Grid.Row="2" 
-                                 Grid.Column="1" 
-                                 Margin="0,0,5,0"/>
-                        
+                                 Grid.Column="2" 
+                                 Margin="0,5,5,5"/>
+
                         <TextBox Width="309" 
                                  Height="25"
                                  Text="{Binding Path=HardwareRevision, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                  Style="{StaticResource ResourceKey=MainTextbox}"
                                  Grid.Row="3" 
-                                 Grid.Column="1" 
-                                 Margin="0,0,5,0" 
+                                 Grid.Column="2" 
+                                 Margin="0,5,5,5" 
                                  Background="White"/>
-                        
+
                         <TextBox Width="309" 
                                  Height="25" 
                                  Grid.Row="4"
                                  Text="{Binding Path=BoardSerialNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                  Style="{StaticResource ResourceKey=MainTextbox}"
-                                 Grid.Column="1" 
-                                 Margin="0,0,5,0"/>
+                                 Grid.Column="2" 
+                                 Margin="0,8,5,8"/>
 
-                            <Button Content="Read" 
+                        <Button Content="Read" 
                                     Style="{StaticResource ResourceKey=ButtonStyle1}" 
-                                    Grid.Column="1" 
+                                    Grid.Column="2" 
                                     Grid.Row="5" 
                                     Width="125" 
                                     Height="45" 
                                     HorizontalAlignment="Left" 
                                     VerticalAlignment="Top" 
                                     Click="ReadBoardInfoClick"/>
-                        
-                            <Button Content="Write" 
+
+                        <Button Content="Write" 
                                     Style="{StaticResource ResourceKey=ButtonStyle1}" 
-                                    Grid.Column="1" 
+                                    Grid.Column="2" 
                                     Grid.Row="5" 
                                     Width="125" 
                                     Height="45" 
@@ -128,9 +133,9 @@
                                     VerticalAlignment="Top" 
                                     Click="WriteBoardInfoClick" 
                                     Margin="0,0,5,0"/>
-          
+
                     </Grid>
-                    
+
                 </Grid>
             </Border>
 
@@ -141,13 +146,13 @@
                     Margin="10,-20,0,0" 
                     Grid.Column="0" 
                     Grid.Row="1" >
-                
+
                 <Grid Name="LeftPanelInfoBottom" >
                     <Border Height="40" 
                             VerticalAlignment="Top" 
                             Style="{StaticResource ResourceKey=RoundedRectangleBlue}"
-                               Width="548" 
-                            Margin="-1,-1,-1,0">
+                               Width="550" 
+                            Margin="-2,-2,-2,0">
 
                         <TextBlock Height="17" 
                                    Margin="13,8,0,0" 
@@ -178,7 +183,7 @@
                                   Grid.Row="1" 
                                   Grid.Column="1" 
                                   Margin="0,0,5,0"/>
-                        
+
                         <Button Content="Read" 
                                 Style="{StaticResource ResourceKey=ButtonStyle1}" 
                                 Grid.Column="1" 
@@ -187,7 +192,7 @@
                                 Height="45" 
                                 HorizontalAlignment="Left" 
                                 Click="ReadChannelClick"/>
-                            
+
                         <Button Content="Write" 
                                     Style="{StaticResource ResourceKey=ButtonStyle1}" 
                                     Grid.Column="1" 
@@ -205,17 +210,16 @@
             </Border>
         </Grid>
 
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="1" Height="560">
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
                     Width="745"
-                    Height="495" 
                     VerticalAlignment="Top" 
                     Margin="10,5,10,0" 
                     Grid.Column="0">
 
                 <Grid Name="rightPanelInfoTop" >
                     <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" Height="40" VerticalAlignment="Top" 
-                               Width="745" Margin="-1,-1,-1,0" HorizontalAlignment="Right"/>
+                               Width="745" Margin="-3,-2,-1,0" HorizontalAlignment="Right"/>
                     <TextBlock Height="17" Margin="13,8,0,0" Text="Probe Info" Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
 
                     <Grid>
@@ -242,86 +246,86 @@
                                 <RowDefinition Height="34"/>
                                 <RowDefinition Height="34"/>
                             </Grid.RowDefinitions>
-                            
+
                             <TextBlock Height="17" 
                                        Margin="13,15,0,0" 
                                        Text="Part Number" 
                                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                        Grid.Row="1"/>
-                            
+
                             <TextBlock Height="17" 
                                        Margin="13,15,0,0" 
                                        Text="Model Name" 
                                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                        Grid.Row="2"/>
-                            
+
                             <TextBlock Height="17" 
                                        Margin="13,15,0,0" 
                                        Text="Serial Number" 
                                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                        Grid.Row="3"/>
-                            
+
                             <TextBlock Height="17" 
                                        Margin="13,15,0,0" 
                                        Text="Physical ID" 
                                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                        Grid.Row="4"/>
-                            
+
                             <TextBlock Height="17" 
                                        Margin="13,15,0,0" 
                                        Text="Format ID" 
                                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                        Grid.Row="5"/>
-                            
+
                             <TextBlock Height="17" 
                                        Margin="13,15,0,0" 
                                        Text="Center Frequency (MHz)" 
                                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                        Grid.Row="6"/>
-                            
+
                             <TextBlock Height="17" 
                                        Margin="13,15,0,0" 
                                        Text="Diameter (mm)" 
                                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                        Grid.Row="7"/>
-                            
+
                             <TextBlock Height="17" 
                                        Margin="13,15,0,0" 
                                        Text="Tank Focal Length (mm)" 
                                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                        Grid.Row="8"/>
-                            
+
                             <TextBlock Height="17" 
                                        Margin="13,15,0,0" 
                                        Text="Insertion Loss (db)" 
                                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                        Grid.Row="9"/>
-                            
+
                             <TextBlock Height="17" 
                                        Margin="13,15,0,0" 
                                        Text="TIC (Normalized at 100% Power)" 
                                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                        Grid.Row="10"/>
-                            
+
                             <TextBlock Height="17" 
                                        Margin="13,15,0,0" 
                                        Text="Fractional 3db BW (%)" 
                                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                        Grid.Row="11"/>
-                            
+
                             <TextBlock Height="17" 
                                        Margin="13,15,0,0" 
                                        Text="Impedance (ohms)" 
                                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                        Grid.Row="12"/>
-                            
+
                             <TextBlock Height="17" 
                                        Margin="13,15,0,0" 
                                        Text="Phase Angle (degrees)" 
                                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                        Grid.Row="13"/>
 
-                            
+
                             <ComboBox Width="290" 
                                       Height="25"
                                       Text="{Binding Path=ProbePartNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
@@ -329,7 +333,7 @@
                                       Grid.Column="1" 
                                       Margin="0,0,5,0" 
                                       Style="{StaticResource ResourceKey=ComboBoxBorder}" />
-                            
+
                             <TextBox Height="25"
                                      Text="{Binding Path=ProbeModelName, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                      Style="{StaticResource ResourceKey=MainTextbox}" 
@@ -337,7 +341,7 @@
                                      TextAlignment="Center" 
                                      Grid.Row="2" 
                                      Grid.Column="1"/>
-                            
+
                             <TextBox Height="25"
                                      Text="{Binding Path=ProbeSerialNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                      Style="{StaticResource ResourceKey=MainTextbox}"
@@ -345,7 +349,7 @@
                                      TextAlignment="Center" 
                                      Grid.Row="3" 
                                      Grid.Column="1"/>
-                            
+
                             <TextBox Height="25"
                                      Text="{Binding Path=PhysicalID, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                      Style="{StaticResource ResourceKey=MainTextbox}" 
@@ -353,7 +357,7 @@
                                      TextAlignment="Center" 
                                      Grid.Row="4" 
                                      Grid.Column="1"/>
-                            
+
                             <TextBox Height="25"
                                      Text="{Binding Path=FormatID, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                      Style="{StaticResource ResourceKey=MainTextbox}" 
@@ -361,7 +365,7 @@
                                      TextAlignment="Center" 
                                      Grid.Row="5" 
                                      Grid.Column="1"/>
-                            
+
                             <TextBox Height="25"
                                      Text="{Binding Path=CenterFrequency, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                      Style="{StaticResource ResourceKey=MainTextbox}" 
@@ -369,7 +373,7 @@
                                      TextAlignment="Center" 
                                      Grid.Row="6" 
                                      Grid.Column="1"/>
-                            
+
                             <TextBox Height="25"
                                      Text="{Binding Path=Diameter, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                      Style="{StaticResource ResourceKey=MainTextbox}" 
@@ -377,7 +381,7 @@
                                      TextAlignment="Center" 
                                      Grid.Row="7" 
                                      Grid.Column="1"/>
-                            
+
                             <TextBox Height="25"
                                      Text="{Binding Path=TankFocalLength, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                      Style="{StaticResource ResourceKey=MainTextbox}" 
@@ -385,7 +389,7 @@
                                      TextAlignment="Center" 
                                      Grid.Row="8" 
                                      Grid.Column="1"/>
-                            
+
                             <TextBox Height="25"
                                      Text="{Binding Path=InsertionLoss, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                      Style="{StaticResource ResourceKey=MainTextbox}" 
@@ -393,7 +397,7 @@
                                      TextAlignment="Center" 
                                      Grid.Row="9" 
                                      Grid.Column="1"/>
-                            
+
                             <TextBox Height="25"
                                      Text="{Binding Path=TIC, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                      Style="{StaticResource ResourceKey=MainTextbox}" 
@@ -401,7 +405,7 @@
                                      TextAlignment="Center" 
                                      Grid.Row="10" 
                                      Grid.Column="1"/>
-                            
+
                             <TextBox Height="25"
                                      Text="{Binding Path=Fractional3dbBW, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                      Style="{StaticResource ResourceKey=MainTextbox}" 
@@ -409,7 +413,7 @@
                                      TextAlignment="Center" 
                                      Grid.Row="11" 
                                      Grid.Column="1"/>
-                            
+
                             <TextBox Height="25"
                                      Text="{Binding Path=Impedance, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                      Style="{StaticResource ResourceKey=MainTextbox}" 
@@ -417,7 +421,7 @@
                                      TextAlignment="Center" 
                                      Grid.Row="12" 
                                      Grid.Column="1"/>
-                            
+
                             <TextBox Height="25"
                                      Text="{Binding Path=PhaseAngle, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                      Style="{StaticResource ResourceKey=MainTextbox}" 
@@ -425,8 +429,8 @@
                                      TextAlignment="Center" 
                                      Grid.Row="13" 
                                      Grid.Column="1"/>
-                            
-                                <Button Content="Read" 
+
+                            <Button Content="Read" 
                                         Style="{StaticResource ResourceKey=ButtonStyle1}" 
                                         Grid.Column="2" 
                                         Grid.RowSpan="2" 
@@ -437,7 +441,7 @@
                                         Click="ReadProbeInfoClick" 
                                         Margin="17,0,17,25" 
                                         VerticalAlignment="Bottom"/>
-                            
+
                             <Button Content="Write" 
                                     Style="{StaticResource ResourceKey=ButtonStyle1}" 
                                     Grid.Column="2" 
