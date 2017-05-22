@@ -25,6 +25,7 @@ namespace MercuryEngApp
     /// </summary>
     public partial class PacketControl : UserControl
     {
+        public bool IsManualClickSelect = true;
         public PacketControl()
         {
             InitializeComponent();
@@ -146,6 +147,7 @@ namespace MercuryEngApp
             KeyValuePair<int, int> fromIndex;
             KeyValuePair<int, int> toIndex;
 
+            IsManualClickSelect = false;
             if (item.Title == "Packet")
             {
                 fromIndex = new KeyValuePair<int, int>(1, 1);
@@ -157,6 +159,8 @@ namespace MercuryEngApp
                 toIndex = new KeyValuePair<int, int>(3, 7);
             }
             SelectCellsByIndexes(fromIndex, toIndex);
+
+            IsManualClickSelect = true;
         }
 
         public void LoadBinaryData()
@@ -354,10 +358,6 @@ namespace MercuryEngApp
                 DataGridCell cell = GetCell(grdMailbag, row, columnIndex);
                 if (cell != null)
                 {
-                    //SolidColorBrush color = (SolidColorBrush)cell.Background;
-                    //MessageBox.Show(color.Color.ToString());
-                    //cell.Background = new SolidColorBrush(Colors.Red);
-                    //MessageBox.Show(cell.Background.ToString());
                     DataGridCellInfo dataGridCellInfo = new DataGridCellInfo(cell);
                     if (!grdMailbag.SelectedCells.Contains(dataGridCellInfo))
                     {
@@ -413,6 +413,7 @@ namespace MercuryEngApp
             }
             return null;
         }
+
     }
 
     public class HexRecord
