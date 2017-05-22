@@ -454,7 +454,7 @@
                     <Grid HorizontalAlignment="Stretch">
                         <Image Name="backGroundImage" HorizontalAlignment="Left"
                                    Stretch="Fill"
-                                   Source="\Themes\NA_btn_exam_66x56_on.png" />
+                                   Source="NA_btn_exam_66x56_on.png" />
                         <!--<Image Name="HLine" Visibility="Visible"
                                    Height="4" Width="1100"
                                    Margin="56,10,0,0" Stretch="UniformToFill"
