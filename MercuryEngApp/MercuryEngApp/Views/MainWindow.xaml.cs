@@ -36,6 +36,7 @@ namespace MercuryEngApp
             this.Loaded += MainWindowLoaded;
             PowerController.Instance.OnDeviceStateChanged += MicrocontrollerOnDeviceStateChanged;
             PowerController.Instance.StartWatcher();
+            TestReview();
         }
 
         void MainWindowLoaded(object sender, RoutedEventArgs e)
@@ -44,6 +45,27 @@ namespace MercuryEngApp
             InfoTab.Content = new InfoUserControl();
             CalibrationTab.Content = new CalibrationUserControl();
             PacketTab.Content = new PacketControl();
+
+        }
+
+        public void TestReview()
+        {
+            List<ReadPointerModel> listReadPointerModel = new List<ReadPointerModel>();
+            ReadPointerModel readPointerModel = new ReadPointerModel();
+            readPointerModel.ChannelId = 1;
+            readPointerModel.ExamId = 13;
+            readPointerModel.ExamSnapShotId = 82;
+            readPointerModel.OffsetByte = 363372;
+            readPointerModel.RangeOffsetByte = 566000;
+            listReadPointerModel.Add(readPointerModel);
+            UsbTcd.TCDObj.ReadFromFileWithRange(13, listReadPointerModel);
+            List<DMIPmdDataPacket> ListDMIPmdDataPacket = UsbTcd.TCDObj.PacketQueue[82];
+            string json = JsonConvert.SerializeObject(ListDMIPmdDataPacket);
+            string jsonFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"LocalFolder\13-Channel1Json.txt");
+            System.IO.File.WriteAllText(jsonFilePath, json);
+            XmlDocument doc = JsonConvert.DeserializeXmlNode("{\"Row\":" + json + "}", "root");
+            string xmlFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"LocalFolder\13-Channel1Xml.xml");
+            doc.Save(xmlFilePath);
         }
 
         private async void MicrocontrollerOnDeviceStateChanged(bool flag)

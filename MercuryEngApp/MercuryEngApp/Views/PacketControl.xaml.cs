@@ -17,6 +17,8 @@ using System.Numerics;
 using System.IO;
 using System.Globalization;
 using System.Windows.Controls.Primitives;
+using UsbTcdLibrary;
+
 
 namespace MercuryEngApp
 {
@@ -35,69 +37,60 @@ namespace MercuryEngApp
 
         private void LoadTreeView()
         {
-            //ItemsMenu root = new ItemsMenu() { Title = "Menu" };
-            //ItemsMenu childItem1 = new ItemsMenu() { Title = "Child item #1" };
-            //childItem1.Items.Add(new ItemsMenu() { Title = "Child item #1.1" });
-            //childItem1.Items.Add(new ItemsMenu() { Title = "Child item #1.2" });
-            //root.Items.Add(childItem1);
-            //root.Items.Add(new ItemsMenu() { Title = "Child item #2" });
-            //trvMenu.Items.Add(root);
-
             //Root Item
             ItemsMenu PacketRoot = new ItemsMenu() { Title = "Packet" };
-            // First Element
-            ItemsMenu ChildP1 = new ItemsMenu() { Title = "Archive" };
-            //Add to root
+            // 1th Element 
+            ItemsMenu ChildP1 = GetMenuItem("Header", ServiceHeader.sync, "header");
+            ChildP1.Items.Add(GetMenuItem("Sync", ServiceHeader.sync, "long"));
+            ChildP1.Items.Add(GetMenuItem("SystemID", ServiceHeader.systemId, "byte"));
+            ChildP1.Items.Add(GetMenuItem("DataSource", ServiceHeader.dataSource, "byte"));
+            ChildP1.Items.Add(GetMenuItem("MessageType", ServiceHeader.messageType, "byte"));
+            ChildP1.Items.Add(GetMenuItem("MessageSubType", ServiceHeader.messageSubType, "byte"));
+            ChildP1.Items.Add(GetMenuItem("DataLength", ServiceHeader.dataLength, "ushort"));
+            ChildP1.Items.Add(GetMenuItem("Sequence", ServiceHeader.sequence, "ushort"));
             PacketRoot.Items.Add(ChildP1);
-            // Second Element 
-            ItemsMenu ChildP2 = new ItemsMenu() { Title = "Audio" };
-            ChildP2.Items.Add(new ItemsMenu() { Title = "Depth" });
-            ChildP2.Items.Add(new ItemsMenu() { Title = "RFU" });
-            ChildP2.Items.Add(new ItemsMenu() { Title = "SampleRate" });
-            ChildP2.Items.Add(new ItemsMenu() { Title = "MaxAmplitude" });
-            ChildP2.Items.Add(new ItemsMenu() { Title = "Toward" });
-            ChildP2.Items.Add(new ItemsMenu() { Title = "Away" });
+            // 2nd Element
+            ItemsMenu ChildP2 = new ItemsMenu() { Title = "Archive" };
+            //Add to root
             PacketRoot.Items.Add(ChildP2);
+            // 3rd Element 
+            ItemsMenu ChildP3 = GetMenuItem("Audio", ServiceHeader.sync, "audio"); 
+            ChildP3.Items.Add(new ItemsMenu() { Title = "Depth" });
+            ChildP3.Items.Add(new ItemsMenu() { Title = "RFU" });
+            ChildP3.Items.Add(new ItemsMenu() { Title = "SampleRate" });
+            ChildP3.Items.Add(new ItemsMenu() { Title = "MaxAmplitude" });
+            ChildP3.Items.Add(new ItemsMenu() { Title = "Toward" });
+            ChildP3.Items.Add(new ItemsMenu() { Title = "Away" });
+            PacketRoot.Items.Add(ChildP3);
 
-            // Third Element
+            // 4th Element
             PacketRoot.Items.Add(new ItemsMenu() { Title = "CheckSum" });
 
-            //Fourth Element
+            //5th Element
             PacketRoot.Items.Add(new ItemsMenu() { Title = "DataFormatRev" });
 
-            // Five Element 
+            // 6th Element 
             PacketRoot.Items.Add(new ItemsMenu() { Title = "EmbCount" });
 
-            // Six Element 
-            ItemsMenu ChildP6 = new ItemsMenu() { Title = "Envelope" };
-            ChildP6.Items.Add(new ItemsMenu() { Title = "Depth" });
-            ChildP6.Items.Add(new ItemsMenu() { Title = "VelocityUnits" });
-            ChildP6.Items.Add(new ItemsMenu() { Title = "ColIndexPos" });
-            ChildP6.Items.Add(new ItemsMenu() { Title = "PosVelocity" });
-            ChildP6.Items.Add(new ItemsMenu() { Title = "PosPEAK" });
-            ChildP6.Items.Add(new ItemsMenu() { Title = "PosMEAN" });
-            ChildP6.Items.Add(new ItemsMenu() { Title = "PosDIAS" });
-            ChildP6.Items.Add(new ItemsMenu() { Title = "PosPI" });
-            ChildP6.Items.Add(new ItemsMenu() { Title = "PosRI" });
-            ChildP6.Items.Add(new ItemsMenu() { Title = "ColIndexNeg" });
-            ChildP6.Items.Add(new ItemsMenu() { Title = "NegVelocity" });
-            ChildP6.Items.Add(new ItemsMenu() { Title = "NegPEAK" });
-            ChildP6.Items.Add(new ItemsMenu() { Title = "NegMEAN" });
-            ChildP6.Items.Add(new ItemsMenu() { Title = "NegDIAS" });
-            ChildP6.Items.Add(new ItemsMenu() { Title = "NegPI" });
-            ChildP6.Items.Add(new ItemsMenu() { Title = "NegRI" });
-            PacketRoot.Items.Add(ChildP6);
-
             // 7th Element 
-            ItemsMenu ChildP7 = new ItemsMenu() { Title = "Header" };
-            ChildP7.Items.Add(new ItemsMenu() { Title = "Sync" });
-            ChildP7.Items.Add(new ItemsMenu() { Title = "SystemID" });
-            ChildP7.Items.Add(new ItemsMenu() { Title = "DataSource" });
-            ChildP7.Items.Add(new ItemsMenu() { Title = "MessageType" });
-            ChildP7.Items.Add(new ItemsMenu() { Title = "MessageSubType" });
-            ChildP7.Items.Add(new ItemsMenu() { Title = "DataLength" });
-            ChildP7.Items.Add(new ItemsMenu() { Title = "Sequence" });
-            PacketRoot.Items.Add(ChildP7);
+            ItemsMenu ChildP7 = new ItemsMenu() { Title = "Envelope" };
+            ChildP7.Items.Add(new ItemsMenu() { Title = "Depth" });
+            ChildP7.Items.Add(new ItemsMenu() { Title = "VelocityUnits" });
+            ChildP7.Items.Add(new ItemsMenu() { Title = "ColIndexPos" });
+            ChildP7.Items.Add(new ItemsMenu() { Title = "PosVelocity" });
+            ChildP7.Items.Add(new ItemsMenu() { Title = "PosPEAK" });
+            ChildP7.Items.Add(new ItemsMenu() { Title = "PosMEAN" });
+            ChildP7.Items.Add(new ItemsMenu() { Title = "PosDIAS" });
+            ChildP7.Items.Add(new ItemsMenu() { Title = "PosPI" });
+            ChildP7.Items.Add(new ItemsMenu() { Title = "PosRI" });
+            ChildP7.Items.Add(new ItemsMenu() { Title = "ColIndexNeg" });
+            ChildP7.Items.Add(new ItemsMenu() { Title = "NegVelocity" });
+            ChildP7.Items.Add(new ItemsMenu() { Title = "NegPEAK" });
+            ChildP7.Items.Add(new ItemsMenu() { Title = "NegMEAN" });
+            ChildP7.Items.Add(new ItemsMenu() { Title = "NegDIAS" });
+            ChildP7.Items.Add(new ItemsMenu() { Title = "NegPI" });
+            ChildP7.Items.Add(new ItemsMenu() { Title = "NegRI" });
+            PacketRoot.Items.Add(ChildP7);         
 
             // 8th Element 
             ItemsMenu ChildP8 = new ItemsMenu() { Title = "Mmode" };
@@ -146,21 +139,65 @@ namespace MercuryEngApp
             ItemsMenu item = (ItemsMenu)trvMenu.SelectedItem;
             KeyValuePair<int, int> fromIndex;
             KeyValuePair<int, int> toIndex;
-
-            IsManualClickSelect = false;
-            if (item.Title == "Packet")
-            {
-                fromIndex = new KeyValuePair<int, int>(1, 1);
-                toIndex = new KeyValuePair<int, int>(10, 5);
-            }
-            else
-            {
-                fromIndex = new KeyValuePair<int, int>(3, 3);
-                toIndex = new KeyValuePair<int, int>(3, 7);
-            }
+            fromIndex = new KeyValuePair<int, int>(item.StartRow, item.StartColumn);
+            toIndex = new KeyValuePair<int, int>(item.EndRow, item.EndColumn);
             SelectCellsByIndexes(fromIndex, toIndex);
+        }
 
-            IsManualClickSelect = true;
+        public ItemsMenu GetMenuItem(string title, int postion, string type)
+        {
+            ItemsMenu item = new ItemsMenu();
+
+            item.Title = title;
+            item.StartRow = postion / 16;
+            item.StartColumn = (postion % 16) + 1;
+
+            int byteSize = GetByteSize(type);
+
+            item.EndRow = (postion + byteSize) / 16;
+            item.EndColumn = ((postion + byteSize) % 16) + 1;
+
+            return item;
+        }
+
+        public int GetByteSize(string type)
+        {
+            int byteSize = 0;
+
+            switch (type)
+            {
+                case "int":
+                    byteSize = 3;
+                    break;
+                case "uint":
+                    byteSize = 3;
+                    break;
+                case "long":
+                    byteSize = 7;
+                    break;
+                case "float":
+                    byteSize = 3;
+                    break;
+                case "short":
+                    byteSize = 1;
+                    break;
+                case "ushort":
+                    byteSize = 1;
+                    break;
+                case "byte":
+                    byteSize = 0;
+                    break;
+                case "header":
+                    byteSize = ServiceHeader.sequence + 1;
+                    break;
+                case "points":
+                    byteSize = (DMIProtocol.SpectrumPointsCount * 2) - 1;
+                    break;
+                default:
+                    break;
+            }
+
+            return byteSize;
         }
 
         public void LoadBinaryData()
@@ -170,8 +207,8 @@ namespace MercuryEngApp
             int hexIn;
 
             StringBuilder sb = new StringBuilder();
-            BigInteger bi1 = BigInteger.Parse("00000000", NumberStyles.HexNumber);
-            BigInteger bi2 = BigInteger.Parse("00000010", NumberStyles.HexNumber);
+            BigInteger InitailBInt = BigInteger.Parse("00000000", NumberStyles.HexNumber);
+            BigInteger ConstantBInt = BigInteger.Parse("00000010", NumberStyles.HexNumber);
             HexRecord hexRecord = null;
             byte[] cutFs = null;
             int count = 1;
@@ -257,8 +294,8 @@ namespace MercuryEngApp
                             break;
                         case 16:
                             hexRecord.Hx_0f = string.Format("{0:X2}", hexIn);
-                            hexRecord.Offset = string.Format("{0:X8}", bi1);
-                            bi1 = BigInteger.Add(bi1, bi2);
+                            hexRecord.Offset = string.Format("{0:X8}", InitailBInt);
+                            InitailBInt = BigInteger.Add(InitailBInt, ConstantBInt);
                             listHexRecord.Add(hexRecord);
                             count = 1;
                             break;
@@ -269,7 +306,7 @@ namespace MercuryEngApp
 
             if (cutFs.Length % 16 != 0)
             {
-                hexRecord.Offset = string.Format("{0:X8}", bi1);
+                hexRecord.Offset = string.Format("{0:X8}", InitailBInt);
                 listHexRecord.Add(hexRecord);
             }
 
@@ -441,13 +478,16 @@ namespace MercuryEngApp
 
     public class ItemsMenu
     {
-
         public ItemsMenu()
         {
             this.Items = new ObservableCollection<ItemsMenu>();
         }
 
         public string Title { get; set; }
+        public int StartRow { get; set; }
+        public int StartColumn { get; set; }
+        public int EndRow { get; set; }
+        public int EndColumn { get; set; }
 
         public ObservableCollection<ItemsMenu> Items { get; set; }
 

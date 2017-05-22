@@ -247,7 +247,7 @@ namespace UsbTcdLibrary
         /// </summary>
         public static int FFTSize = FFT128_SPECTRUM_POINTS;
 
-        internal static int SpectrumPointsCount = FFT128_SPECTRUM_POINTS;
+        public static int SpectrumPointsCount = FFT128_SPECTRUM_POINTS;
 
         /// <summary>
         /// The dmi PKT mmode PTS

@@ -5,7 +5,7 @@
     /// <summary>
     ///
     /// </summary>
-    internal static class ServiceHeader
+    public static class ServiceHeader
     {
         /// <summary>
         /// The synchronize
@@ -46,7 +46,7 @@
     /// <summary>
     ///
     /// </summary>
-    internal static class ServiceMessage
+    public static class ServiceMessage
     {
         /// <summary>
         /// The message code
@@ -62,7 +62,7 @@
     /// <summary>
     /// Class Header.
     /// </summary>
-    internal static class Header
+    public static class Header
     {
         /// <summary>
         /// The synchronize
@@ -113,7 +113,7 @@
     /// <summary>
     /// Class Parameter.
     /// </summary>
-    internal static class Parameter
+    public static class Parameter
     {
         /// <summary>
         /// The left time stamp
@@ -174,7 +174,7 @@
     /// <summary>
     /// Class Envelop.
     /// </summary>
-    internal static class Envelop
+    public static class Envelop
     {
         /// <summary>
         /// The depth
@@ -260,7 +260,7 @@
     /// <summary>
     /// Class Spectrum.
     /// </summary>
-    internal static class Spectrum
+    public static class Spectrum
     {
         /// <summary>
         /// The depth
@@ -301,7 +301,7 @@
     /// <summary>
     /// Class MMode.
     /// </summary>
-    internal static class MMode
+    public static class MMode
     {
         /// <summary>
         /// The automatic gain offset
@@ -337,7 +337,7 @@
     /// <summary>
     /// Class Audio.
     /// </summary>
-    internal static class Audio
+    public static class Audio
     {
         /// <summary>
         /// The depth
@@ -373,7 +373,7 @@
     /// <summary>
     /// Class EDetect.
     /// </summary>
-    internal static class EDetect
+    public static class EDetect
     {
         /// <summary>
         /// The phase a mq
@@ -464,7 +464,7 @@
     /// <summary>
     /// Class Archive.
     /// </summary>
-    internal static class Archive
+    public static class Archive
     {
         /// <summary>
         /// The time series depth
@@ -510,7 +510,7 @@
     /// <summary>
     /// Class Checksum.
     /// </summary>
-    internal static class Checksum
+    public static class Checksum
     {
         /// <summary>
         /// The checksum position
