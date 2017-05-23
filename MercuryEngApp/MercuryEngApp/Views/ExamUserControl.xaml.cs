@@ -63,9 +63,9 @@ namespace MercuryEngApp
             PowerController.Instance.OnDeviceStateChanged += MicrocontrollerOnDeviceStateChanged;
             this.DataContext = examViewModelObj;
 
-            //TCDAudio = new AudioWrapper();
-            //TCDAudio.PRF = 8000;
-            //TCDAudio.SetVolume(30);    
+            TCDAudio = new AudioWrapper();
+            TCDAudio.PRF = 8000;
+            TCDAudio.SetVolume(30);    
         }
 
         private async void MicrocontrollerOnDeviceStateChanged(bool flag)
@@ -162,7 +162,7 @@ namespace MercuryEngApp
 
                     UsbTcd.TCDObj.OnPacketFormed += TCDObjOnPacketFormed;
                     UsbTcd.TCDObj.StartTCDReading();
-                    //TCDAudio.AudioCollection.CollectionChanged += TCDAudio.AudioCollectionCollectionChanged;
+                    TCDAudio.AudioCollection.CollectionChanged += TCDAudio.AudioCollectionCollectionChanged;
                 }
             }
             catch (Exception ex)
@@ -175,12 +175,15 @@ namespace MercuryEngApp
         void TCDObjOnPacketFormed(DMIPmdDataPacket[] packets)
         {
             PacketCollection.Enqueue(packets);
-           // AddPacketsToAudioCollection(packets);
+            AddPacketsToAudioCollection(packets);
         }
 
         private void AddPacketsToAudioCollection(DMIPmdDataPacket[] packets)
         {
             var currentPacket = packets[0];
+            if (currentPacket == null)
+                currentPacket = packets[1];
+
             if (currentPacket != null)
             {
                 if (TCDAudio.PRF != currentPacket.parameter.PRF)
@@ -284,7 +287,14 @@ namespace MercuryEngApp
             {
                 requestObject.ChannelID = App.CurrentChannel;
                 requestObject.Value3 = examViewModelObj.Depth;
-                await UsbTcd.TCDObj.SetDepthAsync(requestObject);
+                TCDResponse response = await UsbTcd.TCDObj.SetDepthAsync(requestObject);
+                if(response.Result)
+                {
+                    customDepthSlider.Value = examViewModelObj.Depth;
+                    customDepthSlider.Resources["textValue"] = Convert.ToInt32(customDepthSlider.Value).ToString();
+                    customDepthSlider.InvalidateArrange();
+                }
+
             }
         }
 
@@ -343,7 +353,7 @@ namespace MercuryEngApp
             LeftBaselinePosition = (int)CustomSlider.Value;
 
             NaGraph.LeftSpectrogram.BaseLinePosition = LeftBaselinePosition;
-            
+            NaGraph.RightSpectrogram.BaseLinePosition = LeftBaselinePosition;
             Point screenCoords = Thumb.TransformToVisual(scaleGrid).Transform(new Point(0, 0));
             screenCoords.Y = screenCoords.Y  + 25;
             Scale.CreateScale(new ScaleParameters

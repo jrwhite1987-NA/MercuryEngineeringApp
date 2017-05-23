@@ -504,7 +504,7 @@
                 
             </Grid>
             <Image Grid.Row="0" 
-                   Margin="62,0,0,0" 
+                   Margin="62,0,10,0" 
                    x:Name="imageSpectrogram" 
                    Stretch="Fill" 
                    Height="205" 
