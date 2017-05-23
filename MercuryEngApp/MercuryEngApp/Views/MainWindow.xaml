@@ -155,32 +155,99 @@
             </Grid>
         </Grid>
         <Grid Name="FooterTextBox" 
-              Margin="25,0,20,20" 
-              Width="1315" >
-            <Button Content="Clear" 
-                    Style="{StaticResource ResourceKey=ButtonStyle1}"  
-                    Width="100" Height="30"
-                    HorizontalAlignment="Right" 
-                    Margin="0,0,12,97"
-                    VerticalAlignment="Bottom"/>
+              Margin="25,0,20,20" VerticalAlignment="Bottom">
+
+
+
 
             <Border  VerticalAlignment="Bottom" 
                      Style="{StaticResource ResourceKey=RoundedBorderBlue}"  >
+                <Grid Width="1340" >
+
+                    <Grid HorizontalAlignment="Right" >
+                        <Image Source="/Themes/NA_Clear_Icon.png" Width="26" Height="20"
+                    
+                    VerticalAlignment="Top" Margin="62,8,0,0" HorizontalAlignment="Left"/>
+
+                        <Image Source="/Themes/NA_Maximise-_Icon.png" Width="20" Height="20"
+                    
+                    Margin="22,8,52,0" VerticalAlignment="Top"/>
+                    </Grid>
+
+                    <Grid Grid.Row="0" HorizontalAlignment="Left"></Grid>
+                    <TabControl Height="120" Margin="5,5,5,5"
+                            VerticalAlignment="Top">
+                        <TabControl.Resources >
+                            <Style TargetType="TabPanel">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                            </Style>
+                            <Style TargetType="TabItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="TabItem">
+                                            <Border Name="Border" 
+                                                BorderThickness="2,2,2,0" 
+                                                Margin="0,0,-1,0">
+                                                <Border.BorderBrush>
+                                                    <SolidColorBrush Color="#FF9CAFB6" Opacity="0.5"/>
+                                                </Border.BorderBrush>
+                                                <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsSelected" Value="True">
+
+                                                    <Setter TargetName="Border" Property="Background" >
+                                                        <Setter.Value>
+                                                            <SolidColorBrush Color="#FF082746" Opacity="0.3"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                                <Trigger Property="IsSelected" Value="False">
+                                                    <Setter TargetName="Border" Property="Background" >
+                                                        <Setter.Value>
+                                                            <SolidColorBrush Color="#FFE4ECF3" Opacity="0.2"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TabControl.Resources>
+                        <TabControl.Background>
+                            <SolidColorBrush Color="#FF082E40" Opacity="0" />
+                        </TabControl.Background>
+                        <TabItem Width="110" Height="27" x:Name="Text1" >
+                            <TabItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="TextBox1" 
+                                           Foreground="White" 
+                                           FontSize="14" 
+                                           FontFamily="Arial" />
+                                </StackPanel>
+                            </TabItem.Header>
+                        </TabItem>
+                        <TabItem Width="110" Height="27" x:Name="Text2">
+                            <TabItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="TextBox2"  
+                                           Foreground="White" 
+                                           FontSize="14" 
+                                           FontFamily="Arial" />
+                                </StackPanel>
+                            </TabItem.Header>
+
+                        </TabItem>
+
+                    </TabControl>
+                </Grid>
 
 
-                <TextBlock HorizontalAlignment="Left" 
-                           Height="75" Margin="10,48,10,10" 
-                           TextWrapping="Wrap" 
-                           Text="Sample Data" 
-                           VerticalAlignment="Top" 
-                           Width="1310" 
-                           Foreground="White" 
-                           Padding="5">
-
-                    <TextBlock.Background>
-                        <SolidColorBrush Color="#FF0EAACD" Opacity="0.3"/>
-                    </TextBlock.Background>
-                </TextBlock>
 
             </Border>
         </Grid>

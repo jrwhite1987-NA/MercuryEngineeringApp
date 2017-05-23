@@ -221,6 +221,8 @@
     <Content Include="LocalFolder\13-Channel1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Themes\NA_Clear_Icon.png" />
+    <Resource Include="Themes\NA_Maximise-_Icon.png" />
     <Resource Include="Themes\GIF2V220160615.gif" />
     <Resource Include="Themes\NA_Blue_FulSize_Line.png" />
     <Resource Include="Themes\NA_btn_exam_66x56_on.png" />
