@@ -41,7 +41,7 @@ namespace AudioLib
         {
             if (pSourceVoice != null)
             {
-                pSourceVoice.Start();
+                pSourceVoice.Start(PlayFlags.None);
             }
 
             return true;
@@ -49,7 +49,7 @@ namespace AudioLib
 
         public void SetVolume(UInt32 volume)
         {
-            pMasterVoice.Volume = volume;
+            pMasterVoice.Volume = (float)(volume/10.0f);
         }
 
         public bool SendData(List<short> away, List<short> towards, short sRate)
@@ -202,9 +202,9 @@ namespace AudioLib
             {
                 arrData[2 * i] = away.ElementAt(i);
             }
-            for (int j = 0; j < away.Count; j++)
+            for (int j = 0; j < towards.Count; j++)
             {
-                arrData[2 * j + 1] = away.ElementAt(j);
+                arrData[2 * j + 1] = towards.ElementAt(j);
             }
             
             m_Buffs.Add(new Bundle());

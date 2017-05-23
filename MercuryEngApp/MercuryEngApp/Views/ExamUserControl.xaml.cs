@@ -65,7 +65,7 @@ namespace MercuryEngApp
 
             //TCDAudio = new AudioWrapper();
             //TCDAudio.PRF = 8000;
-            //TCDAudio.SetVolume(100);    
+            //TCDAudio.SetVolume(30);    
         }
 
         private async void MicrocontrollerOnDeviceStateChanged(bool flag)
