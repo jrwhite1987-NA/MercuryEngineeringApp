@@ -103,7 +103,8 @@ namespace MercuryEngApp
                     await UsbTcd.TCDObj.SetModeAsync(App.CurrentChannel, TCDModes.Active);
                 }
                 await PlotGraph();
-                CreateVerticalScales();              
+                CreateVerticalScales();
+                btnEnvelopToggle_Click(null, null);
             }
             catch(Exception ex)
             {
@@ -363,6 +364,7 @@ namespace MercuryEngApp
                 return GetThumb(this) as Thumb;
             }
         }
+
         private DependencyObject GetThumb(DependencyObject root)
         {
             if (root is Thumb)
@@ -388,6 +390,26 @@ namespace MercuryEngApp
         private void customDepthSlider_LostMouseCapture(object sender, MouseEventArgs e)
         {
             customDepthSlider.Resources["textValue"] = Convert.ToInt32(customDepthSlider.Value).ToString();
+        }
+
+        private void btnEnvelopToggle_Click(object sender, RoutedEventArgs e)
+        {
+            if(btnEnvelop.Content.ToString() == "Envelope On")
+            {
+                NaGraph.LeftSpectrogram.SpectrumEnvolope.NegativeFlowVisible = true;
+                NaGraph.LeftSpectrogram.SpectrumEnvolope.PositiveFlowVisible = true;
+                NaGraph.RightSpectrogram.SpectrumEnvolope.NegativeFlowVisible = true;
+                NaGraph.RightSpectrogram.SpectrumEnvolope.PositiveFlowVisible = true;
+                btnEnvelop.Content = "Envelope Off";
+            }
+            else
+            {
+                btnEnvelop.Content = "Envelope On";
+                NaGraph.LeftSpectrogram.SpectrumEnvolope.NegativeFlowVisible = false;
+                NaGraph.LeftSpectrogram.SpectrumEnvolope.PositiveFlowVisible = false;
+                NaGraph.RightSpectrogram.SpectrumEnvolope.NegativeFlowVisible = false;
+                NaGraph.RightSpectrogram.SpectrumEnvolope.PositiveFlowVisible = false;
+            }
         }
        
     }

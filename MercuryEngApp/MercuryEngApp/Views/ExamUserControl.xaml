@@ -472,19 +472,20 @@
                 </TextBox.Style>
             </TextBox>
 
-            <Button Content="Envelope" 
-                    Style="{StaticResource ResourceKey=LargeButtonStyle}" 
+            <ToggleButton x:Name="btnEnvelop" Content="Envelope On" 
+                    Style="{StaticResource ResourceKey=ButtonStyle2}" 
                     Margin="0,30,13,0" 
                     VerticalAlignment="Top" 
-                    Width="97" 
-                    Height="75"
-                    HorizontalAlignment = "Right"/>
+                    Width="120" Height="39"                                      
+                    HorizontalAlignment = "Right"
+                    Click="btnEnvelopToggle_Click"/>
+            
 
             <ToggleButton x:Name = "tb" Margin="0,105.5,12,0"
                       VerticalAlignment="Top"  
                       HorizontalAlignment = "Right"
                       Content = "Toggle"
-                      Width="100" Height="39"
+                      Width="120" Height="39"
                       Style="{StaticResource ResourceKey=ButtonStyle2}" />
 
         </Grid>
@@ -505,7 +506,8 @@
             <Image Grid.Row="0" 
                    Margin="62,0,0,0" 
                    x:Name="imageSpectrogram" 
-         Stretch="Fill" 
+                   Stretch="Fill" 
+                   Height="205" 
                    Panel.ZIndex="2" >
 
             </Image>
