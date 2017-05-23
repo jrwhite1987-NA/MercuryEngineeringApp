@@ -21,12 +21,12 @@
         </DataTemplate>
     </Window.Resources>-->
     <Grid x:Name="LayoutRoot">
-        <ContentControl VerticalAlignment="Top" 
+        <!--<ContentControl VerticalAlignment="Top" 
                         HorizontalAlignment="Left" 
                         VerticalContentAlignment="Stretch" 
                         HorizontalContentAlignment="Stretch" 
                         Content="{Binding Path=ChildView}" 
-                        Margin="10"/>
+                        Margin="10"/>-->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
