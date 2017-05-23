@@ -122,14 +122,14 @@ namespace MercuryEngApp
                 PacketRoot.Items.Add(ChildMmode);
 
                 // 3rd Element 
-                ItemsMenu ChildP3 = GetMenuItem("Audio", Audio.Depth, "audio");
-                ChildP3.Items.Add(GetMenuItem("Depth", Audio.Depth, "ushort"));
-                ChildP3.Items.Add(GetMenuItem("RFU", Audio.RFU, "ushort"));
-                ChildP3.Items.Add(GetMenuItem("SampleRate", Audio.SampleRate, "ushort"));
-                ChildP3.Items.Add(GetMenuItem("MaxAmplitude", Audio.MaxAmplitude, "ushort"));
-                ChildP3.Items.Add(GetMenuItem("Toward", Audio.Toward, "toward"));
-                ChildP3.Items.Add(GetMenuItem("Away", Audio.Away, "away"));
-                PacketRoot.Items.Add(ChildP3);
+                ItemsMenu ChildAudio = GetMenuItem("Audio", Audio.Depth, "audio");
+                ChildAudio.Items.Add(GetMenuItem("Depth", Audio.Depth, "ushort"));
+                ChildAudio.Items.Add(GetMenuItem("RFU", Audio.RFU, "ushort"));
+                ChildAudio.Items.Add(GetMenuItem("SampleRate", Audio.SampleRate, "ushort"));
+                ChildAudio.Items.Add(GetMenuItem("MaxAmplitude", Audio.MaxAmplitude, "ushort"));
+                ChildAudio.Items.Add(GetMenuItem("Toward", Audio.Toward, "toward"));
+                ChildAudio.Items.Add(GetMenuItem("Away", Audio.Away, "away"));
+                PacketRoot.Items.Add(ChildAudio);
 
                 // 2nd Element
                 ItemsMenu ChildP2 = new ItemsMenu() { Title = "Archive" };
