@@ -1,24 +1,15 @@
 ﻿using Core.Constants;
 using Core.Models.ReportModels;
 using MercuryEngApp.Common;
-using MercuryEngApp.Views;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.ComponentModel;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Xml;
-using UsbTcdLibrary;
 using UsbTcdLibrary.PacketFormats;
 
 
@@ -29,23 +20,26 @@ namespace MercuryEngApp
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {
+    {       
         public MainWindow()
         {
             InitializeComponent();
+           
             this.Loaded += MainWindowLoaded;
             PowerController.Instance.OnDeviceStateChanged += MicrocontrollerOnDeviceStateChanged;
             PowerController.Instance.StartWatcher();
             //TestReview();
-        }
+        }       
 
         void MainWindowLoaded(object sender, RoutedEventArgs e)
-        {
+        {            
             ExamTab.Content = new ExamUserControl();
             InfoTab.Content = new InfoUserControl();
             CalibrationTab.Content = new CalibrationUserControl();
-            PacketTab.Content = new PacketControl();
-
+            PacketTab.Content = new PacketControl();           
+            //Task.Delay(4500).Wait();
+            //MainLayout.Visibility = Visibility.Visible;
+            //temp.Visibility = Visibility.Collapsed;
         }
 
         public void TestReview()

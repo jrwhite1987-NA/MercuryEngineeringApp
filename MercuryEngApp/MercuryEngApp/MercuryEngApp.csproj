@@ -103,6 +103,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\WriteableBitmapEx.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="XamlAnimatedGif, Version=1.1.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\XamlAnimatedGif.1.1.9\lib\net45\XamlAnimatedGif.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

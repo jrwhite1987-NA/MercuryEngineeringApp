@@ -1,11 +1,12 @@
 ﻿<Window x:Class="MercuryEngApp.Views.SplashScreen"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:gif="clr-namespace:XamlAnimatedGif;assembly=XamlAnimatedGif"
          xmlns:local="using:MercuryEngApp.Views"
-        Title="SplashScreen"
-         xmlns:images="using:XamlAnimatedGif">
+        WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight"
+        ResizeMode="CanResizeWithGrip" WindowState="Maximized"
+		MinWidth="1366" MinHeight="768" Title="Neural Analytics"> 
     <Grid Background="#020e26">
-        <Image Source="Themes/GIF2V220160615.gif" Stretch="Fill"/>
-       
+        <Image x:Name="SplashScreenImg" gif:AnimationBehavior.SourceUri="/Themes/GIF2V220160615.gif" Stretch="Fill"/>
     </Grid>
 </Window>

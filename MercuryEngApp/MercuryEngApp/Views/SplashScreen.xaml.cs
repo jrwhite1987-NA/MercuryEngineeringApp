@@ -59,26 +59,27 @@ namespace MercuryEngApp.Views
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void SplashScreenLoaded(object sender, RoutedEventArgs e)
-        {            
-            
-            DecideHomePage();
-        }
-        /// <summary>
-        /// Decides the home page.
-        /// </summary>
-        private void DecideHomePage()
         {
-            MainViewModel loginViewModel = new MainViewModel();
-            MainWindow login = loginViewModel.GetMainWindowByUserID(NA_TECH_ID);
-            if (login==null)
-            {
-               
-            }
-            else
-            {
-                
-            }
+            //await Task.Delay(9000);  
+            //this.Close();
         }
+
+        ///// <summary>
+        ///// Decides the home page.
+        ///// </summary>
+        //private void DecideHomePage()
+        //{
+        //    MainViewModel loginViewModel = new MainViewModel();
+        //    MainWindow login = loginViewModel.GetMainWindowByUserID(NA_TECH_ID);
+        //    if (login==null)
+        //    {
+               
+        //    }
+        //    else
+        //    {
+                
+        //    }
+        //}
        
         /// <summary>
         /// Copy the database

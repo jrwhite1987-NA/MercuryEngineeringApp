@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using UsbTcdLibrary;
+using MercuryEngApp.Views;
 
 namespace MercuryEngApp
 {
@@ -70,5 +71,16 @@ namespace MercuryEngApp
         }
 
         public static MainViewModel MainViewModel { get; set; }
+
+        private async void Application_Startup(object sender, StartupEventArgs e)
+        {
+            MercuryEngApp.Views.SplashScreen splashScreen = new MercuryEngApp.Views.SplashScreen();
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            splashScreen.Show();
+            await Task.Delay(4500);
+            mainWindow.Activate();
+            splashScreen.Close();       
+        }
     }
 }
