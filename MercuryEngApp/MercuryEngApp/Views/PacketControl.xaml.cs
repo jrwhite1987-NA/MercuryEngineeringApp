@@ -18,6 +18,8 @@ using System.IO;
 using System.Globalization;
 using System.Windows.Controls.Primitives;
 using UsbTcdLibrary;
+using MercuryEngApp.Common;
+using UsbTcdLibrary.PacketFormats;
 
 
 namespace MercuryEngApp
@@ -38,107 +40,106 @@ namespace MercuryEngApp
         private void LoadTreeView()
         {
             //Root Item
-            ItemsMenu PacketRoot = GetMenuItem("DMIPacket", 0, "packet");
+            ItemsMenu PacketRoot = GetMenuItem("Packet", 0, "packet");
             PacketRoot.IsExpanded = true;
             // 1th Element 
-            ItemsMenu ChildP1 = GetMenuItem("Header", ServiceHeader.sync, "header");
-            ChildP1.Items.Add(GetMenuItem("Sync", ServiceHeader.sync, "long"));
-            ChildP1.Items.Add(GetMenuItem("SystemID", ServiceHeader.systemId, "byte"));
-            ChildP1.Items.Add(GetMenuItem("DataSource", ServiceHeader.dataSource, "byte"));
-            ChildP1.Items.Add(GetMenuItem("MessageType", ServiceHeader.messageType, "byte"));
-            ChildP1.Items.Add(GetMenuItem("MessageSubType", ServiceHeader.messageSubType, "byte"));
-            ChildP1.Items.Add(GetMenuItem("DataLength", ServiceHeader.dataLength, "ushort"));
-            ChildP1.Items.Add(GetMenuItem("Sequence", ServiceHeader.sequence, "ushort"));
-            PacketRoot.Items.Add(ChildP1);
+            ItemsMenu ChildHeader = GetMenuItem("Header", ServiceHeader.sync, "header");
+            ChildHeader.Items.Add(GetMenuItem("Sync", ServiceHeader.sync, "long"));
+            ChildHeader.Items.Add(GetMenuItem("SystemID", ServiceHeader.systemId, "byte"));
+            ChildHeader.Items.Add(GetMenuItem("DataSource", ServiceHeader.dataSource, "byte"));
+            ChildHeader.Items.Add(GetMenuItem("MessageType", ServiceHeader.messageType, "byte"));
+            ChildHeader.Items.Add(GetMenuItem("MessageSubType", ServiceHeader.messageSubType, "byte"));
+            ChildHeader.Items.Add(GetMenuItem("DataLength", ServiceHeader.dataLength, "ushort"));
+            ChildHeader.Items.Add(GetMenuItem("Sequence", ServiceHeader.sequence, "ushort"));
+            PacketRoot.Items.Add(ChildHeader);
 
-            //// 2nd Element
-            //ItemsMenu ChildP2 = new ItemsMenu() { Title = "Archive" };
-            //Add to root
-            ////PacketRoot.Items.Add(ChildP2);
+            // 2nd Element
+            PacketRoot.Items.Add(GetMenuItem("Reserved", Header.Reserved, "ushort"));
+
+            //3rd Element
+            PacketRoot.Items.Add(GetMenuItem("DataFormatREV", Header.DataFormatREV, "ushort"));
+
+            // 4th Element 
+            ItemsMenu ChildParameter = GetMenuItem("Parameter", Parameter.LeftTimeStamp, "parameter");
+            ChildParameter.Items.Add(GetMenuItem("TimestampL", Parameter.LeftTimeStamp, "uint"));
+            ChildParameter.Items.Add(GetMenuItem("TimestampH", Parameter.RightTimeStamp, "uint"));
+            ChildParameter.Items.Add(GetMenuItem("EventFlags", Parameter.EventFlags, "ushort"));
+            ChildParameter.Items.Add(GetMenuItem("OperatingState", Parameter.OperatingState, "byte"));
+            ChildParameter.Items.Add(GetMenuItem("AcousticPower", Parameter.AcousingPower, "byte"));
+            ChildParameter.Items.Add(GetMenuItem("SampleLength", Parameter.SampleLength, "byte"));
+            ChildParameter.Items.Add(GetMenuItem("UserDepth", Parameter.UserDepth, "byte"));
+            ChildParameter.Items.Add(GetMenuItem("PRF", Parameter.PRF, "ushort"));
+            ChildParameter.Items.Add(GetMenuItem("TIC", Parameter.TIC, "ushort"));
+            ChildParameter.Items.Add(GetMenuItem("RFU", Parameter.RFU, "ushort"));
+            PacketRoot.Items.Add(ChildParameter);
+
+            // 5th Element 
+            PacketRoot.Items.Add(GetMenuItem("EmbCount", Parameter.EmboliCount, "uint"));
+
+            // 6th Element 
+            ItemsMenu ChildEnvelop = GetMenuItem("Envelop", Envelop.Depth, "envelop");
+            ChildEnvelop.Items.Add(GetMenuItem("Depth", Envelop.Depth, "ushort"));
+            ChildEnvelop.Items.Add(GetMenuItem("VelocityUnits", Envelop.VelocityUnit, "ushort"));
+            ChildEnvelop.Items.Add(GetMenuItem("ColIndexPos", Envelop.ColIndexPos, "ushort"));
+            ChildEnvelop.Items.Add(GetMenuItem("PosVelocity", Envelop.PosVelocity, "short"));
+            ChildEnvelop.Items.Add(GetMenuItem("PosPEAK", Envelop.PosPeak, "short"));
+            ChildEnvelop.Items.Add(GetMenuItem("PosMEAN", Envelop.PosMean, "short"));
+            ChildEnvelop.Items.Add(GetMenuItem("PosDIAS", Envelop.PosDias, "short"));
+            ChildEnvelop.Items.Add(GetMenuItem("PosPI", Envelop.PosPI, "ushort"));
+            ChildEnvelop.Items.Add(GetMenuItem("PosRI", Envelop.PosRI, "ushort"));
+            ChildEnvelop.Items.Add(GetMenuItem("ColIndexNeg", Envelop.ColIndexNeg, "ushort"));
+            ChildEnvelop.Items.Add(GetMenuItem("NegVelocity", Envelop.NegVelocity, "ushort"));
+            ChildEnvelop.Items.Add(GetMenuItem("NegPEAK", Envelop.NegPeak, "short"));
+            ChildEnvelop.Items.Add(GetMenuItem("NegMEAN", Envelop.NegMean, "short"));
+            ChildEnvelop.Items.Add(GetMenuItem("NegDIAS", Envelop.NegDias, "short"));
+            ChildEnvelop.Items.Add(GetMenuItem("NegPI", Envelop.NegPI, "ushort"));
+            ChildEnvelop.Items.Add(GetMenuItem("NegRI", Envelop.NegRI, "ushort"));
+            PacketRoot.Items.Add(ChildEnvelop);
+
+            // 7th Element 
+            ItemsMenu ChildSpectrum = GetMenuItem("Spectrum", Spectrum.Depth, "spectrum");
+            ChildSpectrum.Items.Add(GetMenuItem("Depth", Spectrum.Depth, "ushort"));
+            ChildSpectrum.Items.Add(GetMenuItem("ClutterFilter", Spectrum.ClutterFilter, "ushort"));
+            ChildSpectrum.Items.Add(GetMenuItem("AutoGainOffset", Spectrum.AutoGainOffset, "short"));
+            ChildSpectrum.Items.Add(GetMenuItem("StartVelocity", Spectrum.StartVelocity, "short"));
+            ChildSpectrum.Items.Add(GetMenuItem("EndVelocity", Spectrum.EndVelocity, "short"));
+            ChildSpectrum.Items.Add(GetMenuItem("PointsPerColumn", Spectrum.PointsPerColumn, "ushort"));
+            ChildSpectrum.Items.Add(GetMenuItem("Points", Spectrum.Points, "points"));
+            PacketRoot.Items.Add(ChildSpectrum);
+            trvMenu.Items.Add(PacketRoot);
+
+            // 8th Element 
+            ItemsMenu ChildMmode = GetMenuItem("Mmode", MMode.AutoGainOffset, "Mmode");
+            ChildMmode.Items.Add(GetMenuItem("AutoGainOffset", MMode.AutoGainOffset, "short"));
+            ChildMmode.Items.Add(GetMenuItem("StartDepth", MMode.StartDepth, "ushort"));
+            ChildMmode.Items.Add(GetMenuItem("EndDepth", MMode.EndDepth, "ushort"));
+            ChildMmode.Items.Add(GetMenuItem("PointsPerColumn", MMode.PointsPerColumn, "ushort"));
+            ChildMmode.Items.Add(GetMenuItem("Power", MMode.Power, "power"));
+            ChildMmode.Items.Add(GetMenuItem("Velocity", MMode.Velocity, "velocity"));
+            PacketRoot.Items.Add(ChildMmode);
 
             // 3rd Element 
-            ItemsMenu ChildP3 = GetMenuItem("Audio", Audio.Depth, "audio"); 
+            ItemsMenu ChildP3 = GetMenuItem("Audio", Audio.Depth, "audio");
             ChildP3.Items.Add(GetMenuItem("Depth", Audio.Depth, "ushort"));
             ChildP3.Items.Add(GetMenuItem("RFU", Audio.RFU, "ushort"));
             ChildP3.Items.Add(GetMenuItem("SampleRate", Audio.SampleRate, "ushort"));
             ChildP3.Items.Add(GetMenuItem("MaxAmplitude", Audio.MaxAmplitude, "ushort"));
             ChildP3.Items.Add(GetMenuItem("Toward", Audio.Toward, "toward"));
-            ChildP3.Items.Add(GetMenuItem("Away", Audio.Away, "away"));         
+            ChildP3.Items.Add(GetMenuItem("Away", Audio.Away, "away"));
             PacketRoot.Items.Add(ChildP3);
 
+            // 2nd Element
+            ItemsMenu ChildP2 = new ItemsMenu() { Title = "Archive" };
+            //Add to root
+            PacketRoot.Items.Add(ChildP2);
+
             // 4th Element
-            PacketRoot.Items.Add(GetMenuItem("CheckSum", 1128, "int"));  
-
-            //5th Element
-            PacketRoot.Items.Add(GetMenuItem("DataFormatREV", Header.DataFormatREV, "ushort"));
-
-            // 6th Element 
-            PacketRoot.Items.Add(GetMenuItem("EmbCount",Parameter.EmboliCount,"uint"));
-
-            // 7th Element 
-            ItemsMenu ChildP7 = GetMenuItem("Envelop", Envelop.Depth,"envelop");
-            ChildP7.Items.Add(GetMenuItem("Depth",Envelop.Depth,"ushort"));
-            ChildP7.Items.Add(GetMenuItem("VelocityUnits", Envelop.VelocityUnit, "ushort"));
-            ChildP7.Items.Add(GetMenuItem("ColIndexPos", Envelop.ColIndexPos, "ushort"));
-            ChildP7.Items.Add(GetMenuItem("PosVelocity", Envelop.PosVelocity, "short"));
-            ChildP7.Items.Add(GetMenuItem("PosPEAK", Envelop.PosPeak, "short"));
-            ChildP7.Items.Add(GetMenuItem("PosMEAN", Envelop.PosMean, "short"));
-            ChildP7.Items.Add(GetMenuItem("PosDIAS", Envelop.PosDias, "short"));
-            ChildP7.Items.Add(GetMenuItem("PosPI", Envelop.PosPI, "ushort"));
-            ChildP7.Items.Add(GetMenuItem("PosRI", Envelop.PosRI, "ushort"));
-            ChildP7.Items.Add(GetMenuItem("ColIndexNeg", Envelop.ColIndexNeg, "ushort"));
-            ChildP7.Items.Add(GetMenuItem("NegVelocity", Envelop.NegVelocity, "ushort"));
-            ChildP7.Items.Add(GetMenuItem("NegPEAK", Envelop.NegPeak, "short"));
-            ChildP7.Items.Add(GetMenuItem("NegMEAN", Envelop.NegMean, "short"));
-            ChildP7.Items.Add(GetMenuItem("NegDIAS", Envelop.NegDias, "short"));
-            ChildP7.Items.Add(GetMenuItem("NegPI", Envelop.NegPI, "ushort"));
-            ChildP7.Items.Add(GetMenuItem("NegRI", Envelop.NegRI, "ushort"));
-            PacketRoot.Items.Add(ChildP7);         
-
-            // 8th Element 
-            ItemsMenu ChildP8 = GetMenuItem("Mmode", MMode.AutoGainOffset, "Mmode");  
-            ChildP8.Items.Add(GetMenuItem("AutoGainOffset", MMode.AutoGainOffset, "short"));
-            ChildP8.Items.Add(GetMenuItem("StartDepth", MMode.StartDepth, "ushort"));
-            ChildP8.Items.Add(GetMenuItem("EndDepth", MMode.EndDepth, "ushort"));
-            ChildP8.Items.Add(GetMenuItem("PointsPerColumn", MMode.PointsPerColumn, "ushort"));
-            ChildP8.Items.Add(GetMenuItem("Power", MMode.Power, "power"));
-            ChildP8.Items.Add(GetMenuItem("Velocity", MMode.Velocity, "velocity"));
-            PacketRoot.Items.Add(ChildP8);
-
-            // 9th Element 
-            ItemsMenu ChildP9 = GetMenuItem("Parameter", Parameter.LeftTimeStamp, "parameter");
-            ChildP9.Items.Add(GetMenuItem("TimestampL", Parameter.LeftTimeStamp, "uint"));
-            ChildP9.Items.Add(GetMenuItem("TimestampH", Parameter.RightTimeStamp, "uint"));
-            ChildP9.Items.Add(GetMenuItem("EventFlags", Parameter.EventFlags, "ushort"));
-            ChildP9.Items.Add(GetMenuItem("OperatingState", Parameter.OperatingState, "byte"));
-            ChildP9.Items.Add(GetMenuItem("AcousticPower", Parameter.AcousingPower, "byte"));
-            ChildP9.Items.Add(GetMenuItem("SampleLength", Parameter.SampleLength, "byte"));
-            ChildP9.Items.Add(GetMenuItem("UserDepth", Parameter.UserDepth, "byte"));
-            ChildP9.Items.Add(GetMenuItem("PRF", Parameter.PRF, "ushort"));
-            ChildP9.Items.Add(GetMenuItem("TIC", Parameter.TIC, "ushort"));
-            ChildP9.Items.Add(GetMenuItem("RFU", Parameter.RFU, "ushort")); 
-            PacketRoot.Items.Add(ChildP9);
-
-            // 10th Element
-            PacketRoot.Items.Add(GetMenuItem("Reserved", Header.Reserved, "ushort"));
-
-            // 11th Element 
-            ItemsMenu ChildP11 = GetMenuItem("Spectrum", Spectrum.Depth, "spectrum");
-            ChildP11.Items.Add(GetMenuItem("Depth", Spectrum.Depth, "ushort"));//new ItemsMenu() { Title = "Depth" });
-            ChildP11.Items.Add(GetMenuItem("ClutterFilter", Spectrum.ClutterFilter, "ushort"));//new ItemsMenu() { Title = "ClutterFilter" });
-            ChildP11.Items.Add(GetMenuItem("AutoGainOffset", Spectrum.AutoGainOffset, "short"));//new ItemsMenu() { Title = "AutoGainOffset" });
-            ChildP11.Items.Add(GetMenuItem("StartVelocity", Spectrum.StartVelocity, "short"));//new ItemsMenu() { Title = "StartVelocity" });
-            ChildP11.Items.Add(GetMenuItem("EndVelocity", Spectrum.EndVelocity, "short"));//new ItemsMenu() { Title = "EndVelocity" });
-            ChildP11.Items.Add(GetMenuItem("PointsPerColumn", Spectrum.PointsPerColumn, "ushort"));//new ItemsMenu() { Title = "PointsPerColumn" });
-            ChildP11.Items.Add(GetMenuItem("Points", Spectrum.Points, "points"));//new ItemsMenu() { Title = "Points" });
-            PacketRoot.Items.Add(ChildP11);
-            trvMenu.Items.Add(PacketRoot);
-
-            trvMenu.SelectedItemChanged += treeItem_Selected;
+            PacketRoot.Items.Add(GetMenuItem("CheckSum", 1128, "int"));
+            trvMenu.SelectedItemChanged += TreeItem_Selected;
 
         }
 
-        void treeItem_Selected(object sender, RoutedEventArgs e)
+        void TreeItem_Selected(object sender, RoutedEventArgs e)
         {
             ItemsMenu item = (ItemsMenu)trvMenu.SelectedItem;
             KeyValuePair<int, int> fromIndex;
@@ -226,7 +227,7 @@ namespace MercuryEngApp
                     break;
                 case "spectrum":
                     byteSize = (Spectrum.Points - 1) + (DMIProtocol.SpectrumPointsCount * 2) - Spectrum.Depth;
-                    break;                
+                    break;
                 default:
                     break;
             }
@@ -236,105 +237,96 @@ namespace MercuryEngApp
 
         public void LoadBinaryData()
         {
-            string filePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"LocalFolder\13-Channel1.txt");
-            FileStream fs = new FileStream(filePath, FileMode.Open);
+            string filePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"LocalFolder\13-Channel1.txt");            
             int hexIn;
-
+            byte[] cutFs = UsbTcd.TCDObj.GetPacketDetails(filePath, 0); // Offset byte 
+            List<DMIPmdDataPacket> ListDMIPmdDataPacket = UsbTcd.TCDObj.PacketQueue[0];
+            int count = 1;
+            ObservableCollection<HexRecord> listHexRecord = new ObservableCollection<HexRecord>();
             StringBuilder sb = new StringBuilder();
             BigInteger InitailBInt = BigInteger.Parse("00000000", NumberStyles.HexNumber);
             BigInteger ConstantBInt = BigInteger.Parse("00000010", NumberStyles.HexNumber);
             HexRecord hexRecord = null;
-            byte[] cutFs = null;
-            int count = 1;
 
-            ObservableCollection<HexRecord> listHexRecord = new ObservableCollection<HexRecord>();
-
-            using (BinaryReader reader = new BinaryReader(fs))
+            for (int i = 0; i < cutFs.Length; i++)
             {
-                //reader.BaseStream.Seek(363372, SeekOrigin.Begin);
-                reader.BaseStream.Seek(0, SeekOrigin.Begin);
-                cutFs = reader.ReadBytes(1132);
+                hexIn = cutFs[i];
 
-                for (int i = 0; i < cutFs.Length; i++)
+                if (count == 1)
                 {
-                    hexIn = cutFs[i];
+                    hexRecord = new HexRecord();
+                }
 
-                    if (count == 1)
-                    {
-                        hexRecord = new HexRecord();
-                    }
+                switch (count)
+                {
+                    case 1:
+                        hexRecord.Hx_00 = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case 2:
+                        hexRecord.Hx_01 = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case 3:
+                        hexRecord.Hx_02 = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case 4:
+                        hexRecord.Hx_03 = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case 5:
+                        hexRecord.Hx_04 = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case 6:
+                        hexRecord.Hx_05 = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case 7:
+                        hexRecord.Hx_06 = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case 8:
+                        hexRecord.Hx_07 = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case 9:
+                        hexRecord.Hx_08 = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case 10:
+                        hexRecord.Hx_09 = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case 11:
+                        hexRecord.Hx_0a = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case 12:
+                        hexRecord.Hx_0b = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case 13:
+                        hexRecord.Hx_0c = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case 14:
+                        hexRecord.Hx_0d = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case 15:
+                        hexRecord.Hx_0e = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case 16:
+                        hexRecord.Hx_0f = string.Format("{0:X2}", hexIn);
+                        hexRecord.Offset = string.Format("{0:X8}", InitailBInt);
+                        InitailBInt = BigInteger.Add(InitailBInt, ConstantBInt);
+                        listHexRecord.Add(hexRecord);
+                        count = 1;
+                        break;
 
-                    switch (count)
-                    {
-                        case 1:
-                            hexRecord.Hx_00 = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case 2:
-                            hexRecord.Hx_01 = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case 3:
-                            hexRecord.Hx_02 = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case 4:
-                            hexRecord.Hx_03 = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case 5:
-                            hexRecord.Hx_04 = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case 6:
-                            hexRecord.Hx_05 = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case 7:
-                            hexRecord.Hx_06 = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case 8:
-                            hexRecord.Hx_07 = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case 9:
-                            hexRecord.Hx_08 = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case 10:
-                            hexRecord.Hx_09 = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case 11:
-                            hexRecord.Hx_0a = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case 12:
-                            hexRecord.Hx_0b = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case 13:
-                            hexRecord.Hx_0c = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case 14:
-                            hexRecord.Hx_0d = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case 15:
-                            hexRecord.Hx_0e = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case 16:
-                            hexRecord.Hx_0f = string.Format("{0:X2}", hexIn);
-                            hexRecord.Offset = string.Format("{0:X8}", InitailBInt);
-                            InitailBInt = BigInteger.Add(InitailBInt, ConstantBInt);
-                            listHexRecord.Add(hexRecord);
-                            count = 1;
-                            break;
-
-                    }
                 }
             }
 
@@ -350,7 +342,7 @@ namespace MercuryEngApp
             itemCollectionViewSource.Source = listHexRecord;
         }
 
-        private void SelectCellsByIndexes(KeyValuePair<int,int> fromIndex, KeyValuePair<int,int> toIndex)
+        private void SelectCellsByIndexes(KeyValuePair<int, int> fromIndex, KeyValuePair<int, int> toIndex)
         {
             grdMailbag.SelectedItems.Clear();
             grdMailbag.SelectedCells.Clear();
@@ -382,37 +374,6 @@ namespace MercuryEngApp
                     columnIndex++;
                 }
             }
-
-            
-            //foreach (KeyValuePair<int, int> cellIndex in cellIndexes)
-            //{
-            //    int rowIndex = cellIndex.Key;
-            //    int columnIndex = cellIndex.Value;
-
-            //    if (rowIndex < 0 || rowIndex > (grdMailbag.Items.Count - 1))
-            //        throw new ArgumentException(string.Format("{0} is an invalid row index.", rowIndex));
-
-            //    if (columnIndex < 0 || columnIndex > (grdMailbag.Columns.Count - 1))
-            //        throw new ArgumentException(string.Format("{0} is an invalid column index.", columnIndex));
-
-            //    object item = grdMailbag.Items[rowIndex]; //= Product X
-            //    DataGridRow row = grdMailbag.ItemContainerGenerator.ContainerFromIndex(rowIndex) as DataGridRow;
-            //    if (row == null)
-            //    {
-            //        grdMailbag.ScrollIntoView(item);
-            //        row = grdMailbag.ItemContainerGenerator.ContainerFromIndex(rowIndex) as DataGridRow;
-            //    }
-            //    if (row != null)
-            //    {
-            //        DataGridCell cell = GetCell(grdMailbag, row, columnIndex);
-            //        if (cell != null)
-            //        {
-            //            DataGridCellInfo dataGridCellInfo = new DataGridCellInfo(cell);
-            //            grdMailbag.SelectedCells.Add(dataGridCellInfo);
-            //            cell.Focus();
-            //        }
-            //    }
-            //}
         }
 
         public void SelectCellByIndex(int rowIndex, int columnIndex)

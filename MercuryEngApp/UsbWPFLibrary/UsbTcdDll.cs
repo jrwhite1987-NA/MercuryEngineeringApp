@@ -552,6 +552,23 @@ namespace UsbTcdLibrary
             }
         }
 
+
+        public byte[] GetPacketDetails(string fileName, int offsetByte)
+        {
+            byte[] packet = null;
+
+            try
+            {
+                dopplerModule.ReadPacketFromFile(fileName, offsetByte, ref packet);
+            }
+            catch (Exception ex)
+            {
+ 
+            }
+
+            return packet;
+        }
+
         /// <summary>
         /// Create binary file for both channels
         /// </summary>

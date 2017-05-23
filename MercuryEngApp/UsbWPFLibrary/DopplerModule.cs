@@ -452,6 +452,18 @@ namespace UsbTcdLibrary
                 return result;
             }
         }
+
+        internal void ReadPacketFromFile(string fileName, int offsetByte, ref byte[] byteArray)
+        {
+            try
+            {
+                LoadDataFromFile(fileName, offsetByte, ref byteArray);
+            }
+            catch (Exception ex)
+            {
+ 
+            }
+        }
 		
 
         /// <summary>
@@ -819,6 +831,46 @@ namespace UsbTcdLibrary
             }
         }
 
+        private void LoadDataFromFile(string filePath, int offsetByte, ref byte[] byteArray)
+        {            
+            try
+            {
+                FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+                //Reads required bytes from given position
+                using (Stream stream = fs)
+                {
+                    using (BinaryReader reader = new BinaryReader(stream))
+                    {
+                        reader.BaseStream.Seek(offsetByte, SeekOrigin.Begin);
+
+                        if (offsetByte > stream.Length)
+                        {
+                            byteArray = reader.ReadBytes((int)stream.Length - 1);
+                        }
+                        else
+                        {
+                            byteArray = reader.ReadBytes(1132);
+                        }
+
+                        if (byteArray != null)
+                        {
+                            ConvertToPacket(Constants.VALUE_1, byteArray);
+                            packetQueue.Add(0, packetQueueChannel1.ToList());
+                            packetQueueChannel1.Clear();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //Logs.Instance.ErrorLog<DopplerModule>(ex, "LoadFileData", Severity.Critical);               
+            }
+            finally
+            {
+                packetQueueChannel1.Clear();
+                packetQueueChannel2.Clear();                
+            }
+        }
 
         /// <summary>
         /// Releases the TCD handle
