@@ -22,7 +22,7 @@ namespace MercuryEngApp
         {
             BoardInfo = new BoardInfo();
             Probeinfo = new ProbeInfo();
-            ProbePartNumberList = new ObservableCollection<string>();
+            ProbePartNumberList = new List<string>();
         }
 
         public byte ChannelNumber
@@ -106,7 +106,7 @@ namespace MercuryEngApp
         }
 
         [XmlElement("PartNumber")]
-        public ObservableCollection<string> ProbePartNumberList { get; internal set; }
+        public List<string> ProbePartNumberList { get; internal set; }
 
         public string SelectedProbePartNumber
         {

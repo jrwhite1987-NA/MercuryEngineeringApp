@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 using UsbTcdLibrary;
 using UsbTcdLibrary.CommunicationProtocol;
@@ -26,21 +27,20 @@ namespace MercuryEngApp
     {
         private InfoViewModel infoViewModelObj = new InfoViewModel();
         public System.Xml.XmlReader stream { get; set; }
+        XDocument xmlDoc;
 
         public InfoUserControl()
         {
             InitializeComponent();
             this.Loaded += InfoUserControlLoaded;
             this.DataContext = infoViewModelObj;
-            infoViewModelObj.ProbePartNumberList.Add("Part 1 Check");
-            infoViewModelObj.ProbePartNumberList.Add("Part 2 Check");
-            infoViewModelObj.SelectedProbePartNumber = infoViewModelObj.ProbePartNumberList[0];
+            xmlDoc = XDocument.Load("LocalFolder/InfoConfig.xml");
+            infoViewModelObj.ProbePartNumberList = xmlDoc.Root.Elements("PartNumber").Select(element => element.Value).ToList();
         }
 
         async void InfoUserControlLoaded(object sender, RoutedEventArgs e)
         {
-            //InfoViewModel temp = (InfoViewModel)new XmlSerializer(typeof(InfoViewModel)).Deserialize(stream);
-            //infoViewModelObj.ProbePartNumberList = temp.ProbePartNumberList;
+            
             App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
             await UsbTcd.TCDObj.SetModeAsync(App.CurrentChannel, TCDModes.Service);
         }
@@ -105,6 +105,7 @@ namespace MercuryEngApp
                request.ChannelID = App.CurrentChannel;
                TCDReadInfoResponse response = await UsbTcd.TCDObj.GetProbeInfo(request);
                infoViewModelObj.SelectedProbePartNumber = response.Probe.partNumber;
+               infoViewModelObj.SelectedProbePartNumber = "2";
                infoViewModelObj.ProbeModelName = response.Probe.descriptionString;
                infoViewModelObj.PhysicalID = response.Probe.physicalId;
                infoViewModelObj.ProbeSerialNumber = response.Probe.serialNumberString;

@@ -82,7 +82,7 @@
 
                         <TextBox Width="309" 
                                  Height="25"
-                                 Text="{Binding Path=BoardPartNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                 Text="{Binding Path=SelectedBoardPartNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                  Style="{StaticResource ResourceKey=MainTextbox}"
                                  Grid.Row="1" 
                                  Grid.Column="2" 
@@ -90,7 +90,7 @@
 
                         <TextBox Width="309" 
                                  Height="25"
-                                 Text="{Binding Path=BoardModelName, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                 Text="{Binding Path=SelectedBoardModelName, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                  Style="{StaticResource ResourceKey=MainTextbox}"
                                  Grid.Row="2" 
                                  Grid.Column="2" 
@@ -98,7 +98,7 @@
 
                         <TextBox Width="309" 
                                  Height="25"
-                                 Text="{Binding Path=HardwareRevision, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                 Text="{Binding Path=SelectedHardwareRevision, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                  Style="{StaticResource ResourceKey=MainTextbox}"
                                  Grid.Row="3" 
                                  Grid.Column="2" 
@@ -328,7 +328,7 @@
                                       Height="25"
                                       IsReadOnly="False"
                                       IsEditable="True"
-                                      ItemsSource="{Binding Path=ProbePartNumberList}"
+                                      ItemsSource="{Binding Path=ProbePartNumberList, Mode=TwoWay}"
                                       SelectedItem="{Binding Path=SelectedProbePartNumber}"
                                       Grid.Row="1" 
                                       Grid.Column="1" 
