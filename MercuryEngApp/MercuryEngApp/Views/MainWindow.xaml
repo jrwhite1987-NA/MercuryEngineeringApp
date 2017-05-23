@@ -47,8 +47,8 @@
               Width="1339" VerticalAlignment="Stretch" 
              HorizontalAlignment="Stretch">
             <Grid>
-                <TabControl Height="547" 
-                            VerticalAlignment="Top">
+                <TabControl Height="705"
+                            VerticalAlignment="Top" BorderBrush="#FF0696F9" BorderThickness="2">
                     <TabControl.Resources >
                         <Style TargetType="TabPanel">
                             <Setter Property="HorizontalAlignment" Value="Right"/>
@@ -61,7 +61,7 @@
                                                 BorderThickness="2,2,2,0" 
                                                 Margin="0,0,-1,0">
                                             <Border.BorderBrush>
-                                                <SolidColorBrush Color="#FF9CAFB6" Opacity="0.5"/>
+                                                <SolidColorBrush Color="#FF0696F9" Opacity="0.5"/>
                                             </Border.BorderBrush>
                                             <ContentPresenter x:Name="ContentSite"
                                         VerticalAlignment="Center"
@@ -74,7 +74,7 @@
 
                                                 <Setter TargetName="Border" Property="Background" >
                                                     <Setter.Value>
-                                                        <SolidColorBrush Color="#FF082746" Opacity="0.3"/>
+                                                        <SolidColorBrush Color="#FF0696F9" Opacity="0.3"/>
                                                     </Setter.Value>
                                                 </Setter>
                                             </Trigger>
@@ -92,9 +92,9 @@
                         </Style>
                     </TabControl.Resources>
                     <TabControl.Background>
-                        <SolidColorBrush Color="#FF082E40" Opacity="0" />
+                        <SolidColorBrush Color="#FF0696F9" Opacity="0" />
                     </TabControl.Background>
-                    <TabItem Width="165" Height="38" x:Name="ExamTab" >
+                    <TabItem Width="165" Height="38" x:Name="ExamTab" BorderBrush="#FF0696F9" >
                         <TabItem.Header>
                                 <TextBlock Text="Exam" 
                                            Foreground="White" 
@@ -129,12 +129,14 @@
                 </TabControl>
             </Grid>
         </Grid>
-        
-        <Grid Name="FooterTextBox" 
-              Margin="25,0,20,20" VerticalAlignment="Bottom">
+
+        <Grid Name="FooterTextBox" HorizontalAlignment="Center" 
+              Margin="25,0,20,22" VerticalAlignment="Bottom">
+
+
             <Border  VerticalAlignment="Bottom" 
-                     Width="1315"
-                     Style="{StaticResource ResourceKey=RoundedBorderBlue}"  >
+                     Width="1318"
+                      >
                 <Grid>
                     <Grid HorizontalAlignment="Right" >
                         <Image Source="/Themes/NA_Maximise-_Icon.png" Width="16" Height="16"
@@ -143,21 +145,22 @@
                         <Image  Source="/Themes/NA_Clear_Icon.png"  Width="16" Height="16"
                     Margin="22,8,52,0" VerticalAlignment="Top"/>
                     </Grid>
-                    <TabControl Height="120" Margin="5,5,5,5"
-                            VerticalAlignment="Top">
+                    <TabControl Height="120" Margin="0,5,5,5"
+                            VerticalAlignment="Top" BorderBrush="#FF0696F9" BorderThickness="2" >
                         <TabControl.Resources >
                             <Style TargetType="TabPanel">
+                                
                                 <Setter Property="HorizontalAlignment" Value="Left"/>
                             </Style>
                             <Style TargetType="TabItem">
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="TabItem">
-                                            <Border Name="Border" 
+                                            <Border Name="Border" CornerRadius="4,4,0,0"
                                                 BorderThickness="2,2,2,0" 
-                                                Margin="0,0,-1,0">
+                                                Margin="-2,0,2,0">
                                                 <Border.BorderBrush>
-                                                    <SolidColorBrush Color="#FF9CAFB6" Opacity="0.5"/>
+                                                    <SolidColorBrush Color="#FF0696F9" Opacity="0.6"/>
                                                 </Border.BorderBrush>
                                                 <ContentPresenter x:Name="ContentSite"
                                         VerticalAlignment="Center"
@@ -170,14 +173,14 @@
 
                                                     <Setter TargetName="Border" Property="Background" >
                                                         <Setter.Value>
-                                                            <SolidColorBrush Color="#FF082746" Opacity="0.3"/>
+                                                            <SolidColorBrush />
                                                         </Setter.Value>
                                                     </Setter>
                                                 </Trigger>
                                                 <Trigger Property="IsSelected" Value="False">
                                                     <Setter TargetName="Border" Property="Background" >
                                                         <Setter.Value>
-                                                            <SolidColorBrush Color="#FFE4ECF3" Opacity="0.2"/>
+                                                            <SolidColorBrush Color="#FF0696F9" Opacity="0.2"/>
                                                         </Setter.Value>
                                                     </Setter>
                                                 </Trigger>
@@ -188,7 +191,7 @@
                             </Style>
                         </TabControl.Resources>
                         <TabControl.Background>
-                            <SolidColorBrush Color="#FF082E40" Opacity="0" />
+                            <SolidColorBrush Opacity="0" Color="#FF0696F9" />
                         </TabControl.Background>
                         <TabItem Width="110" Height="27" x:Name="Text1" >
                             <TabItem.Header>

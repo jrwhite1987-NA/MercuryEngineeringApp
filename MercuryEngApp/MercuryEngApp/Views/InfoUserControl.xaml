@@ -38,7 +38,7 @@
                         <TextBlock Height="17" 
                                Margin="13,8,0,0" 
                                Text="Board Info" 
-                               Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
+                                Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
                     </Border>
 
                     <Grid Grid.ColumnSpan="2">
@@ -145,14 +145,15 @@
                     VerticalAlignment="Center" 
                     Margin="10,-20,0,0" 
                     Grid.Column="0" 
-                    Grid.Row="1" >
+                    Grid.Row="1">
 
                 <Grid Name="LeftPanelInfoBottom" >
                     <Border Height="40" 
                             VerticalAlignment="Top" 
                             Style="{StaticResource ResourceKey=RoundedRectangleBlue}"
-                               Width="550" 
-                            Margin="-2,-2,-2,0">
+                            Width="550" 
+                            Margin="-2,-2,-2,0"
+                            >
 
                         <TextBlock Height="17" 
                                    Margin="13,8,0,0" 
@@ -210,12 +211,12 @@
             </Border>
         </Grid>
 
-        <Grid Grid.Column="1" Height="560">
+        <Grid Grid.Column="1" Height="560" VerticalAlignment="Top">
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
                     Width="745"
                     VerticalAlignment="Top" 
                     Margin="10,5,10,0" 
-                    Grid.Column="0">
+                    Grid.Column="1" Height="497">
 
                 <Grid Name="rightPanelInfoTop" >
                     <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" Height="40" VerticalAlignment="Top" 

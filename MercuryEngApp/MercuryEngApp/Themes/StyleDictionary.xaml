@@ -381,18 +381,19 @@
     <!--Border rounded corner-->
 
     <Style x:Key="RoundedBorderBlue" TargetType="Border">
-        <Setter Property="Control.BorderBrush" Value="#FF00AEEF" />
-        <Setter Property="Control.BorderThickness" Value="2" />
+        <Setter Property="Control.BorderBrush" Value="#02486e" />
+        <Setter Property="Control.BorderThickness" Value="1" />
         <Setter Property="CornerRadius" Value="8"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
+        
     </Style>
 
     <!--Rectangle rounded corner-->
 
     <Style x:Key="RoundedRectangleBlue" BasedOn="{StaticResource RoundedBorderBlue}" TargetType="Border">
         <Setter Property="CornerRadius" Value="8,8,0,0"/>
-        <Setter Property="Control.BorderBrush" Value="#FF00AEEF" />
-        <Setter Property="Control.BorderThickness" Value="2" />
+        <Setter Property="Control.BorderBrush" Value="#02486e" />
+        <Setter Property="Control.BorderThickness" Value="1" />
         <Setter Property="Background" Value="#FF16223D"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
     </Style>
