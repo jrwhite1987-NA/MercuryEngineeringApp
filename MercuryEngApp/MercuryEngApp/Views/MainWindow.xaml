@@ -20,27 +20,43 @@
             <local:ExamUserControl/>
         </DataTemplate>
     </Window.Resources>-->
-    <Grid x:Name="LayoutRoot" >
-        <Grid Name="TCDControl" 
-              Width="185" 
-              HorizontalAlignment="Left" 
-              Margin='420,15,0,0'>
+    <Grid x:Name="LayoutRoot">
+        <ContentControl VerticalAlignment="Top" 
+                        HorizontalAlignment="Left" 
+                        VerticalContentAlignment="Stretch" 
+                        HorizontalContentAlignment="Stretch" 
+                        Content="{Binding Path=ChildView}" 
+                        Margin="10"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
 
-            <Button Style="{StaticResource ResourceKey=ButttonSplitL}" 
+        <Grid Grid.Column="0" Width="1366" VerticalAlignment="Stretch" 
+             HorizontalAlignment="Stretch">
+            <Grid Name="TCDControl" 
+              Width="185" 
+              Grid.Column="0"
+              HorizontalAlignment="Center" 
+              Margin='0,15,330,0'>
+
+                <Button Style="{StaticResource ResourceKey=ButttonSplitL}" 
                     HorizontalAlignment="Left" 
                     UseLayoutRounding="True" 
                     VerticalAlignment="Top"/>
 
-            <Button Style="{StaticResource ResourceKey=ButttonSplitR}" 
+                <Button Style="{StaticResource ResourceKey=ButttonSplitR}" 
                     HorizontalAlignment="Right" 
                     UseLayoutRounding="True" 
                     VerticalAlignment="Top"/>
 
+            </Grid>
         </Grid>
 
         <Grid Grid.Row="1" 
               Margin="0,18,0,0" 
-              Width="1339">
+              Width="1339" VerticalAlignment="Stretch" 
+             HorizontalAlignment="Stretch">
             <Grid>
                 <TabControl Height="547" 
                             VerticalAlignment="Top">
@@ -147,7 +163,7 @@
                     HorizontalAlignment="Right" 
                     Margin="0,0,12,97"
                     VerticalAlignment="Bottom"/>
-            
+
             <Border  VerticalAlignment="Bottom" 
                      Style="{StaticResource ResourceKey=RoundedBorderBlue}"  >
 
@@ -160,7 +176,7 @@
                            Width="1310" 
                            Foreground="White" 
                            Padding="5">
-                    
+
                     <TextBlock.Background>
                         <SolidColorBrush Color="#FF0EAACD" Opacity="0.3"/>
                     </TextBlock.Background>

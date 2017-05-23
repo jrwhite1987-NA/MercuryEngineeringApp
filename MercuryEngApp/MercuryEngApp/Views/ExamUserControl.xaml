@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
               xmlns:clr="clr-namespace:System;assembly=mscorlib"
              xmlns:customControl="clr-namespace:MercuryEngApp.Controls"
-             mc:Ignorable="d" 
-             d:DesignHeight="560" d:DesignWidth="1340" 
+             mc:Ignorable="d" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch"
              x:Name="ExamControl">
 
     <Grid>
