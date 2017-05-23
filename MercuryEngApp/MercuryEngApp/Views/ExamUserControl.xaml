@@ -59,10 +59,10 @@
 
             <Button Content="Send" 
                     Style="{StaticResource ResourceKey=ButtonStyle1}" 
-                    Margin="336,11.334,134,254.665"
+                    Margin="338.5,9.751,136.5,254.249"
                     Click="SendPower"
-                    Width="105" 
-                    Height="30" />
+					Height="33"
+                    Width="105" />
 
             <TextBox   Height="29" Style="{StaticResource ResourceKey=MainTextbox}"
                        Text="{Binding Path=Depth, Mode=OneWayToSource, UpdateSourceTrigger=LostFocus}"
@@ -91,9 +91,9 @@
                 </TextBox.Resources>
             </TextBox>
             <Button Content="Send"
-                    Style="{StaticResource ResourceKey=ButtonStyle1}" Margin="336,48.167,134,217.832"
+                    Style="{StaticResource ResourceKey=ButtonStyle1}" Margin="338.5,47.167,136.5,215.833"
                     Width="105"
-					Height="30"
+					Height="33"
                     Click="SendDepth"/>
 
             <TextBox Height="29" 
@@ -125,7 +125,8 @@
             </TextBox>
             <Button Content="Send" 
                     Style="{StaticResource ResourceKey=ButtonStyle1}" 
-                    Margin="338.5,84.335,136.5,178.998" 
+                    Margin="338.5,83.668,136.5,179.332" 
+                    Height="33"
                     Width="105"
 
                     Click="SendFilter"/>
@@ -159,8 +160,9 @@
             </TextBox>
             <Button Content="Send" 
                     Style="{StaticResource ResourceKey=ButtonStyle1}" 
-                    Margin="336,122.668,134,139.332" 
+                    Margin="338.5,121.668,136.5,141.332" 
                     Width="105"
+                    Height="33"
                     Click="SendLength"/>
 
             <TextBox Height="29" 
@@ -226,7 +228,7 @@
                 </TextBox.Resources>
             </TextBox>
 
-            <TextBlock Text="Depth (mm)(23-146)" 
+            <TextBlock Text="Depth (mm) (23-146)" 
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                        Padding="17" 
                        Margin="0,38,0,0"/>
@@ -248,7 +250,7 @@
                        Height="57" 
                        Width="216"/>
 
-            <TextBlock Text="PRF (k) (5, 6.25, 8,10,12.5)" 
+            <TextBlock Text="PRF (k) (5,6.25,8,10,12.5)" 
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                        Padding="17" 
                        Margin="0,189,0,0" 
@@ -266,7 +268,7 @@
 
             <TextBlock Text="To" 
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                       Padding="20,5,0,0" 
+                       Padding="12,5,0,0" 
                        Margin="207,4,0,0" 
                        VerticalAlignment="Top"/>
 
@@ -389,9 +391,10 @@
                 </TextBox.Style>
             </TextBox>
             <TextBlock Text="Away" Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                       Padding="20,5,0,0" 
+                       Padding="12,5,0,0" 
                        Margin="327,0,0,0" 
-                       VerticalAlignment="Top"/>
+                       VerticalAlignment="Top"
+					   HorizontalAlignment="Left"/>
 
             <TextBox Height="29" 
                      Text="{Binding Path=NegMean, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
@@ -474,19 +477,19 @@
 
             <ToggleButton x:Name="btnEnvelop" Content="Envelope On" 
                     Style="{StaticResource ResourceKey=ButtonStyle2}" 
-                    Margin="0,30,13,0" 
+                    Margin="0,30,10,0" 
                     VerticalAlignment="Top" 
-                    Width="120" Height="39"                                      
+                    Width="133" Height="39"                                      
                     HorizontalAlignment = "Right"
                     Click="btnEnvelopToggle_Click"/>
-            
 
-            <ToggleButton x:Name = "toggleLimits" Margin="0,105.5,12,0"
+            <ToggleButton x:Name = "toggleLimits" Margin="0,105.5,10.5,0"
                       VerticalAlignment="Top"  
                       HorizontalAlignment = "Right"
                       Content = "Limits Off"
-                      Width="120" Height="39"
+                      Width="133" Height="39"
                           Click="toggleLimitsClick"
+
                       Style="{StaticResource ResourceKey=ButtonStyle2}" />
 
         </Grid>

@@ -9,6 +9,7 @@
     <Window.Background>
         <ImageBrush ImageSource="/Themes/NA_background_NA0_blank_1366x768.png"/>
     </Window.Background>
+
     <Grid x:Name="LayoutRoot">
         <!--<ContentControl VerticalAlignment="Top" 
                         HorizontalAlignment="Left" 
@@ -193,20 +194,20 @@
                         <TabControl.Background>
                             <SolidColorBrush Opacity="0" Color="#FF0696F9" />
                         </TabControl.Background>
-                        <TabItem Width="110" Height="27" x:Name="Text1" >
+                        <TabItem Width="120" Height="27" x:Name="Text1" >
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="TextBox1" 
+                                    <TextBlock Text="Application Log" 
                                            Foreground="White" 
                                            FontSize="14" 
                                            FontFamily="Arial" />
                                 </StackPanel>
                             </TabItem.Header>
                         </TabItem>
-                        <TabItem Width="110" Height="27" x:Name="Text2">
+                        <TabItem Width="120" Height="27" x:Name="Text2">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="TextBox2"  
+                                    <TextBlock Text="TCD Log"  
                                            Foreground="White" 
                                            FontSize="14" 
                                            FontFamily="Arial" />

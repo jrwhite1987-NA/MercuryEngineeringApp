@@ -39,7 +39,7 @@
                              Width="780" 
                              Margin="-2,-2,-2,0">
 
-                        <TextBlock Height="17" 
+                        <TextBlock Height="27" 
                                    Margin="13,8,0,0" 
                                    Text="Calibration Data" 
                                    Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
@@ -63,7 +63,7 @@
                                    Grid.Row="1" 
                                    Width="350"> 
                             The DAC Value where the Tx energy function intercepts zero
-                            Tx energy function intercepts zero
+                            
                         </TextBlock>
                         <TextBlock Height="Auto" 
                                    Margin="13,15,0,0" 
@@ -109,7 +109,7 @@
                             Width="780" 
                              Margin="-2,-2,-2,0">
 
-                        <TextBlock Height="17" 
+                        <TextBlock Height="27" 
                                    Margin="13,8,0,0" 
                                    Text="Tx Calibration" 
                                    Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
@@ -245,7 +245,7 @@
                              Width="780" 
                              Margin="-2,-2,-2,0">
 
-                        <TextBlock Height="17" 
+                        <TextBlock Height="27" 
                                    Margin="13,8,0,0"
                                    Text="Safety Calibration" 
                                    Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
@@ -356,7 +356,7 @@
                              Width="515" 
                              Margin="-2,-2,-2,0">
 
-                        <TextBlock Height="17" 
+                        <TextBlock Height="27" 
                                    Margin="13,8,0,0" 
                                    Text="Calibration Override" 
                                    Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
@@ -379,7 +379,7 @@
 
                         <TextBlock Height="17" 
                                    Margin="40,0,15,0" 
-                                   Text="Not using reference transducer " 
+                                   Text="Manually Enter Values " 
                                    Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                    Grid.Column="0" 
                                    Grid.Row="1"
@@ -395,7 +395,7 @@
 
                         <TextBlock Height="17" 
                                    Margin="40,0,15,0" 
-                                   Text="Not using reference transducer " 
+                                   Text="Safety Verified" 
                                    Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                    Grid.Column="0" 
                                    Grid.Row="2"
@@ -429,7 +429,7 @@
                              Width="515" 
                              Margin="-2,-2,-2,0">
 
-                        <TextBlock Height="17" 
+                        <TextBlock Height="27" 
                                    Margin="13,8,0,0" 
                                    Text="Consistency Check" 
                                    Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
@@ -476,9 +476,9 @@
                             Width="515" 
                              Margin="-2,-2,-2,0">
 
-                        <TextBlock Height="17" 
+                        <TextBlock Height="27" 
                                    Margin="13,8,0,0" 
-                                   Text="Consistency Check" 
+                                   Text="Safety Output Test" 
                                    Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
                     </Border>
                     <Grid>

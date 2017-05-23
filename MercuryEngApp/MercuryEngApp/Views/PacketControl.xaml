@@ -64,10 +64,10 @@
                 <Grid Name="rightPanelPacketTop" >
                     <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" Height="40" VerticalAlignment="Top" 
                                Width="745" Margin="-1,-1,-1,0" HorizontalAlignment="Right"/>
-                    <TextBlock Height="17" Margin="13,8,0,0" Text="Hex Editor " Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
+                    <TextBlock Height="17" Margin="13,8,0,0" Text="Hex Viewer " Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
                      <Grid Margin="0,40,0,5" >
                         
-                            <DataGrid Name="grdMailbag"  Grid.Column="1" DataContext="{StaticResource ItemCollectionViewSource}" AutoGenerateColumns="False" SelectionUnit="Cell" CanUserAddRows="False" ItemsSource="{Binding}" IsReadOnly="True">
+                            <DataGrid Name="grdMailbag" Grid.Column="1" DataContext="{StaticResource ItemCollectionViewSource}" AutoGenerateColumns="False" SelectionUnit="Cell" CanUserAddRows="False" ItemsSource="{Binding}" IsReadOnly="True">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn x:Name="Offset" Width="100" Binding="{Binding Path=Offset}" Header="Offset" />
                                     <DataGridTextColumn x:Name="cHx_00" Binding="{Binding Path=Hx_00}" Header="00" />
