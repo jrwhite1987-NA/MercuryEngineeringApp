@@ -96,7 +96,8 @@ namespace MercuryEngApp
         async void ExamUserControlLoaded(object sender, RoutedEventArgs e)
         {
             try
-            {                
+            {
+                await Task.Delay(Constants.TimeForTCDtoLoad);
                 App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
                 if (App.ActiveChannels == ActiveChannels.Channel1 || App.ActiveChannels == ActiveChannels.Channel2)
                 {

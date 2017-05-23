@@ -9,17 +9,6 @@
         <ImageBrush ImageSource="/Themes/NA_background_NA0_blank_1366x768.png"/>
     </Window.Background>
 
-    <!--<Window.Resources>
-        <DataTemplate DataType="{x:Type local:ExamViewModel}">
-            <local:ExamUserControl/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type local:ExamViewModel}">
-            <local:ExamUserControl/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type local:ExamViewModel}">
-            <local:ExamUserControl/>
-        </DataTemplate>
-    </Window.Resources>-->
     <Grid x:Name="LayoutRoot">
         <!--<ContentControl VerticalAlignment="Top" 
                         HorizontalAlignment="Left" 
@@ -107,74 +96,53 @@
                     </TabControl.Background>
                     <TabItem Width="165" Height="38" x:Name="ExamTab" >
                         <TabItem.Header>
-                            <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Exam" 
                                            Foreground="White" 
                                            FontSize="18" 
                                            FontFamily="Arial" />
-                            </StackPanel>
                         </TabItem.Header>
                     </TabItem>
                     <TabItem Width="165" Height="38" x:Name="InfoTab">
                         <TabItem.Header>
-                            <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Info"  
                                            Foreground="White" 
                                            FontSize="18" 
                                            FontFamily="Arial" />
-                            </StackPanel>
                         </TabItem.Header>
-
                     </TabItem>
                     <TabItem Width="165" Height="38" x:Name="CalibrationTab" >
                         <TabItem.Header>
-                            <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Calibration"  
                                            Foreground="White" 
                                            FontSize="18" 
                                            FontFamily="Arial" />
-                            </StackPanel>
                         </TabItem.Header>
-
                     </TabItem>
-
                     <TabItem Width="165" Height="38" x:Name="PacketTab">
                         <TabItem.Header>
-                            <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Packet"  
                                            Foreground="White" 
                                            FontSize="18" 
                                            FontFamily="Arial" />
-                            </StackPanel>
                         </TabItem.Header>
-
                     </TabItem>
-
-
                 </TabControl>
             </Grid>
         </Grid>
+        
         <Grid Name="FooterTextBox" 
               Margin="25,0,20,20" VerticalAlignment="Bottom">
-
-
-
-
             <Border  VerticalAlignment="Bottom" 
+                     Width="1315"
                      Style="{StaticResource ResourceKey=RoundedBorderBlue}"  >
-                <Grid Width="1340" >
-
+                <Grid>
                     <Grid HorizontalAlignment="Right" >
-                        <Image Source="/Themes/NA_Clear_Icon.png" Width="26" Height="20"
-                    
+                        <Image Source="/Themes/NA_Maximise-_Icon.png" Width="16" Height="16"
                     VerticalAlignment="Top" Margin="62,8,0,0" HorizontalAlignment="Left"/>
 
-                        <Image Source="/Themes/NA_Maximise-_Icon.png" Width="20" Height="20"
-                    
+                        <Image  Source="/Themes/NA_Clear_Icon.png"  Width="16" Height="16"
                     Margin="22,8,52,0" VerticalAlignment="Top"/>
                     </Grid>
-
-                    <Grid Grid.Row="0" HorizontalAlignment="Left"></Grid>
                     <TabControl Height="120" Margin="5,5,5,5"
                             VerticalAlignment="Top">
                         <TabControl.Resources >
@@ -246,9 +214,6 @@
 
                     </TabControl>
                 </Grid>
-
-
-
             </Border>
         </Grid>
     </Grid>
