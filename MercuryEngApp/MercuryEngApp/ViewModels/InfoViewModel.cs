@@ -2,9 +2,11 @@
 using MicroMvvm;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace MercuryEngApp
 {
@@ -20,6 +22,7 @@ namespace MercuryEngApp
         {
             BoardInfo = new BoardInfo();
             Probeinfo = new ProbeInfo();
+            ProbePartNumberList = new ObservableCollection<string>();
         }
 
         public byte ChannelNumber
@@ -38,7 +41,7 @@ namespace MercuryEngApp
             }
         }
 
-        public string BoardPartNumber
+        public string SelectedBoardPartNumber
         {
             get
             {
@@ -54,7 +57,7 @@ namespace MercuryEngApp
             }
         }
 
-        public string BoardModelName
+        public string SelectedBoardModelName
         {
             get
             {
@@ -70,7 +73,7 @@ namespace MercuryEngApp
             }
         }
 
-        public string HardwareRevision
+        public string SelectedHardwareRevision
         {
             get
             {
@@ -102,7 +105,10 @@ namespace MercuryEngApp
             }
         }
 
-        public string ProbePartNumber
+        [XmlElement("PartNumber")]
+        public ObservableCollection<string> ProbePartNumberList { get; internal set; }
+
+        public string SelectedProbePartNumber
         {
             get
             {

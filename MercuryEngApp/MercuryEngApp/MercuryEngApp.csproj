@@ -225,6 +225,7 @@
     <Content Include="LocalFolder\13-Channel1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="LocalFolder\InfoConfig.xml" />
     <Resource Include="Themes\NA_Clear_Icon.png" />
     <Resource Include="Themes\NA_Maximise-_Icon.png" />
     <Resource Include="Themes\GIF2V220160615.gif" />

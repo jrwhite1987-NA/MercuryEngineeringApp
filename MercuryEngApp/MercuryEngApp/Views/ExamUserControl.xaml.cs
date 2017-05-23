@@ -141,11 +141,10 @@ namespace MercuryEngApp
                 InitializeBitmap();
                 CompositionTarget.Rendering += CompositionTargetRendering;
                 await UsbTcd.TCDObj.TurnTCDPowerOnAsync();
-
                 if (UsbTcd.TCDObj.InitializeTCD())
                 {
                     TCDRequest request = new TCDRequest();
-                    request.ChannelID = TCDHandles.Channel1;
+                    request.ChannelID = App.CurrentChannel;
                     request.Value3 = Constants.defaultLength;
                     await UsbTcd.TCDObj.SetLengthAsync(request);
 
@@ -420,6 +419,18 @@ namespace MercuryEngApp
                 NaGraph.LeftSpectrogram.SpectrumEnvolope.PositiveFlowVisible = false;
                 NaGraph.RightSpectrogram.SpectrumEnvolope.NegativeFlowVisible = false;
                 NaGraph.RightSpectrogram.SpectrumEnvolope.PositiveFlowVisible = false;
+            }
+        }
+
+        private void toggleLimitsClick(object sender, RoutedEventArgs e)
+        {
+            if(toggleLimits.Content.ToString()=="Limits Off")
+            {
+                toggleLimits.Content = "Limits On";
+            }
+            else
+            {
+                toggleLimits.Content = "Limits Off";
             }
         }
        

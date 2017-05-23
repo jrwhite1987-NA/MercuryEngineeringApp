@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Serialization;
 using UsbTcdLibrary;
 using UsbTcdLibrary.CommunicationProtocol;
 
@@ -24,16 +25,22 @@ namespace MercuryEngApp
     public partial class InfoUserControl : UserControl
     {
         private InfoViewModel infoViewModelObj = new InfoViewModel();
+        public System.Xml.XmlReader stream { get; set; }
 
         public InfoUserControl()
         {
             InitializeComponent();
             this.Loaded += InfoUserControlLoaded;
             this.DataContext = infoViewModelObj;
+            infoViewModelObj.ProbePartNumberList.Add("Rajat");
+            infoViewModelObj.ProbePartNumberList.Add("Ashish");
+            infoViewModelObj.SelectedProbePartNumber = infoViewModelObj.ProbePartNumberList[0];
         }
 
         async void InfoUserControlLoaded(object sender, RoutedEventArgs e)
         {
+            //InfoViewModel temp = (InfoViewModel)new XmlSerializer(typeof(InfoViewModel)).Deserialize(stream);
+            //infoViewModelObj.ProbePartNumberList = temp.ProbePartNumberList;
             App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
             await UsbTcd.TCDObj.SetModeAsync(App.CurrentChannel, TCDModes.Service);
         }
@@ -44,9 +51,9 @@ namespace MercuryEngApp
             {
                 request.ChannelID = App.CurrentChannel;
                 TCDReadInfoResponse response = await UsbTcd.TCDObj.GetModuleInfo(request);
-                infoViewModelObj.BoardPartNumber = response.Module.partNumberString;
-                infoViewModelObj.BoardModelName = response.Module.modelString;
-                infoViewModelObj.HardwareRevision = response.Module.hardwareRevisionString;
+                infoViewModelObj.SelectedBoardPartNumber = response.Module.partNumberString;
+                infoViewModelObj.SelectedBoardModelName = response.Module.modelString;
+                infoViewModelObj.SelectedHardwareRevision = response.Module.hardwareRevisionString;
                 infoViewModelObj.BoardSerialNumber = response.Module.serialNumberString;
             }
         }
@@ -57,9 +64,9 @@ namespace MercuryEngApp
             {
                 request.ChannelID = App.CurrentChannel;
                 request.Board = new UsbTcdLibrary.StatusClasses.BoardInfo();
-                request.Board.partNumberString = infoViewModelObj.BoardPartNumber;
-                request.Board.modelString = infoViewModelObj.BoardModelName;
-                string[] temp = infoViewModelObj.HardwareRevision.Split('.');
+                request.Board.partNumberString = infoViewModelObj.SelectedBoardPartNumber;
+                request.Board.modelString = infoViewModelObj.SelectedBoardModelName;
+                string[] temp = infoViewModelObj.SelectedHardwareRevision.Split('.');
                 int strLen=temp.Length;
                 byte[] arr = new byte[4];
                 for (int i = 0; i < strLen ;i++ )
@@ -97,7 +104,7 @@ namespace MercuryEngApp
             {
                request.ChannelID = App.CurrentChannel;
                TCDReadInfoResponse response = await UsbTcd.TCDObj.GetProbeInfo(request);
-               infoViewModelObj.ProbePartNumber = response.Probe.partNumber;
+               infoViewModelObj.SelectedProbePartNumber = response.Probe.partNumber;
                infoViewModelObj.ProbeModelName = response.Probe.descriptionString;
                infoViewModelObj.PhysicalID = response.Probe.physicalId;
                infoViewModelObj.ProbeSerialNumber = response.Probe.serialNumberString;
@@ -119,7 +126,7 @@ namespace MercuryEngApp
             {
                 request.ChannelID = App.CurrentChannel;
                 request.Probe = new UsbTcdLibrary.StatusClasses.ProbeInfo();
-                request.Probe.partNumber = infoViewModelObj.ProbePartNumber;
+                request.Probe.partNumber = infoViewModelObj.SelectedProbePartNumber;
                 request.Probe.descriptionString = infoViewModelObj.ProbeModelName;
                 request.Probe.physicalId = infoViewModelObj.PhysicalID;
                 request.Probe.serialNumberString = infoViewModelObj.ProbeSerialNumber;
@@ -136,5 +143,7 @@ namespace MercuryEngApp
             }
         }
 
+
+       
     }
 }

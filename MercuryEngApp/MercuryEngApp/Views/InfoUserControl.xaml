@@ -220,11 +220,8 @@
 
                 <Grid Name="rightPanelInfoTop" >
                     <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" Height="40" VerticalAlignment="Top" 
-                               Width="745" Margin="-3,-2,-1,0" HorizontalAlignment="Right"/>
+                               Width="744" Margin="-3,-2,-1,0" HorizontalAlignment="Right"/>
                     <TextBlock Height="17" Margin="13,8,0,0" Text="Probe Info" Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
-
-                    <Grid>
-
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -329,7 +326,10 @@
 
                             <ComboBox Width="290" 
                                       Height="25"
-                                      Text="{Binding Path=ProbePartNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                      IsReadOnly="False"
+                                      IsEditable="True"
+                                      ItemsSource="{Binding Path=ProbePartNumberList}"
+                                      SelectedItem="{Binding Path=SelectedProbePartNumber}"
                                       Grid.Row="1" 
                                       Grid.Column="1" 
                                       Margin="0,0,5,0" 
@@ -454,10 +454,7 @@
                                     Click="WriteProbeInfoClick"/>
 
                         </Grid>
-                    </Grid>
-
                 </Grid>
-
             </Border>
         </Grid>
     </Grid>

@@ -481,11 +481,12 @@
                     Click="btnEnvelopToggle_Click"/>
             
 
-            <ToggleButton x:Name = "tb" Margin="0,105.5,12,0"
+            <ToggleButton x:Name = "toggleLimits" Margin="0,105.5,12,0"
                       VerticalAlignment="Top"  
                       HorizontalAlignment = "Right"
-                      Content = "Toggle"
+                      Content = "Limits Off"
                       Width="120" Height="39"
+                          Click="toggleLimitsClick"
                       Style="{StaticResource ResourceKey=ButtonStyle2}" />
 
         </Grid>

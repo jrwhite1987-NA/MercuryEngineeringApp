@@ -7,6 +7,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Themes/StyleDictionary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <XmlDataProvider x:Key="XMLData" Source="LocalFolder/InfoConfig.xml" XPath="ProbePartNumbers" IsInitialLoadEnabled="True"></XmlDataProvider>
         </ResourceDictionary>
+        
     </Application.Resources>
 </Application>
