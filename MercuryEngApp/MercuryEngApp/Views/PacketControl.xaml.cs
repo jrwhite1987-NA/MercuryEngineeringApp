@@ -38,7 +38,7 @@ namespace MercuryEngApp
         private void LoadTreeView()
         {
             //Root Item
-            ItemsMenu PacketRoot = new ItemsMenu() { Title = "Packet" };
+            ItemsMenu PacketRoot = GetMenuItem("DMIPacket", 0, "packet");
             PacketRoot.IsExpanded = true;
             // 1th Element 
             ItemsMenu ChildP1 = GetMenuItem("Header", ServiceHeader.sync, "header");
@@ -50,85 +50,87 @@ namespace MercuryEngApp
             ChildP1.Items.Add(GetMenuItem("DataLength", ServiceHeader.dataLength, "ushort"));
             ChildP1.Items.Add(GetMenuItem("Sequence", ServiceHeader.sequence, "ushort"));
             PacketRoot.Items.Add(ChildP1);
-            // 2nd Element
-            ItemsMenu ChildP2 = new ItemsMenu() { Title = "Archive" };
+
+            //// 2nd Element
+            //ItemsMenu ChildP2 = new ItemsMenu() { Title = "Archive" };
             //Add to root
-            PacketRoot.Items.Add(ChildP2);
+            ////PacketRoot.Items.Add(ChildP2);
+
             // 3rd Element 
-            ItemsMenu ChildP3 = GetMenuItem("Audio", ServiceHeader.sync, "audio"); 
-            ChildP3.Items.Add(new ItemsMenu() { Title = "Depth" });
-            ChildP3.Items.Add(new ItemsMenu() { Title = "RFU" });
-            ChildP3.Items.Add(new ItemsMenu() { Title = "SampleRate" });
-            ChildP3.Items.Add(new ItemsMenu() { Title = "MaxAmplitude" });
-            ChildP3.Items.Add(new ItemsMenu() { Title = "Toward" });
-            ChildP3.Items.Add(new ItemsMenu() { Title = "Away" });
+            ItemsMenu ChildP3 = GetMenuItem("Audio", Audio.Depth, "audio"); 
+            ChildP3.Items.Add(GetMenuItem("Depth", Audio.Depth, "ushort"));
+            ChildP3.Items.Add(GetMenuItem("RFU", Audio.RFU, "ushort"));
+            ChildP3.Items.Add(GetMenuItem("SampleRate", Audio.SampleRate, "ushort"));
+            ChildP3.Items.Add(GetMenuItem("MaxAmplitude", Audio.MaxAmplitude, "ushort"));
+            ChildP3.Items.Add(GetMenuItem("Toward", Audio.Toward, "toward"));
+            ChildP3.Items.Add(GetMenuItem("Away", Audio.Away, "away"));         
             PacketRoot.Items.Add(ChildP3);
 
             // 4th Element
-            PacketRoot.Items.Add(new ItemsMenu() { Title = "CheckSum" });
+            PacketRoot.Items.Add(GetMenuItem("CheckSum", 1128, "int"));  
 
             //5th Element
-            PacketRoot.Items.Add(new ItemsMenu() { Title = "DataFormatRev" });
+            PacketRoot.Items.Add(GetMenuItem("DataFormatREV", Header.DataFormatREV, "ushort"));
 
             // 6th Element 
-            PacketRoot.Items.Add(new ItemsMenu() { Title = "EmbCount" });
+            PacketRoot.Items.Add(GetMenuItem("EmbCount",Parameter.EmboliCount,"uint"));
 
             // 7th Element 
-            ItemsMenu ChildP7 = new ItemsMenu() { Title = "Envelope" };
-            ChildP7.Items.Add(new ItemsMenu() { Title = "Depth" });
-            ChildP7.Items.Add(new ItemsMenu() { Title = "VelocityUnits" });
-            ChildP7.Items.Add(new ItemsMenu() { Title = "ColIndexPos" });
-            ChildP7.Items.Add(new ItemsMenu() { Title = "PosVelocity" });
-            ChildP7.Items.Add(new ItemsMenu() { Title = "PosPEAK" });
-            ChildP7.Items.Add(new ItemsMenu() { Title = "PosMEAN" });
-            ChildP7.Items.Add(new ItemsMenu() { Title = "PosDIAS" });
-            ChildP7.Items.Add(new ItemsMenu() { Title = "PosPI" });
-            ChildP7.Items.Add(new ItemsMenu() { Title = "PosRI" });
-            ChildP7.Items.Add(new ItemsMenu() { Title = "ColIndexNeg" });
-            ChildP7.Items.Add(new ItemsMenu() { Title = "NegVelocity" });
-            ChildP7.Items.Add(new ItemsMenu() { Title = "NegPEAK" });
-            ChildP7.Items.Add(new ItemsMenu() { Title = "NegMEAN" });
-            ChildP7.Items.Add(new ItemsMenu() { Title = "NegDIAS" });
-            ChildP7.Items.Add(new ItemsMenu() { Title = "NegPI" });
-            ChildP7.Items.Add(new ItemsMenu() { Title = "NegRI" });
+            ItemsMenu ChildP7 = GetMenuItem("Envelop", Envelop.Depth,"envelop");
+            ChildP7.Items.Add(GetMenuItem("Depth",Envelop.Depth,"ushort"));
+            ChildP7.Items.Add(GetMenuItem("VelocityUnits", Envelop.VelocityUnit, "ushort"));
+            ChildP7.Items.Add(GetMenuItem("ColIndexPos", Envelop.ColIndexPos, "ushort"));
+            ChildP7.Items.Add(GetMenuItem("PosVelocity", Envelop.PosVelocity, "short"));
+            ChildP7.Items.Add(GetMenuItem("PosPEAK", Envelop.PosPeak, "short"));
+            ChildP7.Items.Add(GetMenuItem("PosMEAN", Envelop.PosMean, "short"));
+            ChildP7.Items.Add(GetMenuItem("PosDIAS", Envelop.PosDias, "short"));
+            ChildP7.Items.Add(GetMenuItem("PosPI", Envelop.PosPI, "ushort"));
+            ChildP7.Items.Add(GetMenuItem("PosRI", Envelop.PosRI, "ushort"));
+            ChildP7.Items.Add(GetMenuItem("ColIndexNeg", Envelop.ColIndexNeg, "ushort"));
+            ChildP7.Items.Add(GetMenuItem("NegVelocity", Envelop.NegVelocity, "ushort"));
+            ChildP7.Items.Add(GetMenuItem("NegPEAK", Envelop.NegPeak, "short"));
+            ChildP7.Items.Add(GetMenuItem("NegMEAN", Envelop.NegMean, "short"));
+            ChildP7.Items.Add(GetMenuItem("NegDIAS", Envelop.NegDias, "short"));
+            ChildP7.Items.Add(GetMenuItem("NegPI", Envelop.NegPI, "ushort"));
+            ChildP7.Items.Add(GetMenuItem("NegRI", Envelop.NegRI, "ushort"));
             PacketRoot.Items.Add(ChildP7);         
 
             // 8th Element 
-            ItemsMenu ChildP8 = new ItemsMenu() { Title = "Mmode" };
-            ChildP8.Items.Add(new ItemsMenu() { Title = "AutoGainOffset" });
-            ChildP8.Items.Add(new ItemsMenu() { Title = "StartDepth" });
-            ChildP8.Items.Add(new ItemsMenu() { Title = "EndDepth" });
-            ChildP8.Items.Add(new ItemsMenu() { Title = "PointsPerColumn" });
-            ChildP8.Items.Add(new ItemsMenu() { Title = "Power" });
-            ChildP8.Items.Add(new ItemsMenu() { Title = "Velocity" });
+            ItemsMenu ChildP8 = GetMenuItem("Mmode", MMode.AutoGainOffset, "Mmode");  
+            ChildP8.Items.Add(GetMenuItem("AutoGainOffset", MMode.AutoGainOffset, "short"));
+            ChildP8.Items.Add(GetMenuItem("StartDepth", MMode.StartDepth, "ushort"));
+            ChildP8.Items.Add(GetMenuItem("EndDepth", MMode.EndDepth, "ushort"));
+            ChildP8.Items.Add(GetMenuItem("PointsPerColumn", MMode.PointsPerColumn, "ushort"));
+            ChildP8.Items.Add(GetMenuItem("Power", MMode.Power, "power"));
+            ChildP8.Items.Add(GetMenuItem("Velocity", MMode.Velocity, "velocity"));
             PacketRoot.Items.Add(ChildP8);
 
             // 9th Element 
-            ItemsMenu ChildP9 = new ItemsMenu() { Title = "Parameter" };
-            ChildP9.Items.Add(new ItemsMenu() { Title = "TimestampL" });
-            ChildP9.Items.Add(new ItemsMenu() { Title = "TimestampH" });
-            ChildP9.Items.Add(new ItemsMenu() { Title = "EventFlags" });
-            ChildP9.Items.Add(new ItemsMenu() { Title = "OperatingState" });
-            ChildP9.Items.Add(new ItemsMenu() { Title = "AcousticPower" });
-            ChildP9.Items.Add(new ItemsMenu() { Title = "SampleLength" });
-            ChildP9.Items.Add(new ItemsMenu() { Title = "UserDepth" });
-            ChildP9.Items.Add(new ItemsMenu() { Title = "PRF" });
-            ChildP9.Items.Add(new ItemsMenu() { Title = "TIC" });
-            ChildP9.Items.Add(new ItemsMenu() { Title = "RFU" });
+            ItemsMenu ChildP9 = GetMenuItem("Parameter", Parameter.LeftTimeStamp, "parameter");
+            ChildP9.Items.Add(GetMenuItem("TimestampL", Parameter.LeftTimeStamp, "uint"));
+            ChildP9.Items.Add(GetMenuItem("TimestampH", Parameter.RightTimeStamp, "uint"));
+            ChildP9.Items.Add(GetMenuItem("EventFlags", Parameter.EventFlags, "ushort"));
+            ChildP9.Items.Add(GetMenuItem("OperatingState", Parameter.OperatingState, "byte"));
+            ChildP9.Items.Add(GetMenuItem("AcousticPower", Parameter.AcousingPower, "byte"));
+            ChildP9.Items.Add(GetMenuItem("SampleLength", Parameter.SampleLength, "byte"));
+            ChildP9.Items.Add(GetMenuItem("UserDepth", Parameter.UserDepth, "byte"));
+            ChildP9.Items.Add(GetMenuItem("PRF", Parameter.PRF, "ushort"));
+            ChildP9.Items.Add(GetMenuItem("TIC", Parameter.TIC, "ushort"));
+            ChildP9.Items.Add(GetMenuItem("RFU", Parameter.RFU, "ushort")); 
             PacketRoot.Items.Add(ChildP9);
 
             // 10th Element
-            PacketRoot.Items.Add(new ItemsMenu() { Title = "Reserved" });
+            PacketRoot.Items.Add(GetMenuItem("Reserved", Header.Reserved, "ushort"));
 
             // 11th Element 
-            ItemsMenu ChildP11 = new ItemsMenu() { Title = "Spectrum" };
-            ChildP11.Items.Add(new ItemsMenu() { Title = "Depth" });
-            ChildP11.Items.Add(new ItemsMenu() { Title = "ClutterFilter" });
-            ChildP11.Items.Add(new ItemsMenu() { Title = "AutoGainOffset" });
-            ChildP11.Items.Add(new ItemsMenu() { Title = "StartVelocity" });
-            ChildP11.Items.Add(new ItemsMenu() { Title = "EndVelocity" });
-            ChildP11.Items.Add(new ItemsMenu() { Title = "PointsPerColumn" });
-            ChildP11.Items.Add(new ItemsMenu() { Title = "Points" });
+            ItemsMenu ChildP11 = GetMenuItem("Spectrum", Spectrum.Depth, "spectrum");
+            ChildP11.Items.Add(GetMenuItem("Depth", Spectrum.Depth, "ushort"));//new ItemsMenu() { Title = "Depth" });
+            ChildP11.Items.Add(GetMenuItem("ClutterFilter", Spectrum.ClutterFilter, "ushort"));//new ItemsMenu() { Title = "ClutterFilter" });
+            ChildP11.Items.Add(GetMenuItem("AutoGainOffset", Spectrum.AutoGainOffset, "short"));//new ItemsMenu() { Title = "AutoGainOffset" });
+            ChildP11.Items.Add(GetMenuItem("StartVelocity", Spectrum.StartVelocity, "short"));//new ItemsMenu() { Title = "StartVelocity" });
+            ChildP11.Items.Add(GetMenuItem("EndVelocity", Spectrum.EndVelocity, "short"));//new ItemsMenu() { Title = "EndVelocity" });
+            ChildP11.Items.Add(GetMenuItem("PointsPerColumn", Spectrum.PointsPerColumn, "ushort"));//new ItemsMenu() { Title = "PointsPerColumn" });
+            ChildP11.Items.Add(GetMenuItem("Points", Spectrum.Points, "points"));//new ItemsMenu() { Title = "Points" });
             PacketRoot.Items.Add(ChildP11);
             trvMenu.Items.Add(PacketRoot);
 
@@ -168,6 +170,9 @@ namespace MercuryEngApp
 
             switch (type)
             {
+                case "packet":
+                    byteSize = 1131;
+                    break;
                 case "int":
                     byteSize = 3;
                     break;
@@ -190,11 +195,38 @@ namespace MercuryEngApp
                     byteSize = 0;
                     break;
                 case "header":
-                    byteSize = ServiceHeader.sequence + 1;
+                    byteSize = ServiceHeader.sequence + 1; //last element postion + byte size
                     break;
                 case "points":
                     byteSize = (DMIProtocol.SpectrumPointsCount * 2) - 1;
                     break;
+                case "audio":
+                    byteSize = (Audio.Away - 1) + (DMIProtocol.DMI_AUDIO_ARRAY_SIZE * 2) - Audio.Depth;
+                    break;
+                case "toward":
+                    byteSize = (DMIProtocol.DMI_AUDIO_ARRAY_SIZE * 2) - 1;
+                    break;
+                case "away":
+                    byteSize = (DMIProtocol.DMI_AUDIO_ARRAY_SIZE * 2) - 1;
+                    break;
+                case "envelop":
+                    byteSize = Envelop.NegRI + 1;
+                    break;
+                case "Mmode":
+                    byteSize = (MMode.Velocity - 1) + (DMIProtocol.DMI_PKT_MMODE_PTS * 2) - MMode.AutoGainOffset;
+                    break;
+                case "power":
+                    byteSize = (DMIProtocol.DMI_PKT_MMODE_PTS * 2) - 1;
+                    break;
+                case "velocity":
+                    byteSize = (DMIProtocol.DMI_PKT_MMODE_PTS * 2) - 1;
+                    break;
+                case "parameter":
+                    byteSize = Parameter.RFU + 1;
+                    break;
+                case "spectrum":
+                    byteSize = (Spectrum.Points - 1) + (DMIProtocol.SpectrumPointsCount * 2) - Spectrum.Depth;
+                    break;                
                 default:
                     break;
             }
