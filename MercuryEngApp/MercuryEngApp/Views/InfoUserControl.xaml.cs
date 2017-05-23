@@ -32,8 +32,8 @@ namespace MercuryEngApp
             InitializeComponent();
             this.Loaded += InfoUserControlLoaded;
             this.DataContext = infoViewModelObj;
-            infoViewModelObj.ProbePartNumberList.Add("Rajat");
-            infoViewModelObj.ProbePartNumberList.Add("Ashish");
+            infoViewModelObj.ProbePartNumberList.Add("Part 1 Check");
+            infoViewModelObj.ProbePartNumberList.Add("Part 2 Check");
             infoViewModelObj.SelectedProbePartNumber = infoViewModelObj.ProbePartNumberList[0];
         }
 
