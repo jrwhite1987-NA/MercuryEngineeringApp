@@ -68,25 +68,21 @@ namespace MercuryEngApp
             TCDAudio.SetVolume(30);    
         }
 
-        private async void MicrocontrollerOnDeviceStateChanged(bool flag)
+        private void MicrocontrollerOnDeviceStateChanged(bool flag)
         {
             if (!flag)
             {
                 CompositionTarget.Rendering -= CompositionTargetRendering;
                 UsbTcd.TCDObj.OnPacketFormed -= TCDObjOnPacketFormed;
                 //microcontroller disconnected
-                await UsbTcd.TCDObj.TurnRecordingOffAsync();
                 UsbTcd.TCDObj.TurnTCDPowerOff();
             }
         }
 
-        async void ExamUserControlUnloaded(object sender, RoutedEventArgs e)
+        void ExamUserControlUnloaded(object sender, RoutedEventArgs e)
         {
             CompositionTarget.Rendering -= CompositionTargetRendering;
             UsbTcd.TCDObj.OnPacketFormed -= TCDObjOnPacketFormed;
-
-            //Turn recording off
-            await UsbTcd.TCDObj.TurnRecordingOffAsync();
 
             UsbTcd.TCDObj.TurnTCDPowerOff();
             //Clear graph data
@@ -157,8 +153,9 @@ namespace MercuryEngApp
                     request.Value3 = Constants.defaultFilter;
                     await UsbTcd.TCDObj.SetFilterAsync(request);
 
-                    //Turn recording on
-                    await UsbTcd.TCDObj.TurnRecordingOnAsync(new TCDRequest() { Value = 1 });
+                    request.Value3 = Constants.defaultPRF;
+                    request.Value2 = Constants.defaultStartDepth;
+                    await UsbTcd.TCDObj.SetPRF(request);
 
                     UsbTcd.TCDObj.OnPacketFormed += TCDObjOnPacketFormed;
                     UsbTcd.TCDObj.StartTCDReading();

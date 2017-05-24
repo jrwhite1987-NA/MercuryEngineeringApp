@@ -159,17 +159,7 @@ namespace Core.Constants
         /// <summary>
         /// The default depth
         /// </summary>
-        public static uint defaultDepth = CLDDepth;
-
-        /// <summary>
-        /// The default depth
-        /// </summary>
-        public const uint nonCLDDepth = 50;
-
-        /// <summary>
-        /// The default depth
-        /// </summary>
-        public const uint CLDDepth = 48;
+        public const uint defaultDepth = 50;
 
         /// <summary>
         /// The default audio
@@ -186,6 +176,7 @@ namespace Core.Constants
         /// </summary>
         public const uint defaultPRF = 8000;
 
+        public const byte defaultStartDepth = 23;
         /// <summary>
         /// Can be used 19.3;
         /// </summary>

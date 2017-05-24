@@ -1,6 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ProbePartNumbers>
-  <PartNumber>1</PartNumber>
-  <PartNumber>2</PartNumber>
-  <PartNumber>3</PartNumber>
-</ProbePartNumbers>
+<Configurations>
+  <ProbePartNumbers>
+    <PartNumber>1</PartNumber>
+    <PartNumber>2</PartNumber>
+    <PartNumber>3</PartNumber>
+  </ProbePartNumbers>
+  <BoardPartNumbers>
+    <PartNumber>1</PartNumber>
+    <PartNumber>2</PartNumber>
+    <PartNumber>3</PartNumber>
+  </BoardPartNumbers>
+  <BoardModelNames>
+    <ModelName>1</ModelName>
+    <ModelName>2</ModelName>
+    <ModelName>3</ModelName>
+  </BoardModelNames>
+  <HardwareRevisions>
+    <Revision>1</Revision>
+    <Revision>2</Revision>
+    <Revision>3</Revision>
+  </HardwareRevisions>
+  <PRFList>
+    <PRF>5000</PRF>
+    <PRF>6250</PRF>
+    <PRF>8000</PRF>
+    <PRF>10000</PRF>
+    <PRF>12500</PRF>
+  </PRFList>
+</Configurations>
