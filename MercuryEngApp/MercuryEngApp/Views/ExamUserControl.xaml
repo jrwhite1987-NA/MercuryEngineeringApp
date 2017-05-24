@@ -498,7 +498,7 @@
           
             <Slider Name="CustomSlider" HorizontalAlignment="Left" 
                   OverridesDefaultStyle="True" Value="64" Maximum="127" Minimum="0"
-                Height="255" Width="673" Orientation="Vertical" Grid.Column="1" VerticalAlignment="Stretch"  
+                Height="255" Width="705" Orientation="Vertical" Grid.Column="1" VerticalAlignment="Stretch"  
                 Style="{StaticResource SliderStyle}"  Canvas.ZIndex="3" LostMouseCapture="CusomSlider_LostMouseCapture">
                 <Slider.Resources>
                     <clr:String  x:Key="textValue">0</clr:String>
@@ -532,7 +532,7 @@
 
             <Slider Name="customDepthSlider" HorizontalAlignment="Left" 
                   OverridesDefaultStyle="True" Value="48" Maximum="87" Minimum="23" IsHitTestVisible="False"
-                Height="232" Width="673" Orientation="Vertical" Grid.Column="1" VerticalAlignment="Stretch"  
+                Height="232" Width="705" Orientation="Vertical" Grid.Column="1" VerticalAlignment="Stretch"  
                 Style="{StaticResource SliderStyle}"  Canvas.ZIndex="3" LostMouseCapture="customDepthSlider_LostMouseCapture">
                 <Slider.Resources>
                     <clr:String  x:Key="textValue">48</clr:String>
