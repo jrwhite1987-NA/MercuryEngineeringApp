@@ -333,6 +333,46 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <!--On off Button -->
+
+    <Style TargetType="{x:Type Button}" x:Key="ButttonTCDON">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="btn_exam_tcd_76x76_off.png"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Width" Value="35" />
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="border" 
+                        BorderThickness="0" 
+                        Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="btn_exam_tcd_76x76_on.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="btn_exam_tcd_76x76_standby.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <!--ToggleButton CSS-->
     <Style TargetType="{x:Type ToggleButton}" x:Key="ButtonStyle2">

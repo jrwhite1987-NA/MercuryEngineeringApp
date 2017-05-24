@@ -24,23 +24,35 @@
         <Grid x:Name="MainLayout" Visibility="Visible">
         <Grid Grid.Column="0" Width="1366" VerticalAlignment="Stretch" 
              HorizontalAlignment="Stretch">
+            
             <Grid Name="TCDControl" 
-              Width="185" 
+              Width="255" 
               Grid.Column="0"
               HorizontalAlignment="Center" 
               Margin='0,15,330,0'>
 
-                <Button Style="{StaticResource ResourceKey=ButttonSplitL}" 
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="84"/>
+                        <ColumnDefinition Width="98"/>
+                        <ColumnDefinition Width="40"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Style="{StaticResource ResourceKey=ButttonSplitL}" 
                     HorizontalAlignment="Left" 
                     UseLayoutRounding="True" 
-                    VerticalAlignment="Top"/>
+                    VerticalAlignment="Top" Grid.Column="0"/>
 
-                <Button Style="{StaticResource ResourceKey=ButttonSplitR}" 
+                    <Button Style="{StaticResource ResourceKey=ButttonSplitR}" 
                     HorizontalAlignment="Right" 
                     UseLayoutRounding="True" 
-                    VerticalAlignment="Top"/>
+                    VerticalAlignment="Top" Grid.Column="1"/>
 
-            </Grid>
+                    <Button Style="{StaticResource ResourceKey=ButttonTCDON}" 
+                    HorizontalAlignment="Right" 
+                    UseLayoutRounding="True" 
+                    VerticalAlignment="Top" Grid.Column="2"/>
+
+                </Grid>
         </Grid>
 
         <Grid Grid.Row="1" 
