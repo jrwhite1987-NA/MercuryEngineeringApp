@@ -5,6 +5,7 @@ using SlimDX.XAudio2;
 using SlimDX.Multimedia;
 using SlimDX;
 using System.Runtime.InteropServices;
+using log4net;
 
 namespace AudioLib
 {
@@ -21,6 +22,8 @@ namespace AudioLib
         SlimDX.XAudio2.MasteringVoice pMasterVoice; //Master voice
         SlimDX.XAudio2.SourceVoice pSourceVoice; //Source voice
         int curSampleRate = DEFAULT_SAMPLE_RATE;
+
+        static ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private class Bundle
         {
@@ -83,34 +86,44 @@ namespace AudioLib
 
         private bool LoadTCD(List<short> away, List<short> towards, short sRate)
         {
-            if (sRate != curSampleRate)
+            bool bReturn;
+            try
             {
-                pSourceVoice.FlushSourceBuffers();
-                m_BuildupMode = true;
-                pendingSampleRate = (ushort)sRate;
-            }
-
-            if (pendingSampleRate != 0)
-            {
-                SlimDX.Result result  = pSourceVoice.SetSourceSampleRate(pendingSampleRate);
-                if(result.IsSuccess)
+                if (sRate != curSampleRate)
                 {
-                    curSampleRate = pendingSampleRate;
-                    pendingSampleRate = 0;
+                    pSourceVoice.FlushSourceBuffers();
+                    m_BuildupMode = true;
+                    pendingSampleRate = (ushort)sRate;
                 }
+
+                if (pendingSampleRate != 0)
+                {
+                    SlimDX.Result result = pSourceVoice.SetSourceSampleRate(pendingSampleRate);
+                    if (result.IsSuccess)
+                    {
+                        curSampleRate = pendingSampleRate;
+                        pendingSampleRate = 0;
+                    }
+                }
+
+                AddBuffer(away, towards);
+
+                CheckBuildupMode();
+                if (!m_BuildupMode)
+                {
+                    SubmitBuffers();
+                    // Do not release during buildup
+                    ReleasePlayedBuffers();
+                }
+                bReturn = true;
             }
-
-            AddBuffer(away, towards);
-
-            CheckBuildupMode();
-            if(!m_BuildupMode)
+            catch (Exception ex)
             {
-                SubmitBuffers();
-                // Do not release during buildup
-                ReleasePlayedBuffers();
+                logger.Warn("Exception: ", ex);
+                bReturn = false;
             }
 
-            return true;
+            return bReturn;
         }
         
         private byte[] GetBytes(List<short> lstData)
@@ -149,9 +162,9 @@ namespace AudioLib
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                string str = ex.Message;
+                logger.Warn("Exception: ", ex);
             }
         }
 
@@ -162,53 +175,68 @@ namespace AudioLib
                 return;
             }
 
-            VoiceState state = pSourceVoice.State;
-            int numInVoice = state.BuffersQueued;
-
-            uint numSubmitted = 0;
-            foreach (var bundle in m_Buffs)
+            try
             {
-                if (bundle.submitted)
+                VoiceState state = pSourceVoice.State;
+                int numInVoice = state.BuffersQueued;
+
+                uint numSubmitted = 0;
+                foreach (var bundle in m_Buffs)
                 {
-                    numSubmitted++;
+                    if (bundle.submitted)
+                    {
+                        numSubmitted++;
+                    }
+                }
+
+                if (numInVoice >= numSubmitted)
+                {
+                    return;
+                }
+
+                uint numPop = (uint)(numSubmitted - numInVoice);
+
+                for (int i = 0; i < numPop; i++)
+                {
+                    if (m_Buffs.Count > i)
+                    {
+                        m_Buffs.RemoveAt(i);
+                    }
                 }
             }
-
-            if (numInVoice >= numSubmitted)
+            catch (Exception ex)
             {
-                return;
-            }
-
-            uint numPop = (uint)(numSubmitted - numInVoice);
-
-            for(int i = 0 ; i < numPop; i++)
-            {
-                m_Buffs.RemoveAt(i);
+                logger.Warn("Exception: ", ex);
             }
         }
 
-        
-
         private void AddBuffer(List<short> away, List<short> towards)
         {
-            int count = Math.Max(away.Count, towards.Count);
-            if (count == 0)
+            try
             {
-                return;
-            }
+                int count = Math.Max(away.Count, towards.Count);
+                if (count == 0)
+                {
+                    return;
+                }
 
-            short[] arrData = new short[count * 2];
-            for(int i = 0 ; i < away.Count ; i++)
-            {
-                arrData[2 * i] = away.ElementAt(i);
+                short[] arrData = new short[count * 2];
+                for (int i = 0; i < away.Count; i++)
+                {
+                    arrData[2 * i] = away.ElementAt(i);
+                }
+                for (int j = 0; j < towards.Count; j++)
+                {
+                    arrData[2 * j + 1] = towards.ElementAt(j);
+                }
+
+                m_Buffs.Add(new Bundle());
+                m_Buffs.Last().data = arrData.ToList();
             }
-            for (int j = 0; j < towards.Count; j++)
+            catch (Exception ex)
             {
-                arrData[2 * j + 1] = towards.ElementAt(j);
+                logger.Warn("Exception: ", ex);
             }
-            
-            m_Buffs.Add(new Bundle());
-            m_Buffs.Last().data = arrData.ToList();
         }
 
         private void CheckBuildupMode()
@@ -222,21 +250,27 @@ namespace AudioLib
                 return;
 
             uint n = 0;
-            foreach(var bundle in m_Buffs)
+
+            try
             {
-                if(!bundle.submitted)
+                foreach (var bundle in m_Buffs)
                 {
-                    n++;
+                    if (!bundle.submitted)
+                    {
+                        n++;
+                    }
+                }
+
+                if (n > BUILDUP_SIZE)
+                {
+                    m_BuildupMode = false;
                 }
             }
-
-            if(n > BUILDUP_SIZE)
+            catch (Exception ex)
             {
-                m_BuildupMode = false;
+                logger.Warn("Exception: ", ex);
             }
         }
-
-        
 
         private WaveFormatExtensible WaveFormatFromSampleRate(int sampleRate)
         {

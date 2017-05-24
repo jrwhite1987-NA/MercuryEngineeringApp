@@ -19,6 +19,7 @@ using System.Windows.Shapes;
 using UsbTcdLibrary;
 using UsbTcdLibrary.CommunicationProtocol;
 using UsbTcdLibrary.PacketFormats;
+using log4net;
 
 namespace MercuryEngApp
 {
@@ -28,6 +29,8 @@ namespace MercuryEngApp
     public partial class ExamUserControl : UserControl
     {
         #region private fields
+
+        static ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private ExamViewModel examViewModelObj = new ExamViewModel();
 
@@ -72,23 +75,36 @@ namespace MercuryEngApp
         {
             if (!flag)
             {
-                CompositionTarget.Rendering -= CompositionTargetRendering;
-                UsbTcd.TCDObj.OnPacketFormed -= TCDObjOnPacketFormed;
-                //microcontroller disconnected
-                UsbTcd.TCDObj.TurnTCDPowerOff();
+                try
+                {
+                    CompositionTarget.Rendering -= CompositionTargetRendering;
+                    UsbTcd.TCDObj.OnPacketFormed -= TCDObjOnPacketFormed;
+                    //microcontroller disconnected
+                    UsbTcd.TCDObj.TurnTCDPowerOff();
+                }
+                catch (Exception ex)
+                {
+                    logger.Warn("Exception: ", ex);
+                }
             }
         }
 
         void ExamUserControlUnloaded(object sender, RoutedEventArgs e)
         {
-            TCDAudio.AudioCollection.CollectionChanged -= TCDAudio.AudioCollectionCollectionChanged;
-            CompositionTarget.Rendering -= CompositionTargetRendering;
-            UsbTcd.TCDObj.OnPacketFormed -= TCDObjOnPacketFormed;
-            
+            try
+            {
+                TCDAudio.AudioCollection.CollectionChanged -= TCDAudio.AudioCollectionCollectionChanged;
+                CompositionTarget.Rendering -= CompositionTargetRendering;
+                UsbTcd.TCDObj.OnPacketFormed -= TCDObjOnPacketFormed;
 
-            UsbTcd.TCDObj.TurnTCDPowerOff();
-            //Clear graph data
-           
+                UsbTcd.TCDObj.TurnTCDPowerOff();
+
+                //Clear graph data
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("Exception: ", ex);
+            }
         }
 
         async void ExamUserControlLoaded(object sender, RoutedEventArgs e)
@@ -105,7 +121,7 @@ namespace MercuryEngApp
             }
             catch(Exception ex)
             {
-
+                logger.Warn("Exception: ", ex);
             }
         }
 
@@ -114,20 +130,26 @@ namespace MercuryEngApp
             VelocityRange = 308;
             Depth = 48;
             PRF = 8000;
-            Scale.CreateScale(new ScaleParameters
+            try
             {
-                ParentControl = scaleGrid,
-                ScreenCoords = new Point(-17, 107),
-                VelocityRange = VelocityRange,
-                ScaleType = ScaleTypeEnum.Spectrogram,
-                BitmapHeight = imageSpectrogram.Height
-            });
+                Scale.CreateScale(new ScaleParameters
+                {
+                    ParentControl = scaleGrid,
+                    ScreenCoords = new Point(-17, 107),
+                    VelocityRange = VelocityRange,
+                    ScaleType = ScaleTypeEnum.Spectrogram,
+                    BitmapHeight = imageSpectrogram.Height
+                });
 
-            MmodeSetting mModeSetting = MmodeSetting.GetDepthRange(Depth, PRF, false);
-            customDepthSlider.Maximum = mModeSetting.MaxDepthDisplay;
-            customDepthSlider.Minimum = mModeSetting.MinDepthDisplay;
-            Scale.CreateMmodeScale(scaleDepthGrid, mModeSetting.MinDepthDisplay, mModeSetting.MaxDepthDisplay);
-
+                MmodeSetting mModeSetting = MmodeSetting.GetDepthRange(Depth, PRF, false);
+                customDepthSlider.Maximum = mModeSetting.MaxDepthDisplay;
+                customDepthSlider.Minimum = mModeSetting.MinDepthDisplay;
+                Scale.CreateMmodeScale(scaleDepthGrid, mModeSetting.MinDepthDisplay, mModeSetting.MaxDepthDisplay);
+            }
+            catch(Exception ex)
+            {
+                logger.Warn("Exception: ", ex);
+            }
         }  
 
         async Task PlotGraph()
@@ -164,15 +186,22 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-
+                logger.Warn("Exception: ", ex);
             }
         }
 
 
         void TCDObjOnPacketFormed(DMIPmdDataPacket[] packets)
         {
-            PacketCollection.Enqueue(packets);
-            AddPacketsToAudioCollection(packets);
+            try
+            {
+                PacketCollection.Enqueue(packets);
+                AddPacketsToAudioCollection(packets);
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("Exception: ", ex);
+            }
         }
 
         private void AddPacketsToAudioCollection(DMIPmdDataPacket[] packets)
@@ -183,12 +212,20 @@ namespace MercuryEngApp
 
             if (currentPacket != null)
             {
-                if (TCDAudio.PRF != currentPacket.parameter.PRF)
+                try
                 {
-                    TCDAudio.PRF = currentPacket.parameter.PRF;
-                    TCDAudio.soundBuffer = new byte[sizeof(short) * TCDAudio.PRF / 5];
+                    if (TCDAudio.PRF != currentPacket.parameter.PRF)
+                    {
+                        TCDAudio.PRF = currentPacket.parameter.PRF;
+                        TCDAudio.soundBuffer = new byte[sizeof(short) * TCDAudio.PRF / 5];
+                    }
+
+                    TCDAudio.AudioCollection.Add(currentPacket);
                 }
-                TCDAudio.AudioCollection.Add(currentPacket);
+                catch (Exception ex)
+                {
+                    logger.Warn("Exception: ", ex);
+                }
             }
         }
 
@@ -241,8 +278,9 @@ namespace MercuryEngApp
                         NaGraph.ProcessPacket(packet, true, 2);
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    logger.Warn("Exception: ", ex);
                     throw;
                 }
             }
@@ -251,78 +289,121 @@ namespace MercuryEngApp
         private void InitializeBitmap()
         {
             int width = 500;
-            leftSpectrumBitmap = BitmapFactory.New(width, 129);
-            imageSpectrogram.Source = leftSpectrumBitmap;
 
-
-            leftMModeBitmap = BitmapFactory.New(width, 30);
-            imageMmode.Source = leftMModeBitmap;
-
-            NaGraph = new NaGraph(new BitmapList
+            try
             {
-                LeftMmodeBitmap = leftMModeBitmap,
-                LeftSpectrumBitmap = leftSpectrumBitmap,
-                RightMmodeBitmap = leftMModeBitmap,
-                RightSpectrumBitmap = leftSpectrumBitmap
-            });
-            NaGraph.SizeOfQueue = 500;
+                leftSpectrumBitmap = BitmapFactory.New(width, 129);
+                imageSpectrogram.Source = leftSpectrumBitmap;
+
+
+                leftMModeBitmap = BitmapFactory.New(width, 30);
+                imageMmode.Source = leftMModeBitmap;
+
+                NaGraph = new NaGraph(new BitmapList
+                {
+                    LeftMmodeBitmap = leftMModeBitmap,
+                    LeftSpectrumBitmap = leftSpectrumBitmap,
+                    RightMmodeBitmap = leftMModeBitmap,
+                    RightSpectrumBitmap = leftSpectrumBitmap
+                });
+                NaGraph.SizeOfQueue = 500;
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("Exception: ", ex);
+            }
         }
 
         private async void SendPower(object sender, RoutedEventArgs e)
         {
-            using (TCDRequest requestObject = new TCDRequest())
+            try
             {
-                requestObject.ChannelID = App.CurrentChannel;
-                requestObject.Value3 = examViewModelObj.Power;
-                await UsbTcd.TCDObj.SetPowerAsync(requestObject);
+                using (TCDRequest requestObject = new TCDRequest())
+                {
+                    requestObject.ChannelID = App.CurrentChannel;
+                    requestObject.Value3 = examViewModelObj.Power;
+                    await UsbTcd.TCDObj.SetPowerAsync(requestObject);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("Exception: ", ex);
             }
         }
 
         private async void SendDepth(object sender, RoutedEventArgs e)
         {
-            using (TCDRequest requestObject = new TCDRequest())
+            try
             {
-                requestObject.ChannelID = App.CurrentChannel;
-                requestObject.Value3 = examViewModelObj.Depth;
-                TCDResponse response = await UsbTcd.TCDObj.SetDepthAsync(requestObject);
-                if(response.Result)
+                using (TCDRequest requestObject = new TCDRequest())
                 {
-                    customDepthSlider.Value = examViewModelObj.Depth;
-                    customDepthSlider.Resources["textValue"] = Convert.ToInt32(customDepthSlider.Value).ToString();
-                    customDepthSlider.InvalidateArrange();
-                }
+                    requestObject.ChannelID = App.CurrentChannel;
+                    requestObject.Value3 = examViewModelObj.Depth;
+                    TCDResponse response = await UsbTcd.TCDObj.SetDepthAsync(requestObject);
+                    if (response.Result)
+                    {
+                        customDepthSlider.Value = examViewModelObj.Depth;
+                        customDepthSlider.Resources["textValue"] = Convert.ToInt32(customDepthSlider.Value).ToString();
+                        customDepthSlider.InvalidateArrange();
+                    }
 
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("Exception: ", ex);
             }
         }
 
         private async void SendFilter(object sender, RoutedEventArgs e)
         {
-            using (TCDRequest requestObject = new TCDRequest())
+            try
             {
-                requestObject.ChannelID = App.CurrentChannel;
-                requestObject.Value3 = examViewModelObj.Filter;
-                await UsbTcd.TCDObj.SetFilterAsync(requestObject);
+                using (TCDRequest requestObject = new TCDRequest())
+                {
+                    requestObject.ChannelID = App.CurrentChannel;
+                    requestObject.Value3 = examViewModelObj.Filter;
+                    await UsbTcd.TCDObj.SetFilterAsync(requestObject);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("Exception: ", ex);
             }
         }
 
         private async void SendLength(object sender, RoutedEventArgs e)
         {
-            using (TCDRequest requestObject = new TCDRequest())
+            try
             {
-                requestObject.ChannelID = App.CurrentChannel;
-                requestObject.Value3 = examViewModelObj.SVol;
-                await UsbTcd.TCDObj.SetLengthAsync(requestObject);
+                using (TCDRequest requestObject = new TCDRequest())
+                {
+                    requestObject.ChannelID = App.CurrentChannel;
+                    requestObject.Value3 = examViewModelObj.SVol;
+                    await UsbTcd.TCDObj.SetLengthAsync(requestObject);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("Exception: ", ex);
             }
         }
 
         private async void SendPRF(object sender, RoutedEventArgs e)
         {
-            using (TCDRequest requestObject = new TCDRequest())
+            try
             {
-                requestObject.ChannelID = App.CurrentChannel;
-                requestObject.Value3 = examViewModelObj.PRF;
-                requestObject.Value2 = (byte)examViewModelObj.StartDepth;
-                await UsbTcd.TCDObj.SetPRF(requestObject);
+                using (TCDRequest requestObject = new TCDRequest())
+                {
+                    requestObject.ChannelID = App.CurrentChannel;
+                    requestObject.Value3 = examViewModelObj.PRF;
+                    requestObject.Value2 = (byte)examViewModelObj.StartDepth;
+                    await UsbTcd.TCDObj.SetPRF(requestObject);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("Exception: ", ex);
             }
         }
         /// <summary>
@@ -347,20 +428,28 @@ namespace MercuryEngApp
         private void CusomSlider_LostMouseCapture(object sender, MouseEventArgs e)
         {
             Constants.BaselineValue = 64;
-            LeftBaselinePosition = (int)CustomSlider.Value;
 
-            NaGraph.LeftSpectrogram.BaseLinePosition = LeftBaselinePosition;
-            NaGraph.RightSpectrogram.BaseLinePosition = LeftBaselinePosition;
-            Point screenCoords = Thumb.TransformToVisual(scaleGrid).Transform(new Point(0, 0));
-            screenCoords.Y = screenCoords.Y  + 25;
-            Scale.CreateScale(new ScaleParameters
+            try
             {
-                ParentControl = scaleGrid,
-                ScreenCoords = screenCoords,
-                VelocityRange = VelocityRange,
-                ScaleType = ScaleTypeEnum.Spectrogram,
-                BitmapHeight = imageSpectrogram.Height
-            });           
+                LeftBaselinePosition = (int)CustomSlider.Value;
+
+                NaGraph.LeftSpectrogram.BaseLinePosition = LeftBaselinePosition;
+                NaGraph.RightSpectrogram.BaseLinePosition = LeftBaselinePosition;
+                Point screenCoords = Thumb.TransformToVisual(scaleGrid).Transform(new Point(0, 0));
+                screenCoords.Y = screenCoords.Y + 25;
+                Scale.CreateScale(new ScaleParameters
+                {
+                    ParentControl = scaleGrid,
+                    ScreenCoords = screenCoords,
+                    VelocityRange = VelocityRange,
+                    ScaleType = ScaleTypeEnum.Spectrogram,
+                    BitmapHeight = imageSpectrogram.Height
+                });
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("Exception: ", ex);
+            }
         }
 
 
@@ -381,14 +470,22 @@ namespace MercuryEngApp
 
             DependencyObject thumb = null;
 
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(root); i++)
+            try
             {
-                thumb = GetThumb(VisualTreeHelper.GetChild(root, i));
 
-                if (thumb is Thumb)
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(root); i++)
                 {
-                    return thumb;
+                    thumb = GetThumb(VisualTreeHelper.GetChild(root, i));
+
+                    if (thumb is Thumb)
+                    {
+                        return thumb;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("Exception: ", ex);
             }
 
             return thumb;
@@ -396,41 +493,61 @@ namespace MercuryEngApp
 
         private void customDepthSlider_LostMouseCapture(object sender, MouseEventArgs e)
         {
-            customDepthSlider.Resources["textValue"] = Convert.ToInt32(customDepthSlider.Value).ToString();
+            try
+            {
+                customDepthSlider.Resources["textValue"] = Convert.ToInt32(customDepthSlider.Value).ToString();
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("Exception: ", ex);
+            }
         }
 
         private void btnEnvelopToggle_Click(object sender, RoutedEventArgs e)
         {
-            if(btnEnvelop.Content.ToString() == "Envelope On")
+            try
             {
-                NaGraph.LeftSpectrogram.SpectrumEnvolope.NegativeFlowVisible = true;
-                NaGraph.LeftSpectrogram.SpectrumEnvolope.PositiveFlowVisible = true;
-                NaGraph.RightSpectrogram.SpectrumEnvolope.NegativeFlowVisible = true;
-                NaGraph.RightSpectrogram.SpectrumEnvolope.PositiveFlowVisible = true;
-                btnEnvelop.Content = "Envelope Off";
+                if (btnEnvelop.Content.ToString() == "Envelope On")
+                {
+                    NaGraph.LeftSpectrogram.SpectrumEnvolope.NegativeFlowVisible = true;
+                    NaGraph.LeftSpectrogram.SpectrumEnvolope.PositiveFlowVisible = true;
+                    NaGraph.RightSpectrogram.SpectrumEnvolope.NegativeFlowVisible = true;
+                    NaGraph.RightSpectrogram.SpectrumEnvolope.PositiveFlowVisible = true;
+                    btnEnvelop.Content = "Envelope Off";
+                }
+                else
+                {
+                    btnEnvelop.Content = "Envelope On";
+                    NaGraph.LeftSpectrogram.SpectrumEnvolope.NegativeFlowVisible = false;
+                    NaGraph.LeftSpectrogram.SpectrumEnvolope.PositiveFlowVisible = false;
+                    NaGraph.RightSpectrogram.SpectrumEnvolope.NegativeFlowVisible = false;
+                    NaGraph.RightSpectrogram.SpectrumEnvolope.PositiveFlowVisible = false;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                btnEnvelop.Content = "Envelope On";
-                NaGraph.LeftSpectrogram.SpectrumEnvolope.NegativeFlowVisible = false;
-                NaGraph.LeftSpectrogram.SpectrumEnvolope.PositiveFlowVisible = false;
-                NaGraph.RightSpectrogram.SpectrumEnvolope.NegativeFlowVisible = false;
-                NaGraph.RightSpectrogram.SpectrumEnvolope.PositiveFlowVisible = false;
+                logger.Warn("Exception: ", ex);
             }
         }
 
         private void toggleLimitsClick(object sender, RoutedEventArgs e)
         {
-            if(toggleLimits.Content.ToString()=="Limits Off")
+            try
             {
-                toggleLimits.Content = "Limits On";
+                if (toggleLimits.Content.ToString() == "Limits Off")
+                {
+                    toggleLimits.Content = "Limits On";
+                }
+                else
+                {
+                    toggleLimits.Content = "Limits Off";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                toggleLimits.Content = "Limits Off";
+                logger.Warn("Exception: ", ex);
             }
         }
-       
     }
   
 }
