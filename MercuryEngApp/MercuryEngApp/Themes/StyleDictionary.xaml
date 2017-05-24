@@ -512,10 +512,10 @@
                         <Image Name="backGroundImage" HorizontalAlignment="Left"
                                    Stretch="Fill"
                                    Source="NA_btn_exam_66x56_on.png" />
-                        <!--<Image Name="HLine" Visibility="Visible"
-                                   Height="4" Width="1100"
-                                   Margin="56,10,0,0" Stretch="UniformToFill"
-                                   HorizontalAlignment="Left" Source="\Themes\NA_Blue_FulSize_Line.png"  Panel.ZIndex="105"/>-->
+                        <Image Name="HLine" Visibility="Visible"
+                                   Height="4" 
+                                   Margin="56,0,0,0" Stretch="UniformToFill"
+                                   HorizontalAlignment="Left" Source="NA_Blue_FulSize_Line.png" />
                         <TextBlock HorizontalAlignment="Left" Text="{DynamicResource ResourceKey=textValue}"
                                        Style="{StaticResource ResourceKey=TextBlockCenterWhite25}" Margin="7,10,0,11"></TextBlock>
                         <TextBlock HorizontalAlignment="Left" Text="{DynamicResource ResourceKey=textUnit}"
@@ -529,14 +529,12 @@
         <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition MinWidth="{TemplateBinding MinWidth}" Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>                                      
                 </Grid.ColumnDefinitions>
 
-                <Track x:Name="PART_Track" Grid.Column="1">
+                <Track x:Name="PART_Track" Grid.Column="0">
                     <Track.Thumb>
-                        <Thumb x:Name="Thumb" Focusable="False" Height="50" OverridesDefaultStyle="True" Style="{StaticResource SliderThumbStyle}" VerticalAlignment="Top" Width="60"/>
+                        <Thumb x:Name="Thumb" Focusable="False" Height="50" OverridesDefaultStyle="True" Style="{StaticResource SliderThumbStyle}" VerticalAlignment="Top"/>
                     </Track.Thumb>
                 </Track>
             </Grid>
