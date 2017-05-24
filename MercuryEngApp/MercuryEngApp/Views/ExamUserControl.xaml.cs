@@ -93,36 +93,43 @@ namespace MercuryEngApp
         {
             try
             {
-                TCDAudio.AudioCollection.CollectionChanged -= TCDAudio.AudioCollectionCollectionChanged;
-                CompositionTarget.Rendering -= CompositionTargetRendering;
-                UsbTcd.TCDObj.OnPacketFormed -= TCDObjOnPacketFormed;
-
-                UsbTcd.TCDObj.TurnTCDPowerOff();
-
+                MainWindow.TurnTCDON -= MainWindowTurnTCDON;
+                MainWindow.TurnTCDOFF -= MainWindowTurnTCDOFF;
                 //Clear graph data
             }
             catch (Exception ex)
             {
                 logger.Warn("Exception: ", ex);
             }
+
         }
 
-        async void ExamUserControlLoaded(object sender, RoutedEventArgs e)
+        void ExamUserControlLoaded(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (App.ActiveChannels == ActiveChannels.Channel1 || App.ActiveChannels == ActiveChannels.Channel2)
-                {
-                    await UsbTcd.TCDObj.SetModeAsync(App.CurrentChannel, TCDModes.Active);
-                }
-                await PlotGraph();
-                CreateVerticalScales();
-                btnEnvelopToggle_Click(null, null);
+                MainWindow.TurnTCDON += MainWindowTurnTCDON;
+                MainWindow.TurnTCDOFF += MainWindowTurnTCDOFF;
             }
             catch(Exception ex)
             {
                 logger.Warn("Exception: ", ex);
             }
+        }
+
+        void MainWindowTurnTCDOFF()
+        {
+            TCDAudio.AudioCollection.CollectionChanged -= TCDAudio.AudioCollectionCollectionChanged;
+            CompositionTarget.Rendering -= CompositionTargetRendering;
+            UsbTcd.TCDObj.OnPacketFormed -= TCDObjOnPacketFormed;
+            UsbTcd.TCDObj.TurnTCDPowerOff();
+        }
+
+        async void MainWindowTurnTCDON()
+        {
+            await PlotGraph();
+            CreateVerticalScales();
+            btnEnvelopToggle_Click(null, null);
         }
 
         private void CreateVerticalScales()

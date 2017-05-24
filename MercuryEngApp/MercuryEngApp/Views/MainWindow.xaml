@@ -20,12 +20,12 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>   
+        </Grid.ColumnDefinitions>
         <Grid x:Name="MainLayout" Visibility="Visible">
-        <Grid Grid.Column="0" Width="1366" VerticalAlignment="Stretch" 
+            <Grid Grid.Column="0" Width="1366" VerticalAlignment="Stretch" 
              HorizontalAlignment="Stretch">
-            
-            <Grid Name="TCDControl" 
+
+                <Grid Name="TCDControl" 
               Width="255" 
               Grid.Column="0"
               HorizontalAlignment="Center" 
@@ -48,132 +48,35 @@
                     VerticalAlignment="Top" Grid.Column="1"/>
 
                     <Button Style="{StaticResource ResourceKey=ButttonTCDON}" 
-                    HorizontalAlignment="Right" 
-                    UseLayoutRounding="True" 
-                    VerticalAlignment="Top" Grid.Column="2"/>
+                            HorizontalAlignment="Right" 
+                            UseLayoutRounding="True" 
+                            Click="TCDPowerClick"
+                            VerticalAlignment="Top" Grid.Column="2"/>
 
                 </Grid>
-        </Grid>
+            </Grid>
 
-        <Grid Grid.Row="1" 
+            <Grid Grid.Row="1" 
               Margin="0,18,0,0" 
               Width="1339" VerticalAlignment="Stretch" 
              HorizontalAlignment="Stretch">
-            <Grid>
-                <TabControl Height="705"
-                            VerticalAlignment="Top" BorderBrush="#FF0696F9" BorderThickness="2">
-                    <TabControl.Resources >
-                        <Style TargetType="TabPanel">
-                            <Setter Property="HorizontalAlignment" Value="Right"/>
-                        </Style>
-                        <Style TargetType="TabItem">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="TabItem">
-                                        <Border Name="Border" 
-                                                BorderThickness="2,2,2,0" 
-                                                Margin="0,0,-1,0">
-                                            <Border.BorderBrush>
-                                                <SolidColorBrush Color="#FF0696F9" Opacity="0.5"/>
-                                            </Border.BorderBrush>
-                                            <ContentPresenter x:Name="ContentSite"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        ContentSource="Header"
-                                        Margin="10,2"/>
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsSelected" Value="True">
-
-                                                <Setter TargetName="Border" Property="Background" >
-                                                    <Setter.Value>
-                                                        <SolidColorBrush Color="#FF0696F9" Opacity="0.3"/>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Trigger>
-                                            <Trigger Property="IsSelected" Value="False">
-                                                <Setter TargetName="Border" Property="Background" >
-                                                    <Setter.Value>
-                                                        <SolidColorBrush Color="#FFE4ECF3" Opacity="0.2"/>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </TabControl.Resources>
-                    <TabControl.Background>
-                        <SolidColorBrush Color="#FF0696F9" Opacity="0" />
-                    </TabControl.Background>
-                    <TabItem Width="165" Height="38" x:Name="ExamTab" BorderBrush="#FF0696F9" >
-                        <TabItem.Header>
-                                <TextBlock Text="Exam" 
-                                           Foreground="White" 
-                                           FontSize="18" 
-                                           FontFamily="Arial" />
-                        </TabItem.Header>
-                    </TabItem>
-                    <TabItem Width="165" Height="38" x:Name="InfoTab">
-                        <TabItem.Header>
-                                <TextBlock Text="Info"  
-                                           Foreground="White" 
-                                           FontSize="18" 
-                                           FontFamily="Arial" />
-                        </TabItem.Header>
-                    </TabItem>
-                    <TabItem Width="165" Height="38" x:Name="CalibrationTab" >
-                        <TabItem.Header>
-                                <TextBlock Text="Calibration"  
-                                           Foreground="White" 
-                                           FontSize="18" 
-                                           FontFamily="Arial" />
-                        </TabItem.Header>
-                    </TabItem>
-                    <TabItem Width="165" Height="38" x:Name="PacketTab">
-                        <TabItem.Header>
-                                <TextBlock Text="Packet"  
-                                           Foreground="White" 
-                                           FontSize="18" 
-                                           FontFamily="Arial" />
-                        </TabItem.Header>
-                    </TabItem>
-                </TabControl>
-            </Grid>
-        </Grid>
-
-        <Grid Name="FooterTextBox" HorizontalAlignment="Center" 
-              Margin="25,0,20,22" VerticalAlignment="Bottom">
-
-
-            <Border  VerticalAlignment="Bottom" 
-                     Width="1318"
-                      >
                 <Grid>
-                    <Grid HorizontalAlignment="Right" >
-                        <Image Source="/Themes/NA_Maximise-_Icon.png" Width="16" Height="16"
-                    VerticalAlignment="Top" Margin="62,8,0,0" HorizontalAlignment="Left"/>
-
-                        <Image  Source="/Themes/NA_Clear_Icon.png"  Width="16" Height="16"
-                    Margin="22,8,52,0" VerticalAlignment="Top"/>
-                    </Grid>
-                    <TabControl Height="120" Margin="0,5,5,5"
-                            VerticalAlignment="Top" BorderBrush="#FF0696F9" BorderThickness="2" >
+                    <TabControl x:Name="NavigationTabs"
+                        Height="705"
+                            VerticalAlignment="Top" BorderBrush="#FF0696F9" BorderThickness="2">
                         <TabControl.Resources >
                             <Style TargetType="TabPanel">
-                                
-                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="HorizontalAlignment" Value="Right"/>
                             </Style>
                             <Style TargetType="TabItem">
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="TabItem">
-                                            <Border Name="Border" CornerRadius="4,4,0,0"
+                                            <Border Name="Border" 
                                                 BorderThickness="2,2,2,0" 
-                                                Margin="-2,0,2,0">
+                                                Margin="0,0,-1,0">
                                                 <Border.BorderBrush>
-                                                    <SolidColorBrush Color="#FF0696F9" Opacity="0.6"/>
+                                                    <SolidColorBrush Color="#FF0696F9" Opacity="0.5"/>
                                                 </Border.BorderBrush>
                                                 <ContentPresenter x:Name="ContentSite"
                                         VerticalAlignment="Center"
@@ -186,14 +89,14 @@
 
                                                     <Setter TargetName="Border" Property="Background" >
                                                         <Setter.Value>
-                                                            <SolidColorBrush />
+                                                            <SolidColorBrush Color="#FF0696F9" Opacity="0.3"/>
                                                         </Setter.Value>
                                                     </Setter>
                                                 </Trigger>
                                                 <Trigger Property="IsSelected" Value="False">
                                                     <Setter TargetName="Border" Property="Background" >
                                                         <Setter.Value>
-                                                            <SolidColorBrush Color="#FF0696F9" Opacity="0.2"/>
+                                                            <SolidColorBrush Color="#FFE4ECF3" Opacity="0.2"/>
                                                         </Setter.Value>
                                                     </Setter>
                                                 </Trigger>
@@ -204,37 +107,136 @@
                             </Style>
                         </TabControl.Resources>
                         <TabControl.Background>
-                            <SolidColorBrush Opacity="0" Color="#FF0696F9" />
+                            <SolidColorBrush Color="#FF0696F9" Opacity="0" />
                         </TabControl.Background>
-                        <TabItem Width="120" Height="27" x:Name="Text1" >
+                        <TabItem Width="165" Height="38" x:Name="ExamTab" BorderBrush="#FF0696F9" >
                             <TabItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Application Log" 
+                                <TextBlock Text="Exam" 
                                            Foreground="White" 
-                                           FontSize="14" 
+                                           FontSize="18" 
                                            FontFamily="Arial" />
-                                </StackPanel>
                             </TabItem.Header>
                         </TabItem>
-                        <TabItem Width="120" Height="27" x:Name="Text2">
+                        <TabItem Width="165" Height="38" x:Name="InfoTab">
                             <TabItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="TCD Log"  
+                                <TextBlock Text="Info"  
                                            Foreground="White" 
-                                           FontSize="14" 
+                                           FontSize="18" 
                                            FontFamily="Arial" />
-                                </StackPanel>
                             </TabItem.Header>
-
                         </TabItem>
-
+                        <TabItem Width="165" Height="38" x:Name="CalibrationTab" >
+                            <TabItem.Header>
+                                <TextBlock Text="Calibration"  
+                                           Foreground="White" 
+                                           FontSize="18" 
+                                           FontFamily="Arial" />
+                            </TabItem.Header>
+                        </TabItem>
+                        <TabItem Width="165" Height="38" x:Name="PacketTab">
+                            <TabItem.Header>
+                                <TextBlock Text="Packet"  
+                                           Foreground="White" 
+                                           FontSize="18" 
+                                           FontFamily="Arial" />
+                            </TabItem.Header>
+                        </TabItem>
                     </TabControl>
                 </Grid>
-            </Border>
-        </Grid>
+            </Grid>
+
+            <Grid Name="FooterTextBox" HorizontalAlignment="Center" 
+              Margin="25,0,20,22" VerticalAlignment="Bottom">
+
+
+                <Border  VerticalAlignment="Bottom" 
+                     Width="1318"
+                      >
+                    <Grid>
+                        <Grid HorizontalAlignment="Right" >
+                            <Image Source="/Themes/NA_Maximise-_Icon.png" Width="16" Height="16"
+                    VerticalAlignment="Top" Margin="62,8,0,0" HorizontalAlignment="Left"/>
+
+                            <Image  Source="/Themes/NA_Clear_Icon.png"  Width="16" Height="16"
+                    Margin="22,8,52,0" VerticalAlignment="Top"/>
+                        </Grid>
+                        <TabControl Height="120" Margin="0,5,5,5"
+                            VerticalAlignment="Top" BorderBrush="#FF0696F9" BorderThickness="2" >
+                            <TabControl.Resources >
+                                <Style TargetType="TabPanel">
+
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                </Style>
+                                <Style TargetType="TabItem">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="TabItem">
+                                                <Border Name="Border" CornerRadius="4,4,0,0"
+                                                BorderThickness="2,2,2,0" 
+                                                Margin="-2,0,2,0">
+                                                    <Border.BorderBrush>
+                                                        <SolidColorBrush Color="#FF0696F9" Opacity="0.6"/>
+                                                    </Border.BorderBrush>
+                                                    <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsSelected" Value="True">
+
+                                                        <Setter TargetName="Border" Property="Background" >
+                                                            <Setter.Value>
+                                                                <SolidColorBrush />
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Trigger>
+                                                    <Trigger Property="IsSelected" Value="False">
+                                                        <Setter TargetName="Border" Property="Background" >
+                                                            <Setter.Value>
+                                                                <SolidColorBrush Color="#FF0696F9" Opacity="0.2"/>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </TabControl.Resources>
+                            <TabControl.Background>
+                                <SolidColorBrush Opacity="0" Color="#FF0696F9" />
+                            </TabControl.Background>
+                            <TabItem Width="120" Height="27" x:Name="Text1" >
+                                <TabItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Application Log" 
+                                           Foreground="White" 
+                                           FontSize="14" 
+                                           FontFamily="Arial" />
+                                    </StackPanel>
+                                </TabItem.Header>
+                            </TabItem>
+                            <TabItem Width="120" Height="27" x:Name="Text2">
+                                <TabItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="TCD Log"  
+                                           Foreground="White" 
+                                           FontSize="14" 
+                                           FontFamily="Arial" />
+                                    </StackPanel>
+                                </TabItem.Header>
+
+                            </TabItem>
+
+                        </TabControl>
+                    </Grid>
+                </Border>
+            </Grid>
         </Grid>
         <!--<Grid x:Name="temp" MinWidth="1366" MinHeight="768"  Background="#020e26" Visibility="Visible">            
             <Image x:Name="SplashScreenImg" gif:AnimationBehavior.SourceUri="/Themes/GIF2V220160615.gif" Stretch="Fill"/>
         </Grid>-->
-    </Grid>    
+    </Grid>
 </Window>

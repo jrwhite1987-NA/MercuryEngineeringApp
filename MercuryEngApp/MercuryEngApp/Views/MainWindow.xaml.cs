@@ -16,16 +16,21 @@ using UsbTcdLibrary.PacketFormats;
 
 namespace MercuryEngApp
 {
+    public delegate void TCDPower();
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {       
+    {
+        bool isPowerOn;
+        public static event TCDPower TurnTCDON;
+        public static event TCDPower TurnTCDOFF;
         public MainWindow()
         {
             InitializeComponent();
            
             this.Loaded += MainWindowLoaded;
+            isPowerOn = false;
             PowerController.Instance.OnDeviceStateChanged += MicrocontrollerOnDeviceStateChanged;
             PowerController.Instance.StartWatcher();
             //TestReview();
@@ -79,6 +84,28 @@ namespace MercuryEngApp
             {
                 //microcontroller disconnected
             }
+        }
+
+        private void TCDPowerClick(object sender, RoutedEventArgs e)
+        {
+           if(!isPowerOn)
+           {
+               //Turn TCD ON
+               if(TurnTCDON!=null)
+               {
+                   isPowerOn = true;
+                   TurnTCDON();
+               }
+           }
+           else
+           {
+               //Turn TCD OFF
+               if (TurnTCDOFF != null)
+               {
+                   isPowerOn = false;
+                   TurnTCDOFF();
+               }
+           }
         }
     }
 }
