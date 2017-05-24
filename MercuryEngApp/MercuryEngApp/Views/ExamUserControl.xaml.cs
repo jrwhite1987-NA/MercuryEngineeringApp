@@ -81,8 +81,10 @@ namespace MercuryEngApp
 
         void ExamUserControlUnloaded(object sender, RoutedEventArgs e)
         {
+            TCDAudio.AudioCollection.CollectionChanged -= TCDAudio.AudioCollectionCollectionChanged;
             CompositionTarget.Rendering -= CompositionTargetRendering;
             UsbTcd.TCDObj.OnPacketFormed -= TCDObjOnPacketFormed;
+            
 
             UsbTcd.TCDObj.TurnTCDPowerOff();
             //Clear graph data
@@ -93,8 +95,6 @@ namespace MercuryEngApp
         {
             try
             {
-                await Task.Delay(Constants.TimeForTCDtoLoad);
-                App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
                 if (App.ActiveChannels == ActiveChannels.Channel1 || App.ActiveChannels == ActiveChannels.Channel2)
                 {
                     await UsbTcd.TCDObj.SetModeAsync(App.CurrentChannel, TCDModes.Active);
