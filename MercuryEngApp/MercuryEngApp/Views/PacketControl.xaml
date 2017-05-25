@@ -12,10 +12,35 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Grid Name="LeftPanlePacket">
-            
+        <Grid Name="SettingPanel" >
+            <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
+                    Width="550"
+                    Height="495" 
+                    VerticalAlignment="Top" 
+                    Margin="10,5,0,0" 
+                    Grid.Column="0" 
+                    Grid.Row="0">
+                <Grid Name="SettingPanelTop" >
+                    <Border Style="{StaticResource ResourceKey=RoundedRectangleBlue}" 
+                            Height="40" 
+                            VerticalAlignment="Top" 
+                            Width="548" 
+                            Margin="-1,-1,-1,0">
+                        <TextBlock Height="17" 
+                               Margin="13,8,0,0" 
+                               Text="Settings" 
+                               Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
+                    </Border>
+                    <Grid  Margin="0,40,0,5" >
+                        <Button Content="Refresh" Click="Refresh_Click" HorizontalAlignment="Left" Margin="47,30,0,0" VerticalAlignment="Top" Width="75" Height="28"/>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+        <Grid Name="LeftPanlePacket" Grid.Column="1">            
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
                     Width="550"
                     Height="495" 
@@ -64,7 +89,7 @@
                 </Grid>
             </Border>           
         </Grid>
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="2">
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
                     Width="745"
                     Height="495" 

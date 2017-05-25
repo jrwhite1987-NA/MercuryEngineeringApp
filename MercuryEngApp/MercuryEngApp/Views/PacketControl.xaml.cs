@@ -306,11 +306,8 @@ namespace MercuryEngApp
         }
 
         public void LoadBinaryData()
-        {
-            string filePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"LocalFolder\13-Channel1.txt");            
-            int hexIn;
-            byte[] cutFs = UsbTcd.TCDObj.GetPacketDetails(filePath, 0); // Offset byte 
-            List<DMIPmdDataPacket> ListDMIPmdDataPacket = UsbTcd.TCDObj.PacketQueue[0];
+        {            
+            int hexIn;           
             int count = 1;
             ObservableCollection<HexRecord> listHexRecord = new ObservableCollection<HexRecord>();
             StringBuilder sb = new StringBuilder();
@@ -514,8 +511,13 @@ namespace MercuryEngApp
                 }
             }
             return null;
-        }
+        }       
 
+        private void Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            List<byte[]> byteArray = UsbTcd.TCDObj.GrabPacket();
+
+        }
     }
 
     public class HexRecord

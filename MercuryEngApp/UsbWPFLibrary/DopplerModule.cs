@@ -59,6 +59,9 @@ namespace UsbTcdLibrary
         /// </summary>
         internal ThreadPoolTimer CheckProbeTimer;
 
+        byte[] leftPacket;
+        byte[] rightPacket;
+
         /// <summary>
         /// The packet queue channel1
         /// </summary>
@@ -108,7 +111,7 @@ namespace UsbTcdLibrary
         /// </summary>
         private ushort SequenceRightPacket = 0;
 
-        internal List<byte[]> SinglePacket = null;
+        
         /// <summary>
         /// The MSG timer
         /// </summary>
@@ -1399,6 +1402,8 @@ namespace UsbTcdLibrary
             try
             {
                 packets = (ConvertToPacket(tempArray, tempArrayRight));
+                leftPacket = tempArray;
+                rightPacket = tempArrayRight;
                 counterPacketForm++;
                 if (OnPacketFormationDual != null)
                 {
@@ -2759,20 +2764,20 @@ namespace UsbTcdLibrary
 
         #endregion Create Subpackets
 
-        internal void GrabSinglePacket(byte[] leftChannel,byte[] rightChannel)
+        internal List<byte[]> GrabSinglePacket()
         {
-            
+            List<byte[]> SinglePacket = null;
             try
             {
                 SinglePacket = new List<byte[]>();
-                SinglePacket.Add(leftChannel);
-                SinglePacket.Add(rightChannel);
-                OnRecordingEnabled -= GrabSinglePacket;
+                SinglePacket.Add(leftPacket);
+                SinglePacket.Add(rightPacket);
             }
             catch(Exception ex)
             {
 
             }
+            return SinglePacket;
         }
 
         /// <summary>

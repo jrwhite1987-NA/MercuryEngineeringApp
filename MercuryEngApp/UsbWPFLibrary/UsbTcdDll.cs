@@ -1578,9 +1578,7 @@ namespace UsbTcdLibrary
 
         public List<byte[]> GrabPacket()
         {
-            dopplerModule.SinglePacket = null;
-            dopplerModule.OnRecordingEnabled += dopplerModule.GrabSinglePacket;
-            return dopplerModule.SinglePacket;
+            return dopplerModule.GrabSinglePacket();
         }
     }
 }
