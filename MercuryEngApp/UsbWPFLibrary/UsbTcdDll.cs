@@ -1560,5 +1560,27 @@ namespace UsbTcdLibrary
             }
             return channelNumber;
         }
+
+
+        public async Task ExportPackets(int packetCount)
+        {
+            if (TCDHandler.Current.isTCDWorking)
+            {
+                if (await dopplerModule.CreateBinaryFileOfExam(1))
+                {
+                    await dopplerModule.InitializeStreams();
+                    dopplerModule.exportPacketCount = packetCount;
+                    dopplerModule.OnRecordingEnabled += dopplerModule.WriteToFile;
+                }
+            }
+        }
+
+
+        public List<byte[]> GrabPacket()
+        {
+            dopplerModule.SinglePacket = null;
+            dopplerModule.OnRecordingEnabled += dopplerModule.GrabSinglePacket;
+            return dopplerModule.SinglePacket;
+        }
     }
 }

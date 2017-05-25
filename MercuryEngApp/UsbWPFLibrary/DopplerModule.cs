@@ -97,7 +97,7 @@ namespace UsbTcdLibrary
         /// The counter packet write
         /// </summary>
         private static int counterPacketWrite = 0;
-
+        internal int exportPacketCount = 0;
         /// <summary>
         /// The sequence left packet
         /// </summary>
@@ -108,6 +108,7 @@ namespace UsbTcdLibrary
         /// </summary>
         private ushort SequenceRightPacket = 0;
 
+        internal List<byte[]> SinglePacket = null;
         /// <summary>
         /// The MSG timer
         /// </summary>
@@ -2758,6 +2759,22 @@ namespace UsbTcdLibrary
 
         #endregion Create Subpackets
 
+        internal void GrabSinglePacket(byte[] leftChannel,byte[] rightChannel)
+        {
+            
+            try
+            {
+                SinglePacket = new List<byte[]>();
+                SinglePacket.Add(leftChannel);
+                SinglePacket.Add(rightChannel);
+                OnRecordingEnabled -= GrabSinglePacket;
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }
+
         /// <summary>
         /// Writes to file.
         /// </summary>
@@ -2767,6 +2784,7 @@ namespace UsbTcdLibrary
         {
             try
             {
+                counterPacketWrite++;
                 //Logs.Instance.ErrorLog<DopplerModule>("async WriteToFile begins ", "WriteToFile", Severity.Debug);
                 if (leftChannelData != null)
                 {
@@ -2809,6 +2827,12 @@ namespace UsbTcdLibrary
                         { await Task.Factory.StartNew(() => WriteAsync(writeArr, fileWriteStream2)); }
                     }
                 }
+                if (counterPacketWrite == exportPacketCount)
+                {
+                    counterPacketWrite = 0;
+                    OnRecordingEnabled -= WriteToFile;
+                    await ReleaseFileWritingResources();
+                }
                 //Logs.Instance.ErrorLog<DopplerModule>("async WriteToFile ends", "WriteToFile", Severity.Debug);
             }
             catch (Exception ex)
@@ -2828,7 +2852,7 @@ namespace UsbTcdLibrary
             try
             {
                 //Logs.Instance.ErrorLog<DopplerModule>("async WriteAsync begins", "WriteAsync", Severity.Debug);
-                counterPacketWrite++;
+                
                 stream.Seek(stream.Size);
                 await stream.WriteAsync(tempArr.AsBuffer());
                 //Logs.Instance.ErrorLog<DopplerModule>("async WriteAsync ends", "WriteAsync", Severity.Debug);
