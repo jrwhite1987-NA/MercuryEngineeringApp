@@ -27,15 +27,42 @@ namespace MercuryEngApp
         bool isPowerOn;
         public static event TCDPower TurnTCDON;
         public static event TCDPower TurnTCDOFF;
+        Action workAction;
+        internal bool? IsPowerChecked
+        {
+            get
+            {
+                return BtnPower.IsChecked;
+            }
+            set
+            {
+                BtnPower.IsChecked = value;
+            }
+        }
         public MainWindow()
         {
             logger.Debug("++");
             InitializeComponent();
-           
             this.Loaded += MainWindowLoaded;
             isPowerOn = false;
             PowerController.Instance.OnDeviceStateChanged += MicrocontrollerOnDeviceStateChanged;
             PowerController.Instance.StartWatcher();
+            workAction = delegate
+            {
+                switch (App.ActiveChannels)
+                {
+                    case UsbTcdLibrary.ActiveChannels.Both:
+                        BtnLeftProbe.IsHitTestVisible = true;
+                        BtnRightProbe.IsHitTestVisible = true;
+                        break;
+                    case UsbTcdLibrary.ActiveChannels.Channel1:
+                        BtnLeftProbe.IsHitTestVisible = true;
+                        break;
+                    case UsbTcdLibrary.ActiveChannels.Channel2:
+                        BtnRightProbe.IsHitTestVisible = true;
+                        break;
+                }
+            };
             //TestReview();
             logger.Debug("--");
         }       
@@ -49,6 +76,8 @@ namespace MercuryEngApp
                 InfoTab.Content = new InfoUserControl();
                 CalibrationTab.Content = new CalibrationUserControl();
                 PacketTab.Content = new PacketControl();
+                BtnLeftProbe.IsHitTestVisible = false;
+                BtnRightProbe.IsHitTestVisible = false;
                 //Task.Delay(4500).Wait();
                 //MainLayout.Visibility = Visibility.Visible;
                 //temp.Visibility = Visibility.Collapsed;
@@ -104,6 +133,7 @@ namespace MercuryEngApp
                     await PowerController.Instance.UpdatePowerParameters(true, true, false, false, true);
                     await Task.Delay(Constants.TimeForTCDtoLoad);
                     App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
+                    await Dispatcher.BeginInvoke(workAction, System.Windows.Threading.DispatcherPriority.Normal, null);
                 }
                 else
                 {
@@ -146,6 +176,16 @@ namespace MercuryEngApp
                 logger.Warn("Exception: ", ex);
             }
             logger.Debug("--");
+        }
+
+        private void LeftProbeClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RightProbeClick(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -100,6 +100,11 @@ namespace MercuryEngApp
             {
                 MainWindow.TurnTCDON -= MainWindowTurnTCDON;
                 MainWindow.TurnTCDOFF -= MainWindowTurnTCDOFF;
+                if ((bool)App.mainWindow.IsPowerChecked)
+                {
+                    MainWindowTurnTCDOFF();
+                    App.mainWindow.IsPowerChecked = false;
+                }
                 //Clear graph data
             }
             catch (Exception ex)
@@ -129,7 +134,6 @@ namespace MercuryEngApp
             logger.Debug("++");
             try
             {
-
                 TCDAudio.AudioCollection.CollectionChanged -= TCDAudio.AudioCollectionCollectionChanged;
                 CompositionTarget.Rendering -= CompositionTargetRendering;
                 UsbTcd.TCDObj.OnPacketFormed -= TCDObjOnPacketFormed;

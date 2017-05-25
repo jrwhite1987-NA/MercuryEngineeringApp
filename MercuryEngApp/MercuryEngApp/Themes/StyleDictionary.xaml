@@ -336,7 +336,7 @@
     
     <!--On off Button -->
 
-    <Style TargetType="{x:Type Button}" x:Key="ButttonTCDON">
+    <Style TargetType="{x:Type ToggleButton}" x:Key="ButttonTCDON">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="Background">
             <Setter.Value>
@@ -347,7 +347,7 @@
         <Setter Property="Height" Value="40"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="Button">
+                <ControlTemplate TargetType="ToggleButton">
                     <Border Name="border" 
                         BorderThickness="0" 
                         Background="{TemplateBinding Background}">
@@ -361,10 +361,10 @@
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
+                        <Trigger Property="IsChecked" Value="True">
                             <Setter Property="Background" TargetName="border">
                                 <Setter.Value>
-                                    <ImageBrush ImageSource="btn_exam_tcd_76x76_standby.png"/>
+                                    <ImageBrush ImageSource="btn_exam_tcd_76x76_on.png"/>
                                 </Setter.Value>
                             </Setter>
                         </Trigger>

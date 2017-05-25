@@ -37,21 +37,27 @@
                         <ColumnDefinition Width="98"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Style="{StaticResource ResourceKey=ButttonSplitL}" 
+                    <Button x:Name="BtnLeftProbe"
+                        Style="{StaticResource ResourceKey=ButttonSplitL}" 
                     HorizontalAlignment="Left" 
                     UseLayoutRounding="True" 
+                            Click="LeftProbeClick"
                     VerticalAlignment="Top" Grid.Column="1"/>
 
-                    <Button Style="{StaticResource ResourceKey=ButttonSplitR}" 
+                    <Button x:Name="BtnRightProbe"
+                        Style="{StaticResource ResourceKey=ButttonSplitR}" 
                     HorizontalAlignment="Right" 
                     UseLayoutRounding="True" 
+                            Click="RightProbeClick"
                     VerticalAlignment="Top" Grid.Column="2"/>
 
-                    <Button Style="{StaticResource ResourceKey=ButttonTCDON}" 
-                            HorizontalAlignment="Left" 
-                            UseLayoutRounding="True" 
-                            Click="TCDPowerClick"
-                            VerticalAlignment="Top" Grid.Column="0"/>
+                    <ToggleButton x:Name="BtnPower"
+                                  Style="{StaticResource ResourceKey=ButttonTCDON}" 
+                                  HorizontalAlignment="Left" 
+                                  UseLayoutRounding="True" 
+                                  Click="TCDPowerClick"
+                                  VerticalAlignment="Top" 
+                                  Grid.Column="0"/>
 
                 </Grid>
             </Grid>

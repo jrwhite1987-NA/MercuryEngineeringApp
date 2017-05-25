@@ -64,7 +64,7 @@ namespace MercuryEngApp
             get;
             set;
         }
-
+        internal static MainWindow mainWindow;
         public App()
         {
 
@@ -75,7 +75,7 @@ namespace MercuryEngApp
         private async void Application_Startup(object sender, StartupEventArgs e)
         {
             MercuryEngApp.Views.SplashScreen splashScreen = new MercuryEngApp.Views.SplashScreen();
-            MainWindow mainWindow = new MainWindow();
+            mainWindow = new MainWindow();
             mainWindow.Show();
             splashScreen.Show();
             await Task.Delay(4500);
