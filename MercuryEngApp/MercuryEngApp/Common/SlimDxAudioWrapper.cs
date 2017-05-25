@@ -42,10 +42,13 @@ namespace AudioLib
 
         public bool Start()
         {
+            logger.Debug("++");
             if (pSourceVoice != null)
             {
                 pSourceVoice.Start(PlayFlags.None);
             }
+
+            logger.Debug("--");
 
             return true;
         }
@@ -62,11 +65,13 @@ namespace AudioLib
 
         public bool Stop()
         {
+            logger.Debug("++");
             if (pSourceVoice != null)
             {
                 pSourceVoice.Stop();
             }
 
+            logger.Debug("--");
             return true;
         }
 
@@ -86,6 +91,7 @@ namespace AudioLib
 
         private bool LoadTCD(List<short> away, List<short> towards, short sRate)
         {
+            logger.Debug("++");
             bool bReturn;
             try
             {
@@ -123,11 +129,14 @@ namespace AudioLib
                 bReturn = false;
             }
 
+            logger.Debug("--");
+
             return bReturn;
         }
         
         private byte[] GetBytes(List<short> lstData)
         {
+            logger.Debug("++");
             byte[] allBytes = new byte[lstData.Count * sizeof(short)];
             for(int i = 0; i < lstData.Count;i++)
             {
@@ -135,11 +144,14 @@ namespace AudioLib
                 bytes.CopyTo(allBytes, i * sizeof(short));
             }
 
+            logger.Debug("--");
+
             return allBytes;
         }
 
         private void SubmitBuffers()
         {
+            logger.Debug("++");
             try
             {
                 for (int i = 0; i < m_Buffs.Count; i++)
@@ -166,12 +178,15 @@ namespace AudioLib
             {
                 logger.Warn("Exception: ", ex);
             }
+            logger.Debug("--");
         }
 
         private void ReleasePlayedBuffers()
         {
+            logger.Debug("++");
             if(pSourceVoice == null)
             {
+                logger.Debug("--");
                 return;
             }
 
@@ -191,6 +206,7 @@ namespace AudioLib
 
                 if (numInVoice >= numSubmitted)
                 {
+                    logger.Debug("--");
                     return;
                 }
 
@@ -208,10 +224,12 @@ namespace AudioLib
             {
                 logger.Warn("Exception: ", ex);
             }
+            logger.Debug("--");
         }
 
         private void AddBuffer(List<short> away, List<short> towards)
         {
+            logger.Debug("++");
             try
             {
                 int count = Math.Max(away.Count, towards.Count);
@@ -237,17 +255,23 @@ namespace AudioLib
             {
                 logger.Warn("Exception: ", ex);
             }
+            logger.Debug("--");
         }
 
         private void CheckBuildupMode()
         {
+            logger.Debug("++");
             if (m_BuildupMode == false)
             {
+                logger.Debug("--");
                 return;
             }
 
             if (pendingSampleRate != 0)
+            {
+                logger.Debug("--");
                 return;
+            }
 
             uint n = 0;
 
@@ -270,6 +294,7 @@ namespace AudioLib
             {
                 logger.Warn("Exception: ", ex);
             }
+            logger.Debug("--");
         }
 
         private WaveFormatExtensible WaveFormatFromSampleRate(int sampleRate)

@@ -60,6 +60,7 @@ namespace MercuryEngApp
        
         public ExamUserControl()
         {
+            logger.Debug("++");
             InitializeComponent();
             this.Loaded += ExamUserControlLoaded;
             this.Unloaded += ExamUserControlUnloaded;
@@ -68,11 +69,13 @@ namespace MercuryEngApp
 
             TCDAudio = new AudioWrapper();
             TCDAudio.PRF = 8000;
-            TCDAudio.SetVolume(30);    
+            TCDAudio.SetVolume(30);
+            logger.Debug("--");
         }
 
         private void MicrocontrollerOnDeviceStateChanged(bool flag)
         {
+            logger.Debug("++");
             if (!flag)
             {
                 try
@@ -87,10 +90,12 @@ namespace MercuryEngApp
                     logger.Warn("Exception: ", ex);
                 }
             }
+            logger.Debug("--");
         }
 
         void ExamUserControlUnloaded(object sender, RoutedEventArgs e)
         {
+            logger.Debug("++");
             try
             {
                 MainWindow.TurnTCDON -= MainWindowTurnTCDON;
@@ -101,11 +106,12 @@ namespace MercuryEngApp
             {
                 logger.Warn("Exception: ", ex);
             }
-
+            logger.Debug("--");
         }
 
         void ExamUserControlLoaded(object sender, RoutedEventArgs e)
         {
+            logger.Debug("++");
             try
             {
                 MainWindow.TurnTCDON += MainWindowTurnTCDON;
@@ -115,25 +121,46 @@ namespace MercuryEngApp
             {
                 logger.Warn("Exception: ", ex);
             }
+            logger.Debug("--");
         }
 
         void MainWindowTurnTCDOFF()
         {
-            TCDAudio.AudioCollection.CollectionChanged -= TCDAudio.AudioCollectionCollectionChanged;
-            CompositionTarget.Rendering -= CompositionTargetRendering;
-            UsbTcd.TCDObj.OnPacketFormed -= TCDObjOnPacketFormed;
-            UsbTcd.TCDObj.TurnTCDPowerOff();
+            logger.Debug("++");
+            try
+            {
+
+                TCDAudio.AudioCollection.CollectionChanged -= TCDAudio.AudioCollectionCollectionChanged;
+                CompositionTarget.Rendering -= CompositionTargetRendering;
+                UsbTcd.TCDObj.OnPacketFormed -= TCDObjOnPacketFormed;
+                UsbTcd.TCDObj.TurnTCDPowerOff();
+            }
+            catch(Exception ex)
+            {
+                logger.Warn("Exception: ", ex);
+            }
+            logger.Debug("--");
         }
 
         async void MainWindowTurnTCDON()
         {
-            await PlotGraph();
-            CreateVerticalScales();
-            btnEnvelopToggle_Click(null, null);
+            logger.Debug("++");
+            try
+            {
+                await PlotGraph();
+                CreateVerticalScales();
+                btnEnvelopToggle_Click(null, null);
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("Exception: ", ex);
+            }
+            logger.Debug("--");
         }
 
         private void CreateVerticalScales()
         {
+            logger.Debug("++");
             VelocityRange = 308;
             Depth = 48;
             PRF = 8000;
@@ -157,10 +184,12 @@ namespace MercuryEngApp
             {
                 logger.Warn("Exception: ", ex);
             }
+            logger.Debug("--");
         }  
 
         async Task PlotGraph()
         {
+            logger.Debug("++");
             try
             {
                 InitializeBitmap();
@@ -195,11 +224,13 @@ namespace MercuryEngApp
             {
                 logger.Warn("Exception: ", ex);
             }
+            logger.Debug("--");
         }
 
 
         void TCDObjOnPacketFormed(DMIPmdDataPacket[] packets)
         {
+            logger.Debug("++");
             try
             {
                 PacketCollection.Enqueue(packets);
@@ -209,10 +240,12 @@ namespace MercuryEngApp
             {
                 logger.Warn("Exception: ", ex);
             }
+            logger.Debug("--");
         }
 
         private void AddPacketsToAudioCollection(DMIPmdDataPacket[] packets)
         {
+            logger.Debug("++");
             var currentPacket = packets[0];
             if (currentPacket == null)
                 currentPacket = packets[1];
@@ -234,10 +267,13 @@ namespace MercuryEngApp
                     logger.Warn("Exception: ", ex);
                 }
             }
+            logger.Debug("--");
         }
 
         void CompositionTargetRendering(object sender, EventArgs e)
         {
+            logger.Debug("++");
+
             while (PacketCollection.Count > 0)
             {
                 try
@@ -291,10 +327,12 @@ namespace MercuryEngApp
                     throw;
                 }
             }
+            logger.Debug("--");
         }
 
         private void InitializeBitmap()
         {
+            logger.Debug("++");
             int width = 500;
 
             try
@@ -319,10 +357,12 @@ namespace MercuryEngApp
             {
                 logger.Warn("Exception: ", ex);
             }
+            logger.Debug("--");
         }
 
         private async void SendPower(object sender, RoutedEventArgs e)
         {
+            logger.Debug("++");
             try
             {
                 using (TCDRequest requestObject = new TCDRequest())
@@ -336,10 +376,12 @@ namespace MercuryEngApp
             {
                 logger.Warn("Exception: ", ex);
             }
+            logger.Debug("--");
         }
 
         private async void SendDepth(object sender, RoutedEventArgs e)
         {
+            logger.Debug("++");
             try
             {
                 using (TCDRequest requestObject = new TCDRequest())
@@ -360,10 +402,12 @@ namespace MercuryEngApp
             {
                 logger.Warn("Exception: ", ex);
             }
+            logger.Debug("--");
         }
 
         private async void SendFilter(object sender, RoutedEventArgs e)
         {
+            logger.Debug("++");
             try
             {
                 using (TCDRequest requestObject = new TCDRequest())
@@ -377,10 +421,12 @@ namespace MercuryEngApp
             {
                 logger.Warn("Exception: ", ex);
             }
+            logger.Debug("--");
         }
 
         private async void SendLength(object sender, RoutedEventArgs e)
         {
+            logger.Debug("++");
             try
             {
                 using (TCDRequest requestObject = new TCDRequest())
@@ -394,10 +440,12 @@ namespace MercuryEngApp
             {
                 logger.Warn("Exception: ", ex);
             }
+            logger.Debug("--");
         }
 
         private async void SendPRF(object sender, RoutedEventArgs e)
         {
+            logger.Debug("++");
             try
             {
                 using (TCDRequest requestObject = new TCDRequest())
@@ -412,6 +460,7 @@ namespace MercuryEngApp
             {
                 logger.Warn("Exception: ", ex);
             }
+            logger.Debug("--");
         }
         /// <summary>
         /// The leftcurrent base line postion
@@ -435,6 +484,7 @@ namespace MercuryEngApp
         private void CusomSlider_LostMouseCapture(object sender, MouseEventArgs e)
         {
             Constants.BaselineValue = 64;
+            logger.Debug("++");
 
             try
             {
@@ -457,6 +507,7 @@ namespace MercuryEngApp
             {
                 logger.Warn("Exception: ", ex);
             }
+            logger.Debug("--");
         }
 
 
@@ -470,6 +521,7 @@ namespace MercuryEngApp
 
         private DependencyObject GetThumb(DependencyObject root)
         {
+            logger.Debug("++");
             if (root is Thumb)
             {
                 return root;
@@ -494,12 +546,14 @@ namespace MercuryEngApp
             {
                 logger.Warn("Exception: ", ex);
             }
+            logger.Debug("--");
 
             return thumb;
         }
 
         private void customDepthSlider_LostMouseCapture(object sender, MouseEventArgs e)
         {
+            logger.Debug("++");
             try
             {
                 customDepthSlider.Resources["textValue"] = Convert.ToInt32(customDepthSlider.Value).ToString();
@@ -508,10 +562,12 @@ namespace MercuryEngApp
             {
                 logger.Warn("Exception: ", ex);
             }
+            logger.Debug("--");
         }
 
         private void btnEnvelopToggle_Click(object sender, RoutedEventArgs e)
         {
+            logger.Debug("++");
             try
             {
                 if (btnEnvelop.Content.ToString() == "Envelope On")
@@ -535,10 +591,12 @@ namespace MercuryEngApp
             {
                 logger.Warn("Exception: ", ex);
             }
+            logger.Debug("--");
         }
 
         private void toggleLimitsClick(object sender, RoutedEventArgs e)
         {
+            logger.Debug("++");
             try
             {
                 if (toggleLimits.Content.ToString() == "Limits Off")
@@ -554,6 +612,7 @@ namespace MercuryEngApp
             {
                 logger.Warn("Exception: ", ex);
             }
+            logger.Debug("--");
         }
     }
   

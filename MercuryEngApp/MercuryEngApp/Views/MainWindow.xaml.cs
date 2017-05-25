@@ -29,6 +29,7 @@ namespace MercuryEngApp
         public static event TCDPower TurnTCDOFF;
         public MainWindow()
         {
+            logger.Debug("++");
             InitializeComponent();
            
             this.Loaded += MainWindowLoaded;
@@ -36,10 +37,12 @@ namespace MercuryEngApp
             PowerController.Instance.OnDeviceStateChanged += MicrocontrollerOnDeviceStateChanged;
             PowerController.Instance.StartWatcher();
             //TestReview();
+            logger.Debug("--");
         }       
 
         void MainWindowLoaded(object sender, RoutedEventArgs e)
         {
+            logger.Debug("++");
             try
             {
                 ExamTab.Content = new ExamUserControl();
@@ -54,10 +57,12 @@ namespace MercuryEngApp
             {
                 logger.Warn("Exception: ", ex);
             }
+            logger.Debug("--");
         }
 
         public void TestReview()
         {
+            logger.Debug("++");
             try
             {
                 List<ReadPointerModel> listReadPointerModel = new List<ReadPointerModel>();
@@ -81,10 +86,12 @@ namespace MercuryEngApp
             {
                 logger.Warn("Exception: ", ex);
             }
+            logger.Debug("--");
         }
 
         private async void MicrocontrollerOnDeviceStateChanged(bool flag)
         {
+            logger.Debug("++");
             try
             {
                 if (flag)
@@ -107,10 +114,12 @@ namespace MercuryEngApp
             {
                 logger.Warn("Exception: ", ex);
             }
+            logger.Debug("--");
         }
 
         private void TCDPowerClick(object sender, RoutedEventArgs e)
         {
+            logger.Debug("++");
             try
             {
                 if (!isPowerOn)
@@ -136,6 +145,7 @@ namespace MercuryEngApp
             {
                 logger.Warn("Exception: ", ex);
             }
+            logger.Debug("--");
         }
     }
 }

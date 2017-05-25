@@ -10,6 +10,7 @@ using Windows.Storage;
 using UsbTcdLibrary;
 using Core.Constants;
 using AudioLib;
+using log4net;
 
 namespace MercuryEngApp.Common
 {
@@ -43,6 +44,8 @@ namespace MercuryEngApp.Common
 
         #endregion
 
+        static ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// The audio collection
         /// </summary>
@@ -70,33 +73,42 @@ namespace MercuryEngApp.Common
         /// <param name="e">The <see cref="System.Collections.Specialized.NotifyCollectionChangedEventArgs" /> instance containing the event data.</param>
         public void AudioCollectionCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            logger.Debug("++");
+            try
             {
-                List<short> away = new List<short>();
-                List<short> toward = new List<short>();
-
-                if (AudioCollection.Count >= 1)
+                if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
                 {
-                    if (isAudioFirst)
+                    List<short> away = new List<short>();
+                    List<short> toward = new List<short>();
+
+                    if (AudioCollection.Count >= 1)
                     {
-                        isAudioFirst = false;
-                        wrapper.Start();
+                        if (isAudioFirst)
+                        {
+                            isAudioFirst = false;
+                            wrapper.Start();
+                        }
+
+                        var bufferSize = GetBufferSizeFromPRF(AudioCollection[0].audio.sampleRate);
+
+                        foreach (var packet in AudioCollection)
+                        {
+                            away.AddRange(packet.audio.away.Take(bufferSize));
+                            toward.AddRange(packet.audio.toward.Take(bufferSize));
+                        }
+
+                        wrapper.SendData(away, toward, (short)AudioCollection[0].audio.sampleRate);
+
+                        AudioCollection.Clear();
                     }
 
-                    var bufferSize = GetBufferSizeFromPRF(AudioCollection[0].audio.sampleRate);
-
-                    foreach (var packet in AudioCollection)
-                    {
-                        away.AddRange(packet.audio.away.Take(bufferSize));
-                        toward.AddRange(packet.audio.toward.Take(bufferSize));
-                    }
-
-                    wrapper.SendData(away, toward, (short)AudioCollection[0].audio.sampleRate);
-
-                    AudioCollection.Clear();
                 }
-
             }
+            catch (Exception ex)
+            {
+                logger.Warn("Exception: ", ex);
+            }
+            logger.Debug("--");
         }
 
         /// <summary>
@@ -158,6 +170,7 @@ namespace MercuryEngApp.Common
         /// <returns></returns>
         private static async Task DeleteIfFileExists(StorageFolder folder, string fileName)
         {
+            logger.Debug("++");
             try
             {
                 StorageFile audioFile = await folder.GetFileAsync(fileName);
@@ -167,6 +180,7 @@ namespace MercuryEngApp.Common
             {
                 // Ignore. File does not exist.
             }
+            logger.Debug("--");
         }
 
         /// <summary>
@@ -180,6 +194,7 @@ namespace MercuryEngApp.Common
         private static async Task GenerateWavFile(byte[] bytes, int sampleRate, int durationInSeconds,
             StorageFolder folder, string fileName)
         {
+            logger.Debug("++");
             const short tracks = 2;
             const short bitsPerSample = 16;
             const int waveSize = 4;
@@ -226,8 +241,9 @@ namespace MercuryEngApp.Common
             }
             catch (Exception ex)
             {
-                throw ex;
+                logger.Warn("Exception: ", ex);
             }
+            logger.Debug("--");
         }
 
         /// <summary>
@@ -241,6 +257,7 @@ namespace MercuryEngApp.Common
         /// <returns></returns>
         public static async Task CreateAudioFile(List<DMIPmdDataPacket> dataPackets, StorageFolder folder, string fileName)
         {
+            logger.Debug("++");
             int prf = dataPackets[0].audio.sampleRate;
             int numSamples = (int)prf / Constants.PACKETS_PER_SEC;
 
@@ -333,9 +350,10 @@ namespace MercuryEngApp.Common
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    logger.Warn("Exception: ", ex);
                 }
             }
+            logger.Debug("--");
         }
     }
 }
