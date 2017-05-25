@@ -11,58 +11,106 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="300"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="295"/>
+            <ColumnDefinition Width="628"/>
         </Grid.ColumnDefinitions>
-        <Grid Name="SettingPanel" >
+        <Grid Name="LeftPanlePacket">
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
-                    Width="550"
+                    Width="387"
                     Height="495" 
                     VerticalAlignment="Top" 
-                    Margin="10,5,0,0" 
-                    Grid.Column="0" 
-                    Grid.Row="0">
-                <Grid Name="SettingPanelTop" >
+                    Margin="10,5,0,0" >
+                <Grid>
+
                     <Border Style="{StaticResource ResourceKey=RoundedRectangleBlue}" 
                             Height="40" 
                             VerticalAlignment="Top" 
-                            Width="548" 
-                            Margin="-1,-1,-1,0">
-                        <TextBlock Height="17" 
+                            Width="387" 
+                            Margin="-1,-1,0,0"
+                            HorizontalAlignment="Left">
+
+                        <TextBlock Height="21" 
                                Margin="13,8,0,0" 
-                               Text="Settings" 
+                               Text="Setting" 
                                Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
                     </Border>
-                    <Grid  Margin="0,40,0,5" >
-                        <Button Content="Refresh" Click="Refresh_Click" HorizontalAlignment="Left" Margin="47,30,0,0" VerticalAlignment="Top" Width="75" Height="28"/>
+                    <Grid Margin="0,40,0,5" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="58"/>
+                            <RowDefinition Height="74"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="90"/>
+                        </Grid.RowDefinitions>
+                        <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" Width="370" Margin="7,15,0,6" Grid.RowSpan="3" Grid.Row="0"></Border>
+                        <TextBlock  Grid.Row="0" 
+                                    Text="Packet Graph Interval"
+                                    Margin="10,15,0,0"
+                                    Style="{StaticResource ResourceKey=Lable25size}"/>
+
+                        <StackPanel VerticalAlignment="Center" Margin="20,16,15,20" Grid.Row="1" Height="40">
+                            <Slider Maximum="100" TickPlacement="BottomRight" TickFrequency="10" IsSnapToTickEnabled="True"/>
+                        </StackPanel>
+
+                        <Button Content="Refresh" 
+                                Style="{StaticResource ResourceKey=ButtonStyle1}" 
+                                Grid.Row="2" 
+                                Width="125" 
+                                Height="35"
+                                Margin="0,8,15,18"
+                                HorizontalAlignment="Right"/>
+                        <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" Width="370" Margin="7,10,0,6" Grid.RowSpan="2" Grid.Row="4"></Border>
+                        <TextBlock  Grid.Row="4" 
+                                    Text="No. Of Packet Export"
+                                    Margin="10,10,0,0"
+                                    Style="{StaticResource ResourceKey=Lable25size}"/>
+
+                        <Button Content="Export" 
+                                Style="{StaticResource ResourceKey=ButtonStyle1}" 
+                                Grid.Row="5" 
+                                Width="125" 
+                                Margin="0,28,15,28"
+                                HorizontalAlignment="Right"/>
+
+                        <TextBox Grid.Row="5" 
+                                 HorizontalAlignment="Left"
+                                 Width="210"
+                                 Margin="20,31,0,30"
+                                  Style="{StaticResource ResourceKey=MainTextbox}"/>
+
                     </Grid>
+
                 </Grid>
+
             </Border>
         </Grid>
-        <Grid Name="LeftPanlePacket" Grid.Column="1">            
+        <Grid Name="CenterPanlePacket" Grid.Column="1">
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
-                    Width="550"
+                    Width="285"
                     Height="495" 
                     VerticalAlignment="Top" 
                     Margin="10,5,0,0" 
-                    Grid.Column="0" 
-                    Grid.Row="0">
-                <Grid Name="LeftPanelPacketTop" >
+                    Grid.Column="1" 
+                    Grid.Row="0"
+                    HorizontalAlignment="Right">
+                <Grid Name="CentoerPanelPacketTop" >
 
                     <Border Style="{StaticResource ResourceKey=RoundedRectangleBlue}" 
                             Height="40" 
                             VerticalAlignment="Top" 
-                            Width="548" 
+                            Width="285" 
                             Margin="-1,-1,-1,0">
 
-                        <TextBlock Height="17" 
+                        <TextBlock Height="21" 
                                Margin="13,8,0,0" 
                                Text="Envelope Tree" 
                                Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
                     </Border>
-                    <Grid  Margin="0,40,0,5" >
-                        <TreeView Name="trvMenu">
+                    <Grid  Margin="0,40,0,5">
+                        <TreeView Name="trvMenu" ItemsSource="{Binding FirstGeneration}">
+
                             <TreeView.ItemTemplate>
                                 <HierarchicalDataTemplate DataType="{x:Type local:ItemsMenu}" ItemsSource="{Binding Items}">
                                     <Grid>
@@ -74,24 +122,35 @@
                                             <ColumnDefinition Width="100"></ColumnDefinition>
                                             <ColumnDefinition Width="100"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
+
                                         <TextBlock Text="{Binding Title}"  VerticalAlignment="Center" Background="Transparent" HorizontalAlignment="Left" Grid.Column="0" Padding="2,0,2,0"/>
                                         <TextBlock Text="{Binding PakcetValue}"  VerticalAlignment="Center" Background="Transparent" HorizontalAlignment="Left" Grid.Column="1" Padding="2,0,2,0"/>
+
                                     </Grid>
                                 </HierarchicalDataTemplate>
+
                             </TreeView.ItemTemplate>
                             <TreeView.ItemContainerStyle>
-                                <Style TargetType="TreeViewItem">
-                                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"></Setter>
+                                <Style TargetType="{x:Type TreeViewItem}">
+                                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                                    <Setter Property="FontWeight" Value="Normal" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="FontWeight" Value="Bold" />
+                                            <Setter Property="FontSize" Value="14"/>
+                                        </Trigger>
+                                    </Style.Triggers>
                                 </Style>
                             </TreeView.ItemContainerStyle>
                         </TreeView>
                     </Grid>
                 </Grid>
-            </Border>           
+            </Border>
         </Grid>
         <Grid Grid.Column="2">
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
-                    Width="745"
+                    Width="608"
                     Height="495" 
                     VerticalAlignment="Top" 
                     Margin="10,5,10,0" 
@@ -99,46 +158,47 @@
 
                 <Grid Name="rightPanelPacketTop" >
                     <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" Height="40" VerticalAlignment="Top" 
-                               Width="745" Margin="-1,-1,-1,0" HorizontalAlignment="Right"/>
-                    <TextBlock Height="17" Margin="13,8,0,0" Text="Hex Viewer " Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
-                     <Grid Margin="0,40,0,5" >
-                        
-                            <DataGrid Name="grdMailbag" Grid.Column="1" DataContext="{StaticResource ItemCollectionViewSource}" AutoGenerateColumns="False" SelectionUnit="Cell" CanUserAddRows="False" ItemsSource="{Binding}" IsReadOnly="True">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn x:Name="Offset" Width="100" Binding="{Binding Path=Offset}" Header="Offset" />
-                                    <DataGridTextColumn x:Name="cHx_00" Binding="{Binding Path=Hx_00}" Header="00" />
-                                    <DataGridTextColumn x:Name="cHx_01" Binding="{Binding Path=Hx_01}" Header="01" />
-                                    <DataGridTextColumn x:Name="cHx_02" Binding="{Binding Path=Hx_02}" Header="02" />
-                                    <DataGridTextColumn x:Name="cHx_03" Binding="{Binding Path=Hx_03}" Header="03" />
-                                    <DataGridTextColumn x:Name="cHx_04" Binding="{Binding Path=Hx_04}" Header="04" />
-                                    <DataGridTextColumn x:Name="cHx_05" Binding="{Binding Path=Hx_05}" Header="05" />
-                                    <DataGridTextColumn x:Name="cHx_06" Binding="{Binding Path=Hx_06}" Header="06" />
-                                    <DataGridTextColumn x:Name="cHx_07" Binding="{Binding Path=Hx_07}" Header="07" />
-                                    <DataGridTextColumn x:Name="cHx_08" Binding="{Binding Path=Hx_08}" Header="08" />
-                                    <DataGridTextColumn x:Name="cHx_09" Binding="{Binding Path=Hx_09}" Header="09" />
-                                    <DataGridTextColumn x:Name="cHx_0a" Binding="{Binding Path=Hx_0a}" Header="0a" />
-                                    <DataGridTextColumn x:Name="cHx_0b" Binding="{Binding Path=Hx_0b}" Header="0b" />
-                                    <DataGridTextColumn x:Name="cHx_0c" Binding="{Binding Path=Hx_0c}" Header="0c" />
-                                    <DataGridTextColumn x:Name="cHx_0d" Binding="{Binding Path=Hx_0d}" Header="0d" />
-                                    <DataGridTextColumn x:Name="cHx_0e" Binding="{Binding Path=Hx_0e}" Header="0e" />
-                                    <DataGridTextColumn x:Name="cHx_0f" Binding="{Binding Path=Hx_0f}" Header="0f" />
-                                </DataGrid.Columns>
-                                <DataGrid.Resources>
-                                    <Style TargetType="DataGridCell">
-                                        <Style.Triggers>
-                                            <Trigger Property="IsSelected" Value="True">
-                                                <Setter Property="Background" Value="Aqua"></Setter>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                    <Style TargetType="DataGridRow">
-                                        <Setter Property="IsEnabled" Value="False"></Setter>
-                                    </Style>
-                                </DataGrid.Resources>
-                            </DataGrid>
-                        
+                               Width="608" Margin="-1,-1,-1,0" HorizontalAlignment="Right"/>
+                    <TextBlock Height="27" Margin="13,8,0,0" Text="Hex Viewer " Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
+                    <Grid Margin="0,40,0,5" >
+
+                        <DataGrid Name="grdMailbag" Grid.Column="1" DataContext="{StaticResource ItemCollectionViewSource}" AutoGenerateColumns="False" SelectionUnit="Cell" CanUserAddRows="False" ItemsSource="{Binding}" IsReadOnly="True" >
+
+                            <DataGrid.Columns>
+                                <DataGridTextColumn x:Name="Offset" Width="100" Binding="{Binding Path=Offset}" Header="Offset"/>
+                                <DataGridTextColumn x:Name="cHx_00" Binding="{Binding Path=Hx_00}" Header="00" Width="30" />
+                                <DataGridTextColumn x:Name="cHx_01" Binding="{Binding Path=Hx_01}" Header="01" Width="30"/>
+                                <DataGridTextColumn x:Name="cHx_02" Binding="{Binding Path=Hx_02}" Header="02" Width="30" />
+                                <DataGridTextColumn x:Name="cHx_03" Binding="{Binding Path=Hx_03}" Header="03" Width="30" />
+                                <DataGridTextColumn x:Name="cHx_04" Binding="{Binding Path=Hx_04}" Header="04" Width="30" />
+                                <DataGridTextColumn x:Name="cHx_05" Binding="{Binding Path=Hx_05}" Header="05" Width="30" />
+                                <DataGridTextColumn x:Name="cHx_06" Binding="{Binding Path=Hx_06}" Header="06" Width="30" />
+                                <DataGridTextColumn x:Name="cHx_07" Binding="{Binding Path=Hx_07}" Header="07" Width="30" />
+                                <DataGridTextColumn x:Name="cHx_08" Binding="{Binding Path=Hx_08}" Header="08" Width="30" />
+                                <DataGridTextColumn x:Name="cHx_09" Binding="{Binding Path=Hx_09}" Header="09" Width="30" />
+                                <DataGridTextColumn x:Name="cHx_0a" Binding="{Binding Path=Hx_0a}" Header="0a" Width="30" />
+                                <DataGridTextColumn x:Name="cHx_0b" Binding="{Binding Path=Hx_0b}" Header="0b" Width="30" />
+                                <DataGridTextColumn x:Name="cHx_0c" Binding="{Binding Path=Hx_0c}" Header="0c" Width="30" />
+                                <DataGridTextColumn x:Name="cHx_0d" Binding="{Binding Path=Hx_0d}" Header="0d" Width="30" />
+                                <DataGridTextColumn x:Name="cHx_0e" Binding="{Binding Path=Hx_0e}" Header="0e" Width="30" />
+                                <DataGridTextColumn x:Name="cHx_0f" Binding="{Binding Path=Hx_0f}" Header="0f" Width="30" />
+                            </DataGrid.Columns>
+                            <DataGrid.Resources>
+                                <Style TargetType="DataGridCell">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" Value="Aqua"></Setter>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                                <Style TargetType="DataGridRow">
+                                    <Setter Property="IsEnabled" Value="False"></Setter>
+                                </Style>
+                            </DataGrid.Resources>
+                        </DataGrid>
+
                     </Grid>
-                    
+
                 </Grid>
             </Border>
         </Grid>

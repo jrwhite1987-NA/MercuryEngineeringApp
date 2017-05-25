@@ -542,4 +542,77 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <!--Hex Viewer--><!--
+
+    <Style TargetType="DataGridCell" x:Key="ActiveCellStyle">
+        <Setter Property="Foreground" Value="#FF0074FF"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsActive}" Value="{x:Null}">
+                <Setter Property="Foreground" Value="White"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsActive}" Value="True">
+                <Setter Property="Foreground" Value="Red"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>-->
+
+   
+    <!--Lable Font-->
+    
+     <Style x:Key="Lable25size" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="25"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Padding" Value="8"/>
+        
+    </Style>
+    
+    <!--Slider-->
+    
+    
+    <!--<ControlTemplate x:Key="Slider"  TargetType="Slider">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TickBar  x:Name="TopTick"  Fill="LightGray" VerticalAlignment="Top"   SnapsToDevicePixels="True" Grid.Row="0" Placement="Top" Height="5" Visibility="Visible"/>
+            <Border BorderBrush="LightGray"  BorderThickness="0,0,0,1" ></Border>
+            <Border x:Name="TrackBackground" VerticalAlignment="Center" Margin="0,-10,0,0" BorderBrush="Red" Background="Red" Height="3"   Grid.Row="1"  BorderThickness="1"/>
+            <Track Grid.Row="1" x:Name="PART_Track" Margin="0,-10,0,0"  >
+               
+            </Track>
+            <TextBlock Text="0" Grid.Row="1" Margin="0,15,0,0"></TextBlock>
+            <TickBar x:Name="BottomTick" Fill="LightGray"   SnapsToDevicePixels="True" Grid.Row="2"   Placement="Bottom" Height="4" Visibility="Collapsed" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="TickPlacement"  Value="TopLeft">
+                <Setter TargetName="TopTick" Property="Visibility"  Value="Visible" />
+            </Trigger>
+            <Trigger Property="TickPlacement" Value="BottomRight">
+                <Setter TargetName="BottomTick"  Property="Visibility"  Value="Visible" />
+            </Trigger>
+            <Trigger Property="TickPlacement" Value="Both">
+                <Setter TargetName="TopTick" Property="Visibility" Value="Visible" />
+                <Setter TargetName="BottomTick" Property="Visibility" Value="Visible" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="SliderRepeatButton1" TargetType="Slider">
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="Width" Value="370"/>
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Horizontal">
+                <Setter Property="MinHeight" Value="21" />
+                <Setter Property="MinWidth" Value="104" />
+                <Setter Property="Template" Value="{StaticResource Slider}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>-->
+
+
 </ResourceDictionary>
