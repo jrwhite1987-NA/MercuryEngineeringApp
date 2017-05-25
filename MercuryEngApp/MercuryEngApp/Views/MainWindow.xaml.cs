@@ -11,7 +11,7 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Xml;
 using UsbTcdLibrary.PacketFormats;
-
+using log4net;
 
 
 namespace MercuryEngApp
@@ -22,6 +22,8 @@ namespace MercuryEngApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        static ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         bool isPowerOn;
         public static event TCDPower TurnTCDON;
         public static event TCDPower TurnTCDOFF;
@@ -37,75 +39,103 @@ namespace MercuryEngApp
         }       
 
         void MainWindowLoaded(object sender, RoutedEventArgs e)
-        {            
-            ExamTab.Content = new ExamUserControl();
-            InfoTab.Content = new InfoUserControl();
-            CalibrationTab.Content = new CalibrationUserControl();
-            PacketTab.Content = new PacketControl();           
-            //Task.Delay(4500).Wait();
-            //MainLayout.Visibility = Visibility.Visible;
-            //temp.Visibility = Visibility.Collapsed;
+        {
+            try
+            {
+                ExamTab.Content = new ExamUserControl();
+                InfoTab.Content = new InfoUserControl();
+                CalibrationTab.Content = new CalibrationUserControl();
+                PacketTab.Content = new PacketControl();
+                //Task.Delay(4500).Wait();
+                //MainLayout.Visibility = Visibility.Visible;
+                //temp.Visibility = Visibility.Collapsed;
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("Exception: ", ex);
+            }
         }
 
         public void TestReview()
         {
-            List<ReadPointerModel> listReadPointerModel = new List<ReadPointerModel>();
-            ReadPointerModel readPointerModel = new ReadPointerModel();
-            readPointerModel.ChannelId = 1;
-            readPointerModel.ExamId = 13;
-            readPointerModel.ExamSnapShotId = 82;
-            readPointerModel.OffsetByte = 363372;
-            readPointerModel.RangeOffsetByte = 566000;
-            listReadPointerModel.Add(readPointerModel);
-            UsbTcd.TCDObj.ReadFromFileWithRange(13, listReadPointerModel);
-            List<DMIPmdDataPacket> ListDMIPmdDataPacket = UsbTcd.TCDObj.PacketQueue[82];
-            string json = JsonConvert.SerializeObject(ListDMIPmdDataPacket);
-            string jsonFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"LocalFolder\13-Channel1Json.txt");
-            System.IO.File.WriteAllText(jsonFilePath, json);
-            XmlDocument doc = JsonConvert.DeserializeXmlNode("{\"Row\":" + json + "}", "root");
-            string xmlFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"LocalFolder\13-Channel1Xml.xml");
-            doc.Save(xmlFilePath);
+            try
+            {
+                List<ReadPointerModel> listReadPointerModel = new List<ReadPointerModel>();
+                ReadPointerModel readPointerModel = new ReadPointerModel();
+                readPointerModel.ChannelId = 1;
+                readPointerModel.ExamId = 13;
+                readPointerModel.ExamSnapShotId = 82;
+                readPointerModel.OffsetByte = 363372;
+                readPointerModel.RangeOffsetByte = 566000;
+                listReadPointerModel.Add(readPointerModel);
+                UsbTcd.TCDObj.ReadFromFileWithRange(13, listReadPointerModel);
+                List<DMIPmdDataPacket> ListDMIPmdDataPacket = UsbTcd.TCDObj.PacketQueue[82];
+                string json = JsonConvert.SerializeObject(ListDMIPmdDataPacket);
+                string jsonFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"LocalFolder\13-Channel1Json.txt");
+                System.IO.File.WriteAllText(jsonFilePath, json);
+                XmlDocument doc = JsonConvert.DeserializeXmlNode("{\"Row\":" + json + "}", "root");
+                string xmlFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"LocalFolder\13-Channel1Xml.xml");
+                doc.Save(xmlFilePath);
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("Exception: ", ex);
+            }
         }
 
         private async void MicrocontrollerOnDeviceStateChanged(bool flag)
         {
-            if (flag)
+            try
             {
-                //Microcontroller is connected
-                if (!PowerController.Instance.IsControllerOn)
+                if (flag)
                 {
-                    await PowerController.Instance.TurnControllerOn();
+                    //Microcontroller is connected
+                    if (!PowerController.Instance.IsControllerOn)
+                    {
+                        await PowerController.Instance.TurnControllerOn();
+                    }
+                    await PowerController.Instance.UpdatePowerParameters(true, true, false, false, true);
+                    await Task.Delay(Constants.TimeForTCDtoLoad);
+                    App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
                 }
-                await PowerController.Instance.UpdatePowerParameters(true, true, false, false, true);
-                await Task.Delay(Constants.TimeForTCDtoLoad);
-                App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
+                else
+                {
+                    //microcontroller disconnected
+                }
             }
-            else
+            catch (Exception ex)
             {
-                //microcontroller disconnected
+                logger.Warn("Exception: ", ex);
             }
         }
 
         private void TCDPowerClick(object sender, RoutedEventArgs e)
         {
-           if(!isPowerOn)
-           {
-               //Turn TCD ON
-               if(TurnTCDON!=null)
-               {
-                   isPowerOn = true;
-                   TurnTCDON();
-               }
-           }
-           else
-           {
-               //Turn TCD OFF
-               if (TurnTCDOFF != null)
-               {
-                   isPowerOn = false;
-                   TurnTCDOFF();
-               }
-           }
+            try
+            {
+                if (!isPowerOn)
+                {
+                    //Turn TCD ON
+                    if (TurnTCDON != null)
+                    {
+                        isPowerOn = true;
+                        TurnTCDON();
+                    }
+                }
+                else
+                {
+                    //Turn TCD OFF
+                    if (TurnTCDOFF != null)
+                    {
+                        isPowerOn = false;
+                        TurnTCDOFF();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("Exception: ", ex);
+            }
         }
     }
 }
