@@ -425,7 +425,6 @@
         <Setter Property="Control.BorderThickness" Value="1" />
         <Setter Property="CornerRadius" Value="8"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
-        
     </Style>
 
     <!--Rectangle rounded corner-->
@@ -437,20 +436,20 @@
         <Setter Property="Background" Value="#FF16223D"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
     </Style>
-
         
          <!--checkBox Style-->
         <Style x:Key="CheckBoxsize" TargetType="CheckBox">
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="Padding" Value="10"/>
-
         </Style>
-        <Style x:Key="FontStyleArial" TargetType="TextBlock">
+    
+            <Style x:Key="FontStyleArial" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="Arial" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="VerticalAlignment" Value="Top" />
     </Style>
+    
     <Style x:Key="TextBlockCenterWhite25" TargetType="TextBlock" BasedOn="{StaticResource FontStyleArial}">
         <Setter Property="FontSize" Value="25" />
         <Setter Property="FontWeight" Value="Normal" />
@@ -458,6 +457,7 @@
         <Setter Property="TextAlignment" Value="Center" />
         <Setter Property="Width" Value="48" />
     </Style>
+    
     <Style x:Key="SliderLabelSmall" TargetType="TextBlock" BasedOn="{StaticResource FontStyleArial}">
         <Setter Property="FontSize" Value="8" />
         <Setter Property="FontWeight" Value="Normal" />
@@ -469,7 +469,6 @@
 
 
     <!--ComboBox Style-->
-
     <Style x:Key="ComboBoxBorder" TargetType="ComboBox">
         <Setter Property="BorderBrush" Value="#FF049FDF"/>
         <Setter Property="Background" Value="White"/>
@@ -480,7 +479,6 @@
             </Style>
         </Style.Resources>
     </Style>
-
     <!--<Style TargetType="{x:Type ComboBox}">
         <Setter Property="Template">
             <Setter.Value>
@@ -493,12 +491,6 @@
     </Style>-->
     
     <!--Windows background color change -->
-
-    <Style TargetType="{x:Type Window}">
-        <Setter Property="Background" Value="#16213b"/>
-        <Setter Property="WindowState" Value="Maximized"/>
-        <Setter Property="WindowStyle" Value="None"/>
-    </Style>
 
     <Thickness x:Key="SliderBorderThemeThickness">0</Thickness>
     <Thickness x:Key="SliderHeaderThemeMargin">0</Thickness>
