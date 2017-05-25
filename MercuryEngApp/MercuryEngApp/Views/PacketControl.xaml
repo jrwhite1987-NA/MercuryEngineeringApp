@@ -40,7 +40,18 @@
                         <TreeView Name="trvMenu">
                             <TreeView.ItemTemplate>
                                 <HierarchicalDataTemplate DataType="{x:Type local:ItemsMenu}" ItemsSource="{Binding Items}">
-                                    <TextBlock Text="{Binding Title}" />
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="25">
+                                            </RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100"></ColumnDefinition>
+                                            <ColumnDefinition Width="100"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{Binding Title}"  VerticalAlignment="Center" Background="Transparent" HorizontalAlignment="Left" Grid.Column="0" Padding="2,0,2,0"/>
+                                        <TextBlock Text="{Binding PakcetValue}"  VerticalAlignment="Center" Background="Transparent" HorizontalAlignment="Left" Grid.Column="1" Padding="2,0,2,0"/>
+                                    </Grid>
                                 </HierarchicalDataTemplate>
                             </TreeView.ItemTemplate>
                             <TreeView.ItemContainerStyle>
