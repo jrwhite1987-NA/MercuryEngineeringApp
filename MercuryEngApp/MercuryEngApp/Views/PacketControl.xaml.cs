@@ -21,6 +21,8 @@ using UsbTcdLibrary;
 using MercuryEngApp.Common;
 using UsbTcdLibrary.PacketFormats;
 using log4net;
+using UsbTcdLibrary.CommunicationProtocol;
+using Core.Constants;
 
 namespace MercuryEngApp
 {
@@ -29,7 +31,7 @@ namespace MercuryEngApp
     /// </summary>
     public partial class PacketControl : UserControl
     {
-        public static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        static ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         string filePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"LocalFolder\13-Channel1.txt");        
         byte[] cutFs = null; // Offset byte 
@@ -38,11 +40,69 @@ namespace MercuryEngApp
         public PacketControl()
         {
             InitializeComponent();
+            this.Loaded += PacketControlLoaded;
+            this.Unloaded += PacketControlUnloaded;
             cutFs = UsbTcd.TCDObj.GetPacketDetails(filePath, 0); // Offset byte 
             ListDMIPmdDataPacket = UsbTcd.TCDObj.PacketQueue[0];
 
             LoadTreeView();
             LoadBinaryData();
+        }
+
+        void PacketControlUnloaded(object sender, RoutedEventArgs e)
+        {
+            MainWindow.TurnTCDON -= MainWindowTurnTCDON;
+            MainWindow.TurnTCDOFF -= MainWindowTurnTCDOFF;
+            if ((bool)App.mainWindow.IsPowerChecked)
+            {
+                MainWindowTurnTCDOFF();
+                App.mainWindow.IsPowerChecked = false;
+            }
+        }
+
+        void PacketControlLoaded(object sender, RoutedEventArgs e)
+        {
+            MainWindow.TurnTCDON += MainWindowTurnTCDON;
+            MainWindow.TurnTCDOFF += MainWindowTurnTCDOFF;
+        }
+
+        void MainWindowTurnTCDOFF()
+        {
+            UsbTcd.TCDObj.OnPacketFormed -= TCDObjOnPacketFormed;
+            UsbTcd.TCDObj.TurnTCDPowerOff();
+        }
+
+        async void MainWindowTurnTCDON()
+        {
+            await UsbTcd.TCDObj.TurnTCDPowerOnAsync();
+            if (UsbTcd.TCDObj.InitializeTCD())
+            {
+                TCDRequest request = new TCDRequest();
+                request.ChannelID = App.CurrentChannel;
+                request.Value3 = Constants.defaultLength;
+                await UsbTcd.TCDObj.SetLengthAsync(request);
+
+                request.Value3 = Constants.defaultDepth;
+                await UsbTcd.TCDObj.SetDepthAsync(request);
+
+                request.Value3 = Constants.defaultPower;
+                await UsbTcd.TCDObj.SetPowerAsync(request);
+
+                request.Value3 = Constants.defaultFilter;
+                await UsbTcd.TCDObj.SetFilterAsync(request);
+
+                request.Value3 = Constants.defaultPRF;
+                request.Value2 = Constants.defaultStartDepth;
+                await UsbTcd.TCDObj.SetPRF(request);
+
+                UsbTcd.TCDObj.OnPacketFormed += TCDObjOnPacketFormed;
+                UsbTcd.TCDObj.StartTCDReading();
+            }
+        }
+
+        void TCDObjOnPacketFormed(DMIPmdDataPacket[] packets)
+        {
+            
         }
 
         private void LoadTreeView()
