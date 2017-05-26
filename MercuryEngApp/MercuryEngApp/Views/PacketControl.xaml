@@ -12,22 +12,22 @@
     
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="400"/>
-            <ColumnDefinition Width="295"/>
-            <ColumnDefinition Width="628"/>
+            <ColumnDefinition Width="353"/>
+            <ColumnDefinition Width="350"/>
+            <ColumnDefinition Width="625"/>
         </Grid.ColumnDefinitions>
-        <Grid Name="LeftPanlePacket">
+        <Grid Name="LeftPanlePacket" HorizontalAlignment="Left" Width="350">
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
-                    Width="387"
+                    Width="345"
                     Height="495" 
                     VerticalAlignment="Top" 
-                    Margin="10,5,0,0" >
+                    Margin="5,5,0,0" >
                 <Grid>
 
                     <Border Style="{StaticResource ResourceKey=RoundedRectangleBlue}" 
                             Height="40" 
                             VerticalAlignment="Top" 
-                            Width="387" 
+                            Width="345" 
                             Margin="-1,-1,0,0"
                             HorizontalAlignment="Left">
 
@@ -45,7 +45,7 @@
                             <RowDefinition Height="60"/>
                             <RowDefinition Height="90"/>
                         </Grid.RowDefinitions>
-                        <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" Width="370" Margin="7,15,0,6" Grid.RowSpan="3" Grid.Row="0"></Border>
+                        <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" Width="323" Margin="7,15,0,6" Grid.RowSpan="3" Grid.Row="0"></Border>
                         <TextBlock  Grid.Row="0" 
                                     Text="Packet Graph Interval"
                                     Margin="10,15,0,0"
@@ -58,12 +58,13 @@
                         <Button Content="Refresh" 
                                 Style="{StaticResource ResourceKey=ButtonStyle1}" 
                                 Grid.Row="2" 
-                                Width="125" 
+                                Width="115" 
                                 Height="35"
                                 Margin="0,8,15,18"
                                 HorizontalAlignment="Right"
                                 Click="Refresh_Click"/>
-                        <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" Width="370" Margin="7,10,0,6" Grid.RowSpan="2" Grid.Row="4"></Border>
+                            <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" Width="323" Margin="7,10,0,6" Grid.RowSpan="2" Grid.Row="4"/>
+                         
                         <TextBlock  Grid.Row="4" 
                                     Text="No. Of Packet Export"
                                     Name="NumberOfPacket"                                    
@@ -73,7 +74,7 @@
                         <Button Content="Export" 
                                 Style="{StaticResource ResourceKey=ButtonStyle1}" 
                                 Grid.Row="5" 
-                                Width="125" 
+                                Width="115" 
                                 Height="35"
                                 Margin="0,28,15,28"
                                 HorizontalAlignment="Right"
@@ -81,7 +82,7 @@
 
                         <TextBox Grid.Row="5" 
                                  HorizontalAlignment="Left"
-                                 Width="210"
+                                 Width="205"
                                  Margin="20,31,0,28"
                                   Style="{StaticResource ResourceKey=MainTextbox}"/>
 
@@ -91,9 +92,9 @@
 
             </Border>
         </Grid>
-        <Grid Name="CenterPanlePacket" Grid.Column="1">
+        <Grid Name="CenterPanlePacket" Grid.ColumnSpan="2">
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
-                    Width="285"
+                    Width="343"
                     Height="495" 
                     VerticalAlignment="Top" 
                     Margin="10,5,0,0" 
@@ -105,7 +106,8 @@
                     <Border Style="{StaticResource ResourceKey=RoundedRectangleBlue}" 
                             Height="40" 
                             VerticalAlignment="Top" 
-                            Width="285" 
+                            Width="343" 
+                            HorizontalAlignment="Left"
                             Margin="-1,-1,-1,0">
 
                         <TextBlock Height="21" 
@@ -113,8 +115,9 @@
                                Text="Envelope Tree" 
                                Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
                     </Border>
-                    <Grid  Margin="0,40,0,5">
-                        <TreeView Name="trvMenu" TreeViewItem.Expanded="TreeViewItem_Expanded" TreeViewItem.Collapsed="TreeViewItem_Expanded" ItemsSource="{Binding FirstGeneration}">
+
+                    <Grid  Margin="1,40,0,5">
+                        <TreeView Name="trvMenu" TreeViewItem.Expanded="TreeViewItem_Expanded" TreeViewItem.Collapsed="TreeViewItem_Expanded" ItemsSource="{Binding FirstGeneration}"  Width="340" HorizontalAlignment="Center">
 
                             <TreeView.ItemTemplate>
                                 <HierarchicalDataTemplate DataType="{x:Type local:ItemsMenu}" ItemsSource="{Binding Items}">
@@ -124,12 +127,22 @@
                                             </RowDefinition>
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="100"></ColumnDefinition>
-                                            <ColumnDefinition Width="100"></ColumnDefinition>
+                                            <ColumnDefinition Width="120"></ColumnDefinition>
+                                            <ColumnDefinition Width="135"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
 
-                                        <TextBlock Text="{Binding Title}"  VerticalAlignment="Center" Background="Transparent" HorizontalAlignment="Left" Grid.Column="0" Padding="2,0,2,0"/>
-                                        <TextBlock Text="{Binding PakcetValue}"  VerticalAlignment="Center" Background="Transparent" HorizontalAlignment="Left" Grid.Column="1" Padding="2,0,2,0"/>
+                                        <TextBlock Text="{Binding Title}"  
+                                                   VerticalAlignment="Center" 
+                                                   Background="Transparent" 
+                                                   HorizontalAlignment="Left" 
+                                                   Grid.Column="0" 
+                                                   Padding="2,0,2,0"/>
+                                        <TextBlock Text="{Binding PakcetValue}"  
+                                                   VerticalAlignment="Center" 
+                                                   Background="Transparent" 
+                                                   HorizontalAlignment="Left" 
+                                                   Grid.Column="1" 
+                                                   Padding="2,0,2,0"/>
 
                                     </Grid>
                                 </HierarchicalDataTemplate>
@@ -156,7 +169,7 @@
         </Grid>
         <Grid Grid.Column="2">
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
-                    Width="608"
+                    Width="605"
                     Height="495" 
                     VerticalAlignment="Top" 
                     Margin="10,5,10,0" 
@@ -164,14 +177,22 @@
 
                 <Grid Name="rightPanelPacketTop" >
                     <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" Height="40" VerticalAlignment="Top" 
-                               Width="608" Margin="-1,-1,-1,0" HorizontalAlignment="Right"/>
+                               Width="605" Margin="-1,-1,-1,0" HorizontalAlignment="Right"/>
                     <TextBlock Height="27" Margin="13,8,0,0" Text="Hex Viewer " Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
                     <Grid Margin="0,40,0,5" >
 
-                        <DataGrid Name="grdMailbag" Grid.Column="1" DataContext="{StaticResource ItemCollectionViewSource}" AutoGenerateColumns="False" SelectionUnit="Cell" CanUserAddRows="False" ItemsSource="{Binding}" IsReadOnly="True" >
+                        <DataGrid Name="grdMailbag" 
+                                  Grid.Column="1" 
+                                  DataContext="{StaticResource ItemCollectionViewSource}" 
+                                  AutoGenerateColumns="False" 
+                                  SelectionUnit="Cell" 
+                                  CanUserAddRows="False" 
+                                  ItemsSource="{Binding}" 
+                                  IsReadOnly="True"
+                                  Width="604">
 
-                            <DataGrid.Columns>
-                                <DataGridTextColumn x:Name="Offset" Width="100" Binding="{Binding Path=Offset}" Header="Offset"/>
+                            <DataGrid.Columns >
+                                <DataGridTextColumn x:Name="Offset" Width="100" Binding="{Binding Path=Offset}" Header="Offset" />
                                 <DataGridTextColumn x:Name="cHx_00" Binding="{Binding Path=Hx_00}" Header="00" Width="30" />
                                 <DataGridTextColumn x:Name="cHx_01" Binding="{Binding Path=Hx_01}" Header="01" Width="30"/>
                                 <DataGridTextColumn x:Name="cHx_02" Binding="{Binding Path=Hx_02}" Header="02" Width="30" />
@@ -193,12 +214,16 @@
                                 <Style TargetType="DataGridCell">
                                     <Style.Triggers>
                                         <Trigger Property="IsSelected" Value="True">
-                                            <Setter Property="Background" Value="Aqua"></Setter>
+                                            <Setter Property="Background" Value="#FF049FDF"/>
+                                            <Setter Property="FontWeight" Value="Bold"/>
+                                            <Setter Property="Foreground" Value="White"/>
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>
                                 <Style TargetType="DataGridRow">
-                                    <Setter Property="IsEnabled" Value="False"></Setter>
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                    <Setter Property="BorderBrush" Value="#FFAEBABF"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
                                 </Style>
                             </DataGrid.Resources>
                         </DataGrid>
