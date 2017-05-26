@@ -23,6 +23,8 @@ using UsbTcdLibrary.PacketFormats;
 using log4net;
 using UsbTcdLibrary.CommunicationProtocol;
 using Core.Constants;
+using Newtonsoft.Json;
+using System.Xml;
 
 namespace MercuryEngApp
 {
@@ -32,7 +34,9 @@ namespace MercuryEngApp
     public partial class PacketControl : UserControl
     {
         static ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private System.Windows.Forms.Timer GrabTimer; 
+        private System.Windows.Forms.Timer GrabTimer;
+        private List<string> TList = new List<string>();
+
         public PacketControl()
         {
             InitializeComponent();
@@ -98,14 +102,17 @@ namespace MercuryEngApp
 
         private void LoadTreeView(byte[] byteArray)
         {
+            logger.Debug("++");
+
             try
             {
                 UsbTcd.TCDObj.GetPacketDetails(byteArray);
                 //ListDMIPmdDataPacket = UsbTcd.TCDObj.PacketQueue[0];
-                DMIPmdDataPacket dMIPmdDataPacket = UsbTcd.TCDObj.PacketQueueChannel1[0];        
+                DMIPmdDataPacket dMIPmdDataPacket = UsbTcd.TCDObj.PacketQueueChannel1[0];
+                ItemsMenu PacketRoot = new ItemsMenu();
                 trvMenu.Items.Clear();
                 //Root Item
-                ItemsMenu PacketRoot = GetMenuItem("Packet", 0, "packet","");
+                PacketRoot = GetMenuItem("Packet", 0, "packet","");
                 PacketRoot.IsExpanded = true;
 
                 DMIPktHeader dmiPktHeader = dMIPmdDataPacket.header;
@@ -251,8 +258,10 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message.ToString());
+                logger.Warn("Exception:" + ex);
             }
+
+            logger.Debug("--");
         }
 
         public string GetStringFromArray<T>(IList<T> array)
@@ -278,7 +287,7 @@ namespace MercuryEngApp
             SelectCellsByIndexes(fromIndex, toIndex);
         }
 
-        List<string> TList = new List<string>();
+        
         private void TreeViewItem_Expanded(object sender, RoutedEventArgs e)
         {
             TreeViewItem tvi = e.OriginalSource as TreeViewItem;
@@ -366,7 +375,7 @@ namespace MercuryEngApp
                     byteSize = (DMIProtocol.DMI_AUDIO_ARRAY_SIZE * 2) - 1;
                     break;
                 case "envelop":
-                    byteSize = Envelop.NegRI + 1;
+                    byteSize = Envelop.NegRI + 1 - Envelop.Depth;
                     break;
                 case "Mmode":
                     byteSize = (MMode.Velocity - 1) + (DMIProtocol.DMI_PKT_MMODE_PTS * 2) - MMode.AutoGainOffset;
@@ -378,7 +387,7 @@ namespace MercuryEngApp
                     byteSize = (DMIProtocol.DMI_PKT_MMODE_PTS * 2) - 1;
                     break;
                 case "parameter":
-                    byteSize = Parameter.RFU + 1;
+                    byteSize = Parameter.RFU + 1 - Parameter.LeftTimeStamp;
                     break;
                 case "spectrum":
                     byteSize = (Spectrum.Points - 1) + (DMIProtocol.SpectrumPointsCount * 2) - Spectrum.Depth;
@@ -409,7 +418,10 @@ namespace MercuryEngApp
         }
 
         public void LoadBinaryData(byte[] byteArray)
-        {            
+        {
+
+            logger.Debug("++");
+
             int hexIn;           
             int count = 1;
             ObservableCollection<HexRecord> listHexRecord = new ObservableCollection<HexRecord>();
@@ -418,100 +430,111 @@ namespace MercuryEngApp
             BigInteger ConstantBInt = BigInteger.Parse("00000010", NumberStyles.HexNumber);
             HexRecord hexRecord = null;
 
-            for (int i = 0; i < byteArray.Length; i++)
+            try
             {
-                hexIn = byteArray[i];
 
-                if (count == 1)
+                for (int i = 0; i < byteArray.Length; i++)
                 {
-                    hexRecord = new HexRecord();
+                    hexIn = byteArray[i];
+
+                    if (count == 1)
+                    {
+                        hexRecord = new HexRecord();
+                    }
+
+                    switch (count)
+                    {
+                        case 1:
+                            hexRecord.Hx_00 = string.Format("{0:X2}", hexIn);
+                            count++;
+                            break;
+                        case 2:
+                            hexRecord.Hx_01 = string.Format("{0:X2}", hexIn);
+                            count++;
+                            break;
+                        case 3:
+                            hexRecord.Hx_02 = string.Format("{0:X2}", hexIn);
+                            count++;
+                            break;
+                        case 4:
+                            hexRecord.Hx_03 = string.Format("{0:X2}", hexIn);
+                            count++;
+                            break;
+                        case 5:
+                            hexRecord.Hx_04 = string.Format("{0:X2}", hexIn);
+                            count++;
+                            break;
+                        case 6:
+                            hexRecord.Hx_05 = string.Format("{0:X2}", hexIn);
+                            count++;
+                            break;
+                        case 7:
+                            hexRecord.Hx_06 = string.Format("{0:X2}", hexIn);
+                            count++;
+                            break;
+                        case 8:
+                            hexRecord.Hx_07 = string.Format("{0:X2}", hexIn);
+                            count++;
+                            break;
+                        case 9:
+                            hexRecord.Hx_08 = string.Format("{0:X2}", hexIn);
+                            count++;
+                            break;
+                        case 10:
+                            hexRecord.Hx_09 = string.Format("{0:X2}", hexIn);
+                            count++;
+                            break;
+                        case 11:
+                            hexRecord.Hx_0a = string.Format("{0:X2}", hexIn);
+                            count++;
+                            break;
+                        case 12:
+                            hexRecord.Hx_0b = string.Format("{0:X2}", hexIn);
+                            count++;
+                            break;
+                        case 13:
+                            hexRecord.Hx_0c = string.Format("{0:X2}", hexIn);
+                            count++;
+                            break;
+                        case 14:
+                            hexRecord.Hx_0d = string.Format("{0:X2}", hexIn);
+                            count++;
+                            break;
+                        case 15:
+                            hexRecord.Hx_0e = string.Format("{0:X2}", hexIn);
+                            count++;
+                            break;
+                        case 16:
+                            hexRecord.Hx_0f = string.Format("{0:X2}", hexIn);
+                            hexRecord.Offset = string.Format("{0:X8}", InitailBInt);
+                            InitailBInt = BigInteger.Add(InitailBInt, ConstantBInt);
+                            listHexRecord.Add(hexRecord);
+                            count = 1;
+                            break;
+
+                    }
                 }
 
-                switch (count)
+                if (byteArray.Length % 16 != 0)
                 {
-                    case 1:
-                        hexRecord.Hx_00 = string.Format("{0:X2}", hexIn);
-                        count++;
-                        break;
-                    case 2:
-                        hexRecord.Hx_01 = string.Format("{0:X2}", hexIn);
-                        count++;
-                        break;
-                    case 3:
-                        hexRecord.Hx_02 = string.Format("{0:X2}", hexIn);
-                        count++;
-                        break;
-                    case 4:
-                        hexRecord.Hx_03 = string.Format("{0:X2}", hexIn);
-                        count++;
-                        break;
-                    case 5:
-                        hexRecord.Hx_04 = string.Format("{0:X2}", hexIn);
-                        count++;
-                        break;
-                    case 6:
-                        hexRecord.Hx_05 = string.Format("{0:X2}", hexIn);
-                        count++;
-                        break;
-                    case 7:
-                        hexRecord.Hx_06 = string.Format("{0:X2}", hexIn);
-                        count++;
-                        break;
-                    case 8:
-                        hexRecord.Hx_07 = string.Format("{0:X2}", hexIn);
-                        count++;
-                        break;
-                    case 9:
-                        hexRecord.Hx_08 = string.Format("{0:X2}", hexIn);
-                        count++;
-                        break;
-                    case 10:
-                        hexRecord.Hx_09 = string.Format("{0:X2}", hexIn);
-                        count++;
-                        break;
-                    case 11:
-                        hexRecord.Hx_0a = string.Format("{0:X2}", hexIn);
-                        count++;
-                        break;
-                    case 12:
-                        hexRecord.Hx_0b = string.Format("{0:X2}", hexIn);
-                        count++;
-                        break;
-                    case 13:
-                        hexRecord.Hx_0c = string.Format("{0:X2}", hexIn);
-                        count++;
-                        break;
-                    case 14:
-                        hexRecord.Hx_0d = string.Format("{0:X2}", hexIn);
-                        count++;
-                        break;
-                    case 15:
-                        hexRecord.Hx_0e = string.Format("{0:X2}", hexIn);
-                        count++;
-                        break;
-                    case 16:
-                        hexRecord.Hx_0f = string.Format("{0:X2}", hexIn);
-                        hexRecord.Offset = string.Format("{0:X8}", InitailBInt);
-                        InitailBInt = BigInteger.Add(InitailBInt, ConstantBInt);
-                        listHexRecord.Add(hexRecord);
-                        count = 1;
-                        break;
-
+                    hexRecord.Offset = string.Format("{0:X8}", InitailBInt);
+                    listHexRecord.Add(hexRecord);
                 }
-            }
 
-            if (byteArray.Length % 16 != 0)
+                this.Dispatcher.Invoke(() =>
+                {
+                    //link business data to CollectionViewSource
+                    CollectionViewSource itemCollectionViewSource = new CollectionViewSource();
+                    itemCollectionViewSource = (CollectionViewSource)(FindResource("ItemCollectionViewSource"));
+                    itemCollectionViewSource.Source = listHexRecord;
+                });
+            }
+            catch (Exception ex)
             {
-                hexRecord.Offset = string.Format("{0:X8}", InitailBInt);
-                listHexRecord.Add(hexRecord);
+                logger.Warn("Exception:" + ex);
             }
 
-            this.Dispatcher.Invoke(() =>{    
-                //link business data to CollectionViewSource
-                CollectionViewSource itemCollectionViewSource = null;
-                itemCollectionViewSource = (CollectionViewSource)(FindResource("ItemCollectionViewSource"));
-                itemCollectionViewSource.Source = listHexRecord;
-            });
+            logger.Debug("--");
         }
 
         private void SelectCellsByIndexes(KeyValuePair<int, int> fromIndex, KeyValuePair<int, int> toIndex)
@@ -623,8 +646,36 @@ namespace MercuryEngApp
             ClearRecentTimer();
             IntervalSilder.Value = 0;
             List<byte[]> byteArray = UsbTcd.TCDObj.GrabPacket();
-            LoadTreeView(byteArray[0]);
-            LoadBinaryData(byteArray[0]);
+            ReloadHexViewer(byteArray);
+        }
+
+        public void ReloadHexViewer(List<byte[]> byteArray)
+        {
+            logger.Debug("++");
+
+            try
+            {                
+                if (byteArray != null)
+                {
+                    if (App.CurrentChannel == TCDHandles.Channel1)
+                    {
+                        LoadTreeView(byteArray[0]);
+                        LoadBinaryData(byteArray[0]);
+                    }
+
+                    if (App.CurrentChannel == TCDHandles.Channel2)
+                    {
+                        LoadTreeView(byteArray[1]);
+                        LoadBinaryData(byteArray[1]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("Exception: ", ex);
+            }
+
+            logger.Debug("--");
         }
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> er)
@@ -662,21 +713,7 @@ namespace MercuryEngApp
             try
             {
                 List<byte[]> byteArray = UsbTcd.TCDObj.GrabPacket();
-
-                if (byteArray != null)
-                {
-                    if (App.CurrentChannel == TCDHandles.Channel1)
-                    {
-                        LoadTreeView(byteArray[0]);
-                        LoadBinaryData(byteArray[0]);
-                    }
-
-                    if (App.CurrentChannel == TCDHandles.Channel2)
-                    {
-                        LoadTreeView(byteArray[1]);
-                        LoadBinaryData(byteArray[1]);
-                    }
-                }
+                ReloadHexViewer(byteArray);
             }
             catch (Exception ex)
             {
@@ -687,15 +724,28 @@ namespace MercuryEngApp
         }
 
         private void Export_Click(object sender, RoutedEventArgs e)
-        {             
-                //UsbTcd.TCDObj.ReadFromFileWithRange(13, listReadPointerModel);
-                //List<DMIPmdDataPacket> ListDMIPmdDataPacket = UsbTcd.TCDObj.PacketQueue[82];
-                //string json = JsonConvert.SerializeObject(ListDMIPmdDataPacket);
-                //string jsonFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"LocalFolder\13-Channel1Json.txt");
-                //System.IO.File.WriteAllText(jsonFilePath, json);
-                //XmlDocument doc = JsonConvert.DeserializeXmlNode("{\"Row\":" + json + "}", "root");
-                //string xmlFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"LocalFolder\13-Channel1Xml.xml");
-                //doc.Save(xmlFilePath);
+        {
+            logger.Debug("++");
+
+            try
+            {
+                string jsonFileName = "PacketJson" + Convert.ToString(App.CurrentChannel) + ".txt";
+                string xmlFileName = "Packetxml" + Convert.ToString(App.CurrentChannel) + ".xml";
+                List<DMIPmdDataPacket> ListDMIPmdDataPacket = new List<DMIPmdDataPacket>();
+
+                string json = JsonConvert.SerializeObject(ListDMIPmdDataPacket);
+                string jsonFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"LocalFolder\" + jsonFileName);
+                System.IO.File.WriteAllText(jsonFilePath, json);
+                XmlDocument xmlDoc = JsonConvert.DeserializeXmlNode("{\"Row\":" + json + "}", "root");
+                string xmlFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"LocalFolder\" + xmlFileName);
+                xmlDoc.Save(xmlFilePath);
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("Exception: " + ex);
+            }
+
+            logger.Debug("--");
         }
     }
 
