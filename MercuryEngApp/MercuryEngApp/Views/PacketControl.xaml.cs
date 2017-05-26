@@ -31,8 +31,8 @@ namespace MercuryEngApp
     /// </summary>
     public partial class PacketControl : UserControl
     {
-        static ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
+        static ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private System.Windows.Forms.Timer GrabTimer; 
         public PacketControl()
         {
             InitializeComponent();
@@ -102,8 +102,8 @@ namespace MercuryEngApp
             {
                 UsbTcd.TCDObj.GetPacketDetails(byteArray);
                 //ListDMIPmdDataPacket = UsbTcd.TCDObj.PacketQueue[0];
-                DMIPmdDataPacket dMIPmdDataPacket = UsbTcd.TCDObj.PacketQueueChannel1[0];
-
+                DMIPmdDataPacket dMIPmdDataPacket = UsbTcd.TCDObj.PacketQueueChannel1[0];        
+                trvMenu.Items.Clear();
                 //Root Item
                 ItemsMenu PacketRoot = GetMenuItem("Packet", 0, "packet","");
                 PacketRoot.IsExpanded = true;
@@ -175,7 +175,7 @@ namespace MercuryEngApp
                 ChildSpectrum.Items.Add(GetMenuItem("PointsPerColumn", Spectrum.PointsPerColumn, "ushort", Convert.ToString(dMISpectrum.pointsPerColumn)));
                 ChildSpectrum.Items.Add(GetMenuItem("Points", Spectrum.Points, "points", GetStringFromArray(dMISpectrum.points)));
                 PacketRoot.Items.Add(ChildSpectrum);
-                trvMenu.Items.Add(PacketRoot);
+                
 
                 DMIMMode dMIMMode = dMIPmdDataPacket.mmode;
                 // 8th Element 
@@ -242,13 +242,16 @@ namespace MercuryEngApp
                
                 // 4th Element
                 PacketRoot.Items.Add(GetMenuItem("CheckSum", Checksum.ChecksumPos, "int", Convert.ToString(dMIPmdDataPacket.checksum)));
-                trvMenu.SelectedItemChanged += TreeItem_Selected;
+                trvMenu.Items.Add(PacketRoot);
 
-                Log.Debug("TreeView Created");
+                trvMenu.SelectedItemChanged += TreeItem_Selected;    
+                
+
+                logger.Debug("TreeView Created");
             }
             catch (Exception ex)
             {
-                Log.Error(ex.Message.ToString());
+                logger.Error(ex.Message.ToString());
             }
         }
 
@@ -267,11 +270,36 @@ namespace MercuryEngApp
         void TreeItem_Selected(object sender, RoutedEventArgs e)
         {
             ItemsMenu item = (ItemsMenu)trvMenu.SelectedItem;
+            item.IsExpanded = true;
             KeyValuePair<int, int> fromIndex;
             KeyValuePair<int, int> toIndex;
             fromIndex = new KeyValuePair<int, int>(item.StartRow, item.StartColumn);
             toIndex = new KeyValuePair<int, int>(item.EndRow, item.EndColumn);
             SelectCellsByIndexes(fromIndex, toIndex);
+        }
+
+        List<string> TList = new List<string>();
+        private void TreeViewItem_Expanded(object sender, RoutedEventArgs e)
+        {
+            TreeViewItem tvi = e.OriginalSource as TreeViewItem;
+            ItemsMenu itemM =(ItemsMenu)tvi.Header;
+
+            if (itemM != null)
+            {
+                if (!TList.Contains(itemM.Title))
+                {
+                    TList.Add(itemM.Title);
+                }
+                else
+                {
+                    TList.Remove(itemM.Title);
+                }
+            }
+        }
+
+        public bool IsItemExpanded(string header)
+        {
+            return TList.Contains(header);
         }
 
         public ItemsMenu GetMenuItem(string title, int postion, string type, string packetValue = "0")
@@ -282,6 +310,7 @@ namespace MercuryEngApp
             item.PakcetValue = packetValue;
             item.StartRow = postion / 16;
             item.StartColumn = (postion % 16) + 1;
+            item.IsExpanded = IsItemExpanded(title);
 
             int byteSize = GetByteSize(type);
 
@@ -477,10 +506,12 @@ namespace MercuryEngApp
                 listHexRecord.Add(hexRecord);
             }
 
-            //link business data to CollectionViewSource
-            CollectionViewSource itemCollectionViewSource;
-            itemCollectionViewSource = (CollectionViewSource)(FindResource("ItemCollectionViewSource"));
-            itemCollectionViewSource.Source = listHexRecord;
+            this.Dispatcher.Invoke(() =>{    
+                //link business data to CollectionViewSource
+                CollectionViewSource itemCollectionViewSource = null;
+                itemCollectionViewSource = (CollectionViewSource)(FindResource("ItemCollectionViewSource"));
+                itemCollectionViewSource.Source = listHexRecord;
+            });
         }
 
         private void SelectCellsByIndexes(KeyValuePair<int, int> fromIndex, KeyValuePair<int, int> toIndex)
@@ -589,9 +620,82 @@ namespace MercuryEngApp
 
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
+            ClearRecentTimer();
+            IntervalSilder.Value = 0;
             List<byte[]> byteArray = UsbTcd.TCDObj.GrabPacket();
             LoadTreeView(byteArray[0]);
             LoadBinaryData(byteArray[0]);
+        }
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> er)
+        {
+            int sliderValue = (int)IntervalSilder.Value;
+
+            if (sliderValue != 0)
+            {
+                ClearRecentTimer();
+                GrabTimer = new System.Windows.Forms.Timer();
+                GrabTimer.Tick += new EventHandler(GrabPacket);
+                GrabTimer.Interval = sliderValue * 1000; // in miliseconds
+                GrabTimer.Start();
+            }
+            else
+            {
+                ClearRecentTimer();
+                IntervalSilder.Value = 0;                
+            }
+        }
+
+        private void ClearRecentTimer()
+        {
+            if (GrabTimer != null)
+            {
+                GrabTimer.Stop();
+                GrabTimer.Dispose();
+            }
+        }
+
+        private void GrabPacket(object sender, EventArgs e)
+        {
+            logger.Debug("++");
+
+            try
+            {
+                List<byte[]> byteArray = UsbTcd.TCDObj.GrabPacket();
+
+                if (byteArray != null)
+                {
+                    if (App.CurrentChannel == TCDHandles.Channel1)
+                    {
+                        LoadTreeView(byteArray[0]);
+                        LoadBinaryData(byteArray[0]);
+                    }
+
+                    if (App.CurrentChannel == TCDHandles.Channel2)
+                    {
+                        LoadTreeView(byteArray[1]);
+                        LoadBinaryData(byteArray[1]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("Exception: ", ex);
+            }
+
+            logger.Debug("--");
+        }
+
+        private void Export_Click(object sender, RoutedEventArgs e)
+        {             
+                //UsbTcd.TCDObj.ReadFromFileWithRange(13, listReadPointerModel);
+                //List<DMIPmdDataPacket> ListDMIPmdDataPacket = UsbTcd.TCDObj.PacketQueue[82];
+                //string json = JsonConvert.SerializeObject(ListDMIPmdDataPacket);
+                //string jsonFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"LocalFolder\13-Channel1Json.txt");
+                //System.IO.File.WriteAllText(jsonFilePath, json);
+                //XmlDocument doc = JsonConvert.DeserializeXmlNode("{\"Row\":" + json + "}", "root");
+                //string xmlFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"LocalFolder\13-Channel1Xml.xml");
+                //doc.Save(xmlFilePath);
         }
     }
 
@@ -633,6 +737,7 @@ namespace MercuryEngApp
         public int EndColumn { get; set; }
 
         public bool IsExpanded { get; set; }
+        public bool Collapsed { get; set; }
 
         public ObservableCollection<ItemsMenu> Items { get; set; }
 
