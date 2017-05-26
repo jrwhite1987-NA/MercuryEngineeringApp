@@ -51,13 +51,13 @@ namespace MercuryEngApp.Common
         /// </summary>
         public ObservableCollection<DMIPmdDataPacket> AudioCollection;
 
-        private AudioLib.SlimDxAudioWrapper wrapper;
+        private AudioLib.IAudioWrapper wrapper;
 
         private bool isAudioFirst = true;
 
         public AudioWrapper()
         {
-            wrapper = new AudioLib.SlimDxAudioWrapper();
+            wrapper = new AudioLib.AudioWrapper();
             AudioCollection = new ObservableCollection<DMIPmdDataPacket>();
 
             wrapper.Initialize();
@@ -97,7 +97,7 @@ namespace MercuryEngApp.Common
                             toward.AddRange(packet.audio.toward.Take(bufferSize));
                         }
 
-                        wrapper.SendData(away, toward, (short)AudioCollection[0].audio.sampleRate);
+                        wrapper.SendData(away.ToArray(), toward.ToArray(), (short)AudioCollection[0].audio.sampleRate);
 
                         AudioCollection.Clear();
                     }

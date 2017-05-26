@@ -1,0 +1,40 @@
+// Audio.idl : IDL source for Audio
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (Audio.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(4085DF7C-C5A6-48C7-956B-3CC7B3D2B16A),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IAudioWrapper : IDispatch{
+	[id(1)] HRESULT Initialize([out, retval] VARIANT_BOOL* bReturn);
+	[id(2)] HRESULT Start([out, retval] VARIANT_BOOL* bReturn);
+	[id(3)] HRESULT SetVolume([in]UINT32 volume, [out, retval] VARIANT_BOOL* bReturn);
+	[id(4)] HRESULT SendData([in]SAFEARRAY(short) away, [in]SAFEARRAY(short) towards, [in]short sRate, [out, retval]VARIANT_BOOL* bReturn);
+	[id(5)] HRESULT Stop([out, retval] VARIANT_BOOL* bReturn);
+	[id(6)] HRESULT Destroy([out, retval] VARIANT_BOOL* bReturn);
+};
+[
+	uuid(B7C4B22A-05C6-49F9-9D59-4C0E345F83DC),
+	version(1.0),
+]
+library AudioLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(9B73884C-F593-4269-B90F-D77E131C3790)		
+	]
+	coclass AudioWrapper
+	{
+		[default] interface IAudioWrapper;
+	};
+};
+

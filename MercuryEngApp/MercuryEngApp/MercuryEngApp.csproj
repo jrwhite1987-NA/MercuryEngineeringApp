@@ -72,10 +72,6 @@
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\References\SlimDX.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.IO" />
@@ -116,7 +112,6 @@
     </ApplicationDefinition>
     <Compile Include="Common\AudioWrapper.cs" />
     <Compile Include="Common\PowerController.cs" />
-    <Compile Include="Common\SlimDxAudioWrapper.cs" />
     <Compile Include="Common\UsbTcd.cs" />
     <Compile Include="Common\VerticalScale\MmodeSetting.cs" />
     <Compile Include="Common\VerticalScale\Scale.cs" />
@@ -321,6 +316,17 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AudioLib">
+      <Guid>{B7C4B22A-05C6-49F9-9D59-4C0E345F83DC}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

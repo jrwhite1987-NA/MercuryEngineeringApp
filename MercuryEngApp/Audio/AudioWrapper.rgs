@@ -1,0 +1,16 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove {9B73884C-F593-4269-B90F-D77E131C3790} = s 'AudioWrapper Class'
+		{
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			TypeLib = s '{B7C4B22A-05C6-49F9-9D59-4C0E345F83DC}'
+			Version = s '1.0'
+		}
+	}
+}
