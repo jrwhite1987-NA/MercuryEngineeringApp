@@ -126,7 +126,7 @@ namespace MercuryEngApp
             {
                 logger.Warn("Exception: ", ex);
             }
-            logger.Debug("--");
+            logger.Debug("--"); 
         }
 
         void MainWindowTurnTCDOFF()

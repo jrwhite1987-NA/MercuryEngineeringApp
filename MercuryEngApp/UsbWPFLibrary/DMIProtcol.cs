@@ -34,7 +34,7 @@ namespace UsbTcdLibrary
         private const int Packet_Size_256FFT = 3524;
 
         internal const int DMI_SERVICE_LOG_PACKET_SIZE = 40;
-        internal const int DMI_SERVICELOG_MESSAGETEXT_SIZE = 20;
+        internal const int DMI_SERVICELOG_HEADER_SIZE = 16;
 
         #endregion Packet Size
 

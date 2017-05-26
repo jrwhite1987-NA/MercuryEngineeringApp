@@ -752,7 +752,7 @@ namespace UsbTcdLibrary
             {
                 //Logs.Instance.ErrorLog<UsbTcdDll>("IsProbeConnected begins for channel:" + requestObj.ChannelID.ToString(), "IsProbeConnected", Severity.Debug);
 
-                ServiceLogPacket ep8Packet = dopplerModule.GetLogFromArray(await TCDHandler.Current.ReadServiceLog(requestObj.ChannelID, 1), 0);
+                ServiceLogPacket ep8Packet = dopplerModule.GetLogFromArray(await TCDHandler.Current.ReadServiceLog(requestObj.ChannelID, 1))[0];
 
                 await TCDHandler.Current.SendControlCommandAsync(requestObj.ChannelID, DMIProtocol.DMI_CMD_SET_MODE, (uint)TCDModes.Active, 0);
 
@@ -1576,5 +1576,6 @@ namespace UsbTcdLibrary
         {
             return dopplerModule.GrabSinglePacket();
         }
+        
     }
 }

@@ -69,14 +69,13 @@ namespace UsbTcdLibrary.PacketFormats
         /// Gets or sets the message text.
         /// </summary>
         /// <value>The message text.</value>
-        public byte[] MessageText { get; set; }
+        public string MessageText { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ServiceLogMessage"/> class.
         /// </summary>
         public ServiceLogMessage()
         {
-            MessageText = new byte[DMIProtocol.DMI_SERVICELOG_MESSAGETEXT_SIZE];
         }
     }
 
