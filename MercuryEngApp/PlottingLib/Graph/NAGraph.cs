@@ -3,7 +3,7 @@ using Core.Constants;
 using System;
 using System.Windows.Media.Imaging;
 using UsbTcdLibrary.PacketFormats;
-
+using log4net;
 namespace PlottingLib
 {
     /// <summary>
@@ -92,6 +92,8 @@ namespace PlottingLib
         /// </value>
         public int SizeOfQueue { get; set; }
 
+        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="NaGraph"/> class.
         /// </summary>
@@ -109,8 +111,9 @@ namespace PlottingLib
         /// </summary>
         /// <param name="xScale"></param>
         /// <param name="examProcedureId"></param>
-        public void Initialize(SpectrumXScale xScale, float gain = -40)
+        public void Initialize(SpectrumXScale xScale,  float gain = -40)
         {
+            Helper.logger.Debug("++");
             switch (xScale)
             {
                 case SpectrumXScale.FourSecond:
@@ -133,6 +136,7 @@ namespace PlottingLib
             {
                 BaseGraph.ColorMap.SetLowerLimitFromGain(gain);
             }
+            Helper.logger.Debug(" --");
         }
 
         public void SetGain(float gain)
@@ -192,9 +196,9 @@ namespace PlottingLib
             }
             catch (Exception ex)
             {
+                Helper.logger.Error("Error in ProcessPacket", ex);
                 throw ex;
-            }
-
+            }            
         }
 
         /// <summary>

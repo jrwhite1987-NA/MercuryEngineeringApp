@@ -196,11 +196,12 @@ namespace MercuryEngApp
             logger.Debug("++");
             try
             {
-                InitializeBitmap();
-                CompositionTarget.Rendering += CompositionTargetRendering;
+                InitializeBitmap();              
                 await UsbTcd.TCDObj.TurnTCDPowerOnAsync();
+               
                 if (UsbTcd.TCDObj.InitializeTCD())
                 {
+                    CompositionTarget.Rendering += CompositionTargetRendering;
                     TCDRequest request = new TCDRequest();
                     request.ChannelID = App.CurrentChannel;
                     request.Value3 = Constants.defaultLength;

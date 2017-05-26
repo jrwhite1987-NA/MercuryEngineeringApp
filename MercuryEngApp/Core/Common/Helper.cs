@@ -1,9 +1,11 @@
-﻿using System.IO;
-
+﻿using log4net;
+using System.IO;
 namespace Core.Common
 {
     public class Helper
     {
+        public static ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// Byteses to string converted.
         /// </summary>

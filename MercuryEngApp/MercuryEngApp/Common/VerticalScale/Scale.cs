@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-
+using Core.Common;
 namespace MercuryEngApp.Common
 {
     public class Scale
@@ -18,6 +18,7 @@ namespace MercuryEngApp.Common
 
         public static void CreateScale(ScaleParameters param)
         {
+            Helper.logger.Debug("++");
             switch (param.ScaleType)
             {
                 case ScaleTypeEnum.MMode:
@@ -30,12 +31,14 @@ namespace MercuryEngApp.Common
                 default:
                     break;
             }
+            Helper.logger.Debug("--");
         }
 
         private static void CreateScaleForSpectrogram(ScaleParameters param)
         {
             try
             {
+                Helper.logger.Debug("++");
                 param.ParentControl.Children.Clear();
                 var interval = GetScaleInterval(param.VelocityRange);
                 var tickPosition = GetTickPosition((double)param.VelocityRange,(double)interval,param.BitmapHeight);
@@ -77,49 +80,60 @@ namespace MercuryEngApp.Common
             }
             catch (Exception ex)
             {
+                Helper.logger.Error("Error in CreateScaleForSpectrogram", ex);
                 throw new Exception("Unable to create scale for spectrogram.");
             }
+            Helper.logger.Debug("--");
         }
 
         public static void CreateMmodeScale(Grid parentGrid, double minimum, double maximum)
         {
-            parentGrid.Children.Clear();
-
-            int widthAdjustment = 10;
-            double parentHeight = parentGrid.Height - widthAdjustment;
-
-            double high = RoundOffFloor(maximum);
-            double low = RoundOffCeiling(minimum);
-            double highDiff = maximum - high;
-            double lowDiff = low - minimum;
-
-            double totalRange = maximum - minimum;
-            double scaleRange = high - low;
-            double higherPixels = (parentHeight * highDiff) / totalRange;
-            double lowerPixels = (parentHeight * lowDiff) / totalRange;
-
-            double noOfTicks = ((high - low) / 10) + 1;
-            double availableHeight = parentHeight - (higherPixels + lowerPixels);
-
-            double rawTickPosition = (scaleRange * availableHeight / noOfTicks) / availableHeight;
-            var tickPosition = ((int)Math.Round(rawTickPosition / 10.0)) * 10;
-            double interval = tickPosition * (availableHeight / noOfTicks) / rawTickPosition;
-
-            double top = parentHeight - lowerPixels;
-            double counter = (int)low;
-            TextBlock txtBlock;
-            for (int i = 0; i < noOfTicks; i++)
+            try
             {
-                txtBlock = new TextBlock();
-                txtBlock.HorizontalAlignment = HorizontalAlignment.Right;
-                txtBlock.Margin = new Thickness(-20, top, 0, 0);
-                txtBlock.Foreground = new SolidColorBrush(Colors.White);
-                txtBlock.Text = counter.ToString() + " -";
-                Grid.SetColumn(txtBlock, 0);
-                parentGrid.Children.Add(txtBlock);
-                top = top - interval;
-                counter = counter + tickPosition;
+                Helper.logger.Debug("++");
+                parentGrid.Children.Clear();
+                int widthAdjustment = 10;
+                double parentHeight = parentGrid.Height - widthAdjustment;
+
+                double high = RoundOffFloor(maximum);
+                double low = RoundOffCeiling(minimum);
+                double highDiff = maximum - high;
+                double lowDiff = low - minimum;
+
+                double totalRange = maximum - minimum;
+                double scaleRange = high - low;
+                double higherPixels = (parentHeight * highDiff) / totalRange;
+                double lowerPixels = (parentHeight * lowDiff) / totalRange;
+
+                double noOfTicks = ((high - low) / 10) + 1;
+                double availableHeight = parentHeight - (higherPixels + lowerPixels);
+
+                double rawTickPosition = (scaleRange * availableHeight / noOfTicks) / availableHeight;
+                var tickPosition = ((int)Math.Round(rawTickPosition / 10.0)) * 10;
+                double interval = tickPosition * (availableHeight / noOfTicks) / rawTickPosition;
+
+                double top = parentHeight - lowerPixels;
+                double counter = (int)low;
+                TextBlock txtBlock;
+                for (int i = 0; i < noOfTicks; i++)
+                {
+                    txtBlock = new TextBlock();
+                    txtBlock.HorizontalAlignment = HorizontalAlignment.Right;
+                    txtBlock.Margin = new Thickness(-20, top, 0, 0);
+                    txtBlock.Foreground = new SolidColorBrush(Colors.White);
+                    txtBlock.Text = counter.ToString() + " -";
+                    Grid.SetColumn(txtBlock, 0);
+                    parentGrid.Children.Add(txtBlock);
+                    top = top - interval;
+                    counter = counter + tickPosition;
+                }
             }
+            catch (Exception ex)
+            {
+                Helper.logger.Error("Error in CreateMmodeScale", ex);
+                throw new Exception("Unable to create scale for mmode.");
+            }
+            Helper.logger.Debug("--");
         }
 
         private static double RoundOffCeiling(double maximum)

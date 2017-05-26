@@ -37,14 +37,7 @@
                         <ColumnDefinition Width="84"/>
                         <ColumnDefinition Width="98"/>
                         <ColumnDefinition Width="160"/>
-                    </Grid.ColumnDefinitions>
-
-                    
-                    <Button Style="{StaticResource ResourceKey=ButttonTCDON}" 
-                            HorizontalAlignment="Left" 
-                            UseLayoutRounding="True" 
-                            Click="TCDPowerClick"
-                            VerticalAlignment="Top" Grid.Column="0"/>
+                    </Grid.ColumnDefinitions>                    
 
                     <Button x:Name="BtnLeftProbe" Style="{StaticResource ResourceKey=ButttonSplitL}" 
 
