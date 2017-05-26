@@ -76,8 +76,12 @@ namespace MercuryEngApp
                 InfoTab.Content = new InfoUserControl();
                 CalibrationTab.Content = new CalibrationUserControl();
                 PacketTab.Content = new PacketControl();
+
                 BtnLeftProbe.IsHitTestVisible = false;
                 BtnRightProbe.IsHitTestVisible = false;
+
+                spectrumBinCombobox.ItemsSource = Constants.SpectrumBinList;
+
                 //Task.Delay(4500).Wait();
                 //MainLayout.Visibility = Visibility.Visible;
                 //temp.Visibility = Visibility.Collapsed;
@@ -186,6 +190,14 @@ namespace MercuryEngApp
         private void RightProbeClick(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void spectrumBinCombobox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if(spectrumBinCombobox.SelectedIndex != -1)
+            {
+                Constants.SpectrumBin = Convert.ToInt32(spectrumBinCombobox.SelectedValue);
+            }
         }
     }
 }

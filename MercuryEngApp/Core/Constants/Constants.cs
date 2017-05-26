@@ -908,6 +908,14 @@ namespace Core.Constants
         //    }
         //}
 
+
+        private static int spectrumBin = FFTSize;
+        public static int SpectrumBin
+        {
+            get {return spectrumBin;}
+            set { spectrumBin = value; }
+        }
+
         public static int SpectrumBitmapHeight = 257;
 
         /// <summary>
@@ -1340,6 +1348,17 @@ namespace Core.Constants
 
         #endregion pdf Constants
 
+
+        public static List<string> SpectrumBinList
+        {
+            get
+            {
+                return new List<string> { 
+                    "128",
+                    "256",
+                    "512" };
+            }
+        }
         /// <summary>
         /// The packets per sec
         /// </summary>
@@ -1369,6 +1388,7 @@ namespace Core.Constants
         //}
     }
 
+    
     /// <summary>
     /// Class MonthDictionary.
     /// </summary>

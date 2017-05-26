@@ -110,7 +110,7 @@ namespace PlottingLib
         /// <param name="pixelsFactor">The pixels factor.</param>
         private void ShowNegativeEnvelope(Spectrogram spectrum, DMIPmdDataPacket packet, int pixelsFactor)
         {
-            var baseLineOffset = spectrum.BaseLinePosition == DMIProtocol.FFTSize ? 0 : spectrum.BaseLinePosition;
+            var baseLineOffset = spectrum.BaseLinePosition == Constants.SpectrumBin ? 0 : spectrum.BaseLinePosition;
             int currentPoint = 0;
             int prevPoint = 0;
             int start = 0;
@@ -118,10 +118,10 @@ namespace PlottingLib
             if (NegativeFlowVisible)
             {
                 //calculate negative envelope position
-                currentPoint = (int)((packet.envelope.negVelocity * NEGATIVE_FACTOR / spectrum.CurrentVelocityRange) * Constants.FFTSize);
-                currentPoint = (Constants.FFTSize / OFFSET_2) + currentPoint;
+                currentPoint = (int)((packet.envelope.negVelocity * NEGATIVE_FACTOR / spectrum.CurrentVelocityRange) * Constants.SpectrumBin);
+                currentPoint = (Constants.SpectrumBin / OFFSET_2) + currentPoint;
                 currentPoint = (currentPoint < 0 ? currentPoint * NEGATIVE_FACTOR : currentPoint) - baseLineOffset;
-                currentPoint = (currentPoint > Constants.FFTSize) ? currentPoint - Constants.FFTSize : currentPoint;
+                currentPoint = (currentPoint > Constants.SpectrumBin) ? currentPoint - Constants.SpectrumBin : currentPoint;
 
                 prevPoint = EnvelopDataPoints.Count <= OFFSET_1 ? currentPoint : EnvelopDataPoints[EnvelopDataPoints.Count - OFFSET_2];
 
@@ -133,7 +133,7 @@ namespace PlottingLib
                 {
                     for (int i = start; i < end + 1; i++)
                     {
-                        if (i < Constants.FFTSize && i >= 0)
+                        if (i < Constants.SpectrumBin && i >= 0)
                         {
                             spectrum.ArrayPixel[columnOffset + i * pixelsFactor] = Colors.White.B; // B Value
                             spectrum.ArrayPixel[columnOffset + i * pixelsFactor + OFFSET_1] = Colors.White.G; // G Value
@@ -154,7 +154,7 @@ namespace PlottingLib
         /// <param name="pixelsFactor">The pixels factor.</param>
         private void ShowPositiveEnvelope(Spectrogram spectrum, DMIPmdDataPacket packet, int pixelsFactor)
         {
-            var baseLineOffset = spectrum.BaseLinePosition == DMIProtocol.FFTSize ? 0 : spectrum.BaseLinePosition;
+            var baseLineOffset = spectrum.BaseLinePosition == Constants.SpectrumBin ? 0 : spectrum.BaseLinePosition;
             int currentPoint = 0;
             int prevPoint = 0;
             int start = 0;
@@ -162,11 +162,11 @@ namespace PlottingLib
             if (PositiveFlowVisible)
             {
                 //calculate positive envelope position
-                currentPoint = (int)((packet.envelope.posVelocity / spectrum.CurrentVelocityRange) * Constants.FFTSize);
-                currentPoint = (Constants.FFTSize / Constants.VALUE_2) - currentPoint;
+                currentPoint = (int)((packet.envelope.posVelocity / spectrum.CurrentVelocityRange) * Constants.SpectrumBin);
+                currentPoint = (Constants.SpectrumBin / Constants.VALUE_2) - currentPoint;
 
                 currentPoint -= baseLineOffset;
-                currentPoint = (currentPoint < 0) ? currentPoint + Constants.FFTSize : currentPoint;
+                currentPoint = (currentPoint < 0) ? currentPoint + Constants.SpectrumBin : currentPoint;
 
                 prevPoint = EnvelopDataPoints.Count <= 1 ? currentPoint : EnvelopDataPoints[EnvelopDataPoints.Count - Constants.VALUE_2];
                 start = currentPoint >= prevPoint ? prevPoint : currentPoint;
@@ -178,7 +178,7 @@ namespace PlottingLib
                 {
                     for (int i = start; i < end + OFFSET_1; i++)
                     {
-                        if (i < Constants.FFTSize && i >= 0)
+                        if (i < Constants.SpectrumBin && i >= 0)
                         {
                             spectrum.ArrayPixel[columnOffset + i * pixelsFactor] = Colors.White.B; // B Value
                             spectrum.ArrayPixel[columnOffset + i * pixelsFactor + OFFSET_1] = Colors.White.G; // G Value
@@ -201,7 +201,7 @@ namespace PlottingLib
         private bool ShouldDrawLine(int start, int end, int baseLinePosition)
         {
             bool result = true;
-            var halfFFTSize = Constants.FFTSize / 2;
+            var halfFFTSize = Constants.SpectrumBin / 2;
             var diff = start - end;
 
             if ((diff > halfFFTSize) ||

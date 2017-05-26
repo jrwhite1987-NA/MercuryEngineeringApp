@@ -60,14 +60,14 @@ namespace PlottingLib
         public override void RenderGraph(DMIPmdDataPacket packet)
         {
             try
-            {
+            {                
                 var pixelsFactor = GraphBitmap.PixelWidth * Constants.BytesForColor;
                 var columnOffset = XStart * Constants.BytesForColor;
                 var index =  GetIndexforBaseline(BaseLinePosition);
                 
-                for (int i = VALUE_0; i < Constants.FFTSize; i++)
+                for (int i = VALUE_0; i < Constants.SpectrumBin; i++)
                 {
-                    if (index == Constants.FFTSize)
+                    if (index == Constants.SpectrumBin)
                     {
                         index = VALUE_0;
                     }
@@ -78,10 +78,10 @@ namespace PlottingLib
 
                     ArrayPixel[columnOffset] = CurrentColor.B; // B Value
                     ArrayPixel[++columnOffset] = CurrentColor.G; // G Value
-                    ArrayPixel[++columnOffset] = CurrentColor.R; // R Value
+                    ArrayPixel[++columnOffset] = CurrentColor.R; // R Value 
                     ArrayPixel[++columnOffset] = CurrentColor.A; // A value
 
-                    if (i != Constants.FFTSize - OFFSET_1)
+                    if (i != Constants.SpectrumBin - OFFSET_1)
                     {
                         ArrayPixel[++columnOffset] = Colors.White.B; // B Value
                         ArrayPixel[++columnOffset] = Colors.White.G; // G Value
@@ -107,19 +107,18 @@ namespace PlottingLib
        
         public static int GetIndexforBaseline(int baseLinePosition)
         {
-            const int DEFAULT_BASE_VALUE = 0;
-            Constants.DefaultBaseline = 64;
+            Constants.DefaultBaseline = Constants.SpectrumBin / 2;
 
             if (baseLinePosition < Constants.DefaultBaseline &&
-                baseLinePosition >= -Constants.DefaultBaseline && baseLinePosition != DEFAULT_BASE_VALUE)
+                baseLinePosition >= -Constants.DefaultBaseline && baseLinePosition != 0)
             {
-                if (baseLinePosition < Constants.VALUE_0)
+                if (baseLinePosition < 0)
                 {
-                    return DMIProtocol.FFTSize + baseLinePosition;
+                    return Constants.SpectrumBin + baseLinePosition;
                 }
                 return baseLinePosition;
             }
-            return DEFAULT_BASE_VALUE;
+            return 0;
         }
 
         /// <summary>

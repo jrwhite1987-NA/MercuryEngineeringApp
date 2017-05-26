@@ -26,8 +26,9 @@
              HorizontalAlignment="Stretch">
 
                 <Grid Name="TCDControl" 
-              Width="255" 
+              Width="425" Height="40"
               Grid.Column="0"
+              VerticalAlignment="Top"
               HorizontalAlignment="Left" 
               Margin='108,15,0,0'>
 
@@ -35,10 +36,18 @@
                         <ColumnDefinition Width="50"/>
                         <ColumnDefinition Width="84"/>
                         <ColumnDefinition Width="98"/>
+                        <ColumnDefinition Width="160"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button x:Name="BtnLeftProbe"
-                        Style="{StaticResource ResourceKey=ButttonSplitL}" 
+                    
+                    <Button Style="{StaticResource ResourceKey=ButttonTCDON}" 
+                            HorizontalAlignment="Left" 
+                            UseLayoutRounding="True" 
+                            Click="TCDPowerClick"
+                            VerticalAlignment="Top" Grid.Column="0"/>
+
+                    <Button x:Name="BtnLeftProbe" Style="{StaticResource ResourceKey=ButttonSplitL}" 
+
                     HorizontalAlignment="Left" 
                     UseLayoutRounding="True" 
                             Click="LeftProbeClick"
@@ -51,6 +60,7 @@
                             Click="RightProbeClick"
                     VerticalAlignment="Top" Grid.Column="2"/>
 
+
                     <ToggleButton x:Name="BtnPower"
                                   Style="{StaticResource ResourceKey=ButttonTCDON}" 
                                   HorizontalAlignment="Left" 
@@ -58,6 +68,13 @@
                                   Click="TCDPowerClick"
                                   VerticalAlignment="Top" 
                                   Grid.Column="0"/>
+
+                    <TextBlock Grid.Column="3"  Foreground="White" FontSize="15" VerticalAlignment="Center">Spectrum Bin </TextBlock>
+                    <ComboBox x:Name="spectrumBinCombobox" Grid.Column="3" SelectedIndex="0" Height="35" FontSize="15"
+                              SelectionChanged="spectrumBinCombobox_SelectionChanged" HorizontalAlignment="Right" Width="70" 
+                              Style="{StaticResource ResourceKey=ComboBoxBorder}">                       
+                    </ComboBox>
+
 
                 </Grid>
             </Grid>
