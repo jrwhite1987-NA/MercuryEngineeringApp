@@ -553,20 +553,16 @@ namespace UsbTcdLibrary
         }
 
 
-        public byte[] GetPacketDetails(string fileName, int offsetByte)
+        public void GetPacketDetails(byte[] byteArray)
         {
-            byte[] packet = null;
-
             try
             {
-                dopplerModule.ReadPacketFromFile(fileName, offsetByte, ref packet);
+                dopplerModule.GetPacketDetails(byteArray);                
             }
             catch (Exception ex)
             {
  
             }
-
-            return packet;
         }
 
         /// <summary>

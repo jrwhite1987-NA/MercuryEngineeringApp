@@ -33,20 +33,11 @@ namespace MercuryEngApp
     {
         static ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        string filePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"LocalFolder\13-Channel1.txt");        
-        byte[] cutFs = null; // Offset byte 
-        List<DMIPmdDataPacket> ListDMIPmdDataPacket;
-
         public PacketControl()
         {
             InitializeComponent();
             this.Loaded += PacketControlLoaded;
-            this.Unloaded += PacketControlUnloaded;
-            cutFs = UsbTcd.TCDObj.GetPacketDetails(filePath, 0); // Offset byte 
-            ListDMIPmdDataPacket = UsbTcd.TCDObj.PacketQueue[0];
-
-            LoadTreeView();
-            LoadBinaryData();
+            this.Unloaded += PacketControlUnloaded;          
         }
 
         void PacketControlUnloaded(object sender, RoutedEventArgs e)
@@ -105,15 +96,19 @@ namespace MercuryEngApp
             
         }
 
-        private void LoadTreeView()
+        private void LoadTreeView(byte[] byteArray)
         {
             try
             {
+                UsbTcd.TCDObj.GetPacketDetails(byteArray);
+                //ListDMIPmdDataPacket = UsbTcd.TCDObj.PacketQueue[0];
+                DMIPmdDataPacket dMIPmdDataPacket = UsbTcd.TCDObj.PacketQueueChannel1[0];
+
                 //Root Item
                 ItemsMenu PacketRoot = GetMenuItem("Packet", 0, "packet","");
-                PacketRoot.IsExpanded = true;               
+                PacketRoot.IsExpanded = true;
 
-                DMIPktHeader dmiPktHeader = ListDMIPmdDataPacket[0].header;
+                DMIPktHeader dmiPktHeader = dMIPmdDataPacket.header;
 
                 ItemsMenu ChildHeader = GetMenuItem("Header", ServiceHeader.sync, "header","");
                 ChildHeader.Items.Add(GetMenuItem("Sync", ServiceHeader.sync, "long", Convert.ToString(dmiPktHeader.sync)));
@@ -126,12 +121,12 @@ namespace MercuryEngApp
                 PacketRoot.Items.Add(ChildHeader);
 
                 // 2nd Element
-                PacketRoot.Items.Add(GetMenuItem("Reserved", Header.Reserved, "ushort", Convert.ToString(ListDMIPmdDataPacket[0].reserved)));
+                PacketRoot.Items.Add(GetMenuItem("Reserved", Header.Reserved, "ushort", Convert.ToString(dMIPmdDataPacket.reserved)));
 
                 //3rd Element
-                PacketRoot.Items.Add(GetMenuItem("DataFormatREV", Header.DataFormatREV, "ushort", Convert.ToString(ListDMIPmdDataPacket[0].dataFormatRev)));
-                
-                DMIParameter dmiParameter = ListDMIPmdDataPacket[0].parameter;
+                PacketRoot.Items.Add(GetMenuItem("DataFormatREV", Header.DataFormatREV, "ushort", Convert.ToString(dMIPmdDataPacket.dataFormatRev)));
+
+                DMIParameter dmiParameter = dMIPmdDataPacket.parameter;
                 // 4th Element 
                 ItemsMenu ChildParameter = GetMenuItem("Parameter", Parameter.LeftTimeStamp, "parameter", "");
                 ChildParameter.Items.Add(GetMenuItem("TimestampL",Parameter.LeftTimeStamp, "uint",Convert.ToString(dmiParameter.timestampL)));
@@ -145,10 +140,10 @@ namespace MercuryEngApp
                 ChildParameter.Items.Add(GetMenuItem("TIC", Parameter.TIC, "ushort", Convert.ToString(dmiParameter.TIC)));
                 ChildParameter.Items.Add(GetMenuItem("RFU", Parameter.RFU, "ushort", Convert.ToString(dmiParameter.rfu)));
                 PacketRoot.Items.Add(ChildParameter);
-              
-                PacketRoot.Items.Add(GetMenuItem("EmbCount", Parameter.EmboliCount, "uint", Convert.ToString(ListDMIPmdDataPacket[0].embCount)));
 
-                DMIEnvelope dMIEnvelope = ListDMIPmdDataPacket[0].envelope;
+                PacketRoot.Items.Add(GetMenuItem("EmbCount", Parameter.EmboliCount, "uint", Convert.ToString(dMIPmdDataPacket.embCount)));
+
+                DMIEnvelope dMIEnvelope = dMIPmdDataPacket.envelope;
                 // 6th Element 
                 ItemsMenu ChildEnvelop = GetMenuItem("Envelop", Envelop.Depth, "envelop", "");
                 ChildEnvelop.Items.Add(GetMenuItem("Depth", Envelop.Depth, "ushort", Convert.ToString(dMIEnvelope.depth)));
@@ -169,7 +164,7 @@ namespace MercuryEngApp
                 ChildEnvelop.Items.Add(GetMenuItem("NegRI", Envelop.NegRI, "ushort", Convert.ToString(dMIEnvelope.negRI)));
                 PacketRoot.Items.Add(ChildEnvelop);
 
-                DMISpectrum dMISpectrum = ListDMIPmdDataPacket[0].spectrum;
+                DMISpectrum dMISpectrum = dMIPmdDataPacket.spectrum;
                 // 7th Element 
                 ItemsMenu ChildSpectrum = GetMenuItem("Spectrum", Spectrum.Depth, "spectrum","");
                 ChildSpectrum.Items.Add(GetMenuItem("Depth", Spectrum.Depth, "ushort", Convert.ToString(dMISpectrum.depth)));
@@ -182,7 +177,7 @@ namespace MercuryEngApp
                 PacketRoot.Items.Add(ChildSpectrum);
                 trvMenu.Items.Add(PacketRoot);
 
-                DMIMMode dMIMMode = ListDMIPmdDataPacket[0].mmode;
+                DMIMMode dMIMMode = dMIPmdDataPacket.mmode;
                 // 8th Element 
                 ItemsMenu ChildMmode = GetMenuItem("Mmode", MMode.AutoGainOffset, "Mmode","");
                 ChildMmode.Items.Add(GetMenuItem("AutoGainOffset", MMode.AutoGainOffset, "short", Convert.ToString(dMIMMode.autoGainOffset)));
@@ -192,8 +187,8 @@ namespace MercuryEngApp
                 ChildMmode.Items.Add(GetMenuItem("Power", MMode.Power, "power", GetStringFromArray(dMIMMode.power)));
                 ChildMmode.Items.Add(GetMenuItem("Velocity", MMode.Velocity, "velocity", GetStringFromArray(dMIMMode.velocity)));
                 PacketRoot.Items.Add(ChildMmode);
-             
-                DMIAudio dMIAudio = ListDMIPmdDataPacket[0].audio;
+
+                DMIAudio dMIAudio = dMIPmdDataPacket.audio;
                 // 9rd Element 
                 ItemsMenu ChildAudio = GetMenuItem("Audio", Audio.Depth, "audio","");
                 ChildAudio.Items.Add(GetMenuItem("Depth", Audio.Depth, "ushort", Convert.ToString(dMIAudio.depth)));
@@ -204,34 +199,35 @@ namespace MercuryEngApp
                 ChildAudio.Items.Add(GetMenuItem("Away", Audio.Away, "away", GetStringFromArray(dMIAudio.away)));
                 PacketRoot.Items.Add(ChildAudio);
 
-                DMIEDetectResults dMIEDetectResults = ListDMIPmdDataPacket[0].edetectResults;
+                DMIEDetectResults dMIEDetectResults = dMIPmdDataPacket.edetectResults;
                 // 10th Element 
                 ItemsMenu ChildEdetect = GetMenuItem("EdetectResult", EDetect.PhaseA_MQ, "EdetectResult","");
                 ItemsMenu phaseA = GetMenuItem("PhaseA", EDetect.PhaseA_MQ, "PhaseA", "");
-                phaseA.Items.Add(GetMenuItem("MQ", EDetect.PhaseA_MQ, "unit", Convert.ToString(dMIEDetectResults.phaseA.MQ)));
-                phaseA.Items.Add(GetMenuItem("ClutCount", EDetect.PhaseA_ClutCount, "unit", Convert.ToString(dMIEDetectResults.phaseA.ClutCount)));
-                phaseA.Items.Add(GetMenuItem("MEPosition", EDetect.PhaseA_MEPosition, "unit", Convert.ToString(dMIEDetectResults.phaseA.MEPosition)));
-                phaseA.Items.Add(GetMenuItem("MSum", EDetect.PhaseA_MSum, "unit", Convert.ToString(dMIEDetectResults.phaseA.MSum)));
-                phaseA.Items.Add(GetMenuItem("MPLocal", EDetect.PhaseA_MPLocal, "unit", Convert.ToString(dMIEDetectResults.phaseA.MPLocal)));
-                phaseA.Items.Add(GetMenuItem("AEFlag", EDetect.PhaseA_AEFlag, "unit", Convert.ToString(dMIEDetectResults.phaseA.AEFlag)));
-                phaseA.Items.Add(GetMenuItem("AEDownCount", EDetect.PhaseA_AEDownCount, "unit", Convert.ToString(dMIEDetectResults.phaseA.AEDownCount)));
-                phaseA.Items.Add(GetMenuItem("AEDetect", EDetect.PhaseA_AEDetect, "unit", Convert.ToString(dMIEDetectResults.phaseA.AEDetect)));
+                phaseA.Items.Add(GetMenuItem("MQ", EDetect.PhaseA_MQ, "uint", Convert.ToString(dMIEDetectResults.phaseA.MQ)));
+                phaseA.Items.Add(GetMenuItem("ClutCount", EDetect.PhaseA_ClutCount, "uint", Convert.ToString(dMIEDetectResults.phaseA.ClutCount)));
+                phaseA.Items.Add(GetMenuItem("MEPosition", EDetect.PhaseA_MEPosition, "uint", Convert.ToString(dMIEDetectResults.phaseA.MEPosition)));
+                phaseA.Items.Add(GetMenuItem("MSum", EDetect.PhaseA_MSum, "uint", Convert.ToString(dMIEDetectResults.phaseA.MSum)));
+                phaseA.Items.Add(GetMenuItem("MPLocal", EDetect.PhaseA_MPLocal, "uint", Convert.ToString(dMIEDetectResults.phaseA.MPLocal)));
+                phaseA.Items.Add(GetMenuItem("AEFlag", EDetect.PhaseA_AEFlag, "uint", Convert.ToString(dMIEDetectResults.phaseA.AEFlag)));
+                phaseA.Items.Add(GetMenuItem("AEDownCount", EDetect.PhaseA_AEDownCount, "uint", Convert.ToString(dMIEDetectResults.phaseA.AEDownCount)));
+                phaseA.Items.Add(GetMenuItem("AEDetect", EDetect.PhaseA_AEDetect, "uint", Convert.ToString(dMIEDetectResults.phaseA.AEDetect)));
                 ChildEdetect.Items.Add(phaseA);
                 ItemsMenu phaseB = GetMenuItem("PhaseB", EDetect.PhaseB_MQ, "PhaseB", "");
-                phaseB.Items.Add(GetMenuItem("MQ", EDetect.PhaseB_MQ, "unit", Convert.ToString(dMIEDetectResults.phaseB.MQ)));
-                phaseB.Items.Add(GetMenuItem("ClutCount", EDetect.PhaseB_ClutCount, "unit", Convert.ToString(dMIEDetectResults.phaseB.ClutCount)));
-                phaseA.Items.Add(GetMenuItem("MEPosition", EDetect.PhaseB_MEPosition, "unit", Convert.ToString(dMIEDetectResults.phaseB.MEPosition)));
-                phaseB.Items.Add(GetMenuItem("MSum", EDetect.PhaseB_MSum, "unit", Convert.ToString(dMIEDetectResults.phaseB.MSum)));
-                phaseB.Items.Add(GetMenuItem("MPLocal", EDetect.PhaseB_MPLocal, "unit", Convert.ToString(dMIEDetectResults.phaseB.MPLocal)));
-                phaseB.Items.Add(GetMenuItem("AEFlag", EDetect.PhaseB_AEFlag, "unit", Convert.ToString(dMIEDetectResults.phaseB.AEFlag)));
-                phaseB.Items.Add(GetMenuItem("AEDownCount", EDetect.PhaseB_AEDownCount, "unit", Convert.ToString(dMIEDetectResults.phaseB.AEDownCount)));
-                phaseB.Items.Add(GetMenuItem("AEDetect", EDetect.PhaseB_AEDetect, "unit", Convert.ToString(dMIEDetectResults.phaseB.AEDetect)));
+                phaseB.Items.Add(GetMenuItem("MQ", EDetect.PhaseB_MQ, "uint", Convert.ToString(dMIEDetectResults.phaseB.MQ)));
+                phaseB.Items.Add(GetMenuItem("ClutCount", EDetect.PhaseB_ClutCount, "uint", Convert.ToString(dMIEDetectResults.phaseB.ClutCount)));
+                phaseB.Items.Add(GetMenuItem("MEPosition", EDetect.PhaseB_MEPosition, "uint", Convert.ToString(dMIEDetectResults.phaseB.MEPosition)));
+                phaseB.Items.Add(GetMenuItem("MSum", EDetect.PhaseB_MSum, "uint", Convert.ToString(dMIEDetectResults.phaseB.MSum)));
+                phaseB.Items.Add(GetMenuItem("MPLocal", EDetect.PhaseB_MPLocal, "uint", Convert.ToString(dMIEDetectResults.phaseB.MPLocal)));
+                phaseB.Items.Add(GetMenuItem("AEFlag", EDetect.PhaseB_AEFlag, "uint", Convert.ToString(dMIEDetectResults.phaseB.AEFlag)));
+                phaseB.Items.Add(GetMenuItem("AEDownCount", EDetect.PhaseB_AEDownCount, "uint", Convert.ToString(dMIEDetectResults.phaseB.AEDownCount)));
+                phaseB.Items.Add(GetMenuItem("AEDetect", EDetect.PhaseB_AEDetect, "uint", Convert.ToString(dMIEDetectResults.phaseB.AEDetect)));
                 ChildEdetect.Items.Add(phaseB);
+                ChildEdetect.Items.Add(GetMenuItem("Edetect", EDetect.EDetectValue, "int", Convert.ToString(dMIEDetectResults.edetect)));
                 PacketRoot.Items.Add(ChildEdetect);
 
-                DMIArchive dMIArchive = ListDMIPmdDataPacket[0].archive;
+                DMIArchive dMIArchive = dMIPmdDataPacket.archive;
                 // 2nd Element
-                ItemsMenu ChildArchive = new ItemsMenu() { Title = "Archive" };
+                ItemsMenu ChildArchive = GetMenuItem("Archive", Archive.TimeSeriesDepth, "Archive", ""); 
                 ChildArchive.Items.Add(GetMenuItem("TimeseriesDepth", Archive.TimeSeriesDepth, "ushort", dMIArchive!=null ?Convert.ToString(dMIArchive.timeseriesDepth): ""));
                 ChildArchive.Items.Add(GetMenuItem("Rfu", Archive.RFU, "ushort", dMIArchive!=null ?Convert.ToString(dMIArchive.rfu): ""));                
                 ChildArchive.Items.Add(GetMenuItem("Timeseries", Archive.TimeseriesI, "ushort", dMIArchive!=null ?GetStringFromArray(dMIArchive.timeseries):""));
@@ -245,7 +241,7 @@ namespace MercuryEngApp
                 PacketRoot.Items.Add(ChildArchive);
                
                 // 4th Element
-                PacketRoot.Items.Add(GetMenuItem("CheckSum", 1128, "int", Convert.ToString(ListDMIPmdDataPacket[0].checksum)));
+                PacketRoot.Items.Add(GetMenuItem("CheckSum", Checksum.ChecksumPos, "int", Convert.ToString(dMIPmdDataPacket.checksum)));
                 trvMenu.SelectedItemChanged += TreeItem_Selected;
 
                 Log.Debug("TreeView Created");
@@ -358,6 +354,24 @@ namespace MercuryEngApp
                 case "spectrum":
                     byteSize = (Spectrum.Points - 1) + (DMIProtocol.SpectrumPointsCount * 2) - Spectrum.Depth;
                     break;
+                case "EdetectResult":
+                    byteSize = EDetect.EDetectValue + 3 - EDetect.PhaseA_MQ;
+                    break;
+                case "PhaseA":
+                    byteSize = EDetect.PhaseA_AEDetect + 3 - EDetect.PhaseA_MQ;
+                    break;
+                case "PhaseB":
+                    byteSize = EDetect.PhaseB_AEDetect + 3 - EDetect.PhaseB_MQ;
+                    break;
+                case "Archive":
+                    byteSize = (Archive.mmodePowerB - 1) + (DMIProtocol.DMI_ARCHIVE_MMODE_GATES * 4) - Archive.TimeSeriesDepth;
+                    break;
+                case "ArchiveMmode":
+                    byteSize = (Archive.mmodePowerB - 1) + (DMIProtocol.DMI_ARCHIVE_MMODE_GATES * 4) - Archive.MmodePhaseA;
+                    break;
+                case "FloatMmode":
+                    byteSize = (DMIProtocol.DMI_ARCHIVE_MMODE_GATES * 4) - 1;
+                    break;     
                 default:
                     break;
             }
@@ -365,7 +379,7 @@ namespace MercuryEngApp
             return byteSize;
         }
 
-        public void LoadBinaryData()
+        public void LoadBinaryData(byte[] byteArray)
         {            
             int hexIn;           
             int count = 1;
@@ -375,9 +389,9 @@ namespace MercuryEngApp
             BigInteger ConstantBInt = BigInteger.Parse("00000010", NumberStyles.HexNumber);
             HexRecord hexRecord = null;
 
-            for (int i = 0; i < cutFs.Length; i++)
+            for (int i = 0; i < byteArray.Length; i++)
             {
-                hexIn = cutFs[i];
+                hexIn = byteArray[i];
 
                 if (count == 1)
                 {
@@ -457,7 +471,7 @@ namespace MercuryEngApp
                 }
             }
 
-            if (cutFs.Length % 16 != 0)
+            if (byteArray.Length % 16 != 0)
             {
                 hexRecord.Offset = string.Format("{0:X8}", InitailBInt);
                 listHexRecord.Add(hexRecord);
@@ -576,7 +590,8 @@ namespace MercuryEngApp
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
             List<byte[]> byteArray = UsbTcd.TCDObj.GrabPacket();
-
+            LoadTreeView(byteArray[0]);
+            LoadBinaryData(byteArray[0]);
         }
     }
 

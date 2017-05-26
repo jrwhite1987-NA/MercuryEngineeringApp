@@ -182,7 +182,7 @@ namespace UsbTcdLibrary
 
         Task<bool> ReadFromFileWithRange(int examId, List<ReadPointerModel> ListReadPointerModelCh1);
 
-        byte[] GetPacketDetails(string FileName, int offsetByte);
+        void GetPacketDetails(byte[] byteArray);
 
         /// <summary>
         /// Read Binary file for exam with Range for 4/8/12 Sec

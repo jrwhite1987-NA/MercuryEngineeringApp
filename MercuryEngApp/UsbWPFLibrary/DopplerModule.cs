@@ -876,6 +876,16 @@ namespace UsbTcdLibrary
             }
         }
 
+        public void GetPacketDetails(byte[] byteArray)
+        {
+            if (byteArray != null)
+            {
+                ConvertToPacket(Constants.VALUE_1, byteArray);
+                packetQueue.Add(0, packetQueueChannel1.ToList());
+                packetQueueChannel1.Clear();
+            }
+        }
+
         /// <summary>
         /// Releases the TCD handle
         /// </summary>
