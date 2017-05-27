@@ -121,6 +121,7 @@ namespace MercuryEngApp
             {
                 MainWindow.TurnTCDON += MainWindowTurnTCDON;
                 MainWindow.TurnTCDOFF += MainWindowTurnTCDOFF;
+                App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
             }
             catch(Exception ex)
             {
