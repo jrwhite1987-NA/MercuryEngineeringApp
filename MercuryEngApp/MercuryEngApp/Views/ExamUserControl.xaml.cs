@@ -512,6 +512,10 @@ namespace MercuryEngApp
                     ScaleType = ScaleTypeEnum.Spectrogram,
                     BitmapHeight = imageSpectrogram.Height
                 });
+                if((bool)toggleLimits.IsChecked)
+                {
+                    SetEnvelopeRange(App.CurrentChannel);
+                }
             }
             catch (Exception ex)
             {
@@ -624,6 +628,36 @@ namespace MercuryEngApp
             }
             logger.Debug("--");
         }
+
+        /// <summary>
+        /// Set envelope range
+        /// </summary>
+        /// <param name="channel">The channel.</param>
+        private void SetEnvelopeRange(TCDHandles channel)
+        {
+            TCDRequest requestObject = new TCDRequest();
+            requestObject.ChannelID = channel;
+            double velocityPerUnitBaseline = 10;// (CurrentChannel.SpectrogramSetting.CurrentVelocityRange * 10) / (double)Constants.FFTSize;
+            short posVelocity = 0, negVelocity = 0;
+
+
+            if (LeftBaselinePosition > 0)
+            {
+                negVelocity = (short)((CustomSlider.Value + 1) * velocityPerUnitBaseline * -1);
+                posVelocity = (short)((Constants.FFTSize - CustomSlider.Value - 1) * velocityPerUnitBaseline);
+            }
+            else
+            {
+                posVelocity = (short)((Constants.FFTSize - CustomSlider.Value) * velocityPerUnitBaseline);
+                negVelocity = (short)(CustomSlider.Value * velocityPerUnitBaseline * -1);
+            }
+
+
+            requestObject.Value = negVelocity;
+            requestObject.Value3 = (ushort)posVelocity;
+            UsbTcd.TCDObj.SetEnvelopeRangeAsync(requestObject);
+        }
+
     }
 
 }
