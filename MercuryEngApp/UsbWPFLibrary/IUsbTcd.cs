@@ -303,8 +303,6 @@ namespace UsbTcdLibrary
             get;
         }
 
-        Task ExportPackets(int packetCount);
-
         List<byte[]> GrabPacket();
     
     }

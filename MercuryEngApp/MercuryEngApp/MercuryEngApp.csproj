@@ -126,6 +126,7 @@
     <Compile Include="ViewModels\ExamViewModel.cs" />
     <Compile Include="ViewModels\InfoViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\PacketViewModel.cs" />
     <Compile Include="Views\CalibrationUserControl.xaml.cs">
       <DependentUpon>CalibrationUserControl.xaml</DependentUpon>
     </Compile>

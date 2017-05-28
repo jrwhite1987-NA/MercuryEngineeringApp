@@ -237,7 +237,10 @@ namespace UsbTcdLibrary
         /// <param name="packets">The packets.</param>
         private void DopplerModuleOnPacketFormation(DMIPmdDataPacket[] packets)
         {
-            OnPacketFormed(packets);
+            if (OnPacketFormed != null)
+            {
+                OnPacketFormed(packets);
+            }
         }
 
         /// <summary>
@@ -1556,21 +1559,6 @@ namespace UsbTcdLibrary
             }
             return channelNumber;
         }
-
-
-        public async Task ExportPackets(int packetCount)
-        {
-            if (TCDHandler.Current.isTCDWorking)
-            {
-                if (await dopplerModule.CreateBinaryFileOfExam(1))
-                {
-                    await dopplerModule.InitializeStreams();
-                    dopplerModule.exportPacketCount = packetCount;
-                    dopplerModule.OnRecordingEnabled += dopplerModule.WriteToFile;
-                }
-            }
-        }
-
 
         public List<byte[]> GrabPacket()
         {

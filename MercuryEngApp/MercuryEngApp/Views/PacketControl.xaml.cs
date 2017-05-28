@@ -36,6 +36,7 @@ namespace MercuryEngApp
         static ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private System.Windows.Forms.Timer GrabTimer;
         private List<string> TList = new List<string>();
+        List<DMIPmdDataPacket> ListDMIPmdDataPacket;
 
         public PacketControl()
         {
@@ -90,14 +91,32 @@ namespace MercuryEngApp
                 request.Value2 = Constants.defaultStartDepth;
                 await UsbTcd.TCDObj.SetPRF(request);
 
-                UsbTcd.TCDObj.OnPacketFormed += TCDObjOnPacketFormed;
+                
                 UsbTcd.TCDObj.StartTCDReading();
             }
         }
 
         void TCDObjOnPacketFormed(DMIPmdDataPacket[] packets)
         {
-            
+            ListDMIPmdDataPacket = new List<DMIPmdDataPacket>();
+            //if (count<)
+            {
+                if (App.CurrentChannel == TCDHandles.Channel1)
+                {
+                    if (packets[0] != null)
+                    {
+                        ListDMIPmdDataPacket.Add(packets[0]);
+                    }
+                }
+                else if (App.CurrentChannel == TCDHandles.Channel2)
+                {
+                    if (packets[1] != null)
+                    {
+                        ListDMIPmdDataPacket.Add(packets[1]);
+                    }
+                }
+            }
+            UsbTcd.TCDObj.OnPacketFormed -= TCDObjOnPacketFormed;
         }
 
         private void LoadTreeView(byte[] byteArray)
@@ -286,7 +305,6 @@ namespace MercuryEngApp
             toIndex = new KeyValuePair<int, int>(item.EndRow, item.EndColumn);
             SelectCellsByIndexes(fromIndex, toIndex);
         }
-
         
         private void TreeViewItem_Expanded(object sender, RoutedEventArgs e)
         {
@@ -729,9 +747,11 @@ namespace MercuryEngApp
 
             try
             {
+                UsbTcd.TCDObj.OnPacketFormed += TCDObjOnPacketFormed;
+
                 string jsonFileName = "PacketJson" + Convert.ToString(App.CurrentChannel) + ".txt";
                 string xmlFileName = "Packetxml" + Convert.ToString(App.CurrentChannel) + ".xml";
-                List<DMIPmdDataPacket> ListDMIPmdDataPacket = new List<DMIPmdDataPacket>();
+                
 
                 string json = JsonConvert.SerializeObject(ListDMIPmdDataPacket);
                 string jsonFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"LocalFolder\" + jsonFileName);
