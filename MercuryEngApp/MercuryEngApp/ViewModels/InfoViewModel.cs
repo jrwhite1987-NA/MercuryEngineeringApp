@@ -41,6 +41,7 @@ namespace MercuryEngApp
             }
         }
 
+        public List<String> BoardPartNumberList { get; internal set; }
         public string SelectedBoardPartNumber
         {
             get
@@ -57,6 +58,7 @@ namespace MercuryEngApp
             }
         }
 
+        public List<String> BoardModelNameList { get; internal set; }
         public string SelectedBoardModelName
         {
             get
@@ -73,6 +75,7 @@ namespace MercuryEngApp
             }
         }
 
+        public List<String> BoardHardwareRevisionList { get; internal set; }
         public string SelectedHardwareRevision
         {
             get
@@ -105,7 +108,6 @@ namespace MercuryEngApp
             }
         }
 
-        [XmlElement("PartNumber")]
         public List<string> ProbePartNumberList { get; internal set; }
 
         public string SelectedProbePartNumber
@@ -123,6 +125,8 @@ namespace MercuryEngApp
                 }
             }
         }
+
+        
 
         public string ProbeModelName
         {

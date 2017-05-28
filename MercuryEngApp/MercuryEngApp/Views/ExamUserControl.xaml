@@ -199,11 +199,13 @@
                     Width="110"
                     Click="SendPRF"/>
 
-            <TextBox Height="29" 
-                     Style="{StaticResource ResourceKey=MainTextbox}"
-                     Text="{Binding Path=PRF, Mode=OneWayToSource, UpdateSourceTrigger=LostFocus}"
+            <ComboBox Height="29" 
+                      IsReadOnly="False"
+                      IsEditable="True"
+                      ItemsSource="{Binding Path=PRFList, Mode=TwoWay}"
+                      SelectedItem="{Binding Path=SelectedPRF}"
+                     Style="{StaticResource ResourceKey=ComboBoxBorder}"
                      FontSize="18"
-                     TextAlignment="Center"  
                 	 Margin="218,202,272,0"
                      VerticalAlignment="Top"
                      Padding="5,2,3,0"

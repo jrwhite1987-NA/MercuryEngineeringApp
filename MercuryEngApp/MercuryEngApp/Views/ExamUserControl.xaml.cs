@@ -20,6 +20,7 @@ using UsbTcdLibrary;
 using UsbTcdLibrary.CommunicationProtocol;
 using UsbTcdLibrary.PacketFormats;
 using log4net;
+using System.Xml.Linq;
 
 namespace MercuryEngApp
 {
@@ -54,10 +55,11 @@ namespace MercuryEngApp
         public int Depth { get; set; }
 
         public int PRF { get; set; }
+        XDocument xmlDoc;
 
         private bool IsPriorityToChannel1;
         #endregion
-       
+
         public ExamUserControl()
         {
             logger.Debug("++");
@@ -66,7 +68,9 @@ namespace MercuryEngApp
             this.Unloaded += ExamUserControlUnloaded;
             PowerController.Instance.OnDeviceStateChanged += MicrocontrollerOnDeviceStateChanged;
             this.DataContext = examViewModelObj;
-
+            xmlDoc = XDocument.Load("LocalFolder/InfoConfig.xml");
+            examViewModelObj.PRFList = xmlDoc.Root.Elements("PRFList").
+                Elements("PRF").Select(element => Convert.ToUInt32(element.Value)).ToList();
             TCDAudio = new AudioWrapper();
             TCDAudio.PRF = 8000;
             TCDAudio.SetVolume(30);
@@ -114,7 +118,7 @@ namespace MercuryEngApp
             logger.Debug("--");
         }
 
-        void ExamUserControlLoaded(object sender, RoutedEventArgs e)
+        async void ExamUserControlLoaded(object sender, RoutedEventArgs e)
         {
             logger.Debug("++");
             try
@@ -123,11 +127,11 @@ namespace MercuryEngApp
                 MainWindow.TurnTCDOFF += MainWindowTurnTCDOFF;
                 App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.Warn("Exception: ", ex);
             }
-            logger.Debug("--"); 
+            logger.Debug("--");
         }
 
         void MainWindowTurnTCDOFF()
@@ -140,7 +144,7 @@ namespace MercuryEngApp
                 UsbTcd.TCDObj.OnPacketFormed -= TCDObjOnPacketFormed;
                 UsbTcd.TCDObj.TurnTCDPowerOff();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.Warn("Exception: ", ex);
             }
@@ -185,21 +189,21 @@ namespace MercuryEngApp
                 customDepthSlider.Minimum = mModeSetting.MinDepthDisplay;
                 Scale.CreateMmodeScale(scaleDepthGrid, mModeSetting.MinDepthDisplay, mModeSetting.MaxDepthDisplay);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.Warn("Exception: ", ex);
             }
             logger.Debug("--");
-        }  
+        }
 
         async Task PlotGraph()
         {
             logger.Debug("++");
             try
             {
-                InitializeBitmap();              
+                InitializeBitmap();
                 await UsbTcd.TCDObj.TurnTCDPowerOnAsync();
-               
+
                 if (UsbTcd.TCDObj.InitializeTCD())
                 {
                     CompositionTarget.Rendering += CompositionTargetRendering;
@@ -288,14 +292,14 @@ namespace MercuryEngApp
                     if (packet[0] != null)
                     {
                         IsPriorityToChannel1 = true;
-                        examViewModelObj.PosMean = packet[0].envelope.posMEAN/10;
-                        examViewModelObj.PosMin = packet[0].envelope.posDIAS/10;
-                        examViewModelObj.PosMax = packet[0].envelope.posPEAK/10;
-                        examViewModelObj.PosPI = packet[0].envelope.posPI/10;
-                        examViewModelObj.NegMean = packet[0].envelope.negMEAN/10;
-                        examViewModelObj.NegMin = packet[0].envelope.negDIAS/10;
-                        examViewModelObj.NegMax = packet[0].envelope.negPEAK/10;
-                        examViewModelObj.NegPI = packet[0].envelope.negPI/10;
+                        examViewModelObj.PosMean = packet[0].envelope.posMEAN / 10;
+                        examViewModelObj.PosMin = packet[0].envelope.posDIAS / 10;
+                        examViewModelObj.PosMax = packet[0].envelope.posPEAK / 10;
+                        examViewModelObj.PosPI = packet[0].envelope.posPI / 10;
+                        examViewModelObj.NegMean = packet[0].envelope.negMEAN / 10;
+                        examViewModelObj.NegMin = packet[0].envelope.negDIAS / 10;
+                        examViewModelObj.NegMax = packet[0].envelope.negPEAK / 10;
+                        examViewModelObj.NegPI = packet[0].envelope.negPI / 10;
 
                         examViewModelObj.PacketDepth = packet[0].spectrum.depth;
                         examViewModelObj.PacketFilter = packet[0].spectrum.clutterFilter;
@@ -306,16 +310,16 @@ namespace MercuryEngApp
                         examViewModelObj.TIC = packet[0].parameter.TIC;
                         NaGraph.ProcessPacket(packet, true, 1);
                     }
-                    else if(packet[1]!=null && !IsPriorityToChannel1 )
+                    else if (packet[1] != null && !IsPriorityToChannel1)
                     {
-                        examViewModelObj.PosMean = packet[1].envelope.posMEAN/10;
-                        examViewModelObj.PosMin = packet[1].envelope.posDIAS/10;
-                        examViewModelObj.PosMax = packet[1].envelope.posPEAK/10;
-                        examViewModelObj.PosPI = packet[1].envelope.posPI/10;
-                        examViewModelObj.NegMean = packet[1].envelope.negMEAN/10;
-                        examViewModelObj.NegMin = packet[1].envelope.negDIAS/10;
-                        examViewModelObj.NegMax = packet[1].envelope.negPEAK/10;
-                        examViewModelObj.NegPI = packet[1].envelope.negPI/10;
+                        examViewModelObj.PosMean = packet[1].envelope.posMEAN / 10;
+                        examViewModelObj.PosMin = packet[1].envelope.posDIAS / 10;
+                        examViewModelObj.PosMax = packet[1].envelope.posPEAK / 10;
+                        examViewModelObj.PosPI = packet[1].envelope.posPI / 10;
+                        examViewModelObj.NegMean = packet[1].envelope.negMEAN / 10;
+                        examViewModelObj.NegMin = packet[1].envelope.negDIAS / 10;
+                        examViewModelObj.NegMax = packet[1].envelope.negPEAK / 10;
+                        examViewModelObj.NegPI = packet[1].envelope.negPI / 10;
 
                         examViewModelObj.PacketDepth = packet[1].spectrum.depth;
                         examViewModelObj.PacketFilter = packet[1].spectrum.clutterFilter;
@@ -457,7 +461,7 @@ namespace MercuryEngApp
                 using (TCDRequest requestObject = new TCDRequest())
                 {
                     requestObject.ChannelID = App.CurrentChannel;
-                    requestObject.Value3 = examViewModelObj.PRF;
+                    requestObject.Value3 = examViewModelObj.SelectedPRF;
                     requestObject.Value2 = (byte)examViewModelObj.StartDepth;
                     await UsbTcd.TCDObj.SetPRF(requestObject);
                 }
@@ -486,7 +490,7 @@ namespace MercuryEngApp
             }
         }
 
-       
+
         private void CusomSlider_LostMouseCapture(object sender, MouseEventArgs e)
         {
             Constants.BaselineValue = 64;
@@ -621,5 +625,5 @@ namespace MercuryEngApp
             logger.Debug("--");
         }
     }
-  
+
 }

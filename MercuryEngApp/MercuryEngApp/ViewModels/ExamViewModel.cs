@@ -119,7 +119,8 @@ namespace MercuryEngApp
             }
         }
 
-        public uint PRF
+        public List<uint> PRFList { get; internal set; }
+        public uint SelectedPRF
         {
             get
             {

@@ -39,6 +39,9 @@ namespace MercuryEngApp
             this.DataContext = infoViewModelObj;
             xmlDoc = XDocument.Load("LocalFolder/InfoConfig.xml");
             infoViewModelObj.ProbePartNumberList = xmlDoc.Root.Elements("ProbePartNumbers").Elements("PartNumber").Select(element => element.Value).ToList();
+            infoViewModelObj.BoardPartNumberList = xmlDoc.Root.Elements("BoardPartNumbers").Elements("PartNumber").Select(element => element.Value).ToList();
+            infoViewModelObj.BoardModelNameList = xmlDoc.Root.Elements("BoardModelNames").Elements("ModelName").Select(element => element.Value).ToList();
+            infoViewModelObj.BoardHardwareRevisionList = xmlDoc.Root.Elements("HardwareRevisions").Elements("Revision").Select(element => element.Value).ToList();
         }
 
         async void InfoUserControlLoaded(object sender, RoutedEventArgs e)
