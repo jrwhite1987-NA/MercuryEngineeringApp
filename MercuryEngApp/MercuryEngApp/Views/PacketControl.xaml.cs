@@ -42,6 +42,7 @@ namespace MercuryEngApp
 
         public PacketControl()
         {
+            
             InitializeComponent();
             this.Loaded += PacketControlLoaded;
             this.Unloaded += PacketControlUnloaded;
@@ -729,14 +730,14 @@ namespace MercuryEngApp
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> er)
         {
-            int sliderValue = (int)IntervalSilder.Value;
+            double sliderValue = (double)IntervalSilder.Value;            
 
             if (sliderValue != 0)
             {
                 ClearRecentTimer();
                 GrabTimer = new System.Windows.Forms.Timer();
                 GrabTimer.Tick += new EventHandler(GrabPacket);
-                GrabTimer.Interval = sliderValue * 1000; // in miliseconds
+                GrabTimer.Interval = Convert.ToInt16(sliderValue * 1000); // in miliseconds
                 GrabTimer.Start();
             }
             else
