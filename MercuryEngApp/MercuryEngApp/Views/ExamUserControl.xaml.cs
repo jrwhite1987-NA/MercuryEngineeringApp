@@ -241,6 +241,7 @@ namespace MercuryEngApp
         void TCDObjOnPacketFormed(DMIPmdDataPacket[] packets)
         {
             logger.Debug("++");
+
             try
             {
                 PacketCollection.Enqueue(packets);
@@ -250,6 +251,7 @@ namespace MercuryEngApp
             {
                 logger.Warn("Exception: ", ex);
             }
+
             logger.Debug("--");
         }
 

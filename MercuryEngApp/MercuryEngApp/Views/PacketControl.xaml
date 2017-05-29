@@ -52,7 +52,7 @@
                                     Style="{StaticResource ResourceKey=Lable25size}"/>
 
                         <StackPanel VerticalAlignment="Center" Margin="20,16,15,20" Grid.Row="1" Height="40">
-                            <Slider Name="IntervalSilder" Maximum="12" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" TickPlacement="BottomRight" TickFrequency="1"  IsSnapToTickEnabled="True" ValueChanged="Slider_ValueChanged"/>
+                            <Slider Name="IntervalSilder" Maximum="12" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" TickPlacement="BottomRight" TickFrequency="1"  IsSnapToTickEnabled="True" Value="{Binding Path=SilderValue, Mode=TwoWay , UpdateSourceTrigger=PropertyChanged}" ValueChanged="Slider_ValueChanged"/>
                         </StackPanel>
 
                         <Button Content="Refresh" 
@@ -84,8 +84,8 @@
                                  HorizontalAlignment="Left"
                                  Width="180"
                                  Margin="17,31,0,28"
+                                 Text="{Binding Path=PacketNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                   Style="{StaticResource ResourceKey=MainTextbox}"/>
-
                     </Grid>
 
                 </Grid>

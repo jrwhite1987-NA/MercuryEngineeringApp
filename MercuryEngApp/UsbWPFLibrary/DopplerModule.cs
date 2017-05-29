@@ -872,14 +872,13 @@ namespace UsbTcdLibrary
             }
         }
 
-        public void GetPacketDetails(byte[] byteArray)
+        public DMIPmdDataPacket GetPacketDetails(byte[] byteArray)
         {
             if (byteArray != null)
             {
-                ConvertToPacket(Constants.VALUE_1, byteArray);
-                packetQueue.Add(0, packetQueueChannel1.ToList());
-                packetQueueChannel1.Clear();
+                return GetSinglePacket(byteArray, Constants.VALUE_1);
             }
+            return null;
         }
 
         /// <summary>
@@ -1378,6 +1377,7 @@ namespace UsbTcdLibrary
                 packets = (ConvertToPacket(tempArray, tempArrayRight));
                 leftPacket = tempArray;
                 rightPacket = tempArrayRight;
+                System.Diagnostics.Debug.WriteLine(rightPacket[15]);
                 counterPacketForm++;
                 if (OnPacketFormationDual != null)
                 {
@@ -1460,7 +1460,7 @@ namespace UsbTcdLibrary
 
                     CreateParameter(ref byteArr, ref singleDopplerPacket);
 
-                    Logstring.Append(CheckEmboli(channel, ref logflag, ref singleDopplerPacket));
+                    //Logstring.Append(CheckEmboli(channel, ref logflag, ref singleDopplerPacket));
 
                     if (logflag)
                     {

@@ -556,16 +556,18 @@ namespace UsbTcdLibrary
         }
 
 
-        public void GetPacketDetails(byte[] byteArray)
+        public DMIPmdDataPacket GetPacketDetails(byte[] byteArray)
         {
             try
             {
-                dopplerModule.GetPacketDetails(byteArray);                
+              return  dopplerModule.GetPacketDetails(byteArray);                
             }
             catch (Exception ex)
             {
  
             }
+
+            return null;
         }
 
         /// <summary>

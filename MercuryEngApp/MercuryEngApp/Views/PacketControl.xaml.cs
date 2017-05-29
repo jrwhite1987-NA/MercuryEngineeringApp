@@ -35,14 +35,17 @@ namespace MercuryEngApp
     {
         static ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private System.Windows.Forms.Timer GrabTimer;
+        private PacketViewModel packetViewModelObj = new PacketViewModel();
         private List<string> TList = new List<string>();
         List<DMIPmdDataPacket> ListDMIPmdDataPacket;
+        int count = 0;
 
         public PacketControl()
         {
             InitializeComponent();
             this.Loaded += PacketControlLoaded;
-            this.Unloaded += PacketControlUnloaded;          
+            this.Unloaded += PacketControlUnloaded;
+            this.DataContext = packetViewModelObj;
         }
 
         void PacketControlUnloaded(object sender, RoutedEventArgs e)
@@ -98,25 +101,53 @@ namespace MercuryEngApp
 
         void TCDObjOnPacketFormed(DMIPmdDataPacket[] packets)
         {
-            ListDMIPmdDataPacket = new List<DMIPmdDataPacket>();
-            //if (count<)
+            logger.Debug("++");
+
+            try
             {
-                if (App.CurrentChannel == TCDHandles.Channel1)
+                if (packetViewModelObj.PacketNumber > count)
                 {
-                    if (packets[0] != null)
+                    if (App.CurrentChannel == TCDHandles.Channel1)
                     {
-                        ListDMIPmdDataPacket.Add(packets[0]);
+                        if (packets[0] != null)
+                        {
+                            ListDMIPmdDataPacket.Add(packets[0]);
+                        }
                     }
+                    else if (App.CurrentChannel == TCDHandles.Channel2)
+                    {
+                        if (packets[1] != null)
+                        {
+                            ListDMIPmdDataPacket.Add(packets[1]);
+                        }
+                    }
+
+                    count++;
                 }
-                else if (App.CurrentChannel == TCDHandles.Channel2)
+
+                if (count == packetViewModelObj.PacketNumber)
                 {
-                    if (packets[1] != null)
-                    {
-                        ListDMIPmdDataPacket.Add(packets[1]);
-                    }
+                    UsbTcd.TCDObj.OnPacketFormed -= TCDObjOnPacketFormed;
+
+                    string jsonFileName = "PacketJson" + Convert.ToString(App.CurrentChannel) + ".txt";
+                    string xmlFileName = "Packetxml" + Convert.ToString(App.CurrentChannel) + ".xml";
+
+
+                    string json = JsonConvert.SerializeObject(ListDMIPmdDataPacket);
+                    string jsonFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"LocalFolder\" + jsonFileName);
+                    System.IO.File.WriteAllText(jsonFilePath, json);
+                    XmlDocument xmlDoc = JsonConvert.DeserializeXmlNode("{\"Row\":" + json + "}", "root");
+                    string xmlFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"LocalFolder\" + xmlFileName);
+                    xmlDoc.Save(xmlFilePath);
+                    count = 0;
                 }
             }
-            UsbTcd.TCDObj.OnPacketFormed -= TCDObjOnPacketFormed;
+            catch (Exception ex)
+            {
+                logger.Warn("Exception:" + ex);
+            }
+
+            logger.Debug("--");
         }
 
         private void LoadTreeView(byte[] byteArray)
@@ -125,9 +156,9 @@ namespace MercuryEngApp
 
             try
             {
-                UsbTcd.TCDObj.GetPacketDetails(byteArray);
+                
                 //ListDMIPmdDataPacket = UsbTcd.TCDObj.PacketQueue[0];
-                DMIPmdDataPacket dMIPmdDataPacket = UsbTcd.TCDObj.PacketQueueChannel1[0];
+                DMIPmdDataPacket dMIPmdDataPacket = UsbTcd.TCDObj.GetPacketDetails(byteArray);
                 ItemsMenu PacketRoot = new ItemsMenu();
                 trvMenu.Items.Clear();
                 //Root Item
@@ -747,18 +778,8 @@ namespace MercuryEngApp
 
             try
             {
+                ListDMIPmdDataPacket = new List<DMIPmdDataPacket>();
                 UsbTcd.TCDObj.OnPacketFormed += TCDObjOnPacketFormed;
-
-                string jsonFileName = "PacketJson" + Convert.ToString(App.CurrentChannel) + ".txt";
-                string xmlFileName = "Packetxml" + Convert.ToString(App.CurrentChannel) + ".xml";
-                
-
-                string json = JsonConvert.SerializeObject(ListDMIPmdDataPacket);
-                string jsonFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"LocalFolder\" + jsonFileName);
-                System.IO.File.WriteAllText(jsonFilePath, json);
-                XmlDocument xmlDoc = JsonConvert.DeserializeXmlNode("{\"Row\":" + json + "}", "root");
-                string xmlFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"LocalFolder\" + xmlFileName);
-                xmlDoc.Save(xmlFilePath);
             }
             catch (Exception ex)
             {
