@@ -1122,7 +1122,7 @@ namespace UsbTcdLibrary
                 //Clear Doppler data buffer
                 result = await TCDHandler.Current.SendControlCommandAsync(channel, DMIProtocol.DMI_CMD_CLEAR_BUFFER, (uint)EndpointNumber.DopplerData, 0);
 
-                if (DMIProtocol.FFTSize == DMIProtocol.FFT256_POINTS)
+                if (DMIProtocol.Is256FFTEnable)
                 {
                     //Set the spectrogram bins to the appropriate value
                     result = await TCDHandler.Current.SendControlCommandAsync(channel, DMIProtocol.DMI_CMD_DOPPLER, (uint)DopplerParameters.SpectrumBins, (uint)DMIProtocol.FFTSize);
@@ -1377,7 +1377,6 @@ namespace UsbTcdLibrary
                 packets = (ConvertToPacket(tempArray, tempArrayRight));
                 leftPacket = tempArray;
                 rightPacket = tempArrayRight;
-                System.Diagnostics.Debug.WriteLine(rightPacket[15]);
                 counterPacketForm++;
                 if (OnPacketFormationDual != null)
                 {
@@ -2589,7 +2588,14 @@ namespace UsbTcdLibrary
                 int i = Constants.VALUE_0;
                 while (i < DMIProtocol.SpectrumPointsCount)
                 {
-                    singleDopplerPacket.spectrum.points[i] = BitConverter.ToInt16(byteArr, Spectrum.Points + (i * Constants.VALUE_2));
+                    if (i < DMIProtocol.FFT128_SPECTRUM_POINTS)
+                    {
+                        singleDopplerPacket.spectrum.points[i] = BitConverter.ToInt16(byteArr, Spectrum.Points + (i * Constants.VALUE_2));
+                    }
+                    else
+                    {
+                        singleDopplerPacket.spectrum.points[i] = 0;
+                    }
                     i++;
                 }
                 i = Constants.VALUE_0;

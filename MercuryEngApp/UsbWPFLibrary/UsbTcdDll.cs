@@ -728,7 +728,7 @@ namespace UsbTcdLibrary
         public async Task<TCDResponse> SetEnvelopeRangeAsync(TCDRequest requestObj)
         {
             TCDResponse responseObject = new TCDResponse();
-            if (DMIProtocol.FFTSize == DMIProtocol.FFT256_POINTS)
+            if (DMIProtocol.Is256FFTEnable)
             {
                 try
                 {

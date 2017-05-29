@@ -306,32 +306,46 @@
         /// <summary>
         /// The automatic gain offset
         /// </summary>
-        public static int AutoGainOffset = DMIProtocol.SpectrumPointsCount * 2 + Spectrum.Points;
+        public static int AutoGainOffset;
 
         /// <summary>
         /// The start depth
         /// </summary>
-        public static int StartDepth = AutoGainOffset + 2;
+        public static int StartDepth;
 
         /// <summary>
         /// The end depth
         /// </summary>
-        public static int EndDepth = StartDepth + 2;
+        public static int EndDepth;
 
         /// <summary>
         /// The points per column
         /// </summary>
-        public static int PointsPerColumn = EndDepth + 2;
+        public static int PointsPerColumn;
 
         /// <summary>
         /// The power
         /// </summary>
-        public static int Power = PointsPerColumn + 2;
+        public static int Power;
 
         /// <summary>
         /// The velocity
         /// </summary>
-        public static int Velocity = DMIProtocol.DMI_PKT_MMODE_PTS * 2 + Power;
+        public static int Velocity;
+
+        static MMode()
+        {
+            if(DMIProtocol.Is256FFTEnable)
+                AutoGainOffset = DMIProtocol.SpectrumPointsCount * 2 + Spectrum.Points;
+            else
+                AutoGainOffset = DMIProtocol.FFT128_SPECTRUM_POINTS * 2 + Spectrum.Points;
+
+            StartDepth = AutoGainOffset + 2;
+            EndDepth = StartDepth + 2;
+            PointsPerColumn = EndDepth + 2;
+            Power = PointsPerColumn + 2;
+            Velocity = DMIProtocol.DMI_PKT_MMODE_PTS * 2 + Power;
+        }
     }
 
     /// <summary>

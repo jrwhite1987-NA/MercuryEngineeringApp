@@ -285,10 +285,9 @@ namespace MercuryEngApp
         void CompositionTargetRendering(object sender, EventArgs e)
         {
             logger.Debug("++");
-
-            while (PacketCollection.Count > 0)
+            try
             {
-                try
+                while (PacketCollection.Count > 0)
                 {
                     DMIPmdDataPacket[] packet = PacketCollection.Dequeue();
                     if (packet[0] != null)
@@ -333,11 +332,11 @@ namespace MercuryEngApp
                         NaGraph.ProcessPacket(packet, true, 2);
                     }
                 }
-                catch (Exception ex)
-                {
-                    logger.Warn("Exception: ", ex);
-                    throw;
-                }
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("Exception: ", ex);
+                throw;
             }
             logger.Debug("--");
         }

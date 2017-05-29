@@ -25,14 +25,14 @@ namespace UsbTcdLibrary
     {
         #region Packet Size
 
-        /// <summary>
+             /// <summary>
         /// The packet size
         /// </summary>
         internal static int PACKET_SIZE = Packet_Size_128FFT;
 
         private const int Packet_Size_128FFT = 2756;
         private const int Packet_Size_256FFT = 3524;
-
+        
         internal const int DMI_SERVICE_LOG_PACKET_SIZE = 40;
         internal const int DMI_SERVICELOG_HEADER_SIZE = 16;
 
@@ -238,16 +238,13 @@ namespace UsbTcdLibrary
 
         #endregion EventCodes
 
-        private const int FFT128_SPECTRUM_POINTS = 128;
-        public const int FFT256_POINTS = 256;
-        private const int FFT256_SPECTRUM_POINTS = 512;
-
+        internal const int FFT128_SPECTRUM_POINTS = 128;
         /// <summary>
         /// The dmi PKT spect PTS
         /// </summary>
-        public static int FFTSize = FFT128_SPECTRUM_POINTS;
+        public static int FFTSize = 256;
 
-        public static int SpectrumPointsCount = FFT128_SPECTRUM_POINTS;
+        public const int SpectrumPointsCount = 512;
 
         /// <summary>
         /// The dmi PKT mmode PTS
@@ -453,7 +450,7 @@ namespace UsbTcdLibrary
         /// <summary>
         /// The short CVR PKT size
         /// </summary>
-        public static int FilePacketSize = FILE_SIZE_128FFT;
+        public static int FilePacketSize = FILE_SIZE_256FFT;
 
         /// <summary>
         /// The module information request length
@@ -504,36 +501,23 @@ namespace UsbTcdLibrary
                     {
                         is256 = true;
                         PACKET_SIZE = Packet_Size_256FFT;
-                        FFTSize = FFT256_POINTS;
-                        SpectrumPointsCount = FFT256_SPECTRUM_POINTS;
-                        FilePacketSize = FILE_SIZE_256FFT;
                     }
                     else if (revisionVersion >= Constants.VALUE_3)
                     {
                         is256 = true;
                         PACKET_SIZE = Packet_Size_256FFT;
-                        FFTSize = FFT256_POINTS;
-                        SpectrumPointsCount = FFT256_SPECTRUM_POINTS;
-                        FilePacketSize = FILE_SIZE_256FFT;
                     }
                     else
                     {
                         is256 = false;
                         PACKET_SIZE = Packet_Size_128FFT;
-                        FFTSize = FFT128_SPECTRUM_POINTS;
-                        SpectrumPointsCount = FFT128_SPECTRUM_POINTS;
-                        FilePacketSize = FILE_SIZE_128FFT;
                     }
                 }
                 else
                 {
                     is256 = false;
                     PACKET_SIZE = Packet_Size_128FFT;
-                    FFTSize = FFT128_SPECTRUM_POINTS;
-                    SpectrumPointsCount = FFT128_SPECTRUM_POINTS;
-                    FilePacketSize = FILE_SIZE_128FFT;
                 }
-                //Constants.FFTSize = FFTSize;
             }
             catch (Exception ex)
             {
