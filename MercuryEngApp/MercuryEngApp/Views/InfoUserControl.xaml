@@ -80,18 +80,24 @@
                                    Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                    Grid.Row="4" Grid.Column="1"/>
 
-                        <ComboBox Width="309" 
+                        <Border  Style="{StaticResource ResourceKey=RoundedBorderCombo}" 
+                                 Grid.Row="1"
+                                 Grid.Column="2"  Width="310" />
+                        <ComboBox Width="300" 
                                  Height="25"
                                     IsReadOnly="False"
                                       IsEditable="True"
                                       ItemsSource="{Binding Path=BoardPartNumberList, Mode=TwoWay}"
                                       SelectedItem="{Binding Path=SelectedBoardPartNumber}"        
-                                 Style="{StaticResource ResourceKey=ComboBoxBorder}"
+                                  Style="{StaticResource ResourceKey=ComboBoxBorder}"
                                  Grid.Row="1" 
                                  Grid.Column="2" 
-                                 Margin="0,5,5,5"/>
+                                 Margin="3,5,5,5"/>
 
-                        <ComboBox Width="309" 
+                        <Border  Style="{StaticResource ResourceKey=RoundedBorderCombo}" 
+                                 Grid.Row="2"
+                                 Grid.Column="2"  Width="310" />
+                        <ComboBox Width="300" 
                                  Height="25"
                                     IsReadOnly="False"
                                       IsEditable="True"
@@ -100,9 +106,12 @@
                                  Style="{StaticResource ResourceKey=ComboBoxBorder}"
                                  Grid.Row="2" 
                                  Grid.Column="2" 
-                                 Margin="0,5,5,5"/>
+                                 Margin="3,5,5,5"/>
 
-                        <ComboBox Width="309" 
+                        <Border  Style="{StaticResource ResourceKey=RoundedBorderCombo}" 
+                                 Grid.Row="3"
+                                 Grid.Column="2"  Width="310" />
+                        <ComboBox Width="300" 
                                  Height="25"
                                     IsReadOnly="False"
                                       IsEditable="True"
@@ -111,7 +120,7 @@
                                  Style="{StaticResource ResourceKey=ComboBoxBorder}"
                                  Grid.Row="3" 
                                  Grid.Column="2" 
-                                 Margin="0,5,5,5" 
+                                 Margin="3,5,5,5" 
                                  Background="White"/>
 
                         <TextBox Width="309" 
