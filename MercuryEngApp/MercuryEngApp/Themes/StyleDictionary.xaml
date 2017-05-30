@@ -290,6 +290,13 @@
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
+                        <Trigger Property="IsHitTestVisible" Value="False">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="NA_btn_exam_split_l_262x62_off.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -325,6 +332,13 @@
                             <Setter Property="Background" TargetName="border">
                                 <Setter.Value>
                                     <ImageBrush ImageSource="NA_btn_exam_split_r_262x62_selected.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsHitTestVisible" Value="False">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="NA_btn_exam_split_r_262x62_off.png"/>
                                 </Setter.Value>
                             </Setter>
                         </Trigger>

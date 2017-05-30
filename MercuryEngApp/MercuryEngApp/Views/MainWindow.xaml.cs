@@ -39,6 +39,29 @@ namespace MercuryEngApp
                 BtnPower.IsChecked = value;
             }
         }
+        internal bool IsProbe1HitTestVisible
+        {
+            get
+            {
+                return BtnLeftProbe.IsHitTestVisible;
+            }
+            set
+            {
+                BtnLeftProbe.IsHitTestVisible = value;
+            }
+        }
+        internal bool IsProbe2HitTestVisible
+        {
+            get
+            {
+                return BtnRightProbe.IsHitTestVisible;
+            }
+            set
+            {
+                BtnRightProbe.IsHitTestVisible = value;
+            }
+        }
+
         public MainWindow()
         {
             logger.Debug("++");
@@ -54,6 +77,7 @@ namespace MercuryEngApp
                     case UsbTcdLibrary.ActiveChannels.Both:
                         BtnLeftProbe.IsHitTestVisible = true;
                         BtnRightProbe.IsHitTestVisible = true;
+                        App.ActiveChannels = UsbTcdLibrary.ActiveChannels.Channel2; //Temp for xoriant TCD since channel 1 doesn't work
                         break;
                     case UsbTcdLibrary.ActiveChannels.Channel1:
                         BtnLeftProbe.IsHitTestVisible = true;
@@ -67,7 +91,7 @@ namespace MercuryEngApp
             logger.Debug("--");
         }       
 
-        void MainWindowLoaded(object sender, RoutedEventArgs e)
+        async void MainWindowLoaded(object sender, RoutedEventArgs e)
         {
             logger.Debug("++");
             try
@@ -79,9 +103,9 @@ namespace MercuryEngApp
 
                 BtnLeftProbe.IsHitTestVisible = false;
                 BtnRightProbe.IsHitTestVisible = false;
-
                 spectrumBinCombobox.ItemsSource = Constants.SpectrumBinList;
-
+                App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
+                await Dispatcher.BeginInvoke(workAction, System.Windows.Threading.DispatcherPriority.Normal, null);
                 //Task.Delay(4500).Wait();
                 //MainLayout.Visibility = Visibility.Visible;
                 //temp.Visibility = Visibility.Collapsed;
@@ -184,12 +208,12 @@ namespace MercuryEngApp
 
         private void LeftProbeClick(object sender, RoutedEventArgs e)
         {
-
+            App.ActiveChannels = UsbTcdLibrary.ActiveChannels.Channel1;
         }
 
         private void RightProbeClick(object sender, RoutedEventArgs e)
         {
-
+            App.ActiveChannels = UsbTcdLibrary.ActiveChannels.Channel2;
         }
 
         private void spectrumBinCombobox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

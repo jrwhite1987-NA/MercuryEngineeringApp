@@ -57,7 +57,6 @@ namespace MercuryEngApp
         public int PRF { get; set; }
         XDocument xmlDoc;
 
-        private bool IsPriorityToChannel1;
         #endregion
 
         public ExamUserControl()
@@ -118,14 +117,13 @@ namespace MercuryEngApp
             logger.Debug("--");
         }
 
-        async void ExamUserControlLoaded(object sender, RoutedEventArgs e)
+        void ExamUserControlLoaded(object sender, RoutedEventArgs e)
         {
             logger.Debug("++");
             try
             {
                 MainWindow.TurnTCDON += MainWindowTurnTCDON;
                 MainWindow.TurnTCDOFF += MainWindowTurnTCDOFF;
-                App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
             }
             catch (Exception ex)
             {
@@ -290,9 +288,8 @@ namespace MercuryEngApp
                 while (PacketCollection.Count > 0)
                 {
                     DMIPmdDataPacket[] packet = PacketCollection.Dequeue();
-                    if (packet[0] != null)
+                    if (App.ActiveChannels==ActiveChannels.Channel1 && packet[0]!=null)
                     {
-                        IsPriorityToChannel1 = true;
                         examViewModelObj.PosMean = packet[0].envelope.posMEAN / 10;
                         examViewModelObj.PosMin = packet[0].envelope.posDIAS / 10;
                         examViewModelObj.PosMax = packet[0].envelope.posPEAK / 10;
@@ -311,7 +308,7 @@ namespace MercuryEngApp
                         examViewModelObj.TIC = packet[0].parameter.TIC;
                         NaGraph.ProcessPacket(packet, true, 1);
                     }
-                    else if (packet[1] != null && !IsPriorityToChannel1)
+                    else if (packet[1] != null && App.ActiveChannels==ActiveChannels.Channel2)
                     {
                         examViewModelObj.PosMean = packet[1].envelope.posMEAN / 10;
                         examViewModelObj.PosMin = packet[1].envelope.posDIAS / 10;
