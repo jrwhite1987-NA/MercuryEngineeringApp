@@ -30,7 +30,7 @@ namespace PlottingLib
         /// <param name="packet">DMI packet</param>
         public override void RenderGraph(DMIPmdDataPacket packet)
         {
-            Helper.logger.Debug("++");
+           
             try
             {
                 int pixelsFactor = GraphBitmap.PixelWidth * Constants.BytesForColor;
@@ -67,8 +67,7 @@ namespace PlottingLib
             {
                 Helper.logger.Warn("Exception: ", ex);
                 throw;
-            }
-            Helper.logger.Debug("--");
+            }           
         }
     }
 }

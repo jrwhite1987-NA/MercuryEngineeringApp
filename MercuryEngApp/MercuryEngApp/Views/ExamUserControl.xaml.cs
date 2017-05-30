@@ -346,7 +346,7 @@ namespace MercuryEngApp
 
             try
             {
-                leftSpectrumBitmap = BitmapFactory.New(width, 129);
+                leftSpectrumBitmap = BitmapFactory.New(width, Constants.SpectrumBin+1);
                 imageSpectrogram.Source = leftSpectrumBitmap;
 
 
@@ -662,6 +662,7 @@ namespace MercuryEngApp
             if (spectrumBinCombobox.SelectedIndex != -1)
             {
                 Constants.SpectrumBin = Convert.ToInt32(spectrumBinCombobox.SelectedValue);
+                InitializeBitmap();
             }
         }
     }

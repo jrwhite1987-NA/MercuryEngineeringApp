@@ -151,8 +151,7 @@ namespace PlottingLib
         /// <param name="isCld">if set to <c>true</c> [is CLD].</param>
         /// <param name="currentChannel">The current channel.</param>
         public void ProcessPacket(DMIPmdDataPacket[] arrayDataPackets, bool isCld, int currentChannel)
-        {
-            Helper.logger.Debug("++");
+        {           
             try
             {              
                 XStart = (++XStart % SizeOfQueue);
@@ -199,8 +198,7 @@ namespace PlottingLib
             {
                 Helper.logger.Warn("Exception: ", ex);
                 throw ex;
-            }
-            Helper.logger.Debug("--");
+            }          
         }
 
         /// <summary>

@@ -59,7 +59,6 @@ namespace PlottingLib
         /// <param name="packet"></param>
         public override void RenderGraph(DMIPmdDataPacket packet)
         {
-            Helper.logger.Debug("++");
             try
             {                
                 var pixelsFactor = GraphBitmap.PixelWidth * Constants.BytesForColor;
@@ -104,13 +103,11 @@ namespace PlottingLib
             {
                 Helper.logger.Warn("Exception: ", ex);
                 throw;
-            }
-            Helper.logger.Debug("--");
+            }            
         }
        
         public static int GetIndexforBaseline(int baseLinePosition)
-        {
-            Helper.logger.Debug("++");
+        {           
             Constants.DefaultBaseline = Constants.SpectrumBin / 2;
 
             if (baseLinePosition < Constants.DefaultBaseline &&
@@ -120,11 +117,9 @@ namespace PlottingLib
                 {
                     Helper.logger.Debug("--");
                     return Constants.SpectrumBin + baseLinePosition;
-                }
-                Helper.logger.Debug("--");
+                }               
                 return baseLinePosition;
-            }
-            Helper.logger.Debug("--");
+            }           
             return 0;
         }
 

@@ -88,8 +88,7 @@ namespace PlottingLib
         /// <param name="columnOffset">The column offset.</param>
         /// <param name="pixelsFactor">The pixels factor.</param>
         public void PlotEnvolope(Spectrogram spectrum, DMIPmdDataPacket packet, int columnOffset, int pixelsFactor)
-        {
-            Helper.logger.Debug("++");
+        {          
             ///*
             // * PRF needs to be checked here. Please use the following as a reference:
             // * 5.0KHz -> 1920.0
@@ -101,8 +100,7 @@ namespace PlottingLib
             spectrum.CurrentVelocityRange = (spectrum.CurrentVelocityRange == 0 ? CURRENT_VELOCITY_RANGE_3080 : spectrum.CurrentVelocityRange);
 
             ShowPositiveEnvelope(spectrum, packet, pixelsFactor);
-            ShowNegativeEnvelope(spectrum, packet, pixelsFactor);
-            Helper.logger.Debug("--");
+            ShowNegativeEnvelope(spectrum, packet, pixelsFactor);          
         }
 
         /// <summary>
@@ -112,8 +110,7 @@ namespace PlottingLib
         /// <param name="packet">The packet.</param>
         /// <param name="pixelsFactor">The pixels factor.</param>
         private void ShowNegativeEnvelope(Spectrogram spectrum, DMIPmdDataPacket packet, int pixelsFactor)
-        {
-            Helper.logger.Debug("++");
+        {           
             var baseLineOffset = spectrum.BaseLinePosition == Constants.SpectrumBin ? 0 : spectrum.BaseLinePosition;
             int currentPoint = 0;
             int prevPoint = 0;
@@ -147,8 +144,7 @@ namespace PlottingLib
                     }
                 }
             }
-            EnvelopDataPoints.Add(currentPoint);
-            Helper.logger.Debug("--");
+            EnvelopDataPoints.Add(currentPoint);            
         }
 
         /// <summary>
@@ -159,7 +155,6 @@ namespace PlottingLib
         /// <param name="pixelsFactor">The pixels factor.</param>
         private void ShowPositiveEnvelope(Spectrogram spectrum, DMIPmdDataPacket packet, int pixelsFactor)
         {
-            Helper.logger.Debug("++");
             var baseLineOffset = spectrum.BaseLinePosition == Constants.SpectrumBin ? 0 : spectrum.BaseLinePosition;
             int currentPoint = 0;
             int prevPoint = 0;
@@ -194,8 +189,7 @@ namespace PlottingLib
                     }
                 }
             }
-            EnvelopDataPoints.Add(currentPoint);
-            Helper.logger.Debug("--");
+            EnvelopDataPoints.Add(currentPoint);           
         }
 
         /// <summary>
@@ -206,8 +200,7 @@ namespace PlottingLib
         /// <param name="baseLinePosition">The base line position.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         private bool ShouldDrawLine(int start, int end, int baseLinePosition)
-        {
-            Helper.logger.Debug("++");
+        {            
             bool result = true;
             var halfFFTSize = Constants.SpectrumBin / 2;
             var diff = start - end;
@@ -222,8 +215,7 @@ namespace PlottingLib
             {
                 result = true;
             }
-
-            Helper.logger.Debug("--");
+                      
             return result;
         }
 
