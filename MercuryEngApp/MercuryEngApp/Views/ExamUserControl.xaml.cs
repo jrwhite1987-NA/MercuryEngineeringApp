@@ -125,6 +125,7 @@ namespace MercuryEngApp
                 MainWindow.TurnTCDON += MainWindowTurnTCDON;
                 MainWindow.TurnTCDOFF += MainWindowTurnTCDOFF; 
                 spectrumBinCombobox.ItemsSource = Constants.SpectrumBinList;
+                btnEnvelop.IsChecked = true;
             }
             catch (Exception ex)
             {
@@ -156,8 +157,7 @@ namespace MercuryEngApp
             try
             {
                 await PlotGraph();
-                CreateVerticalScales();
-                btnEnvelopToggle_Click(null, null);
+                CreateVerticalScales();               
             }
             catch (Exception ex)
             {
@@ -583,34 +583,7 @@ namespace MercuryEngApp
             logger.Debug("--");
         }
 
-        private void btnEnvelopToggle_Click(object sender, RoutedEventArgs e)
-        {
-            logger.Debug("++");
-            try
-            {
-                if (btnEnvelop.Content.ToString() == "Envelope On")
-                {
-                    NaGraph.LeftSpectrogram.SpectrumEnvolope.NegativeFlowVisible = true;
-                    NaGraph.LeftSpectrogram.SpectrumEnvolope.PositiveFlowVisible = true;
-                    NaGraph.RightSpectrogram.SpectrumEnvolope.NegativeFlowVisible = true;
-                    NaGraph.RightSpectrogram.SpectrumEnvolope.PositiveFlowVisible = true;
-                    btnEnvelop.Content = "Envelope Off";
-                }
-                else
-                {
-                    btnEnvelop.Content = "Envelope On";
-                    NaGraph.LeftSpectrogram.SpectrumEnvolope.NegativeFlowVisible = false;
-                    NaGraph.LeftSpectrogram.SpectrumEnvolope.PositiveFlowVisible = false;
-                    NaGraph.RightSpectrogram.SpectrumEnvolope.NegativeFlowVisible = false;
-                    NaGraph.RightSpectrogram.SpectrumEnvolope.PositiveFlowVisible = false;
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Warn("Exception: ", ex);
-            }
-            logger.Debug("--");
-        }
+      
 
         private void toggleLimitsClick(object sender, RoutedEventArgs e)
         {
@@ -669,6 +642,24 @@ namespace MercuryEngApp
                 Constants.SpectrumBin = Convert.ToInt32(spectrumBinCombobox.SelectedValue);
                 InitializeBitmap();
             }
+        }       
+
+        private void btnEnvelop_Checked(object sender, RoutedEventArgs e)
+        {
+            NaGraph.LeftSpectrogram.SpectrumEnvolope.NegativeFlowVisible = true;
+            NaGraph.LeftSpectrogram.SpectrumEnvolope.PositiveFlowVisible = true;
+            NaGraph.RightSpectrogram.SpectrumEnvolope.NegativeFlowVisible = true;
+            NaGraph.RightSpectrogram.SpectrumEnvolope.PositiveFlowVisible = true;
+            btnEnvelop.Content = "Envelope On";
+        }
+
+        private void btnEnvelop_Unchecked(object sender, RoutedEventArgs e)
+        {
+            NaGraph.LeftSpectrogram.SpectrumEnvolope.NegativeFlowVisible = false;
+            NaGraph.LeftSpectrogram.SpectrumEnvolope.PositiveFlowVisible = false;
+            NaGraph.RightSpectrogram.SpectrumEnvolope.NegativeFlowVisible = false;
+            NaGraph.RightSpectrogram.SpectrumEnvolope.PositiveFlowVisible = false;
+            btnEnvelop.Content = "Envelope Off";
         }
     }
 
