@@ -541,11 +541,11 @@
         <Grid HorizontalAlignment="Right" Grid.Column="1" VerticalAlignment="top" Height="230" Grid.Row="1" Width="715"  Margin="0,-0,10,0">
 
             <Slider Name="customDepthSlider" HorizontalAlignment="Left" 
-                  OverridesDefaultStyle="True" Value="48" Maximum="87" Minimum="23" IsHitTestVisible="False"
+                  OverridesDefaultStyle="True" Value="50" Maximum="87" Minimum="23" IsHitTestVisible="False"
                 Height="232" Width="705" Orientation="Vertical" Grid.Column="1" VerticalAlignment="Stretch"  
                 Style="{StaticResource SliderStyle}"  Canvas.ZIndex="3" LostMouseCapture="customDepthSlider_LostMouseCapture">
                 <Slider.Resources>
-                    <clr:String  x:Key="textValue">48</clr:String>
+                    <clr:String  x:Key="textValue">50</clr:String>
                     <clr:String  x:Key="textUnit">mm</clr:String>
                 </Slider.Resources>
             </Slider>
