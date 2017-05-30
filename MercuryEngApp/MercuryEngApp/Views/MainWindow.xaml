@@ -3,14 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		  xmlns:wpfsl="http://schemas.softarcs.com/wpfsmartlibrary"
          xmlns:gif="clr-namespace:XamlAnimatedGif;assembly=XamlAnimatedGif"
-		  WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight"
+		  WindowStartupLocation="CenterScreen" SizeToContent="Manual"
         xmlns:local="clr-namespace:MercuryEngApp" ResizeMode="CanResizeWithGrip" WindowState="Maximized"
-		MinWidth="1366" MinHeight="768" Title="Neural Analytics">
+		MinWidth="1366" MinHeight="768" Title="Neural Analytics" UseLayoutRounding="False" Width="1366" Height="768">
     <Window.Background>
         <ImageBrush ImageSource="/Themes/NA_background_NA0_blank_1366x768.png"/>
     </Window.Background>
 
-    <Grid x:Name="LayoutRoot">
+    <Grid x:Name="LayoutRoot" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <!--<ContentControl VerticalAlignment="Top" 
                         HorizontalAlignment="Left" 
                         VerticalContentAlignment="Stretch" 
@@ -21,6 +21,11 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
         <Grid x:Name="MainLayout" Visibility="Visible">
             <Grid Grid.Column="0" Width="1366" VerticalAlignment="Stretch" 
              HorizontalAlignment="Stretch">
@@ -33,9 +38,9 @@
               Margin='108,15,0,0'>
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50"/>
-                        <ColumnDefinition Width="84"/>
-                        <ColumnDefinition Width="98"/>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="90"/>
+                        <ColumnDefinition Width="105"/>
                         <ColumnDefinition Width="100"/>
                         <ColumnDefinition Width="110"/>
                     </Grid.ColumnDefinitions>
@@ -45,7 +50,7 @@
                     HorizontalAlignment="Left" 
                     UseLayoutRounding="True" 
                             Click="LeftProbeClick"
-                    VerticalAlignment="Top" Grid.ColumnSpan="3" Margin="41,0,0,-2"/>
+                    VerticalAlignment="Top" Grid.ColumnSpan="3" Margin="0,0,0,-2" Grid.Column="1"/>
 
                     <Button x:Name="BtnRightProbe"
                         Style="{StaticResource ResourceKey=ButttonSplitR}" 
