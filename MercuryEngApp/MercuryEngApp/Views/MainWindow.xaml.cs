@@ -100,7 +100,8 @@ namespace MercuryEngApp
                 InfoTab.Content = new InfoUserControl();
                 CalibrationTab.Content = new CalibrationUserControl();
                 PacketTab.Content = new PacketControl();
-
+                AppLog.Text = App.ApplicationLog;
+                TCDLog.Text = App.TCDLog;
                 BtnLeftProbe.IsHitTestVisible = false;
                 BtnRightProbe.IsHitTestVisible = false;
 

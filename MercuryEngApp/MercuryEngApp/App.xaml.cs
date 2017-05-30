@@ -72,6 +72,10 @@ namespace MercuryEngApp
 
         public static MainViewModel MainViewModel { get; set; }
 
+        public static string TCDLog { get; set; }
+
+        public static string ApplicationLog { get; set; }
+
         private async void Application_Startup(object sender, StartupEventArgs e)
         {
             MercuryEngApp.Views.SplashScreen splashScreen = new MercuryEngApp.Views.SplashScreen();

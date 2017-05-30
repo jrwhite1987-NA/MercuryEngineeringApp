@@ -64,6 +64,8 @@ namespace MercuryEngApp
             logger.Debug("++");
             InitializeComponent();
             this.Loaded += ExamUserControlLoaded;
+            App.ApplicationLog = App.ApplicationLog + "App Logs";
+            App.TCDLog = App.TCDLog + "TCD LOGS";
             this.Unloaded += ExamUserControlUnloaded;
             PowerController.Instance.OnDeviceStateChanged += MicrocontrollerOnDeviceStateChanged;
             this.DataContext = examViewModelObj;

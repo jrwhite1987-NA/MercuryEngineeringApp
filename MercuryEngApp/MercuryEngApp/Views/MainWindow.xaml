@@ -194,17 +194,25 @@
                       >
                     <Grid>
                         <Grid HorizontalAlignment="Right" >
-                            <Image Source="/Themes/NA_Maximise-_Icon.png" Width="16" Height="16"
-                    VerticalAlignment="Top" Margin="62,8,0,0" HorizontalAlignment="Left"/>
+                            <Image 
+                                Source="/Themes/NA_Maximise-_Icon.png"
+                                Width="16" 
+                                Height="16"
+                                VerticalAlignment="Top" 
+                                Margin="62,8,0,0" 
+                                HorizontalAlignment="Left"/>
 
-                            <Image  Source="/Themes/NA_Clear_Icon.png"  Width="16" Height="16"
-                    Margin="22,8,52,0" VerticalAlignment="Top"/>
+                            <Image  
+                                Source="/Themes/NA_Clear_Icon.png"
+                                Width="16" 
+                                Height="16"
+                                Margin="22,8,52,0" 
+                                VerticalAlignment="Top"/>
                         </Grid>
                         <TabControl Height="120" Margin="0,5,5,5"
                             VerticalAlignment="Top" BorderBrush="#FF0696F9" BorderThickness="2" >
                             <TabControl.Resources >
                                 <Style TargetType="TabPanel">
-
                                     <Setter Property="HorizontalAlignment" Value="Left"/>
                                 </Style>
                                 <Style TargetType="TabItem">
@@ -248,7 +256,9 @@
                             <TabControl.Background>
                                 <SolidColorBrush Opacity="0" Color="#FF0696F9" />
                             </TabControl.Background>
-                            <TabItem Width="120" Height="27" x:Name="Text1" BorderBrush="#FF0696F9">
+                            <TabItem Width="120" 
+                                     Height="27" 
+                                     BorderBrush="#FF0696F9">
                                 <TabItem.Background>
                                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                                         <GradientStop Color="#FFF0F0F0" Offset="0"/>
@@ -256,24 +266,26 @@
                                     </LinearGradientBrush>
                                 </TabItem.Background>
                                 <TabItem.Header>
-                                    <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="Application Log" 
                                            Foreground="White" 
                                            FontSize="14" 
                                            FontFamily="Arial" />
-                                    </StackPanel>
                                 </TabItem.Header>
+                                <TabItem.Content>
+                                    <TextBlock Name="AppLog" Style="{StaticResource ResourceKey=WhiteLable15pt}" />
+                                </TabItem.Content>
                             </TabItem>
-                            <TabItem Width="120" Height="27" x:Name="Text2">
+                            <TabItem Width="120" 
+                                     Height="27" >
                                 <TabItem.Header>
-                                    <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="TCD Log"  
                                            Foreground="White" 
                                            FontSize="14" 
                                            FontFamily="Arial" />
-                                    </StackPanel>
                                 </TabItem.Header>
-
+                                <TabItem.Content>
+                                    <TextBlock Name="TCDLog" Style="{StaticResource ResourceKey=WhiteLable15pt}" />
+                                </TabItem.Content>
                             </TabItem>
 
                         </TabControl>
