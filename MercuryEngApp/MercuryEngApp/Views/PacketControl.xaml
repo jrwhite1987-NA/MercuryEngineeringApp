@@ -51,7 +51,7 @@
                                     Margin="10,15,0,0"
                                     Style="{StaticResource ResourceKey=Lable25size}"/>
 
-                        <StackPanel VerticalAlignment="Center" Margin="20,16,15,20" Grid.Row="1" Height="40">
+                        <StackPanel VerticalAlignment="Center" Margin="20,16,15,20" Grid.Row="1" Height="40" Width="260" HorizontalAlignment="Left">
                             <Slider Name="IntervalSilder"                                                                        
                                     AutoToolTipPlacement="TopLeft" 
                                     AutoToolTipPrecision="1" 
@@ -64,8 +64,15 @@
                                     ValueChanged="Slider_ValueChanged"
                                     Ticks="0, 0.5, 1, 5">                               
                             </Slider>
-
                         </StackPanel>
+                        <TextBox Text="{Binding ElementName=IntervalSilder, Path=Value}" 
+                                 Style="{StaticResource ResourceKey=MainTextbox}" 
+                                 Width="40" 
+                                 Grid.Row="1" 
+                                 HorizontalAlignment="Right" 
+                                 Margin="0,0,20,30" 
+                                 Height="30"
+                                 IsReadOnly="True"/>
 
                         <Button Content="Refresh" 
                                 Style="{StaticResource ResourceKey=ButtonStyle1}" 
