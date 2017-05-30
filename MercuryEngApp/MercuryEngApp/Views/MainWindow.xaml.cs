@@ -27,6 +27,7 @@ namespace MercuryEngApp
         bool isPowerOn;
         public static event TCDPower TurnTCDON;
         public static event TCDPower TurnTCDOFF;
+        public MainViewModel mainViewModel = new MainViewModel();
         Action workAction;
         internal bool? IsPowerChecked
         {
@@ -67,6 +68,7 @@ namespace MercuryEngApp
             logger.Debug("++");
             InitializeComponent();
             this.Loaded += MainWindowLoaded;
+            this.DataContext = mainViewModel;
             isPowerOn = false;
             PowerController.Instance.OnDeviceStateChanged += MicrocontrollerOnDeviceStateChanged;
             PowerController.Instance.StartWatcher();
@@ -100,8 +102,6 @@ namespace MercuryEngApp
                 InfoTab.Content = new InfoUserControl();
                 CalibrationTab.Content = new CalibrationUserControl();
                 PacketTab.Content = new PacketControl();
-                AppLog.Text = App.ApplicationLog;
-                TCDLog.Text = App.TCDLog;
                 BtnLeftProbe.IsHitTestVisible = false;
                 BtnRightProbe.IsHitTestVisible = false;
 

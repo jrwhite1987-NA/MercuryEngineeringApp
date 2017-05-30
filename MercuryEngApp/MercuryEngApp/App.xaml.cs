@@ -70,11 +70,29 @@ namespace MercuryEngApp
 
         }
 
-        public static MainViewModel MainViewModel { get; set; }
+        public static string ApplicationLog
+        {
+            get
+            {
+                return mainWindow.mainViewModel.ApplicationLog;
+            }
+            set
+            {
+                mainWindow.mainViewModel.ApplicationLog = value;
+            }
+        }
 
-        public static string TCDLog { get; set; }
-
-        public static string ApplicationLog { get; set; }
+        public static string TCDLog
+        {
+            get
+            {
+                return mainWindow.mainViewModel.TCDLog;
+            }
+            set
+            {
+                mainWindow.mainViewModel.TCDLog = value;
+            }
+        }
 
         private async void Application_Startup(object sender, StartupEventArgs e)
         {

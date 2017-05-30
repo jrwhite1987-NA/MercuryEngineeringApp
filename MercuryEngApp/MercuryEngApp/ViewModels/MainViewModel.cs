@@ -9,7 +9,33 @@ namespace MercuryEngApp
 {
     public  class MainViewModel : ObservableObject
     {
-        public string TextOutput { get; set; }
+        private string appLog;
+        public string ApplicationLog
+        {
+            get
+            {
+                return appLog;
+            }
+            set
+            {
+                appLog = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private string tcdLog;
+        public string TCDLog
+        {
+            get
+            {
+                return tcdLog;
+            }
+            set
+            {
+                tcdLog = value;
+                RaisePropertyChanged();
+            }
+        }
 
         internal MainWindow GetLoginByUserID(int NA_TECH_ID)
         {

@@ -19,7 +19,7 @@ namespace MercuryEngApp
         public ExamViewModel()
         {
             OutputMetrics = new OutputMetrics();
-            InputParams = new TCDParameters();
+            InputParams = new TCDParameters(999);
             PacketData = new TCDParameters();
         }
 

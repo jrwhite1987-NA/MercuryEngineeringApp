@@ -64,8 +64,6 @@ namespace MercuryEngApp
             logger.Debug("++");
             InitializeComponent();
             this.Loaded += ExamUserControlLoaded;
-            App.ApplicationLog = App.ApplicationLog + "App Logs";
-            App.TCDLog = App.TCDLog + "TCD LOGS";
             this.Unloaded += ExamUserControlUnloaded;
             PowerController.Instance.OnDeviceStateChanged += MicrocontrollerOnDeviceStateChanged;
             this.DataContext = examViewModelObj;
@@ -400,16 +398,17 @@ namespace MercuryEngApp
                     requestObject.ChannelID = App.CurrentChannel;
                     requestObject.Value3 = examViewModelObj.Depth;
                     TCDResponse response = await UsbTcd.TCDObj.SetDepthAsync(requestObject);
-                    if (response.Result)
+                    await Task.Delay(100);
+                    if (examViewModelObj.Depth==examViewModelObj.PacketDepth)
                     {
                         customDepthSlider.Value = examViewModelObj.Depth;
-
                         MmodeSetting mModeSetting = MmodeSetting.GetDepthRange((int)examViewModelObj.Depth);
                         customDepthSlider.Maximum = mModeSetting.MaxDepthDisplay;
                         customDepthSlider.Minimum = mModeSetting.MinDepthDisplay;
                         Scale.CreateMmodeScale(scaleDepthGrid, mModeSetting.MinDepthDisplay, mModeSetting.MaxDepthDisplay);
                         customDepthSlider.Resources["textValue"] = Convert.ToInt32(customDepthSlider.Value).ToString();
                         customDepthSlider.InvalidateArrange();
+                        App.ApplicationLog+="Depth sent successfully\n";
                     }
 
                 }

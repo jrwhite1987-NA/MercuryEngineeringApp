@@ -254,7 +254,11 @@
                                            FontFamily="Arial" />
                                 </TabItem.Header>
                                 <TabItem.Content>
-                                    <TextBlock Name="AppLog" Style="{StaticResource ResourceKey=WhiteLable15pt}" Padding="8"/>
+                                    <TextBlock Name="AppLog"
+                                               Style="{StaticResource ResourceKey=WhiteLable15pt}" 
+                                               Padding="8"
+                                               Text="{Binding Path=ApplicationLog, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                               />
                                 </TabItem.Content>
                             </TabItem>
                             <TabItem Width="120" 
@@ -266,7 +270,10 @@
                                            FontFamily="Arial" />
                                 </TabItem.Header>
                                 <TabItem.Content>
-                                    <TextBlock Name="TCDLog" Style="{StaticResource ResourceKey=WhiteLable15pt}" Padding="8"/>
+                                    <TextBlock Name="TCDLog" 
+                                               Style="{StaticResource ResourceKey=WhiteLable15pt}"
+                                               Text="{Binding Path=TCDLog, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                               Padding="8"/>
                                 </TabItem.Content>
                             </TabItem>
 
