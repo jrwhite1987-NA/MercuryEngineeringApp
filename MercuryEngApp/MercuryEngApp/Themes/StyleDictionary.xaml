@@ -341,6 +341,86 @@
         </Setter>
     </Style>
     
+    <!--Button Clear & Refresh-->
+
+    <Style TargetType="{x:Type Button}" x:Key="ButtonClear">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="NA_Clear_Icon.png"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Width" Value="17" />
+        <Setter Property="Height" Value="17"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="border" 
+                        BorderThickness="0" 
+                        Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="NA_Clear_Selected_Icon.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="NA_Clear_Selected_Icon.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style TargetType="{x:Type Button}" x:Key="ButtonMaximise">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="NA_Maximise-_Icon.png"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Width" Value="17" />
+        <Setter Property="Height" Value="17"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="border" 
+                        BorderThickness="0" 
+                        Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="NA_Maximise_Selected_Icon.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="NA_Maximise_Selected_Icon.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
     <!--On off Button -->
 
     <Style TargetType="{x:Type ToggleButton}" x:Key="ButttonTCDON">

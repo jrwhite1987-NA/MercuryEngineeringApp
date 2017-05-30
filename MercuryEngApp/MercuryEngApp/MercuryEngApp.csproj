@@ -229,6 +229,8 @@
     <Content Include="LocalFolder\InfoConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Themes\NA_Clear_Selected_Icon.png" />
+    <Resource Include="Themes\NA_Maximise_Selected_Icon.png" />
     <Resource Include="Themes\btn_exam_tcd_76x76_off.png" />
     <Resource Include="Themes\btn_exam_tcd_76x76_on.png" />
     <Resource Include="Themes\btn_exam_tcd_76x76_standby.png" />

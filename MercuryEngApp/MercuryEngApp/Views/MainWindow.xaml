@@ -178,20 +178,18 @@
                       >
                     <Grid>
                         <Grid HorizontalAlignment="Right" >
-                            <Image 
-                                Source="/Themes/NA_Maximise-_Icon.png"
-                                Width="16" 
-                                Height="16"
-                                VerticalAlignment="Top" 
-                                Margin="62,8,0,0" 
-                                HorizontalAlignment="Left"/>
-
-                            <Image  
-                                Source="/Themes/NA_Clear_Icon.png"
-                                Width="16" 
-                                Height="16"
-                                Margin="22,8,52,0" 
-                                VerticalAlignment="Top"/>
+                            <Button Width="17" 
+                                    Height="17"
+                                    Margin="62,8,0,0"
+                                    HorizontalAlignment="Left"  
+                                    VerticalAlignment="Top"
+                                     Style="{StaticResource ResourceKey=ButtonMaximise}"/>
+                             
+                            <Button Width="17"
+                                    Height="17"
+                                    Margin="22,8,52,0"
+                                    VerticalAlignment="Top"
+                                    Style="{StaticResource ResourceKey=ButtonClear}" />
                         </Grid>
                         <TabControl Height="120" Margin="0,5,5,5"
                             VerticalAlignment="Top" BorderBrush="#FF0696F9" BorderThickness="2" >
@@ -256,7 +254,7 @@
                                            FontFamily="Arial" />
                                 </TabItem.Header>
                                 <TabItem.Content>
-                                    <TextBlock Name="AppLog" Style="{StaticResource ResourceKey=WhiteLable15pt}" />
+                                    <TextBlock Name="AppLog" Style="{StaticResource ResourceKey=WhiteLable15pt}" Padding="8"/>
                                 </TabItem.Content>
                             </TabItem>
                             <TabItem Width="120" 
@@ -268,7 +266,7 @@
                                            FontFamily="Arial" />
                                 </TabItem.Header>
                                 <TabItem.Content>
-                                    <TextBlock Name="TCDLog" Style="{StaticResource ResourceKey=WhiteLable15pt}" />
+                                    <TextBlock Name="TCDLog" Style="{StaticResource ResourceKey=WhiteLable15pt}" Padding="8"/>
                                 </TabItem.Content>
                             </TabItem>
 
