@@ -264,6 +264,7 @@ namespace PlottingLib
         /// </summary>
         public void RenderGraph()
         {
+            Helper.logger.Debug("++");
             try
             {           
                 double vertScale = GetVerticalScale(PRF);
@@ -287,8 +288,10 @@ namespace PlottingLib
             }
             catch (Exception ex)
             {
+                Helper.logger.Warn("Exception: ", ex);
                 throw ex;
             }
+            Helper.logger.Debug("--");
         }
 
         /// <summary>
@@ -303,6 +306,7 @@ namespace PlottingLib
         /// <param name="isPI">if set to <c>true</c> [is pi].</param>
         protected void DrawGraph(List<int> collection, bool shouldPlot, double vertScale, Color color, ref int readHead, int baselineCorrection, bool isPI = false)
         {
+            Helper.logger.Debug("++");
             try
             {
                 if (shouldPlot && collection != null && collection.Count > Constants.VALUE_0)
@@ -357,8 +361,10 @@ namespace PlottingLib
             }
             catch (Exception ex)
             {
+                Helper.logger.Warn("Exception: ", ex);
                 throw ex;            
             }
+            Helper.logger.Debug("--");
         }
 
         /// <summary>
@@ -367,6 +373,7 @@ namespace PlottingLib
         /// <param name="pmdDataPackets">The PMD data packets.</param>
         public void SetTrendingData(DMIPmdDataPacket[] pmdDataPackets)
         {
+            Helper.logger.Debug("++");
             try
             {                
                 trendingCounter++;
@@ -393,8 +400,10 @@ namespace PlottingLib
             }
             catch (Exception ex)
             {
+                Helper.logger.Warn("Exception: ", ex);
                 throw;
             }
+            Helper.logger.Debug("--");
         }
 
         /// <summary>
@@ -402,6 +411,7 @@ namespace PlottingLib
         /// </summary>
         public static void Clear()
         {
+            Helper.logger.Debug("++");
             if (TrendsListCollection != null)
             {
                 ClearCollection(TrendsListCollection.LeftPosMeanList);
@@ -413,14 +423,17 @@ namespace PlottingLib
                 ClearCollection(TrendsListCollection.LeftPosMaxList);
                 ClearCollection(TrendsListCollection.RightPosMaxList);
             }
+            Helper.logger.Debug("--");
         }
 
         private static void ClearCollection(List<int> collection)
         {
+            Helper.logger.Debug("++");
             if(collection != null)
             {
                 collection.Clear();
             }
+            Helper.logger.Debug("--");
         }
 
         #endregion Public Methods
@@ -434,6 +447,7 @@ namespace PlottingLib
         /// <returns></returns>
         private double GetVerticalScale(uint prf)
         {
+            Helper.logger.Debug("++");
             try
             {
                 double vertScale = VERTSCALE_1_DEC_0;
@@ -457,11 +471,12 @@ namespace PlottingLib
                 {
                     vertScale = VERTSCALE_0_DEC_642;
                 }
-
+                Helper.logger.Debug("--");
                 return vertScale;
             }
             catch (Exception ex)
-            {             
+            {
+                Helper.logger.Warn("Exception: ", ex);
                 return VERTSCALE_1_DEC_0;
             }
         }
@@ -471,6 +486,7 @@ namespace PlottingLib
         /// </summary>
         public void CreateHorizontalScale()
         {
+            Helper.logger.Debug("++");
             var interval = Constants.VALUE_0;
             switch (SelectedTime)
             {
@@ -490,7 +506,7 @@ namespace PlottingLib
                     interval = Constants.VALUE_1;
                     break;
             }
-
+            Helper.logger.Debug("--");
             //ScaleGenerator.CreateScaleTrendingHorizontal(HorizontalScalePanel, interval);
         }
 
