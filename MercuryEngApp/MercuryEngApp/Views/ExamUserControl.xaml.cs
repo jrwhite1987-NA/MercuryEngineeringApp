@@ -123,7 +123,8 @@ namespace MercuryEngApp
             try
             {
                 MainWindow.TurnTCDON += MainWindowTurnTCDON;
-                MainWindow.TurnTCDOFF += MainWindowTurnTCDOFF;
+                MainWindow.TurnTCDOFF += MainWindowTurnTCDOFF; 
+                spectrumBinCombobox.ItemsSource = Constants.SpectrumBinList;
             }
             catch (Exception ex)
             {
@@ -656,6 +657,13 @@ namespace MercuryEngApp
             UsbTcd.TCDObj.SetEnvelopeRangeAsync(requestObject);
         }
 
+        private void spectrumBinCombobox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (spectrumBinCombobox.SelectedIndex != -1)
+            {
+                Constants.SpectrumBin = Convert.ToInt32(spectrumBinCombobox.SelectedValue);
+            }
+        }
     }
 
 }

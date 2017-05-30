@@ -60,6 +60,8 @@
   <ItemGroup>
     <Compile Include="ExamBusiness.cs" />
     <Compile Include="IExamBusinessTest.cs" />
+    <Compile Include="MercuryEngApp\Common\MmodeSettingTest.cs" />
+    <Compile Include="PlottingLib\NAGraphTest.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -70,6 +72,14 @@
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{1d9c6e60-8523-4672-84b7-3ff3c7a128f0}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MercuryEngApp\MercuryEngApp.csproj">
+      <Project>{f661f29a-d4b1-4ff0-9e3f-12f1ebadc985}</Project>
+      <Name>MercuryEngApp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlottingLib\PlottingLib.csproj">
+      <Project>{760a7c26-b324-4aef-8dea-48aa4d22e991}</Project>
+      <Name>PlottingLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

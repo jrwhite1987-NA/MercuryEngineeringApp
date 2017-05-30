@@ -479,6 +479,27 @@
                 </TextBox.Style>
             </TextBox>
 
+            <Canvas  Margin="338,186,0,0" >
+                <TextBlock Grid.Column="3" 
+                               Foreground="White"
+                               FontSize="15" 
+                               VerticalAlignment="Center" 
+                               Height="20" 
+                               Margin="8,0,0,0">
+                        Spectrum Bin
+                </TextBlock>
+                <Border  Style="{StaticResource ResourceKey=RoundedBorderMainpageCombo}" 
+                             Grid.Column="4"  
+                             HorizontalAlignment="Right" Background="#FFEBEBEB"/>
+                <ComboBox x:Name="spectrumBinCombobox" 
+                              Grid.Column="4" 
+                              SelectedIndex="0" 
+                              Style="{StaticResource ResourceKey=ComboBoxBorder}" 
+                              SelectionChanged="spectrumBinCombobox_SelectionChanged" 
+                              Width="97" Height="32"/>
+            </Canvas>
+            
+           
             <ToggleButton x:Name="btnEnvelop" Content="Envelope On" 
                     Style="{StaticResource ResourceKey=ButtonStyle2}" 
                     Margin="0,30,10,0" 

@@ -103,9 +103,11 @@ namespace MercuryEngApp
 
                 BtnLeftProbe.IsHitTestVisible = false;
                 BtnRightProbe.IsHitTestVisible = false;
-                spectrumBinCombobox.ItemsSource = Constants.SpectrumBinList;
+
+                //spectrumBinCombobox.ItemsSource = Constants.SpectrumBinList;
                 App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
                 await Dispatcher.BeginInvoke(workAction, System.Windows.Threading.DispatcherPriority.Normal, null);
+
                 //Task.Delay(4500).Wait();
                 //MainLayout.Visibility = Visibility.Visible;
                 //temp.Visibility = Visibility.Collapsed;
@@ -216,12 +218,12 @@ namespace MercuryEngApp
             App.ActiveChannels = UsbTcdLibrary.ActiveChannels.Channel2;
         }
 
-        private void spectrumBinCombobox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            if(spectrumBinCombobox.SelectedIndex != -1)
-            {
-                Constants.SpectrumBin = Convert.ToInt32(spectrumBinCombobox.SelectedValue);
-            }
-        }
+        //private void spectrumBinCombobox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        //{
+        //    if(spectrumBinCombobox.SelectedIndex != -1)
+        //    {
+        //        Constants.SpectrumBin = Convert.ToInt32(spectrumBinCombobox.SelectedValue);
+        //    }
+        //}
     }
 }

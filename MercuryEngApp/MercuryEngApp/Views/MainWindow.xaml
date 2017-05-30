@@ -68,7 +68,7 @@
                                   VerticalAlignment="Top" 
                                   Grid.Column="0"/>
 
-                    <TextBlock Grid.Column="3" 
+                    <!--<TextBlock Grid.Column="3" 
                                Foreground="White"
                                FontSize="15" 
                                VerticalAlignment="Center" 
@@ -84,7 +84,7 @@
                               SelectedIndex="0" 
                               Style="{StaticResource ResourceKey=ComboBoxBorder}" 
                               SelectionChanged="spectrumBinCombobox_SelectionChanged" 
-                              Width="97" Height="32"/>
+                              Width="97" Height="32"/>-->
 
 
                 </Grid>
