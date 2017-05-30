@@ -209,6 +209,7 @@ namespace MicrochipController
         /// </summary>
         internal void InitializeDeviceWatcher()
         {
+            Helper.logger.Debug("++");
             var microControllerQueryString = UsbDevice.GetDeviceSelector(MicroControllerProtocol.MCVendorID, MicroControllerProtocol.MCProductID);
             powerMicrocontrollerWatcher = DeviceInformation.CreateWatcher(microControllerQueryString);
 
@@ -217,6 +218,7 @@ namespace MicrochipController
             powerMicrocontrollerWatcher.Removed += new TypedEventHandler<DeviceWatcher, DeviceInformationUpdate>
                               (this.OnPowerControllerRemoved);
             powerMicrocontrollerWatcher.Start();
+            Helper.logger.Debug("--");
         }
         
         #region Event Handlers
@@ -227,9 +229,11 @@ namespace MicrochipController
         /// <param name="args">The arguments.</param>
         void OnPowerControllerRemoved(DeviceWatcher sender, DeviceInformationUpdate args)
         {
+            Helper.logger.Debug("++");
             IsControllerWorking = false;
             onDeviceAddedRemoved(false);
             ReleaseDevice();
+            Helper.logger.Debug("--");
             //Logs.Instance.ErrorLog<MicroControllerHandler>("Remote control disconnected.", "OnDeviceRemoved", Severity.Debug);
         }
 
@@ -240,8 +244,10 @@ namespace MicrochipController
         /// <param name="args">The arguments.</param>
         void OnPowerControllerAdded(DeviceWatcher sender, DeviceInformation args)
         {
+            Helper.logger.Debug("++");
             controllerInfo = args;
             onDeviceAddedRemoved(true);
+            Helper.logger.Debug("--");
             //Logs.Instance.ErrorLog<MicroControllerHandler>("Remote control connected.", "OnPowerControllerAdded", Severity.Debug);
         }
         #endregion
@@ -253,6 +259,7 @@ namespace MicrochipController
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
         internal async Task<bool> GetDeviceHandleAsync()
         {
+            Helper.logger.Debug("++");
             try
             {
                 //Logs.Instance.ErrorLog<MicroControllerHandler>("async GetDeviceHandleAsync begins" , "GetDeviceHandleAsync", Severity.Debug);
@@ -278,11 +285,13 @@ namespace MicrochipController
                     IsControllerWorking = true;
                     result = true;
                 }
+                Helper.logger.Debug("--");
                 //Logs.Instance.ErrorLog<MicroControllerHandler>("async GetDeviceHandleAsync ends", "GetDeviceHandleAsync", Severity.Debug);
                 return result;
             }
             catch (Exception ex)
             {
+                Helper.logger.Warn("Exception: ", ex);
                 //Logs.Instance.ErrorLog<MicroControllerHandler>(ex, "GetDeviceHandleAsync", Severity.Warning);
                 return false;
             }
@@ -294,6 +303,7 @@ namespace MicrochipController
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         internal bool ReleaseDevice()
         {
+            Helper.logger.Debug("++");
             try
             {
                 //Logs.Instance.ErrorLog<MicroControllerHandler>("async ReleaseDevice begins ", "ReleaseDevice", Severity.Debug);
@@ -310,11 +320,13 @@ namespace MicrochipController
                     inStream = null;
                     reader = null;
                     writer = null;
+                    Helper.logger.Debug("--");
                     //Logs.Instance.ErrorLog<MicroControllerHandler>("async ReleaseDevice ends ", "ReleaseDevice", Severity.Debug);
                     return true;
                 }
                 else
                 {
+                    Helper.logger.Debug("--");
                     //Logs.Instance.ErrorLog<MicroControllerHandler>("async ReleaseDevice ends ", "ReleaseDevice", Severity.Debug);
                     return false;
                 }
@@ -322,6 +334,7 @@ namespace MicrochipController
             }
             catch (Exception ex)
             {
+                Helper.logger.Warn("Exception: ", ex);
                 //Logs.Instance.ErrorLog<MicroControllerHandler>(ex, "ReleaseDevice", Severity.Warning);
                 return false;
             }
@@ -333,9 +346,11 @@ namespace MicrochipController
         /// </summary>
         private void GetDescriptors()
         {
+            Helper.logger.Debug("++");
             deviceDescriptor = controllerHandler.DeviceDescriptor;
             deviceConfig = controllerHandler.Configuration;
             configDescriptor = controllerHandler.Configuration.ConfigurationDescriptor;
+            Helper.logger.Debug("--");
         }
 
         /// <summary>
@@ -344,6 +359,7 @@ namespace MicrochipController
         /// <returns>System.String.</returns>
         internal string GetDescriptorsAsString()
         {
+            Helper.logger.Debug("++");
             try
             {
                 //Logs.Instance.ErrorLog<MicroControllerHandler>("async GetDescriptorsAsString begins ", "GetDescriptorsAsString", Severity.Debug);
@@ -433,11 +449,13 @@ namespace MicrochipController
                     descriptorString.Append("\nInterval : ");
                     descriptorString.Append(endpointDescriptor.Interval.Duration().ToString());
                 }
+                Helper.logger.Debug("--");
                 //Logs.Instance.ErrorLog<MicroControllerHandler>("async GetDescriptorsAsString ends ", "GetDescriptorsAsString", Severity.Debug);
                 return descriptorString.ToString();
             }
             catch (Exception ex)
             {
+                Helper.logger.Warn("Exception: ", ex);
                 //Logs.Instance.ErrorLog<MicroControllerHandler>(ex, "GetDescriptorsAsString", Severity.Warning);
                 return "";
             }
@@ -452,6 +470,7 @@ namespace MicrochipController
         /// <returns>byte array on valid data</returns>
         internal async Task<byte[]> SendMicroControllerRequest(byte cmd, int dataLength)
         {
+            Helper.logger.Debug("++");
             try
             {
                 const int USB_PACKET_MICRO_CONTROLLER_REQUEST = 0;
@@ -471,6 +490,7 @@ namespace MicrochipController
                 IBuffer buf = reader.ReadBuffer(bytesRead);
                 byte[] rawData = buf.ToArray();
 
+                Helper.logger.Debug("--");
                 if (verifyInputStream(rawData[0], rawData[dataLength + 1], cmd))
                 {
                     return rawData;
@@ -482,6 +502,7 @@ namespace MicrochipController
             }
             catch (Exception ex)
             {
+                Helper.logger.Warn("Exception: ", ex);
                 //Logs.Instance.ErrorLog<MicroControllerHandler>(ex, "Command: " + cmd, Severity.Warning);
                 return null;
             }
@@ -515,6 +536,7 @@ namespace MicrochipController
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
         internal async Task<bool> SendPowerParameters(bool channel1Power, bool channel2Power, bool channel1Reset, bool channel2Reset, bool moenable)
         {
+            Helper.logger.Debug("++");
             try
             {
                 //Logs.Instance.ErrorLog<MicroControllerHandler>("async SendPowerParameters begins for channel1Power:" + channel1Power.ToString()
@@ -567,6 +589,7 @@ namespace MicrochipController
                 IBuffer buf = reader.ReadBuffer(bytesRead);
                 byte[] rawData = buf.ToArray();
 
+                Helper.logger.Debug("--");
                 //Logs.Instance.ErrorLog<MicroControllerHandler>("async SendPowerParameters ends ", "SendPowerParameters", Severity.Debug);
                 if (verifyInputStream(rawData[0], rawData[1], MicroControllerProtocol.TCDControlReq))
                     return true;
@@ -575,6 +598,7 @@ namespace MicrochipController
             }
             catch (Exception ex)
             {
+                Helper.logger.Debug("Exception: ", ex);
                 //Logs.Instance.ErrorLog<MicroControllerHandler>(ex, "SendPowerParameters", Severity.Warning);
                 return false;
             }
@@ -586,6 +610,7 @@ namespace MicrochipController
         /// <returns>Task&lt;System.String&gt;.</returns>
         internal async Task<string> GetVersionInfo()
         {
+            Helper.logger.Debug("++");
             String result = MessageConstants.NotAvailable;
             try
             {
@@ -598,10 +623,12 @@ namespace MicrochipController
                     String buildNumber = data[3].ToString("D3");
                     result = String.Format("{0}.{1}.{2}", majorVersion, minorVersion, buildNumber);
                 }
+                Helper.logger.Debug("--");
                 return result;
             }
             catch (Exception ex)
             {
+                Helper.logger.Warn("Exception: ", ex);
                 //Logs.Instance.ErrorLog<MicroControllerHandler>(ex, "GetVoltageLevel", Severity.Debug);
                 return MessageConstants.NotAvailable;
             }
@@ -613,6 +640,7 @@ namespace MicrochipController
         /// <returns>Task&lt;System.String&gt;.</returns>
         internal async Task<int> GetVoltageLevel()
         {
+            Helper.logger.Debug("++");
             int voltage = 0;
             try
             {
@@ -627,11 +655,12 @@ namespace MicrochipController
                 {
                     voltage = short.MaxValue;
                 }
-
+                Helper.logger.Debug("--");
                 return voltage;
             }
             catch (Exception ex)
             {
+                Helper.logger.Warn("Exception: ", ex);
                 //Logs.Instance.ErrorLog<MicroControllerHandler>(ex, "GetVoltageLevel", Severity.Warning);
                 return short.MaxValue;
             }
@@ -643,6 +672,7 @@ namespace MicrochipController
         /// <returns>Task&lt;ControllerEnumList.BatteryChargingState&gt;.</returns>
         internal async Task<int> GetBatteryCurrent()
         {
+            Helper.logger.Debug("++");
             int current = 0;
             try
             {
@@ -658,10 +688,12 @@ namespace MicrochipController
                     current = short.MaxValue;
                 }
 
+                Helper.logger.Debug("--");
                 return current;
             }
             catch (Exception ex)
             {
+                Helper.logger.Warn("Exception: ", ex);
                 //Logs.Instance.ErrorLog<MicroControllerHandler>(ex, "GetBatteryCurrent", Severity.Warning);
                 return short.MaxValue;
             }
@@ -673,6 +705,7 @@ namespace MicrochipController
         /// <returns>Task&lt;System.Int32&gt;.</returns>
         internal async Task<int> GetBatteryCharge()
         {
+            Helper.logger.Debug("++");
             int result = 0;
             try
             {
@@ -684,10 +717,12 @@ namespace MicrochipController
                     result = data[DATA_POS];
                 }
 
+                Helper.logger.Debug("--");
                 return result;
             }
             catch (Exception ex)
             {
+                Helper.logger.Warn("Exception: ", ex);
                 //Logs.Instance.ErrorLog<MicroControllerHandler>(ex, "GetBatteryCharge", Severity.Warning);
                 return 0;
             }
@@ -699,6 +734,7 @@ namespace MicrochipController
         /// <returns>Task&lt;System.Int32&gt;.</returns>
         internal async Task<int> GetRemainingCharge()
         {
+            Helper.logger.Debug("++");
             int remainingCharge = 0;
             try
             {
@@ -710,10 +746,12 @@ namespace MicrochipController
                     remainingCharge = BitConverter.ToInt16(data, DATA_POS);
                 }
 
+                Helper.logger.Debug("--");
                 return remainingCharge;
             }
             catch (Exception ex)
             {
+                Helper.logger.Warn("Exception: ", ex);
                 //Logs.Instance.ErrorLog<MicroControllerHandler>(ex, "GetRemainingCharge", Severity.Warning);
                 return 0;
             }
@@ -725,6 +763,7 @@ namespace MicrochipController
         /// <returns>Task&lt;System.Int32&gt;.</returns>
         internal async Task<int> GetFullCharge()
         {
+            Helper.logger.Debug("++");
             int fullCharge = 0;
             try
             {
@@ -735,10 +774,12 @@ namespace MicrochipController
                 {
                     fullCharge = BitConverter.ToInt16(data, DATA_POS);
                 }
+                Helper.logger.Debug("--");
                 return fullCharge;
             }
             catch (Exception ex)
             {
+                Helper.logger.Warn("Exception: ", ex);
                 //Logs.Instance.ErrorLog<MicroControllerHandler>(ex, "GetFullCharge", Severity.Warning);
                 return 0;
             }
@@ -750,6 +791,7 @@ namespace MicrochipController
         /// <returns>Task&lt;System.Int32&gt;.</returns>
         internal async Task<int> GetVoltageState()
         {
+            Helper.logger.Debug("++");
             int voltageMask = 0;
             try
             {
@@ -764,10 +806,12 @@ namespace MicrochipController
                     voltageMask = short.MaxValue;
                 }
 
+                Helper.logger.Debug("--");
                 return voltageMask;
             }
             catch (Exception ex)
             {
+                Helper.logger.Warn("Exception", ex);
                 //Logs.Instance.ErrorLog<MicroControllerHandler>(ex, "GetVoltageState", Severity.Warning);
                 return short.MaxValue;
             }
