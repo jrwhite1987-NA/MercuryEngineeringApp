@@ -36,9 +36,9 @@ namespace MercuryEngApp.Common
 
         private static void CreateScaleForSpectrogram(ScaleParameters param)
         {
+            Helper.logger.Debug("++");
             try
             {
-                Helper.logger.Debug("++");
                 param.ParentControl.Children.Clear();
                 var interval = GetScaleInterval(param.VelocityRange);
                 var tickPosition = GetTickPosition((double)param.VelocityRange,(double)interval,param.BitmapHeight);
@@ -80,7 +80,7 @@ namespace MercuryEngApp.Common
             }
             catch (Exception ex)
             {
-                Helper.logger.Error("Error in CreateScaleForSpectrogram", ex);
+                Helper.logger.Warn("Exception: ", ex);
                 throw new Exception("Unable to create scale for spectrogram.");
             }
             Helper.logger.Debug("--");
@@ -130,7 +130,7 @@ namespace MercuryEngApp.Common
             }
             catch (Exception ex)
             {
-                Helper.logger.Error("Error in CreateMmodeScale", ex);
+                Helper.logger.Warn("Exception: ", ex);
                 throw new Exception("Unable to create scale for mmode.");
             }
             Helper.logger.Debug("--");
@@ -165,6 +165,7 @@ namespace MercuryEngApp.Common
         /// <returns>System.Int32.</returns>
         private static int GetScaleInterval(int velocityRange)
         {
+            Helper.logger.Debug("++");
             var interval = Constants.VALUE_0;
 
             switch (velocityRange)
@@ -188,6 +189,7 @@ namespace MercuryEngApp.Common
                     break;
             }
 
+            Helper.logger.Debug("--");
             return interval;
         }
     }

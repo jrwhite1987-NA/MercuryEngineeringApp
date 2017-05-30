@@ -136,7 +136,7 @@ namespace PlottingLib
             {
                 BaseGraph.ColorMap.SetLowerLimitFromGain(gain);
             }
-            Helper.logger.Debug(" --");
+            Helper.logger.Debug("--");
         }
 
         public void SetGain(float gain)
@@ -152,6 +152,7 @@ namespace PlottingLib
         /// <param name="currentChannel">The current channel.</param>
         public void ProcessPacket(DMIPmdDataPacket[] arrayDataPackets, bool isCld, int currentChannel)
         {
+            Helper.logger.Debug("++");
             try
             {              
                 XStart = (++XStart % SizeOfQueue);
@@ -196,9 +197,10 @@ namespace PlottingLib
             }
             catch (Exception ex)
             {
-                Helper.logger.Error("Error in ProcessPacket", ex);
+                Helper.logger.Warn("Exception: ", ex);
                 throw ex;
-            }            
+            }
+            Helper.logger.Debug("--");
         }
 
         /// <summary>
