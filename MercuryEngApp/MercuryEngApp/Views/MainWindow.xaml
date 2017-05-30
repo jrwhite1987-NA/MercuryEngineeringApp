@@ -10,7 +10,7 @@
         <ImageBrush ImageSource="/Themes/NA_background_NA0_blank_1366x768.png"/>
     </Window.Background>
 
-    <Grid x:Name="LayoutRoot" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+    <Grid x:Name="LayoutRoot" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="auto">
         <!--<ContentControl VerticalAlignment="Top" 
                         HorizontalAlignment="Left" 
                         VerticalContentAlignment="Stretch" 
@@ -68,23 +68,7 @@
                                   VerticalAlignment="Top" 
                                   Grid.Column="0"/>
 
-                    <!--<TextBlock Grid.Column="3" 
-                               Foreground="White"
-                               FontSize="15" 
-                               VerticalAlignment="Center" 
-                               Height="20" 
-                               Margin="8,0,0,0">
-                        Spectrum Bin
-                    </TextBlock>
-                    <Border  Style="{StaticResource ResourceKey=RoundedBorderMainpageCombo}" 
-                             Grid.Column="4"  
-                             HorizontalAlignment="Right" Background="#FFEBEBEB"/>
-                    <ComboBox x:Name="spectrumBinCombobox" 
-                              Grid.Column="4" 
-                              SelectedIndex="0" 
-                              Style="{StaticResource ResourceKey=ComboBoxBorder}" 
-                              SelectionChanged="spectrumBinCombobox_SelectionChanged" 
-                              Width="97" Height="32"/>-->
+                
 
 
                 </Grid>
@@ -293,8 +277,6 @@
                 </Border>
             </Grid>
         </Grid>
-        <!--<Grid x:Name="temp" MinWidth="1366" MinHeight="768"  Background="#020e26" Visibility="Visible">            
-            <Image x:Name="SplashScreenImg" gif:AnimationBehavior.SourceUri="/Themes/GIF2V220160615.gif" Stretch="Fill"/>
-        </Grid>-->
+       
     </Grid>
 </Window>

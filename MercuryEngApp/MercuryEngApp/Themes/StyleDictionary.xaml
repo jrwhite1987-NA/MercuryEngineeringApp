@@ -23,7 +23,6 @@
         <Setter Property="VerticalAlignment" Value="Top" />
     </Style>
 
-
     <Style x:Key="WhiteLable15ptBold" BasedOn="{StaticResource WhiteLable15pt}" TargetType="TextBlock">
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="FontSize" Value="17" />
@@ -32,7 +31,6 @@
     <Style x:Key="WhiteLableSub15ptBold" BasedOn="{StaticResource WhiteLable15pt}" TargetType="TextBlock">
         <Setter Property="FontWeight" Value="Bold" />
     </Style>
-
 
     <Style x:Key="TextFontSize" TargetType="TextBox">
         <Setter Property="Padding" Value="5,1,0,0"/>
@@ -61,18 +59,13 @@
             </Setter.Value>
         </Setter>
     </Style>
-
     
     <Style  x:Key="TexboxDisable" TargetType="{x:Type TextBox}">
-       
         <Setter Property="Background" Value="#FFBBC7CD"/>
             <Style.Triggers>
                 <Trigger Property="IsEnabled" Value="false">
-                
             </Trigger>
             </Style.Triggers>
-        
-      
     </Style>
 
     <Style x:Key="RunningText" TargetType="TextBox">
@@ -431,9 +424,8 @@
         </Setter>
     </Style>
     
-   
     <!--Border rounded corner-->
-
+    
     <Style x:Key="RoundedBorderBlue" TargetType="Border">
         <Setter Property="Control.BorderBrush" Value="#02486e" />
         <Setter Property="Control.BorderThickness" Value="1" />
