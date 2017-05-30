@@ -170,7 +170,7 @@
             </Grid>
 
             <Grid Name="FooterTextBox" HorizontalAlignment="Center" 
-              Margin="25,0,20,22" VerticalAlignment="Bottom">
+              Margin="25,0,20,22" VerticalAlignment="Bottom" Width="1340">
 
 
                 <Border  VerticalAlignment="Bottom" 
@@ -191,7 +191,7 @@
                                     VerticalAlignment="Top"
                                     Style="{StaticResource ResourceKey=ButtonClear}" />
                         </Grid>
-                        <TabControl Height="120" Margin="0,5,5,5"
+                        <TabControl Height="120" Margin="5,5,12,5"
                             VerticalAlignment="Top" BorderBrush="#FF0696F9" BorderThickness="2" >
                             <TabControl.Resources >
                                 <Style TargetType="TabPanel">
@@ -254,26 +254,31 @@
                                            FontFamily="Arial" />
                                 </TabItem.Header>
                                 <TabItem.Content>
-                                    <TextBlock Name="AppLog"
-                                               Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                                               Padding="8"
+                                    <ScrollViewer Margin="2,2,2,2">
+                                        <TextBlock Name="AppLog"
+                                               Style="{StaticResource ResourceKey=WhiteLable15pt}" Padding="2,0,0,0"
                                                Text="{Binding Path=ApplicationLog, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                />
+                                        </ScrollViewer>
                                 </TabItem.Content>
                             </TabItem>
                             <TabItem Width="120" 
                                      Height="27" >
                                 <TabItem.Header>
+                                   
                                         <TextBlock Text="TCD Log"  
                                            Foreground="White" 
                                            FontSize="14" 
                                            FontFamily="Arial" />
+                                  
                                 </TabItem.Header>
                                 <TabItem.Content>
-                                    <TextBlock Name="TCDLog" 
-                                               Style="{StaticResource ResourceKey=WhiteLable15pt}"
+                                    <ScrollViewer Margin="2,2,2,2">
+                                        <TextBlock Name="TCDLog" 
+                                               Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                                Text="{Binding Path=TCDLog, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                               Padding="8"/>
+                                                Padding="2,0,0,0"/>
+                                    </ScrollViewer>
                                 </TabItem.Content>
                             </TabItem>
 
