@@ -112,7 +112,7 @@ namespace MercuryEngApp.Common
                 var tickPosition = ((int)Math.Round(rawTickPosition / 10.0)) * 10;
                 double interval = tickPosition * (availableHeight / noOfTicks) / rawTickPosition;
 
-                double top = parentHeight - lowerPixels;
+                double top = parentHeight - lowerPixels-5;
                 double counter = (int)low;
                 TextBlock txtBlock;
                 for (int i = 0; i < noOfTicks; i++)

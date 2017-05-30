@@ -91,38 +91,19 @@ namespace MercuryEngApp.Common
         /// or
         /// Provided depth is not found in default range.
         /// </exception>
-        public static MmodeSetting GetDepthRange(int depth, double prf, bool isEmboliExam)
+        public static MmodeSetting GetDepthRange(int depth)
         {
             try
             {
-                if (depth == Constants.VALUE_0)
+                if (depth == 0 ||depth < Constants.VALUE_23 || depth > Constants.VALUE_146)
                 {
-                    throw new Exception("Value of depth can not be zero.");
-                }
-
-                if(isEmboliExam)
-                {
-                    return new MmodeSetting { PRF = Constants.VALUE_8000, MinDepthDisplay = Constants.VALUE_23, MaxDepthDisplay = Constants.VALUE_88, MinDepthCurrent = Constants.VALUE_23, MaxDepthCurrent = Constants.VALUE_88 };
-                }
+                    throw new Exception("Value of depth is not correct.");
+                }           
 
                 MmodeSetting mModeSetting = MmodeSetting.MmodeRangeCollection
-                    .Where(x => depth >= x.MinDepthCurrent && depth <= x.MaxDepthCurrent && prf == x.PRF)
+                    .Where(x => depth >= x.MinDepthCurrent && depth <= x.MaxDepthCurrent)
                     .OrderByDescending(k => k.MinDepthDisplay)
                     .FirstOrDefault();
-
-                while (mModeSetting == null)
-                {
-                    int index = PRFOptions.PRFOptionsList.FindIndex(x => x.PRF == prf);
-                    if (index != Constants.VALUE_0)
-                    {
-                        PRFOptions prfOption = PRFOptions.PRFOptionsList.ElementAt(index - Constants.VALUE_1);
-
-                        mModeSetting = MmodeSetting.MmodeRangeCollection
-                            .Where(x => depth >= x.MinDepthCurrent && depth <= x.MaxDepthCurrent && prfOption.PRF == x.PRF)
-                            .OrderByDescending(k => k.MinDepthDisplay)
-                            .FirstOrDefault();
-                    }
-                }
 
                 return mModeSetting;
             }

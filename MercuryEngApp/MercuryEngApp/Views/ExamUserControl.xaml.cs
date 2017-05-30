@@ -183,7 +183,7 @@ namespace MercuryEngApp
                     BitmapHeight = imageSpectrogram.Height
                 });
 
-                MmodeSetting mModeSetting = MmodeSetting.GetDepthRange(Depth, PRF, false);
+                MmodeSetting mModeSetting = MmodeSetting.GetDepthRange(Depth);
                 customDepthSlider.Maximum = mModeSetting.MaxDepthDisplay;
                 customDepthSlider.Minimum = mModeSetting.MinDepthDisplay;
                 Scale.CreateMmodeScale(scaleDepthGrid, mModeSetting.MinDepthDisplay, mModeSetting.MaxDepthDisplay);
@@ -401,6 +401,11 @@ namespace MercuryEngApp
                     if (response.Result)
                     {
                         customDepthSlider.Value = examViewModelObj.Depth;
+
+                        MmodeSetting mModeSetting = MmodeSetting.GetDepthRange((int)examViewModelObj.Depth);
+                        customDepthSlider.Maximum = mModeSetting.MaxDepthDisplay;
+                        customDepthSlider.Minimum = mModeSetting.MinDepthDisplay;
+                        Scale.CreateMmodeScale(scaleDepthGrid, mModeSetting.MinDepthDisplay, mModeSetting.MaxDepthDisplay);
                         customDepthSlider.Resources["textValue"] = Convert.ToInt32(customDepthSlider.Value).ToString();
                         customDepthSlider.InvalidateArrange();
                     }

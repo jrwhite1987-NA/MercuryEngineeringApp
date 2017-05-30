@@ -564,14 +564,18 @@
                     <clr:String  x:Key="textUnit">mm</clr:String>
                 </Slider.Resources>
             </Slider>
-            <Grid x:Name="scaleDepthGrid" Height="190" Width="55" HorizontalAlignment="Left"  Canvas.ZIndex="1" VerticalAlignment="Center" >
+            <Grid x:Name="scaleDepthGrid" Height="210" Width="55" HorizontalAlignment="Left"  
+                  Grid.Row="1"
+                  Canvas.ZIndex="1" VerticalAlignment="Center" >
 
             </Grid>
             <Image Grid.Row="1" 
-                   Margin="62,10,10,10" 
+                   Margin="62,0,10,0" 
                    x:Name="imageMmode" 
                    Stretch="Fill" 
-                   Panel.ZIndex="2">
+                   Panel.ZIndex="2"
+                   Height="200">
+                
             </Image>
 
             <Rectangle Stroke="#1c2040" 
