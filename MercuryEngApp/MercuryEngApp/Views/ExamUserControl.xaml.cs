@@ -459,7 +459,11 @@ namespace MercuryEngApp
                     requestObject.ChannelID = App.CurrentChannel;
                     requestObject.Value3 = examViewModelObj.SVol;
                     await UsbTcd.TCDObj.SetLengthAsync(requestObject);
-
+                    await Task.Delay(100);
+                    if(examViewModelObj.SVol==examViewModelObj.PacketSVol)
+                    {
+                        App.ApplicationLog = "Length Sent Successfully";
+                    }
                 }
             }
             catch (Exception ex)

@@ -183,12 +183,14 @@
                                     Margin="62,8,0,0"
                                     HorizontalAlignment="Left"  
                                     VerticalAlignment="Top"
+                                    Click="ExpandClick"
                                      Style="{StaticResource ResourceKey=ButtonMaximise}"/>
                              
                             <Button Width="17"
                                     Height="17"
                                     Margin="22,8,52,0"
                                     VerticalAlignment="Top"
+                                    Click="ClearLogClick"
                                     Style="{StaticResource ResourceKey=ButtonClear}" />
                         </Grid>
                         <TabControl Height="120" Margin="5,5,12,5"

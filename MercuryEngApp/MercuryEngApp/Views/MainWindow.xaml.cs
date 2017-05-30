@@ -219,6 +219,17 @@ namespace MercuryEngApp
             App.ActiveChannels = UsbTcdLibrary.ActiveChannels.Channel2;
         }
 
+        private void ExpandClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ClearLogClick(object sender, RoutedEventArgs e)
+        {
+            mainViewModel.TCDLog = "";
+            mainViewModel.ApplicationLog = "";
+        }
+
         //private void spectrumBinCombobox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         //{
         //    if(spectrumBinCombobox.SelectedIndex != -1)
