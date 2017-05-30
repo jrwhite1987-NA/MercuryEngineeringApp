@@ -379,6 +379,11 @@ namespace MercuryEngApp
                     requestObject.ChannelID = App.CurrentChannel;
                     requestObject.Value3 = examViewModelObj.Power;
                     await UsbTcd.TCDObj.SetPowerAsync(requestObject);
+                    await Task.Delay(100);
+                    if(examViewModelObj.Power==examViewModelObj.PacketPower)
+                    {
+                        App.ApplicationLog+="Power Sent Successfully";
+                    }
                 }
             }
             catch (Exception ex)
@@ -408,7 +413,7 @@ namespace MercuryEngApp
                         Scale.CreateMmodeScale(scaleDepthGrid, mModeSetting.MinDepthDisplay, mModeSetting.MaxDepthDisplay);
                         customDepthSlider.Resources["textValue"] = Convert.ToInt32(customDepthSlider.Value).ToString();
                         customDepthSlider.InvalidateArrange();
-                        App.ApplicationLog+="Depth sent successfully\n";
+                        App.ApplicationLog+="Depth sent successfully";
                     }
 
                 }
@@ -430,6 +435,11 @@ namespace MercuryEngApp
                     requestObject.ChannelID = App.CurrentChannel;
                     requestObject.Value3 = examViewModelObj.Filter;
                     await UsbTcd.TCDObj.SetFilterAsync(requestObject);
+                    await Task.Delay(100);
+                    if(examViewModelObj.Filter==examViewModelObj.PacketFilter)
+                    {
+                        App.ApplicationLog+="Filter Sent Successfully";
+                    }
                 }
             }
             catch (Exception ex)
@@ -449,6 +459,7 @@ namespace MercuryEngApp
                     requestObject.ChannelID = App.CurrentChannel;
                     requestObject.Value3 = examViewModelObj.SVol;
                     await UsbTcd.TCDObj.SetLengthAsync(requestObject);
+
                 }
             }
             catch (Exception ex)

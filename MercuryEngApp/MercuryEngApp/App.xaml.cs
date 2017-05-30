@@ -78,7 +78,7 @@ namespace MercuryEngApp
             }
             set
             {
-                mainWindow.mainViewModel.ApplicationLog = value;
+                mainWindow.mainViewModel.ApplicationLog = value+'\n';
             }
         }
 
@@ -90,7 +90,7 @@ namespace MercuryEngApp
             }
             set
             {
-                mainWindow.mainViewModel.TCDLog = value;
+                mainWindow.mainViewModel.TCDLog = value+'\n';
             }
         }
 
