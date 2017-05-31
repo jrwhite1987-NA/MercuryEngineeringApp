@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
               xmlns:clr="clr-namespace:System;assembly=mscorlib"
              xmlns:customControl="clr-namespace:MercuryEngApp.Controls"
+             xmlns:validator="clr-namespace:MercuryEngApp.Validators"
+             xmlns:local="clr-namespace:MercuryEngApp"
              mc:Ignorable="d" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch"
              x:Name="ExamControl">
 
@@ -34,13 +36,23 @@
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                        Padding="17"/>
             <TextBox Height="29" 
-                     Text="{Binding Path=Power, Mode=OneWayToSource, UpdateSourceTrigger=LostFocus}" 
                      FontSize="18" 
+                     Name="Power"
                      Style="{StaticResource ResourceKey=MainTextbox}" 
                      Margin="215,12,269,0" 
                      VerticalAlignment="Top"
                      Padding="5,2,3,0" Width="90" 
-                     TextAlignment="Center"/>
+                     TextAlignment="Center">
+                <TextBox.Text>
+                    <Binding Path="Power" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
+                        <Binding.ValidationRules>
+                            <validator:BlankValidationRule ValidatesOnTargetUpdated="True" ControlName="{x:Static local:Resources.Power}" ErrorMessage="{x:Static local:Resources.TextBoxBlank}"/>
+                            <validator:NumberValidationRule ControlName="{x:Static local:Resources.Power}" ErrorMessage="{x:Static local:Resources.MustBeNumber}"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
             <TextBox  Height="29" 
                       TextWrapping="Wrap" 
                       Text="{Binding Path=PacketPower, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
@@ -67,13 +79,23 @@
 					Height="33"
                     Width="105" />
             <TextBox   Height="29" Style="{StaticResource ResourceKey=MainTextbox}"
-                       Text="{Binding Path=Depth, Mode=OneWayToSource, UpdateSourceTrigger=LostFocus}"
                        FontSize="18" 
+                       Name="DepthTextBox"
                        Margin="218,49,272,0" 
                        VerticalAlignment="Top"
                        Padding="5,2,3,0" 
                        Width="90" 
-                       TextAlignment="Center"/>
+                       TextAlignment="Center">
+                <TextBox.Text>
+                    <Binding Path="Depth" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
+                        <Binding.ValidationRules>
+                            <validator:BlankValidationRule ValidatesOnTargetUpdated="True" ControlName="{x:Static local:Resources.Depth}" ErrorMessage="{x:Static local:Resources.TextBoxBlank}"/>
+                            <validator:NumberValidationRule ControlName="{x:Static local:Resources.Depth}" ErrorMessage="{x:Static local:Resources.MustBeNumber}"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
             <TextBox Height="29" 
                      Style="{StaticResource ResourceKey=TexboxDisable}"
                      Text="{Binding Path=PacketDepth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
@@ -98,13 +120,23 @@
                     Click="SendDepth"/>
             <TextBox Height="29" 
                      Style="{StaticResource ResourceKey=MainTextbox}"
-                     Text="{Binding Path=Filter, Mode=OneWayToSource, UpdateSourceTrigger=LostFocus}"
                      FontSize="18"  
+                     Name="FilterTextBox"
                      Margin="218,86,272,0" 
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
                      Width="90" 
-                     TextAlignment="Center"/>
+                     TextAlignment="Center">
+                <TextBox.Text>
+                    <Binding Path="Filter" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
+                        <Binding.ValidationRules>
+                            <validator:BlankValidationRule ValidatesOnTargetUpdated="True" ControlName="{x:Static local:Resources.Filter}" ErrorMessage="{x:Static local:Resources.TextBoxBlank}"/>
+                            <validator:NumberValidationRule ControlName="{x:Static local:Resources.Filter}" ErrorMessage="{x:Static local:Resources.MustBeNumber}"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
             <TextBox Height="29" 
                      Style="{StaticResource ResourceKey=TexboxDisable}" 
                      Text="{Binding Path=PacketFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
@@ -131,13 +163,23 @@
                     Click="SendFilter"/>
             <TextBox Height="29" 
                      Style="{StaticResource ResourceKey=MainTextbox}"
-                     Text="{Binding Path=SVol, Mode=OneWayToSource, UpdateSourceTrigger=LostFocus}"
+                     Name="SVolumeTextBox"
                      FontSize="18"  
                      Margin="218,124,272,0" 
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
                      Width="90" 
-                     TextAlignment="Center"/>
+                     TextAlignment="Center">
+                <TextBox.Text>
+                    <Binding Path="SVol" Mode="OneWayToSource" UpdateSourceTrigger="LostFocus">
+                        <Binding.ValidationRules>
+                            <validator:BlankValidationRule ValidatesOnTargetUpdated="True" ControlName="{x:Static local:Resources.SVolume}" ErrorMessage="{x:Static local:Resources.TextBoxBlank}"/>
+                            <validator:NumberValidationRule ControlName="{x:Static local:Resources.SVolume}" ErrorMessage="{x:Static local:Resources.MustBeNumber}"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
             <TextBox Height="29" 
                      Style="{StaticResource ResourceKey=TexboxDisable}"
                      Text="{Binding Path=PacketSVol, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
@@ -164,13 +206,23 @@
                     Click="SendLength"/>
             <TextBox Height="29" 
                      Style="{StaticResource ResourceKey=MainTextbox}"
-                     Text="{Binding Path=StartDepth, Mode=OneWayToSource, UpdateSourceTrigger=LostFocus}"
                      FontSize="18" 
+                     Name="StartDepthTextBox"
                      TextAlignment="Center"
                      Margin="218,162,272,0"
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
-                     Width="90"/>
+                     Width="90">
+                <TextBox.Text>
+                    <Binding Path="StartDepth" Mode="OneWayToSource" UpdateSourceTrigger="LostFocus">
+                        <Binding.ValidationRules>
+                            <validator:BlankValidationRule ValidatesOnTargetUpdated="True" ControlName="{x:Static local:Resources.StartDepth}" ErrorMessage="{x:Static local:Resources.TextBoxBlank}"/>
+                            <validator:NumberValidationRule ControlName="{x:Static local:Resources.StartDepth}" ErrorMessage="{x:Static local:Resources.MustBeNumber}"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
             <TextBox Height="29" 
                      Style="{StaticResource ResourceKey=TexboxDisable}"
                      Text="{Binding Path=PacketStartDepth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
@@ -198,15 +250,24 @@
                                   Margin="218,200,0,66" Width="90" Height="30"  />
             <ComboBox Height="25" 
                       IsReadOnly="False"
-                      IsEditable="True"
+                      IsEditable="False"
                       ItemsSource="{Binding Path=PRFList, Mode=TwoWay}"
-                      SelectedItem="{Binding Path=SelectedPRF}"
+                      Name="PRFCombo"
                      Style="{StaticResource ResourceKey=ComboBoxBorder}"
                      FontSize="18"
                 	 Margin="218,202,272,0"
                      VerticalAlignment="Top"
                      Padding="5,2,3,0"
-                     Width="80"/>
+                     Width="80">
+                <ComboBox.SelectedItem>
+                    <Binding Path="SelectedPRF">
+                        <Binding.ValidationRules>
+                            <validator:ComboBoxRequiredValidationRule ValidatesOnTargetUpdated="True" ControlName="{x:Static local:Resources.PRF}" ErrorMessage="{x:Static local:Resources.ComboBoxNotSelected}"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </ComboBox.SelectedItem>
+            </ComboBox>
+
             <TextBox Height="29" 
                      Text="{Binding Path=PacketPRF, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      FontSize="18" 

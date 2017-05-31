@@ -373,22 +373,33 @@ namespace MercuryEngApp
         private async void SendPower(object sender, RoutedEventArgs e)
         {
             logger.Debug("++");
+            bool isValid = false;
+            string errorMessage = string.Empty;
             try
             {
-                using (TCDRequest requestObject = new TCDRequest())
+                isValid = Validators.ValidationRules.ValidateControl(Power, out errorMessage);
+                if (isValid)
                 {
-                    requestObject.ChannelID = App.CurrentChannel;
-                    requestObject.Value3 = examViewModelObj.Power;
-                    await UsbTcd.TCDObj.SetPowerAsync(requestObject);
-                    await Task.Delay(100);
-                    if(examViewModelObj.Power==examViewModelObj.PacketPower)
+                    using (TCDRequest requestObject = new TCDRequest())
                     {
-                        App.ApplicationLog+="Power Sent Successfully";
+                        requestObject.ChannelID = App.CurrentChannel;
+                        requestObject.Value3 = examViewModelObj.Power;
+                        await UsbTcd.TCDObj.SetPowerAsync(requestObject);
+                        await Task.Delay(100);
+                        if (examViewModelObj.Power == examViewModelObj.PacketPower)
+                        {
+                            App.ApplicationLog += "Power Sent Successfully";
+                        }
+                        else
+                        {
+                            App.ApplicationLog += "Power value not accepted by TCD";
+                        }
                     }
-                    else
-                    {
-                        App.ApplicationLog += "Power value not accepted by TCD";
-                    }
+       
+                }
+                else
+                {
+                    logger.Warn(errorMessage);
                 }
             }
             catch (Exception ex)
@@ -401,26 +412,35 @@ namespace MercuryEngApp
         private async void SendDepth(object sender, RoutedEventArgs e)
         {
             logger.Debug("++");
+            bool isValid = false;
+            string errorMessage = string.Empty;
             try
             {
-                using (TCDRequest requestObject = new TCDRequest())
+                isValid = Validators.ValidationRules.ValidateControl(DepthTextBox, out errorMessage);
+                if (isValid)
                 {
-                    requestObject.ChannelID = App.CurrentChannel;
-                    requestObject.Value3 = examViewModelObj.Depth;
-                    TCDResponse response = await UsbTcd.TCDObj.SetDepthAsync(requestObject);
-                    await Task.Delay(100);
-                    if (examViewModelObj.Depth==examViewModelObj.PacketDepth)
+                    using (TCDRequest requestObject = new TCDRequest())
                     {
-                        customDepthSlider.Value = examViewModelObj.Depth;
-                        MmodeSetting mModeSetting = MmodeSetting.GetDepthRange((int)examViewModelObj.Depth);
-                        customDepthSlider.Maximum = mModeSetting.MaxDepthDisplay;
-                        customDepthSlider.Minimum = mModeSetting.MinDepthDisplay;
-                        Scale.CreateMmodeScale(scaleDepthGrid, mModeSetting.MinDepthDisplay, mModeSetting.MaxDepthDisplay);
-                        customDepthSlider.Resources["textValue"] = Convert.ToInt32(customDepthSlider.Value).ToString();
-                        customDepthSlider.InvalidateArrange();
-                        App.ApplicationLog+="Depth Sent Successfully";
+                        requestObject.ChannelID = App.CurrentChannel;
+                        requestObject.Value3 = examViewModelObj.Depth;
+                        TCDResponse response = await UsbTcd.TCDObj.SetDepthAsync(requestObject);
+                        await Task.Delay(100);
+                        if (examViewModelObj.Depth == examViewModelObj.PacketDepth)
+                        {
+                            customDepthSlider.Value = examViewModelObj.Depth;
+                            MmodeSetting mModeSetting = MmodeSetting.GetDepthRange((int)examViewModelObj.Depth);
+                            customDepthSlider.Maximum = mModeSetting.MaxDepthDisplay;
+                            customDepthSlider.Minimum = mModeSetting.MinDepthDisplay;
+                            Scale.CreateMmodeScale(scaleDepthGrid, mModeSetting.MinDepthDisplay, mModeSetting.MaxDepthDisplay);
+                            customDepthSlider.Resources["textValue"] = Convert.ToInt32(customDepthSlider.Value).ToString();
+                            customDepthSlider.InvalidateArrange();
+                            App.ApplicationLog += "Depth Sent Successfully";
+                        }
                     }
-
+                }
+                else
+                {
+                    logger.Warn(errorMessage);
                 }
             }
             catch (Exception ex)
@@ -433,18 +453,26 @@ namespace MercuryEngApp
         private async void SendFilter(object sender, RoutedEventArgs e)
         {
             logger.Debug("++");
+            string errorMessage = string.Empty;
             try
             {
-                using (TCDRequest requestObject = new TCDRequest())
+                if (Validators.ValidationRules.ValidateControl(FilterTextBox, out errorMessage))
                 {
-                    requestObject.ChannelID = App.CurrentChannel;
-                    requestObject.Value3 = examViewModelObj.Filter;
-                    await UsbTcd.TCDObj.SetFilterAsync(requestObject);
-                    await Task.Delay(100);
-                    if(examViewModelObj.Filter==examViewModelObj.PacketFilter)
+                    using (TCDRequest requestObject = new TCDRequest())
                     {
-                        App.ApplicationLog+="Filter Sent Successfully";
+                        requestObject.ChannelID = App.CurrentChannel;
+                        requestObject.Value3 = examViewModelObj.Filter;
+                        await UsbTcd.TCDObj.SetFilterAsync(requestObject);
+                        await Task.Delay(100);
+                        if (examViewModelObj.Filter == examViewModelObj.PacketFilter)
+                        {
+                            App.ApplicationLog += "Filter Sent Successfully";
+                        }
                     }
+                }
+                else
+                {
+                    logger.Warn(errorMessage);
                 }
             }
             catch (Exception ex)
@@ -457,18 +485,26 @@ namespace MercuryEngApp
         private async void SendLength(object sender, RoutedEventArgs e)
         {
             logger.Debug("++");
+            string errorMessage = string.Empty;
             try
             {
-                using (TCDRequest requestObject = new TCDRequest())
+                if (Validators.ValidationRules.ValidateControl(SVolumeTextBox, out errorMessage))
                 {
-                    requestObject.ChannelID = App.CurrentChannel;
-                    requestObject.Value3 = examViewModelObj.SVol;
-                    await UsbTcd.TCDObj.SetLengthAsync(requestObject);
-                    await Task.Delay(100);
-                    if(examViewModelObj.SVol==examViewModelObj.PacketSVol)
+                    using (TCDRequest requestObject = new TCDRequest())
                     {
-                        App.ApplicationLog = "Length Sent Successfully";
+                        requestObject.ChannelID = App.CurrentChannel;
+                        requestObject.Value3 = examViewModelObj.SVol;
+                        await UsbTcd.TCDObj.SetLengthAsync(requestObject);
+                        await Task.Delay(100);
+                        if (examViewModelObj.SVol == examViewModelObj.PacketSVol)
+                        {
+                            App.ApplicationLog = "Length Sent Successfully";
+                        }
                     }
+                }
+                else
+                {
+                    logger.Warn(errorMessage);
                 }
             }
             catch (Exception ex)
@@ -481,14 +517,26 @@ namespace MercuryEngApp
         private async void SendPRF(object sender, RoutedEventArgs e)
         {
             logger.Debug("++");
+            bool isDepthValid = false;
+            bool isPRFValid = false;
+            string errorMessage = string.Empty;
             try
             {
-                using (TCDRequest requestObject = new TCDRequest())
+                isDepthValid = Validators.ValidationRules.ValidateControl(StartDepthTextBox, out errorMessage);
+                isPRFValid = Validators.ValidationRules.ValidateControl(PRFCombo, out errorMessage);
+                if (isDepthValid && isPRFValid)
                 {
-                    requestObject.ChannelID = App.CurrentChannel;
-                    requestObject.Value3 = examViewModelObj.SelectedPRF;
-                    requestObject.Value2 = (byte)examViewModelObj.StartDepth;
-                    await UsbTcd.TCDObj.SetPRF(requestObject);
+                    using (TCDRequest requestObject = new TCDRequest())
+                    {
+                        requestObject.ChannelID = App.CurrentChannel;
+                        requestObject.Value3 = examViewModelObj.SelectedPRF;
+                        requestObject.Value2 = (byte)examViewModelObj.StartDepth;
+                        await UsbTcd.TCDObj.SetPRF(requestObject);
+                    }
+                }
+                else
+                {
+                    logger.Warn(errorMessage);
                 }
             }
             catch (Exception ex)
@@ -681,6 +729,11 @@ namespace MercuryEngApp
             NaGraph.RightSpectrogram.SpectrumEnvolope.NegativeFlowVisible = false;
             NaGraph.RightSpectrogram.SpectrumEnvolope.PositiveFlowVisible = false;
             btnEnvelop.Content = "Envelope Off";
+        }
+
+        private bool ValidateBlankFields(uint p)
+        {
+            throw new NotImplementedException();
         }
     }
 
