@@ -31,7 +31,9 @@ namespace MercuryEngApp
     {
         #region private fields
 
-        static ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        static ILog logger = LogManager.GetLogger("EnggAppAppender");
+        static ILog AppLogger = LogManager.GetLogger("AppLogAppender");
+        static ILog TCDLogger = LogManager.GetLogger("TCDLogAppender");
 
         private ExamViewModel examViewModelObj = new ExamViewModel();
 
@@ -61,7 +63,7 @@ namespace MercuryEngApp
 
         public ExamUserControl()
         {
-            logger.Debug("++");
+            logger.Debug("++");           
             InitializeComponent();
             this.Loaded += ExamUserControlLoaded;
             this.Unloaded += ExamUserControlUnloaded;
@@ -382,6 +384,7 @@ namespace MercuryEngApp
                 {
                     using (TCDRequest requestObject = new TCDRequest())
                     {
+
                         requestObject.ChannelID = App.CurrentChannel;
                         requestObject.Value3 = examViewModelObj.Power;
                         await UsbTcd.TCDObj.SetPowerAsync(requestObject);
@@ -389,13 +392,14 @@ namespace MercuryEngApp
                         if (examViewModelObj.Power == examViewModelObj.PacketPower)
                         {
                             App.ApplicationLog += "Power Sent Successfully";
+                            AppLogger.Info("Power Sent Successfully");
                         }
                         else
                         {
                             App.ApplicationLog += "Power value not accepted by TCD";
+                            AppLogger.Info("Power value not accepted by TCD");
                         }
-                    }
-       
+                    }       
                 }
                 else
                 {
@@ -435,7 +439,9 @@ namespace MercuryEngApp
                             customDepthSlider.Resources["textValue"] = Convert.ToInt32(customDepthSlider.Value).ToString();
                             customDepthSlider.InvalidateArrange();
                             App.ApplicationLog += "Depth Sent Successfully";
+                            AppLogger.Info("Depth Sent Successfully");
                         }
+
                     }
                 }
                 else
@@ -467,6 +473,7 @@ namespace MercuryEngApp
                         if (examViewModelObj.Filter == examViewModelObj.PacketFilter)
                         {
                             App.ApplicationLog += "Filter Sent Successfully";
+                            AppLogger.Info("Filter Sent Successfully");
                         }
                     }
                 }
@@ -499,6 +506,7 @@ namespace MercuryEngApp
                         if (examViewModelObj.SVol == examViewModelObj.PacketSVol)
                         {
                             App.ApplicationLog = "Length Sent Successfully";
+                            AppLogger.Info("Length Sent Successfully");
                         }
                     }
                 }

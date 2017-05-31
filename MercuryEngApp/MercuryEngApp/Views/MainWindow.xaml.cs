@@ -22,7 +22,7 @@ namespace MercuryEngApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        static ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        static ILog logger = LogManager.GetLogger("EnggAppAppender");
 
         internal bool isPowerOn;
         public static event TCDPower TurnTCDON;

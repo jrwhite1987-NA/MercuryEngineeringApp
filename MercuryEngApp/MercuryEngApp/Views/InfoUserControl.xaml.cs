@@ -32,6 +32,10 @@ namespace MercuryEngApp
         public System.Xml.XmlReader stream { get; set; }
         XDocument xmlDoc;
 
+        static ILog logger = LogManager.GetLogger("EnggAppAppender");
+        static ILog AppLogger = LogManager.GetLogger("AppLogAppender");
+        static ILog TCDLogger = LogManager.GetLogger("TCDLogAppender");
+
         public InfoUserControl()
         {
             InitializeComponent();
@@ -74,6 +78,7 @@ namespace MercuryEngApp
                     infoViewModelObj.BoardSerialNumber = response.Module.serialNumberString;
                 }
                 App.ApplicationLog += "Read Board Info";
+                AppLogger.Info("Read Board Info");
             }
             catch (Exception ex)
             {
@@ -185,6 +190,7 @@ namespace MercuryEngApp
                     infoViewModelObj.ChannelNumber = await UsbTcd.TCDObj.GetChannelNumber(request);
                 }
                 App.ApplicationLog += "Read Channel Info";
+                AppLogger.Info("Read Board Info");
             }
             catch (Exception ex)
             {
@@ -252,7 +258,9 @@ namespace MercuryEngApp
                     infoViewModelObj.Impedance = response.Probe.impedance;
                     infoViewModelObj.PhaseAngle = response.Probe.phaseAngle;
                 }
+
                 App.ApplicationLog += "Read Probe Info";
+                AppLogger.Info("Read Board Info");
             }
             catch (Exception ex)
             {

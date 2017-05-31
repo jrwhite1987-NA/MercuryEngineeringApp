@@ -4,7 +4,7 @@ namespace Core.Common
 {
     public class Helper
     {
-        public static ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        public static ILog logger = LogManager.GetLogger("EnggAppAppender");
 
         /// <summary>
         /// Byteses to string converted.

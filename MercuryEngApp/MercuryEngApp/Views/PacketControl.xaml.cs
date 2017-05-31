@@ -33,7 +33,10 @@ namespace MercuryEngApp
     /// </summary>
     public partial class PacketControl : UserControl
     {
-        static ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        static ILog logger = LogManager.GetLogger("EnggAppAppender");
+        static ILog AppLogger = LogManager.GetLogger("AppLogAppender");
+        static ILog TCDLogger = LogManager.GetLogger("TCDLogAppender");
+
         private System.Windows.Forms.Timer GrabTimer;
         private PacketViewModel packetViewModelObj = new PacketViewModel();
         private List<string> TList = new List<string>();
@@ -108,6 +111,8 @@ namespace MercuryEngApp
             {
                 if (packetViewModelObj.PacketNumber > count)
                 {
+                    throw new ArgumentNullException();
+                   
                     if (App.CurrentChannel == TCDHandles.Channel1)
                     {
                         if (packets[0] != null)
@@ -135,12 +140,23 @@ namespace MercuryEngApp
 
 
                     string json = JsonConvert.SerializeObject(ListDMIPmdDataPacket);
-                    string jsonFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"LocalFolder\" + jsonFileName);
+
+                    string folderFile = System.IO.Path.Combine(Environment.CurrentDirectory, @"AppData\ExportFiles");
+
+                    if(!Directory.Exists(folderFile))
+                    {
+                        Directory.CreateDirectory(folderFile);
+                    }
+
+                    string jsonFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"AppData\ExportFiles\" + jsonFileName);
                     System.IO.File.WriteAllText(jsonFilePath, json);
-                    XmlDocument xmlDoc = JsonConvert.DeserializeXmlNode("{\"Row\":" + json + "}", "root");
-                    string xmlFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"LocalFolder\" + xmlFileName);
+                    XmlDocument xmlDoc = JsonConvert.DeserializeXmlNode("{\"Packet\":" + json + "}", "root");
+                    string xmlFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"AppData\ExportFiles\" + xmlFileName);
                     xmlDoc.Save(xmlFilePath);
                     count = 0;
+
+                    App.ApplicationLog += "Packet Exported Successfully";
+                    AppLogger.Info("Packet Exported Successfully");
                 }
             }
             catch (Exception ex)
