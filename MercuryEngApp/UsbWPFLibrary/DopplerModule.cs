@@ -945,7 +945,10 @@ namespace UsbTcdLibrary
 
                         if (eventCodeCh1 == DMIProtocol.DMI_EVENTCODE_PROBE_CONNECT)
                         {
-                            await TCDHandler.Current.AssignDeviceInfo(TCDHandler.Current.Channel1.TCDHandleChannel);
+                            TCDHandler.Current.Channel1.ProbeInformation = 
+                                await TCDHandler.Current.GetProbeInfoAsync(TCDHandler.Current.Channel1);
+                            TCDHandler.Current.Channel1.ModuleInformation = 
+                                await TCDHandler.Current.GetModuleInfo(TCDHandles.Channel1);
                             OnProbePlugged(TCDHandles.Channel1);
                         }
 
@@ -962,7 +965,10 @@ namespace UsbTcdLibrary
 
                         if (eventCodeCh2 == DMIProtocol.DMI_EVENTCODE_PROBE_CONNECT)
                         {
-                            await TCDHandler.Current.AssignDeviceInfo(TCDHandler.Current.Channel2.TCDHandleChannel);
+                            TCDHandler.Current.Channel2.ProbeInformation =
+                                await TCDHandler.Current.GetProbeInfoAsync(TCDHandler.Current.Channel2);
+                            TCDHandler.Current.Channel2.ModuleInformation =
+                                await TCDHandler.Current.GetModuleInfo(TCDHandles.Channel2);
                             OnProbePlugged(TCDHandles.Channel2);
                         }
 
@@ -1871,6 +1877,14 @@ namespace UsbTcdLibrary
                         index,
                         value, 1, BitConverter.GetBytes(channelNumber)) == 1)
                     {
+                        if(channelID==TCDHandles.Channel1)
+                        {
+                            TCDHandler.Current.Channel1.ChannelID = channelNumber;
+                        }
+                        else if(channelID==TCDHandles.Channel2)
+                        {
+                            TCDHandler.Current.Channel2.ChannelID = channelNumber;
+                        }
                         result = true;
                     }
                 }

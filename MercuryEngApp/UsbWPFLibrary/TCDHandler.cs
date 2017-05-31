@@ -298,24 +298,26 @@ namespace UsbTcdLibrary
                 if (myDevices != null && count >= Constants.VALUE_1)
                 {
                     tempHandle = await UsbDevice.FromIdAsync(myDevices[DEVICE_FIRST_INDEX].Id);
-                    if (tempHandle == null)
+                    if (tempHandle != null)
                     {
-                        System.Diagnostics.Debug.WriteLine("Device null");
-                    }
-                    await AssignDeviceInfo(tempHandle);
-                    tempHandle = null;
-
-                    if (count >= DEVICE_COUNT_TWO)
-                    {
-                        if (tempHandle == null)
-                        {
-                            System.Diagnostics.Debug.WriteLine("Device null");
-                        }
-                        tempHandle = await UsbDevice.FromIdAsync(myDevices[DEVICE_SECOND_INDEX].Id);
-                        await AssignDeviceInfo(tempHandle);
+                        Channel1.TCDHandleChannel = tempHandle;
+                        Channel1.ChannelID = await GetChannelIdAsync(tempHandle);
+                        Channel1.ProbeInformation = await GetProbeInfoAsync(Channel1);
+                        Channel1.ModuleInformation = await GetModuleInfo(TCDHandles.Channel1);
                         tempHandle = null;
                     }
-
+                    if (count >= DEVICE_COUNT_TWO)
+                    {
+                        tempHandle = await UsbDevice.FromIdAsync(myDevices[DEVICE_SECOND_INDEX].Id);
+                        if(tempHandle!=null)
+                        {
+                            Channel2.TCDHandleChannel = tempHandle;
+                            Channel2.ChannelID = await GetChannelIdAsync(tempHandle);
+                            Channel2.ProbeInformation = await GetProbeInfoAsync(Channel2);
+                            Channel2.ModuleInformation = await GetModuleInfo(TCDHandles.Channel2);
+                            tempHandle = null;
+                        }
+                    }
                     return GetTCDStatus();
                 }
                 isTCDWorking = false;
@@ -372,50 +374,6 @@ namespace UsbTcdLibrary
             {
                 Channel2.TCDHandleChannel = null;
                 Channel2.IsSensingEnabled = false;
-            }
-        }
-
-        /// <summary>
-        /// Gets the active channel.
-        /// </summary>
-        /// <param name="tempUSBDevice">The temporary usb device.</param>
-        /// <returns>Task.</returns>
-        internal async Task AssignDeviceInfo(UsbDevice tempUSBDevice)
-        {
-            byte channelId = 0;
-            try
-            {
-                //Logs.Instance.ErrorLog<TCDHandler>("async GetActiveChannel begins ", "GetActiveChannel", Severity.Debug);
-                if (tempUSBDevice != null)
-                {
-                    channelId = await GetChannelIdAsync(tempUSBDevice);
-                }
-                if (channelId == CHANNEL_ONE)
-                {
-                    Channel1.TCDHandleChannel = tempUSBDevice;
-                    Channel1.ProbeInformation = await GetProbeInfoAsync(Channel1);
-                    Channel1.ModuleInformation = await GetModuleInfo(TCDHandles.Channel1);
-                    //Logs.Instance.ErrorLog<TCDHandler>(MessageConstants.Probe1Connected, "GetActiveChannel", Severity.Information);
-                    tempUSBDevice = null;
-                }
-                else if (channelId == CHANNEL_TWO)
-                {
-                    Channel2.TCDHandleChannel = tempUSBDevice;
-                    Channel2.ProbeInformation = await GetProbeInfoAsync(Channel2);
-                    Channel2.ModuleInformation = await GetModuleInfo(TCDHandles.Channel2);
-                    //Logs.Instance.ErrorLog<TCDHandler>(MessageConstants.Probe2Connected, "GetActiveChannel", Severity.Information);
-                    tempUSBDevice = null;
-                }
-                else
-                {
-                    //Logs.Instance.ErrorLog<TCDHandler>("No Probe found", "GetActiveChannel", Severity.Warning);
-                    tempUSBDevice = null;
-                }
-                //Logs.Instance.ErrorLog<TCDHandler>("async GetActiveChannel ends ", "GetActiveChannel", Severity.Debug);
-            }
-            catch (Exception ex)
-            {
-                //Logs.Instance.ErrorLog<TCDHandler>(ex, "GetActiveChannel", Severity.Warning);
             }
         }
 

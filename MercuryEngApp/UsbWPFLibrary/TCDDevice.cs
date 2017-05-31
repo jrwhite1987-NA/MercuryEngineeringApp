@@ -24,6 +24,8 @@ namespace UsbTcdLibrary
 
         internal bool IsReadingEnabled { get; set; }
 
+        internal byte ChannelID { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether this instance is channel enabled.
         /// </summary>
