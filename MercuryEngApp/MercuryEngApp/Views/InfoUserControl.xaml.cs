@@ -18,6 +18,7 @@ using System.Xml.Serialization;
 using UsbTcdLibrary;
 using UsbTcdLibrary.CommunicationProtocol;
 using log4net;
+using Core.Common;
 
 namespace MercuryEngApp
 {
@@ -29,8 +30,6 @@ namespace MercuryEngApp
         private InfoViewModel infoViewModelObj = new InfoViewModel();
         public System.Xml.XmlReader stream { get; set; }
         XDocument xmlDoc;
-
-        static ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public InfoUserControl()
         {
@@ -46,6 +45,7 @@ namespace MercuryEngApp
 
         async void InfoUserControlLoaded(object sender, RoutedEventArgs e)
         {
+            Helper.logger.Debug("++");
             try
             {
                 App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
@@ -53,12 +53,14 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
+            Helper.logger.Debug("--");
         }
 
         private async void ReadBoardInfoClick(object sender, RoutedEventArgs e)
         {
+            Helper.logger.Debug("++");
             try
             {
                 using (TCDRequest request = new TCDRequest())
@@ -74,12 +76,14 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
+            Helper.logger.Debug("--");
         }
 
         private async void WriteBoardInfoClick(object sender, RoutedEventArgs e)
         {
+            Helper.logger.Debug("++");
             try
             {
                 using (TCDWriteInfoRequest request = new TCDWriteInfoRequest())
@@ -102,12 +106,14 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
+            Helper.logger.Debug("--");
         }
 
         private async void ReadChannelClick(object sender, RoutedEventArgs e)
         {
+            Helper.logger.Debug("++");
             try
             {
                 using (TCDRequest request = new TCDRequest())
@@ -119,12 +125,14 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
+            Helper.logger.Debug("--");
         }
 
         private async void WriteChannelClick(object sender, RoutedEventArgs e)
         {
+            Helper.logger.Debug("++");
             try
             {
                 using (TCDRequest request = new TCDRequest())
@@ -136,12 +144,14 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
+            Helper.logger.Debug("--");
         }
 
         private async void ReadProbeInfoClick(object sender, RoutedEventArgs e)
         {
+            Helper.logger.Debug("++");
             try
             {
                 using (TCDRequest request = new TCDRequest())
@@ -167,12 +177,14 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
+            Helper.logger.Debug("--");
         }
 
         private async void WriteProbeInfoClick(object sender, RoutedEventArgs e)
         {
+            Helper.logger.Debug("++");
             try
             {
                 using (TCDWriteInfoRequest request = new TCDWriteInfoRequest())
@@ -197,8 +209,9 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
+            Helper.logger.Debug("--");
         }
     }
 }
