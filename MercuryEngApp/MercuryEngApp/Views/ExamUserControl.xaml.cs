@@ -106,6 +106,7 @@ namespace MercuryEngApp
                 if ((bool)App.mainWindow.IsPowerChecked)
                 {
                     MainWindowTurnTCDOFF();
+                    App.mainWindow.isPowerOn = false;
                     App.mainWindow.IsPowerChecked = false;
                 }
                 //Clear graph data
@@ -384,6 +385,10 @@ namespace MercuryEngApp
                     {
                         App.ApplicationLog+="Power Sent Successfully";
                     }
+                    else
+                    {
+                        App.ApplicationLog += "Power value not accepted by TCD";
+                    }
                 }
             }
             catch (Exception ex)
@@ -413,7 +418,7 @@ namespace MercuryEngApp
                         Scale.CreateMmodeScale(scaleDepthGrid, mModeSetting.MinDepthDisplay, mModeSetting.MaxDepthDisplay);
                         customDepthSlider.Resources["textValue"] = Convert.ToInt32(customDepthSlider.Value).ToString();
                         customDepthSlider.InvalidateArrange();
-                        App.ApplicationLog+="Depth sent successfully";
+                        App.ApplicationLog+="Depth Sent Successfully";
                     }
 
                 }

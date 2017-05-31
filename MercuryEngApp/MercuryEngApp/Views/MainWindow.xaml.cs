@@ -24,7 +24,7 @@ namespace MercuryEngApp
     {
         static ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        bool isPowerOn;
+        internal bool isPowerOn;
         public static event TCDPower TurnTCDON;
         public static event TCDPower TurnTCDOFF;
         public MainViewModel mainViewModel = new MainViewModel();
