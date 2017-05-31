@@ -68,7 +68,7 @@ namespace Core.Common
         /// <returns>System.String.</returns>
         public string Export(bool includeHeaderLine)
         {
-            //Logs.Instance.ErrorLog<CSVExport<T>>("Method execution begins to create string to be exported to audit file.", "Export", Severity.Debug);
+            Helper.logger.Debug("++");
             var sb = new StringBuilder();
 
             //Logs.Instance.ErrorLog<CSVExport<T>>("Get the property Infos of type : AuditTrailExport.", "Export", Severity.Debug);
@@ -113,9 +113,9 @@ namespace Core.Common
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<CSVExport<T>>(ex, "Export", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
             }
-            //Logs.Instance.ErrorLog<CSVExport<T>>("Method exceuted.Return formatted string.", "Export", Severity.Debug);
+            Helper.logger.Debug("--");
             return sb.ToString();
         }
 
@@ -126,7 +126,7 @@ namespace Core.Common
         /// <param name="path">The path.</param>
         public async void ExportToFile(string path)
         {
-            //Logs.Instance.ErrorLog<CSVExport<T>>("Method execution begins to export file to given path.", "ExportToFile", Severity.Debug);
+            Helper.logger.Debug("++");
             try
             {
                 var storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
@@ -137,9 +137,9 @@ namespace Core.Common
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<CSVExport<T>>(ex, "ExportToFile", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
             }
-            //Logs.Instance.ErrorLog<CSVExport<T>>("Method executed.", "ExportToFile", Severity.Debug);
+            Helper.logger.Debug("--");
         }
 
         //export as binary data.
@@ -160,6 +160,7 @@ namespace Core.Common
         /// <returns>System.String.</returns>
         private string MakeValueCsvFriendly(object value)
         {
+            Helper.logger.Debug("++");
             //Logs.Instance.ErrorLog<CSVExport<T>>("Method execution begins to format the CSV file.", "ExportToBytes", Severity.Debug);
             string output = null;
             try
@@ -187,9 +188,10 @@ namespace Core.Common
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<CSVExport<T>>(ex, "MakeValueCsvFriendly", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
             }
-            //Logs.Instance.ErrorLog<CSVExport<T>>("Method executed.Return formatted string.", "ExportToBytes", Severity.Debug);
+
+            Helper.logger.Debug("--");
             return output;
         }
     }
