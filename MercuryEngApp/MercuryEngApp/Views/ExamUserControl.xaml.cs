@@ -384,13 +384,11 @@ namespace MercuryEngApp
                         await Task.Delay(100);
                         if (examViewModelObj.Power == examViewModelObj.PacketPower)
                         {
-                            App.ApplicationLog += "Power Sent Successfully";
-                            AppLogger.Info("Power Sent Successfully");
+                            LogWrapper.Log("APP", "Power Sent Successfully");
                         }
                         else
                         {
-                            App.ApplicationLog += "Power value not accepted by TCD";
-                            AppLogger.Info("Power value not accepted by TCD");
+                            LogWrapper.Log("APP", "Power value not accepted by TCD");
                         }
                     }       
                 }
@@ -430,9 +428,8 @@ namespace MercuryEngApp
                             customDepthSlider.Minimum = mModeSetting.MinDepthDisplay;
                             Scale.CreateMmodeScale(scaleDepthGrid, mModeSetting.MinDepthDisplay, mModeSetting.MaxDepthDisplay);
                             customDepthSlider.Resources["textValue"] = Convert.ToInt32(customDepthSlider.Value).ToString();
-                            customDepthSlider.InvalidateArrange();
-                            App.ApplicationLog += "Depth Sent Successfully";
-                            AppLogger.Info("Depth Sent Successfully");
+                            customDepthSlider.InvalidateArrange();                          
+                            LogWrapper.Log("APP", "Depth Sent Successfully");
                         }
 
                     }
@@ -464,9 +461,8 @@ namespace MercuryEngApp
                         await UsbTcd.TCDObj.SetFilterAsync(requestObject);
                         await Task.Delay(100);
                         if (examViewModelObj.Filter == examViewModelObj.PacketFilter)
-                        {
-                            App.ApplicationLog += "Filter Sent Successfully";
-                            AppLogger.Info("Filter Sent Successfully");
+                        {   
+                            LogWrapper.Log("APP","Filter Sent Successfully");
                         }
                     }
                 }
@@ -497,9 +493,8 @@ namespace MercuryEngApp
                         await UsbTcd.TCDObj.SetLengthAsync(requestObject);
                         await Task.Delay(100);
                         if (examViewModelObj.SVol == examViewModelObj.PacketSVol)
-                        {
-                            App.ApplicationLog = "Length Sent Successfully";
-                            AppLogger.Info("Length Sent Successfully");
+                        {   
+                            LogWrapper.Log("APP", "Length Sent Successfully");
                         }
                     }
                 }

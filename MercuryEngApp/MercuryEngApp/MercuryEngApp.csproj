@@ -111,6 +111,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\AudioWrapper.cs" />
+    <Compile Include="Common\LogWrapper.cs" />
     <Compile Include="Common\PowerController.cs" />
     <Compile Include="Common\UsbTcd.cs" />
     <Compile Include="Common\VerticalScale\MmodeSetting.cs" />
@@ -147,6 +148,9 @@
     </Compile>
     <Compile Include="Views\InfoUserControl.xaml.cs">
       <DependentUpon>InfoUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LogUserControl.xaml.cs">
+      <DependentUpon>LogUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -185,6 +189,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\InfoUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\LogUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

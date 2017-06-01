@@ -76,9 +76,9 @@ namespace MercuryEngApp
                     infoViewModelObj.SelectedBoardModelName = response.Module.modelString;
                     infoViewModelObj.SelectedHardwareRevision = response.Module.hardwareRevisionString;
                     infoViewModelObj.BoardSerialNumber = response.Module.serialNumberString;
-                }
-                App.ApplicationLog += "Read Board Info";
-                AppLogger.Info("Read Board Info");
+                }                
+
+                LogWrapper.Log("APP", "Read Board Info");
             }
             catch (Exception ex)
             {
@@ -189,8 +189,8 @@ namespace MercuryEngApp
                     request.ChannelID = App.CurrentChannel;
                     infoViewModelObj.ChannelNumber = await UsbTcd.TCDObj.GetChannelNumber(request);
                 }
-                App.ApplicationLog += "Read Channel Info";
-                AppLogger.Info("Read Board Info");
+
+                LogWrapper.Log("APP", "Read Board Info");
             }
             catch (Exception ex)
             {
@@ -258,9 +258,8 @@ namespace MercuryEngApp
                     infoViewModelObj.Impedance = response.Probe.impedance;
                     infoViewModelObj.PhaseAngle = response.Probe.phaseAngle;
                 }
-
-                App.ApplicationLog += "Read Probe Info";
-                AppLogger.Info("Read Board Info");
+               
+                LogWrapper.Log("APP", "Read Probe Info");
             }
             catch (Exception ex)
             {
