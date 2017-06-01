@@ -11,73 +11,86 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
-                    Width="550"
-                    Height="250" 
-                    VerticalAlignment="Top" 
+                    Width="550" 
+                    Height="505" 
+                    VerticalAlignment="top" 
                     Margin="10,5,0,0" 
                     Grid.Column="0" 
-                    Grid.Row="0"
-                HorizontalAlignment="Left"/>
-        <Grid Name="LeftFPGAInfo" Width="550" HorizontalAlignment="Left">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="45"/>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="60"/>
-            </Grid.RowDefinitions>
+                    Grid.Row="0">
 
-           
-            
-            <TextBlock  Grid.Row="0" Grid.Column="0"
+            <Grid Name="LeftPanelInfoBottom" >
+                <Border Height="40" 
+                            VerticalAlignment="Top" 
+                            Style="{StaticResource ResourceKey=RoundedRectangleBlue}"
+                            Width="550" 
+                            Margin="-2,-2,-2,0"
+                            >
+
+                    <TextBlock Height="17" 
+                                   Margin="13,8,0,0" 
+                                   Text="Channel Assignment" 
+                                   Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
+                </Border>
+
+                <Grid Margin="0,0,5,2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="43"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="60"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock  Grid.Row="1" Grid.Column="0"
                                     Text="Register"
-                                    Margin="10,15,0,0"
+                                     Margin="13,15,0,0" 
                                     Style="{StaticResource ResourceKey=WhiteLable15pt}"/>
-
-            <TextBlock  Grid.Row="1" Grid.Column="0"
+                    
+                    <TextBlock  Grid.Row="2" Grid.Column="0"
                                     Text="Value"
-                                    Margin="10,15,0,0"
+                                     Margin="13,15,0,0" 
                                     Style="{StaticResource ResourceKey=WhiteLable15pt}"/>
 
-            <Border  Style="{StaticResource ResourceKey=RoundedBorderCombo}" 
-                                 Grid.Row="0"
-                                 Grid.Column="1"  Width="310" />
-            <ComboBox Width="300" 
-                                 Height="25"
+                    <Border  Style="{StaticResource ResourceKey=RoundedBorderCombo}" 
+                                 Grid.Row="1"
+                                 Grid.Column="1"  Width="310" Height="32" />
+                    <ComboBox Width="300" 
+                                 Height="30"
                                     IsReadOnly="False"
                                       IsEditable="True"
                                       ItemsSource="{Binding Path=BoardPartNumberList, Mode=TwoWay}"
                                       SelectedItem="{Binding Path=SelectedBoardPartNumber}"        
                                   Style="{StaticResource ResourceKey=ComboBoxBorder}"
-                                 Grid.Row="0" 
+                                 Grid.Row="1" 
                                  Grid.Column="1" 
                                  Margin="3,5,5,5"/>
 
-            <TextBox Width="309" 
-                                 Height="25" 
-                                 Grid.Row="1"
-                                 Text="{Binding Path=BoardSerialNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                                 Style="{StaticResource ResourceKey=MainTextbox}"
-                                 Grid.Column="1" 
-                                 Margin="0,8,5,8"/>
+                    <TextBox Width="309" Height="32"
+                                  Style="{StaticResource ResourceKey=MainTextbox}"
+                                  Name="ChannelPartNumber"
+                                  Grid.Row="2" 
+                                  Grid.Column="1" 
+                                  Margin="0,0,5,0" >
+                        
+                    </TextBox>
 
-
-            <Button Content="Read" 
+                    <Button Content="Read" 
                                     Style="{StaticResource ResourceKey=ButtonStyle1}" 
                                     Grid.Column="2" 
-                                    Grid.Row="2" 
+                                    Grid.Row="3" 
                                     Width="125" 
                                     Height="45" 
                                     HorizontalAlignment="Left" 
                                     VerticalAlignment="Top" />
 
-            <Button Content="Write" 
+                    <Button Content="Write" 
                                     Style="{StaticResource ResourceKey=ButtonStyle1}" 
                                     Grid.Column="2" 
-                                    Grid.Row="2" 
+                                    Grid.Row="3" 
                                     Width="125" 
                                 IsEnabled="False"
                                     Height="45" 
@@ -86,20 +99,20 @@
                                     Margin="0,0,5,0"/>
 
 
-            <Button Content="Reset" 
+                    <Button Content="Reset" 
                     Style="{StaticResource ResourceKey=ButtonStyle1}"
                     Grid.Row="4"  Width="125"   
-                    Grid.RowSpan="3"
+                    Grid.RowSpan="4"
                     Height="45" 
                     Grid.Column="2" 
                     HorizontalAlignment="Left" 
                     VerticalAlignment="Top" />
 
-            <Button Content="Set All Defaults" 
+                    <Button Content="Set All Defaults" 
                     Style="{StaticResource ResourceKey=ButtonStyle1}" 
                     Grid.Column="2" 
                     Grid.Row="4" 
-                    Grid.RowSpan="3"
+                    Grid.RowSpan="4"
                     Width="125" 
                     Height="45" 
                     HorizontalAlignment="Right" 
@@ -107,8 +120,27 @@
                     Margin="0,0,5,0"/>
 
 
-        </Grid>
+                </Grid>
 
+            </Grid>
+        </Border>
+
+        <Grid Grid.Column="1" VerticalAlignment="Top">
+            <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
+                    Width="745"
+                    VerticalAlignment="Top" 
+                    Margin="10,5,10,0" 
+                    Grid.Column="1" Height="505">
+
+                <Grid Name="rightPanelInfoTop" >
+                    <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" Height="40" VerticalAlignment="Top" 
+                               Width="744" Margin="-3,-2,-1,0" HorizontalAlignment="Right"/>
+                    <TextBlock Height="17" Margin="13,8,0,0" Text="User Guide" Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
+                  
+                </Grid>
+            </Border>
+
+        </Grid>
 
     </Grid>
 </UserControl>
