@@ -21,6 +21,8 @@ namespace MercuryEngApp
             OutputMetrics = new OutputMetrics();
             InputParams = new TCDParameters(999);
             PacketData = new TCDParameters();
+            VelocityRange = 308;
+            ScreenCoords = new System.Windows.Point(-17, 107);
         }
 
         public ushort TIC
@@ -215,6 +217,11 @@ namespace MercuryEngApp
                 }
             }
         }
+
+        public int VelocityRange { get; set; }
+
+
+        public System.Windows.Point ScreenCoords { get; set; }
 
         public uint PacketPRF
         {

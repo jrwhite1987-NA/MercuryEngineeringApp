@@ -50,13 +50,8 @@ namespace MercuryEngApp
 
         private NaGraph NaGraph { get; set; }
 
-        public AudioWrapper TCDAudio { get; set; }
+        public AudioWrapper TCDAudio { get; set; }       
 
-        public int VelocityRange { get; set; }
-
-        public int Depth { get; set; }
-
-        public int PRF { get; set; }
         XDocument xmlDoc;
 
         #endregion
@@ -171,22 +166,19 @@ namespace MercuryEngApp
 
         private void CreateVerticalScales()
         {
-            logger.Debug("++");
-            VelocityRange = 308;
-            Depth = 48;
-            PRF = 8000;
+            logger.Debug("++");            
             try
             {
                 Scale.CreateScale(new ScaleParameters
                 {
                     ParentControl = scaleGrid,
-                    ScreenCoords = new Point(-17, 107),
-                    VelocityRange = VelocityRange,
+                    ScreenCoords = examViewModelObj.ScreenCoords,
+                    VelocityRange = examViewModelObj.VelocityRange,
                     ScaleType = ScaleTypeEnum.Spectrogram,
                     BitmapHeight = imageSpectrogram.Height
                 });
 
-                MmodeSetting mModeSetting = MmodeSetting.GetDepthRange(Depth);
+                MmodeSetting mModeSetting = MmodeSetting.GetDepthRange((int)examViewModelObj.Depth);
                 customDepthSlider.Maximum = mModeSetting.MaxDepthDisplay;
                 customDepthSlider.Minimum = mModeSetting.MinDepthDisplay;
                 Scale.CreateMmodeScale(scaleDepthGrid, mModeSetting.MinDepthDisplay, mModeSetting.MaxDepthDisplay);
@@ -540,6 +532,21 @@ namespace MercuryEngApp
                         requestObject.Value3 = examViewModelObj.SelectedPRF;
                         requestObject.Value2 = (byte)examViewModelObj.StartDepth;
                         await UsbTcd.TCDObj.SetPRF(requestObject);
+
+                        await Task.Delay(100);
+                        if (examViewModelObj.SelectedPRF == examViewModelObj.PacketPRF)
+                        {
+                            examViewModelObj.VelocityRange = PRFOptions.GetMappedVelocityRange((int)examViewModelObj.SelectedPRF);
+                           
+                            Scale.CreateScale(new ScaleParameters
+                            {
+                                ParentControl = scaleGrid,
+                                ScreenCoords = examViewModelObj.ScreenCoords,
+                                VelocityRange = examViewModelObj.VelocityRange,
+                                ScaleType = ScaleTypeEnum.Spectrogram,
+                                BitmapHeight = imageSpectrogram.Height
+                            });
+                        }
                     }
                 }
                 else
@@ -583,13 +590,12 @@ namespace MercuryEngApp
 
                 NaGraph.LeftSpectrogram.BaseLinePosition = LeftBaselinePosition;
                 NaGraph.RightSpectrogram.BaseLinePosition = LeftBaselinePosition;
-                Point screenCoords = Thumb.TransformToVisual(scaleGrid).Transform(new Point(0, 0));
-                screenCoords.Y = screenCoords.Y + 25;
+                examViewModelObj.ScreenCoords = Thumb.TransformToVisual(scaleGrid).Transform(new Point(0, 25));                
                 Scale.CreateScale(new ScaleParameters
                 {
                     ParentControl = scaleGrid,
-                    ScreenCoords = screenCoords,
-                    VelocityRange = VelocityRange,
+                    ScreenCoords = examViewModelObj.ScreenCoords,
+                    VelocityRange = examViewModelObj.VelocityRange,
                     ScaleType = ScaleTypeEnum.Spectrogram,
                     BitmapHeight = imageSpectrogram.Height
                 });

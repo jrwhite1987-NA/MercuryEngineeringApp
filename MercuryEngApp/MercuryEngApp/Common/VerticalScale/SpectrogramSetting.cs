@@ -490,6 +490,39 @@ namespace MercuryEngApp.Common
                 .First();
             return prf;
         }
+
+
+        /// <summary>
+        /// Gets one to one mapped PRF.
+        /// </summary>
+        /// <param name="velocityRange"></param>
+        /// <returns></returns>
+        public static int GetMappedVelocityRange(int prf)
+        {
+            int velocityRange = 308;
+            switch (prf)
+            {
+                case PRFOptions.FirstOption.PRF:
+                    velocityRange = PRFOptions.FirstOption.DefaultVelocityRange;
+                    break;
+                case PRFOptions.SecondOption.PRF:
+                    velocityRange = PRFOptions.SecondOption.DefaultVelocityRange;
+                    break;
+                case PRFOptions.ThirdOption.PRF:
+                    velocityRange = PRFOptions.ThirdOption.DefaultVelocityRange;
+                    break;
+                case PRFOptions.ForthOption.PRF:
+                    velocityRange = PRFOptions.ForthOption.DefaultVelocityRange;
+                    break;
+                case PRFOptions.FifthOption.PRF:
+                    velocityRange = PRFOptions.FifthOption.DefaultVelocityRange;
+                    break;
+                default:
+                    break;
+            }
+
+            return velocityRange;
+        }
     }
 
     /// <summary>
