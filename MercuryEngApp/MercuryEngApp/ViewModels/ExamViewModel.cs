@@ -19,7 +19,7 @@ namespace MercuryEngApp
         public ExamViewModel()
         {
             OutputMetrics = new OutputMetrics();
-            InputParams = new TCDParameters(999);
+            InputParams = new TCDParameters();
             PacketData = new TCDParameters();
             VelocityRange = 308;
             ScreenCoords = new System.Windows.Point(-17, 107);

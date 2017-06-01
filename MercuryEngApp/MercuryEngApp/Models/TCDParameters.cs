@@ -24,14 +24,5 @@ namespace MercuryEngApp.Models
             SVol = Constants.defaultLength;
             PRF = Constants.defaultPRF;
         }
-
-        public TCDParameters(ushort value)
-        {
-            Power = value;
-            Depth = value;
-            Filter = value;
-            SVol = value;
-            PRF = value;
-        }
     }
 }

@@ -35,7 +35,7 @@ namespace MercuryEngApp
         static ILog AppLogger = LogManager.GetLogger("AppLogAppender");
         static ILog TCDLogger = LogManager.GetLogger("TCDLogAppender");
 
-        private ExamViewModel examViewModelObj = new ExamViewModel();
+        private ExamViewModel examViewModelObj;
 
         private Queue<DMIPmdDataPacket[]> PacketCollection = new Queue<DMIPmdDataPacket[]>();
         /// <summary>
@@ -60,6 +60,7 @@ namespace MercuryEngApp
         {
             logger.Debug("++");           
             InitializeComponent();
+            examViewModelObj = new ExamViewModel();
             this.Loaded += ExamUserControlLoaded;
             this.Unloaded += ExamUserControlUnloaded;
             PowerController.Instance.OnDeviceStateChanged += MicrocontrollerOnDeviceStateChanged;

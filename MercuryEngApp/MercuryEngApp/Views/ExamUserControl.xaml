@@ -44,7 +44,7 @@
                      Padding="5,2,3,0" Width="90" 
                      TextAlignment="Center">
                 <TextBox.Text>
-                    <Binding Path="Power" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
+                    <Binding Path="Power" Mode="OneWayToSource" UpdateSourceTrigger="LostFocus">
                         <Binding.ValidationRules>
                             <validator:BlankValidationRule ValidatesOnTargetUpdated="True" ControlName="{x:Static local:Resources.Power}" ErrorMessage="{x:Static local:Resources.TextBoxBlank}"/>
                             <validator:NumberValidationRule ControlName="{x:Static local:Resources.Power}" ErrorMessage="{x:Static local:Resources.MustBeNumber}"/>
@@ -87,7 +87,7 @@
                        Width="90" 
                        TextAlignment="Center">
                 <TextBox.Text>
-                    <Binding Path="Depth" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
+                    <Binding Path="Depth" Mode="OneWayToSource" UpdateSourceTrigger="LostFocus">
                         <Binding.ValidationRules>
                             <validator:BlankValidationRule ValidatesOnTargetUpdated="True" ControlName="{x:Static local:Resources.Depth}" ErrorMessage="{x:Static local:Resources.TextBoxBlank}"/>
                             <validator:NumberValidationRule ControlName="{x:Static local:Resources.Depth}" ErrorMessage="{x:Static local:Resources.MustBeNumber}"/>
@@ -128,7 +128,7 @@
                      Width="90" 
                      TextAlignment="Center">
                 <TextBox.Text>
-                    <Binding Path="Filter" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
+                    <Binding Path="Filter" Mode="OneWayToSource" UpdateSourceTrigger="LostFocus">
                         <Binding.ValidationRules>
                             <validator:BlankValidationRule ValidatesOnTargetUpdated="True" ControlName="{x:Static local:Resources.Filter}" ErrorMessage="{x:Static local:Resources.TextBoxBlank}"/>
                             <validator:NumberValidationRule ControlName="{x:Static local:Resources.Filter}" ErrorMessage="{x:Static local:Resources.MustBeNumber}"/>
