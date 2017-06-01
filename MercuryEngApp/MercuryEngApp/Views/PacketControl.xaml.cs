@@ -155,7 +155,7 @@ namespace MercuryEngApp
                     xmlDoc.Save(xmlFilePath);
                     count = 0;
 
-                    LogWrapper.Log("APP", "Packet Exported Successfully");
+                    LogWrapper.Log(Constants.APPLog, "Packet Exported Successfully");
                 }
             }
             catch (Exception ex)

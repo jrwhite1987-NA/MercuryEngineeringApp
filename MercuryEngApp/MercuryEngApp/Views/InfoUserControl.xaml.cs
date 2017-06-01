@@ -20,6 +20,7 @@ using UsbTcdLibrary.CommunicationProtocol;
 using log4net;
 using Core.Common;
 using System.Collections.ObjectModel;
+using Core.Constants;
 
 namespace MercuryEngApp
 {
@@ -78,7 +79,7 @@ namespace MercuryEngApp
                     infoViewModelObj.BoardSerialNumber = response.Module.serialNumberString;
                 }                
 
-                LogWrapper.Log("APP", "Read Board Info");
+                LogWrapper.Log(Constants.APPLog, "Read Board Info");
             }
             catch (Exception ex)
             {
@@ -118,7 +119,7 @@ namespace MercuryEngApp
                 }
                 else
                 {
-                    Helper.logger.Warn("Validation Message:" + errorMessage);
+                    LogWrapper.Log(Constants.APPLog, errorMessage);
                 }
             }
             catch (Exception ex)
@@ -190,7 +191,7 @@ namespace MercuryEngApp
                     infoViewModelObj.ChannelNumber = await UsbTcd.TCDObj.GetChannelNumber(request);
                 }
 
-                LogWrapper.Log("APP", "Read Board Info");
+                LogWrapper.Log(Constants.APPLog, "Read Board Info");
             }
             catch (Exception ex)
             {
@@ -216,7 +217,7 @@ namespace MercuryEngApp
                 }
                 else
                 {
-                    Helper.logger.Warn(errorMessage);
+                    LogWrapper.Log(Constants.APPLog, errorMessage);
                 }
             }
             catch (Exception ex)
@@ -259,7 +260,7 @@ namespace MercuryEngApp
                     infoViewModelObj.PhaseAngle = response.Probe.phaseAngle;
                 }
                
-                LogWrapper.Log("APP", "Read Probe Info");
+                LogWrapper.Log(Constants.APPLog, "Read Probe Info");
             }
             catch (Exception ex)
             {
@@ -300,7 +301,7 @@ namespace MercuryEngApp
                 }
                 else
                 {
-                    Helper.logger.Warn(validationMessage);
+                    LogWrapper.Log(Constants.APPLog, validationMessage);
                 }
             }
             catch (Exception ex)

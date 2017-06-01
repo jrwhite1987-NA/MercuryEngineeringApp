@@ -149,7 +149,7 @@ namespace MercuryEngApp.Validators
                 foreach (var error in errors)
                 {
                     errorList.Append(error.ErrorContent);
-                    errorList.Append(Environment.NewLine);
+                    //errorList.Append(Environment.NewLine);
                 }
             }
             errorMessage = errorList.ToString();

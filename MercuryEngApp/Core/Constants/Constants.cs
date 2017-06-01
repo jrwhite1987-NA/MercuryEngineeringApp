@@ -1348,6 +1348,10 @@ namespace Core.Constants
 
         #endregion pdf Constants
 
+        #region LogConstants
+        public const string APPLog = "APP";
+        public const string TCDLog = "TCD";
+        #endregion
 
         public static List<string> SpectrumBinList
         {

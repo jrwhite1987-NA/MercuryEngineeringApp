@@ -384,17 +384,17 @@ namespace MercuryEngApp
                         await Task.Delay(100);
                         if (examViewModelObj.Power == examViewModelObj.PacketPower)
                         {
-                            LogWrapper.Log("APP", "Power Sent Successfully");
+                            LogWrapper.Log(Constants.APPLog, "Power Sent Successfully");
                         }
                         else
                         {
-                            LogWrapper.Log("APP", "Power value not accepted by TCD");
+                            LogWrapper.Log(Constants.TCDLog, "Power value not accepted by TCD");
                         }
                     }       
                 }
                 else
                 {
-                    logger.Warn(errorMessage);
+                    LogWrapper.Log(Constants.APPLog, errorMessage);
                 }
             }
             catch (Exception ex)
@@ -429,14 +429,14 @@ namespace MercuryEngApp
                             Scale.CreateMmodeScale(scaleDepthGrid, mModeSetting.MinDepthDisplay, mModeSetting.MaxDepthDisplay);
                             customDepthSlider.Resources["textValue"] = Convert.ToInt32(customDepthSlider.Value).ToString();
                             customDepthSlider.InvalidateArrange();                          
-                            LogWrapper.Log("APP", "Depth Sent Successfully");
+                            LogWrapper.Log(Constants.APPLog, "Depth Sent Successfully");
                         }
 
                     }
                 }
                 else
                 {
-                    logger.Warn(errorMessage);
+                    LogWrapper.Log(Constants.APPLog, errorMessage);
                 }
             }
             catch (Exception ex)
@@ -462,13 +462,13 @@ namespace MercuryEngApp
                         await Task.Delay(100);
                         if (examViewModelObj.Filter == examViewModelObj.PacketFilter)
                         {   
-                            LogWrapper.Log("APP","Filter Sent Successfully");
+                            LogWrapper.Log(Constants.APPLog,"Filter Sent Successfully");
                         }
                     }
                 }
                 else
                 {
-                    logger.Warn(errorMessage);
+                    LogWrapper.Log(Constants.APPLog, errorMessage);
                 }
             }
             catch (Exception ex)
@@ -494,13 +494,13 @@ namespace MercuryEngApp
                         await Task.Delay(100);
                         if (examViewModelObj.SVol == examViewModelObj.PacketSVol)
                         {   
-                            LogWrapper.Log("APP", "Length Sent Successfully");
+                            LogWrapper.Log(Constants.APPLog, "Length Sent Successfully");
                         }
                     }
                 }
                 else
                 {
-                    logger.Warn(errorMessage);
+                    LogWrapper.Log(Constants.APPLog, errorMessage);
                 }
             }
             catch (Exception ex)
@@ -515,11 +515,13 @@ namespace MercuryEngApp
             logger.Debug("++");
             bool isDepthValid = false;
             bool isPRFValid = false;
+            string depthErrorMessage = string.Empty;
+            string prfErrorMessage = string.Empty;
             string errorMessage = string.Empty;
             try
             {
-                isDepthValid = Validators.ValidationRules.ValidateControl(StartDepthTextBox, out errorMessage);
-                isPRFValid = Validators.ValidationRules.ValidateControl(PRFCombo, out errorMessage);
+                isDepthValid = Validators.ValidationRules.ValidateControl(StartDepthTextBox, out depthErrorMessage);
+                isPRFValid = Validators.ValidationRules.ValidateControl(PRFCombo, out prfErrorMessage);
                 if (isDepthValid && isPRFValid)
                 {
                     using (TCDRequest requestObject = new TCDRequest())
@@ -547,7 +549,7 @@ namespace MercuryEngApp
                 }
                 else
                 {
-                    logger.Warn(errorMessage);
+                    LogWrapper.Log(Constants.APPLog, depthErrorMessage + " " + prfErrorMessage);
                 }
             }
             catch (Exception ex)

@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using Core.Constants;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace MercuryEngApp.Common
 
         public static void Log(string type, string message)
         {
-            if (type == "APP")
+            if (type == Constants.APPLog)
             {
                 App.ApplicationLog += message;
                 AppLogger.Info(message);
