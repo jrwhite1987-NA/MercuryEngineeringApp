@@ -154,8 +154,7 @@ namespace MercuryEngApp
                     string xmlFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"AppData\ExportFiles\" + xmlFileName);
                     xmlDoc.Save(xmlFilePath);
                     count = 0;
-
-                    LogWrapper.Log(Constants.APPLog, "Packet Exported Successfully");
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.PacketExport);
                 }
             }
             catch (Exception ex)

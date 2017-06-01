@@ -79,7 +79,8 @@ namespace MercuryEngApp
                     infoViewModelObj.BoardSerialNumber = response.Module.serialNumberString;
                 }                
 
-                LogWrapper.Log(Constants.APPLog, "Read Board Info");
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.BoardInfo);
+
             }
             catch (Exception ex)
             {
@@ -191,7 +192,7 @@ namespace MercuryEngApp
                     infoViewModelObj.ChannelNumber = await UsbTcd.TCDObj.GetChannelNumber(request);
                 }
 
-                LogWrapper.Log(Constants.APPLog, "Read Board Info");
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.BoardInfo);
             }
             catch (Exception ex)
             {
@@ -258,9 +259,10 @@ namespace MercuryEngApp
                     infoViewModelObj.Fractional3dbBW = response.Probe.fractionalBW;
                     infoViewModelObj.Impedance = response.Probe.impedance;
                     infoViewModelObj.PhaseAngle = response.Probe.phaseAngle;
-                }
-               
-                LogWrapper.Log(Constants.APPLog, "Read Probe Info");
+                }              
+
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.ProbeInfo);
+
             }
             catch (Exception ex)
             {

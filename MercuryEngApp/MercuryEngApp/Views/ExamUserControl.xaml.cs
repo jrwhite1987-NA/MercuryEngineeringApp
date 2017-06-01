@@ -384,11 +384,11 @@ namespace MercuryEngApp
                         await Task.Delay(100);
                         if (examViewModelObj.Power == examViewModelObj.PacketPower)
                         {
-                            LogWrapper.Log(Constants.APPLog, "Power Sent Successfully");
+                            LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.PowerSent);
                         }
                         else
                         {
-                            LogWrapper.Log(Constants.TCDLog, "Power value not accepted by TCD");
+                            LogWrapper.Log(Constants.TCDLog, MercuryEngApp.Resources.PowerValueMsg);
                         }
                     }       
                 }
@@ -429,7 +429,7 @@ namespace MercuryEngApp
                             Scale.CreateMmodeScale(scaleDepthGrid, mModeSetting.MinDepthDisplay, mModeSetting.MaxDepthDisplay);
                             customDepthSlider.Resources["textValue"] = Convert.ToInt32(customDepthSlider.Value).ToString();
                             customDepthSlider.InvalidateArrange();                          
-                            LogWrapper.Log(Constants.APPLog, "Depth Sent Successfully");
+                            LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.DepthSent);
                         }
 
                     }
@@ -462,7 +462,7 @@ namespace MercuryEngApp
                         await Task.Delay(100);
                         if (examViewModelObj.Filter == examViewModelObj.PacketFilter)
                         {   
-                            LogWrapper.Log(Constants.APPLog,"Filter Sent Successfully");
+                            LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FilterSent);
                         }
                     }
                 }
@@ -494,7 +494,7 @@ namespace MercuryEngApp
                         await Task.Delay(100);
                         if (examViewModelObj.SVol == examViewModelObj.PacketSVol)
                         {   
-                            LogWrapper.Log(Constants.APPLog, "Length Sent Successfully");
+                            LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.LengthSent);
                         }
                     }
                 }

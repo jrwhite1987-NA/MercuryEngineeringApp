@@ -70,6 +70,15 @@ namespace MercuryEngApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Read Board Info.
+        /// </summary>
+        public static string BoardInfo {
+            get {
+                return ResourceManager.GetString("BoardInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Board Model Name.
         /// </summary>
         public static string BoardModelName {
@@ -142,6 +151,15 @@ namespace MercuryEngApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Depth Sent Successfully.
+        /// </summary>
+        public static string DepthSent {
+            get {
+                return ResourceManager.GetString("DepthSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Diameter.
         /// </summary>
         public static string Diameter {
@@ -156,6 +174,15 @@ namespace MercuryEngApp {
         public static string Filter {
             get {
                 return ResourceManager.GetString("Filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter Sent Successfully.
+        /// </summary>
+        public static string FilterSent {
+            get {
+                return ResourceManager.GetString("FilterSent", resourceCulture);
             }
         }
         
@@ -196,6 +223,15 @@ namespace MercuryEngApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Length Sent Successfully.
+        /// </summary>
+        public static string LengthSent {
+            get {
+                return ResourceManager.GetString("LengthSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} cannot be more than {1} characters..
         /// </summary>
         public static string MaxLength {
@@ -219,6 +255,15 @@ namespace MercuryEngApp {
         public static string MustBeNumber {
             get {
                 return ResourceManager.GetString("MustBeNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Packet Exported Successfully.
+        /// </summary>
+        public static string PacketExport {
+            get {
+                return ResourceManager.GetString("PacketExport", resourceCulture);
             }
         }
         
@@ -250,11 +295,38 @@ namespace MercuryEngApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Power Sent Successfully.
+        /// </summary>
+        public static string PowerSent {
+            get {
+                return ResourceManager.GetString("PowerSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Power value not accepted by TCD.
+        /// </summary>
+        public static string PowerValueMsg {
+            get {
+                return ResourceManager.GetString("PowerValueMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PRF.
         /// </summary>
         public static string PRF {
             get {
                 return ResourceManager.GetString("PRF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Read Probe Info.
+        /// </summary>
+        public static string ProbeInfo {
+            get {
+                return ResourceManager.GetString("ProbeInfo", resourceCulture);
             }
         }
         

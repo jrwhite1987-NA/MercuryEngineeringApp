@@ -44,7 +44,7 @@ namespace MercuryEngApp.Common
 
         #endregion
 
-        static ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        static ILog logger = LogManager.GetLogger("EnggAppAppender");
 
         /// <summary>
         /// The audio collection
