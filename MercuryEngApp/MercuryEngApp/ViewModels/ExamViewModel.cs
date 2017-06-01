@@ -5,24 +5,106 @@ using System.Text;
 using System.Threading.Tasks;
 using MicroMvvm;
 using MercuryEngApp.Models;
+using MercuryEngApp.Common;
+using Core.Constants;
 
 namespace MercuryEngApp
 {
     internal class ExamViewModel : ObservableObject
     {
         private ushort tIC;
-
+        private int sliderValue;
+        private int sliderMax;
+        private int currentFFT;
+        public List<uint> PRFList { get; internal set; }
         public OutputMetrics OutputMetrics { get; set; }
         public TCDParameters InputParams { get; set; }
-        public TCDParameters PacketData { get; set; } 
+        public TCDParameters PacketData { get; set; }
+        public int VelocityRange { get; set; }
+        
+        public List<int> FFTList { get; internal set; }
+
+        /// <summary>
+        /// The leftcurrent base line postion
+        /// </summary>
+        private int currentBaseLinePosition = 0;
+
+        /// <summary>
+        /// Gets or sets the left baseline postion.
+        /// </summary>
+        /// <value>The left baseline postion.</value>
+        public int BaselinePosition
+        {
+            get { return currentBaseLinePosition; }
+            set
+            {
+                currentBaseLinePosition = value - Constants.BaselineValue;
+            }
+        }
 
         public ExamViewModel()
         {
             OutputMetrics = new OutputMetrics();
             InputParams = new TCDParameters();
             PacketData = new TCDParameters();
-            VelocityRange = 308;
+            VelocityRange = PRFOptions.ThirdOption.DefaultVelocityRange;
+            FFTList = Constants.SpectrumBinList;
+            SelectedFFT = FFTList[0];
+            SliderValue = Constants.BaselineValue;
             ScreenCoords = new System.Windows.Point(-17, 107);
+        }
+
+        public int SelectedFFT
+        {
+            get
+            {
+                return currentFFT;
+            }
+            set
+            {
+                if (currentFFT != value)
+                {
+                    currentFFT = value;
+                    RaisePropertyChanged();
+                    SliderMax = value - 1;
+                    Constants.BaselineValue = value / 2;
+                    Constants.SpectrumBin = value;
+                    SliderValue = Constants.BaselineValue;
+                }
+            }
+        }
+
+        public int SliderMax
+        {
+            get
+            {
+                return sliderMax;
+            }
+            set
+            {
+                if(sliderMax!=value)
+                {
+                    sliderMax = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public int SliderValue
+        {
+            get
+            {
+                return sliderValue;
+            }
+            set
+            {
+                if(sliderValue!=value)
+                {
+                    sliderValue = value;
+                    RaisePropertyChanged();
+                    BaselinePosition = value;
+                }
+            }
         }
 
         public ushort TIC
@@ -121,7 +203,7 @@ namespace MercuryEngApp
             }
         }
 
-        public List<uint> PRFList { get; internal set; }
+        
         public uint SelectedPRF
         {
             get
@@ -218,7 +300,7 @@ namespace MercuryEngApp
             }
         }
 
-        public int VelocityRange { get; set; }
+        
 
 
         public System.Windows.Point ScreenCoords { get; set; }

@@ -533,8 +533,8 @@
             <Border  Style="{StaticResource ResourceKey=RoundedBorderMainpageCombo}" 
                              Grid.Column="0"  
                              HorizontalAlignment="Right" Width="121" Height="30" Margin="0,146,16,54" Background="#FFEEEEEE"/>
-            <ComboBox x:Name="spectrumBinCombobox" 
-                              SelectedIndex="0" 
+            <ComboBox ItemsSource="{Binding Path=FFTList, Mode=TwoWay}"
+                      SelectedItem="{Binding Path=SelectedFFT, UpdateSourceTrigger=PropertyChanged}"
                               Style="{StaticResource ResourceKey=ComboBoxBorder}" 
                               SelectionChanged="spectrumBinCombobox_SelectionChanged" Height="25" Margin="450,149,23,56"/>
 
@@ -567,10 +567,19 @@
 
         <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Height="255" Grid.Column="1"  Grid.Row="0" Width="715" Margin="0,5,10,0">
 
-            <Slider Name="CustomSlider" HorizontalAlignment="Left" 
-                  OverridesDefaultStyle="True" Value="64" Maximum="127" Minimum="0"
-                Height="255" Width="705" Orientation="Vertical" Grid.Column="1" VerticalAlignment="Stretch"  
-                Style="{StaticResource SliderStyle}"  Canvas.ZIndex="3" LostMouseCapture="CusomSlider_LostMouseCapture">
+            <Slider HorizontalAlignment="Left" 
+                    OverridesDefaultStyle="True" 
+                    Value="{Binding Path=SliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    Maximum="{Binding Path=SliderMax, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    Minimum="0"
+                    Height="255" 
+                    Width="705" 
+                    Orientation="Vertical" 
+                    Grid.Column="1" 
+                    VerticalAlignment="Stretch"  
+                    Style="{StaticResource SliderStyle}" 
+                    Canvas.ZIndex="3"
+                    LostMouseCapture="CusomSlider_LostMouseCapture">
                 <Slider.Resources>
                     <clr:String  x:Key="textValue">0</clr:String>
                 </Slider.Resources>
@@ -601,10 +610,15 @@
         </Grid>
         <Grid HorizontalAlignment="Right" Grid.Column="1" VerticalAlignment="top" Height="230" Grid.Row="1" Width="715"  Margin="0,-0,10,0">
 
-            <Slider Name="customDepthSlider" HorizontalAlignment="Left" 
-                  OverridesDefaultStyle="True" Value="50" Maximum="87" Minimum="23" IsHitTestVisible="False"
+            <Slider Name="customDepthSlider" 
+                    HorizontalAlignment="Left" 
+                  OverridesDefaultStyle="True" 
+                    Value="50" 
+                    Maximum="87" 
+                    Minimum="23" 
+                    IsHitTestVisible="False"
                 Height="232" Width="705" Orientation="Vertical" Grid.Column="1" VerticalAlignment="Stretch"  
-                Style="{StaticResource SliderStyle}"  Canvas.ZIndex="3" LostMouseCapture="customDepthSlider_LostMouseCapture">
+                Style="{StaticResource SliderStyle}"  Canvas.ZIndex="3">
                 <Slider.Resources>
                     <clr:String  x:Key="textValue">50</clr:String>
                     <clr:String  x:Key="textUnit">mm</clr:String>

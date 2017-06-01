@@ -1353,14 +1353,14 @@ namespace Core.Constants
         public const string TCDLog = "TCD";
         #endregion
 
-        public static List<string> SpectrumBinList
+        public static List<int> SpectrumBinList
         {
             get
             {
-                return new List<string> { 
-                    "128",
-                    "256",
-                    "512" };
+                return new List<int> { 
+                    128,
+                    256,
+                    512 };
             }
         }
         /// <summary>

@@ -123,7 +123,6 @@ namespace MercuryEngApp
             {
                 MainWindow.TurnTCDON += MainWindowTurnTCDON;
                 MainWindow.TurnTCDOFF += MainWindowTurnTCDOFF; 
-                spectrumBinCombobox.ItemsSource = Constants.SpectrumBinList;
                 btnEnvelop.IsChecked = true;
             }
             catch (Exception ex)
@@ -558,36 +557,17 @@ namespace MercuryEngApp
             }
             logger.Debug("--");
         }
-        /// <summary>
-        /// The leftcurrent base line postion
-        /// </summary>
-        private int leftcurrentBaseLinePosition = 0;
-
-        /// <summary>
-        /// Gets or sets the left baseline postion.
-        /// </summary>
-        /// <value>The left baseline postion.</value>
-        public int LeftBaselinePosition
-        {
-            get { return leftcurrentBaseLinePosition; }
-            set
-            {
-                leftcurrentBaseLinePosition = value - Constants.BaselineValue;
-            }
-        }
+        
 
 
         private void CusomSlider_LostMouseCapture(object sender, MouseEventArgs e)
         {
-            Constants.BaselineValue = 64;
             logger.Debug("++");
 
             try
             {
-                LeftBaselinePosition = (int)CustomSlider.Value;
-
-                NaGraph.LeftSpectrogram.BaseLinePosition = LeftBaselinePosition;
-                NaGraph.RightSpectrogram.BaseLinePosition = LeftBaselinePosition;
+                NaGraph.LeftSpectrogram.BaseLinePosition = examViewModelObj.BaselinePosition;
+                NaGraph.RightSpectrogram.BaseLinePosition = examViewModelObj.BaselinePosition;
                 examViewModelObj.ScreenCoords = Thumb.TransformToVisual(scaleGrid).Transform(new Point(0, 25));                
                 Scale.CreateScale(new ScaleParameters
                 {
@@ -650,22 +630,6 @@ namespace MercuryEngApp
             return thumb;
         }
 
-        private void customDepthSlider_LostMouseCapture(object sender, MouseEventArgs e)
-        {
-            logger.Debug("++");
-            try
-            {
-                customDepthSlider.Resources["textValue"] = Convert.ToInt32(customDepthSlider.Value).ToString();
-            }
-            catch (Exception ex)
-            {
-                logger.Warn("Exception: ", ex);
-            }
-            logger.Debug("--");
-        }
-
-      
-
         private void toggleLimitsClick(object sender, RoutedEventArgs e)
         {
             logger.Debug("++");
@@ -695,19 +659,19 @@ namespace MercuryEngApp
         {
             TCDRequest requestObject = new TCDRequest();
             requestObject.ChannelID = channel;
-            double velocityPerUnitBaseline = 10;// (CurrentChannel.SpectrogramSetting.CurrentVelocityRange * 10) / (double)Constants.FFTSize;
+            double velocityPerUnitBaseline = (examViewModelObj.VelocityRange * 10) / (double)Constants.FFTSize;
             short posVelocity = 0, negVelocity = 0;
 
 
-            if (LeftBaselinePosition > 0)
+            if (examViewModelObj.BaselinePosition > 0)
             {
-                negVelocity = (short)((CustomSlider.Value + 1) * velocityPerUnitBaseline * -1);
-                posVelocity = (short)((Constants.FFTSize - CustomSlider.Value - 1) * velocityPerUnitBaseline);
+                negVelocity = (short)((examViewModelObj.SliderValue + 1) * velocityPerUnitBaseline * -1);
+                posVelocity = (short)((Constants.FFTSize - examViewModelObj.SliderValue - 1) * velocityPerUnitBaseline);
             }
             else
             {
-                posVelocity = (short)((Constants.FFTSize - CustomSlider.Value) * velocityPerUnitBaseline);
-                negVelocity = (short)(CustomSlider.Value * velocityPerUnitBaseline * -1);
+                posVelocity = (short)((Constants.FFTSize - examViewModelObj.SliderValue) * velocityPerUnitBaseline);
+                negVelocity = (short)(examViewModelObj.SliderValue * velocityPerUnitBaseline * -1);
             }
 
 
@@ -718,11 +682,8 @@ namespace MercuryEngApp
 
         private void spectrumBinCombobox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if (spectrumBinCombobox.SelectedIndex != -1)
-            {
-                Constants.SpectrumBin = Convert.ToInt32(spectrumBinCombobox.SelectedValue);
-                InitializeBitmap();
-            }
+            CusomSlider_LostMouseCapture(null, null);
+            InitializeBitmap();
         }       
 
         private void btnEnvelop_Checked(object sender, RoutedEventArgs e)
@@ -742,11 +703,7 @@ namespace MercuryEngApp
             NaGraph.RightSpectrogram.SpectrumEnvolope.PositiveFlowVisible = false;
             btnEnvelop.Content = "Envelope Off";
         }
-
-        private bool ValidateBlankFields(uint p)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 
 }

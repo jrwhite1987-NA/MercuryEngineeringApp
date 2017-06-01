@@ -499,7 +499,7 @@ namespace MercuryEngApp.Common
         /// <returns></returns>
         public static int GetMappedVelocityRange(int prf)
         {
-            int velocityRange = 308;
+            int velocityRange = PRFOptions.ThirdOption.DefaultVelocityRange; 
             switch (prf)
             {
                 case PRFOptions.FirstOption.PRF:
