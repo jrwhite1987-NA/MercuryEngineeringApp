@@ -142,6 +142,9 @@
     <Compile Include="Views\ExamUserControl.xaml.cs">
       <DependentUpon>ExamUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\FPGAUserControl.xaml.cs">
+      <DependentUpon>FPGAUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\InfoUserControl.xaml.cs">
       <DependentUpon>InfoUserControl.xaml</DependentUpon>
     </Compile>
@@ -176,6 +179,10 @@
     <Page Include="Views\ExamUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FPGAUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\InfoUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>

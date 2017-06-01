@@ -12,6 +12,7 @@ using System.Windows.Documents;
 using System.Xml;
 using UsbTcdLibrary.PacketFormats;
 using log4net;
+using MercuryEngApp.Views;
 
 
 namespace MercuryEngApp
@@ -102,6 +103,7 @@ namespace MercuryEngApp
                 InfoTab.Content = new InfoUserControl();
                 CalibrationTab.Content = new CalibrationUserControl();
                 PacketTab.Content = new PacketControl();
+                FPGATab.Content = new FPGAUserControl();
                 BtnLeftProbe.IsHitTestVisible = false;
                 BtnRightProbe.IsHitTestVisible = false;
 

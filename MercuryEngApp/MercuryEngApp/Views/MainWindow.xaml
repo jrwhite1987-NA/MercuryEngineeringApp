@@ -165,6 +165,15 @@
                                            FontFamily="Arial" />
                             </TabItem.Header>
                         </TabItem>
+
+                        <TabItem Width="165" Height="38" x:Name="FPGATab">
+                            <TabItem.Header>
+                                <TextBlock Text="FPGA"  
+                                           Foreground="White" 
+                                           FontSize="18" 
+                                           FontFamily="Arial" />
+                            </TabItem.Header>
+                        </TabItem>
                     </TabControl>
                 </Grid>
             </Grid>
