@@ -525,9 +525,11 @@
         
          <!--checkBox Style-->
         <Style x:Key="CheckBoxsize" TargetType="CheckBox">
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="Padding" Value="10"/>
-        </Style>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Padding" Value="10,0,0,10"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Margin" Value="0,-10,0,0"/>
+    </Style>
     
             <Style x:Key="FontStyleArial" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="Arial" />
