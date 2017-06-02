@@ -361,8 +361,8 @@
                                    Text="Calibration Override" 
                                    Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
                     </Border>
+                  
                     <Grid>
-
                         <Grid.RowDefinitions>
                             <RowDefinition Height="43"/>
                             <RowDefinition Height="30"/>
@@ -374,33 +374,18 @@
                                   Grid.Row="1"
                                   Margin="15,0,20,0" 
                                   VerticalAlignment="Center" 
+                            Content="Manually Enter Values"
                                   HorizontalAlignment="left"
+                            Checked="ManualValuesChecked"
                                   Style="{StaticResource ResourceKey=CheckBoxsize}"/>
 
-                        <TextBlock Height="17" 
-                                   Margin="40,0,15,0" 
-                                   Text="Manually Enter Values " 
-                                   Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                                   Grid.Column="0" 
-                                   Grid.Row="1"
-                                   VerticalAlignment="Center" 
-                                 HorizontalAlignment="Left"/>
-
-                        <CheckBox 
+                        <CheckBox x:Name="ManualSafety"
                                   Grid.Row="2"
                                   Margin="15,0,20,0" 
+                            Content="Safety Verified"
                                   VerticalAlignment="Center" 
                                   HorizontalAlignment="left"
                                   Style="{StaticResource ResourceKey=CheckBoxsize}"/>
-
-                        <TextBlock Height="17" 
-                                   Margin="40,0,15,0" 
-                                   Text="Safety Verified" 
-                                   Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                                   Grid.Column="0" 
-                                   Grid.Row="2"
-                                   VerticalAlignment="Center" 
-                                   HorizontalAlignment="Left"/>
 
                         <Button Content="Write Calibration" 
                                 Style="{StaticResource ResourceKey=ButtonStyle1}"

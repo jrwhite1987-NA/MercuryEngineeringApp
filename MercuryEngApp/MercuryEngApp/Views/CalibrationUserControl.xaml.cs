@@ -24,5 +24,10 @@ namespace MercuryEngApp
         {
             InitializeComponent();
         }
+
+        private void ManualValuesChecked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
