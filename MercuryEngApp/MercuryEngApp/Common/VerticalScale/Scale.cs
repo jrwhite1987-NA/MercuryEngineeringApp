@@ -16,7 +16,7 @@ namespace MercuryEngApp.Common
 
         private double TickPosition { get; set; }
 
-        public static void CreateScale(ScaleParameters param)
+        public  void CreateScale(ScaleParameters param)
         {
             Helper.logger.Debug("++");
             switch (param.ScaleType)
@@ -34,7 +34,7 @@ namespace MercuryEngApp.Common
             Helper.logger.Debug("--");
         }
 
-        private static void CreateScaleForSpectrogram(ScaleParameters param)
+        private void CreateScaleForSpectrogram(ScaleParameters param)
         {
             Helper.logger.Debug("++");
             try
@@ -86,7 +86,7 @@ namespace MercuryEngApp.Common
             Helper.logger.Debug("--");
         }
 
-        public static void CreateMmodeScale(Grid parentGrid, double minimum, double maximum)
+        public void CreateMmodeScale(Grid parentGrid, double minimum, double maximum)
         {
             try
             {
@@ -136,12 +136,12 @@ namespace MercuryEngApp.Common
             Helper.logger.Debug("--");
         }
 
-        private static double RoundOffCeiling(double maximum)
+        private double RoundOffCeiling(double maximum)
         {
             return (Math.Ceiling(maximum / Constants.VALUE_DOUBLE_10) * Constants.VALUE_10);
         }
 
-        private static double RoundOffFloor(double minimum)
+        private double RoundOffFloor(double minimum)
         {
             return (Math.Floor(minimum / Constants.VALUE_DOUBLE_10) * Constants.VALUE_10);
         }
@@ -151,7 +151,7 @@ namespace MercuryEngApp.Common
         /// <param name="velocityRange">The velocity range.</param>
         /// <param name="interval">The interval.</param>
         /// <returns>System.Double.</returns>
-        private static double GetTickPosition(double velocityRange, double interval, double spectumImgHeight)
+        private double GetTickPosition(double velocityRange, double interval, double spectumImgHeight)
         {
             double height = spectumImgHeight / Constants.VALUE_2;
             double tickPosition = (height * interval) / (velocityRange / Constants.VALUE_2);
@@ -163,7 +163,7 @@ namespace MercuryEngApp.Common
         /// </summary>
         /// <param name="velocityRange">The velocity range.</param>
         /// <returns>System.Int32.</returns>
-        private static int GetScaleInterval(int velocityRange)
+        private int GetScaleInterval(int velocityRange)
         {
             Helper.logger.Debug("++");
             var interval = Constants.VALUE_0;
