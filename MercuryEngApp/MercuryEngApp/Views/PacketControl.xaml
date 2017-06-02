@@ -208,8 +208,8 @@
                                   CanUserAddRows="False" 
                                   ItemsSource="{Binding}" 
                                   IsReadOnly="True"
+                                  CanUserSortColumns="False"
                                   Width="604">
-
                             <DataGrid.Columns >
                                 <DataGridTextColumn x:Name="Offset" Width="100" Binding="{Binding Path=Offset}" Header="Offset" />
                                 <DataGridTextColumn x:Name="cHx_00" Binding="{Binding Path=Hx_00}" Header="00" Width="30" />
