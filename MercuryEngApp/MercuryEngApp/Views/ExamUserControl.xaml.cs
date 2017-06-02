@@ -48,6 +48,8 @@ namespace MercuryEngApp
         /// </summary>
         private WriteableBitmap leftMModeBitmap;
 
+        private Scale scaleObj = new Scale();
+
         private NaGraph NaGraph { get; set; }
 
         public AudioWrapper TCDAudio { get; set; }       
@@ -169,7 +171,7 @@ namespace MercuryEngApp
             logger.Debug("++");            
             try
             {
-                Scale.CreateScale(new ScaleParameters
+                scaleObj.CreateScale(new ScaleParameters
                 {
                     ParentControl = scaleGrid,
                     ScreenCoords = examViewModelObj.ScreenCoords,
@@ -181,7 +183,7 @@ namespace MercuryEngApp
                 MmodeSetting mModeSetting = MmodeSetting.GetDepthRange((int)examViewModelObj.Depth);
                 customDepthSlider.Maximum = mModeSetting.MaxDepthDisplay;
                 customDepthSlider.Minimum = mModeSetting.MinDepthDisplay;
-                Scale.CreateMmodeScale(scaleDepthGrid, mModeSetting.MinDepthDisplay, mModeSetting.MaxDepthDisplay);
+                scaleObj.CreateMmodeScale(scaleDepthGrid, mModeSetting.MinDepthDisplay, mModeSetting.MaxDepthDisplay);
             }
             catch (Exception ex)
             {
@@ -425,7 +427,7 @@ namespace MercuryEngApp
                             MmodeSetting mModeSetting = MmodeSetting.GetDepthRange((int)examViewModelObj.Depth);
                             customDepthSlider.Maximum = mModeSetting.MaxDepthDisplay;
                             customDepthSlider.Minimum = mModeSetting.MinDepthDisplay;
-                            Scale.CreateMmodeScale(scaleDepthGrid, mModeSetting.MinDepthDisplay, mModeSetting.MaxDepthDisplay);
+                            scaleObj.CreateMmodeScale(scaleDepthGrid, mModeSetting.MinDepthDisplay, mModeSetting.MaxDepthDisplay);
                             customDepthSlider.Resources["textValue"] = Convert.ToInt32(customDepthSlider.Value).ToString();
                             customDepthSlider.InvalidateArrange();                          
                             LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.DepthSent);
@@ -534,8 +536,8 @@ namespace MercuryEngApp
                         if (examViewModelObj.SelectedPRF == examViewModelObj.PacketPRF)
                         {
                             examViewModelObj.VelocityRange = PRFOptions.GetMappedVelocityRange((int)examViewModelObj.SelectedPRF);
-                           
-                            Scale.CreateScale(new ScaleParameters
+
+                            scaleObj.CreateScale(new ScaleParameters
                             {
                                 ParentControl = scaleGrid,
                                 ScreenCoords = examViewModelObj.ScreenCoords,
@@ -568,8 +570,9 @@ namespace MercuryEngApp
             {
                 NaGraph.LeftSpectrogram.BaseLinePosition = examViewModelObj.BaselinePosition;
                 NaGraph.RightSpectrogram.BaseLinePosition = examViewModelObj.BaselinePosition;
-                examViewModelObj.ScreenCoords = Thumb.TransformToVisual(scaleGrid).Transform(new Point(0, 25));                
-                Scale.CreateScale(new ScaleParameters
+                examViewModelObj.ScreenCoords = Thumb.TransformToVisual(scaleGrid).Transform(new Point(0, 25));   
+                scaleObj.CreateScale(new ScaleParameters
+
                 {
                     ParentControl = scaleGrid,
                     ScreenCoords = examViewModelObj.ScreenCoords,
