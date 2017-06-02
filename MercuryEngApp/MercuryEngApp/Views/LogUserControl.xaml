@@ -4,42 +4,127 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="768" d:DesignWidth="1366">
+             d:DesignHeight="702" d:DesignWidth="1320">
+    
+        <!--<Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
+                      Width="1310" HorizontalAlignment="Center" Grid.ColumnSpan="2" Margin="5,1,5,32"/>-->
     <Grid>
-        <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
-                      Width="1360">
-        </Border>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50" />
-                <RowDefinition Height="530"/>
-            </Grid.RowDefinitions>
-            <Button Content="Close" 
-                    Style="{StaticResource ResourceKey=ButtonStyle1}"  
-                    Width="80" 
-                    Height="30" 
-                    Margin="0,0,10,0"
-                    HorizontalAlignment="Right"  
-                    Grid.Row="0"
-                    VerticalAlignment="Center"/>
+        
+        <Grid Name="MaximizeLog" HorizontalAlignment="Center" 
+              Margin="10,5,10,0" VerticalAlignment="top" Grid.ColumnSpan="2" >
+            <Border  VerticalAlignment="top" Height="680"
+                     Width="1290">
+                
+                <Grid Grid.Row="1" Height="680" VerticalAlignment="Top">
+                    <Grid HorizontalAlignment="Right" >
+                        <Button Width="17" 
+                                    Height="17"
+                                    Margin="62,8,0,0"
+                                    HorizontalAlignment="Left"  
+                                    VerticalAlignment="Top"
+                                    Click="Close_Click"
+                                     Style="{StaticResource ResourceKey=ButtonMaximise}"/>
 
-            <TextBox Name="tbMultiLine"
-                     Style="{StaticResource ResourceKey=RunningText}" 
-                     Grid.Row="1">
-                This TextBox will allow the user to enter multiple lines of text.  When the RETURN key is pressed, or when typed text reaches the edge of the text box, a new line is automatically inserted.
-                This TextBox will allow the user to enter multiple lines of text.  When the RETURN key is pressed, or when typed text reaches the edge of the text box, a new line is automatically inserted.
-                This TextBox will allow the user to enter multiple lines of text.  When the RETURN key is pressed, or when typed text reaches the edge of the text box, a new line is automatically inserted.
-                 This TextBox will allow the user to enter multiple lines of text.  When the RETURN key is pressed, or when typed text reaches the edge of the text box, a new line is automatically inserted.
-                This TextBox will allow the user to enter multiple lines of text.  When the RETURN key is pressed, or when typed text reaches the edge of the text box, a new line is automatically inserted.
-                This TextBox will allow the user to enter multiple lines of text.  When the RETURN key is pressed, or when typed text reaches the edge of the text box, a new line is automatically inserted.
-                 This TextBox will allow the user to enter multiple lines of text.  When the RETURN key is pressed, or when typed text reaches the edge of the text box, a new line is automatically inserted.
-                This TextBox will allow the user to enter multiple lines of text.  When the RETURN key is pressed, or when typed text reaches the edge of the text box, a new line is automatically inserted.
-                This TextBox will allow the user to enter multiple lines of text.  When the RETURN key is pressed, or when typed text reaches the edge of the text box, a new line is automatically inserted.
+                        <Button Width="17"
+                                    Height="17"
+                                    Margin="22,8,52,0"
+                                    VerticalAlignment="Top"
+                                    Click="ClearLogClick"
+                                    Style="{StaticResource ResourceKey=ButtonClear}" />
+                    </Grid>
+                    <TabControl Name="LogTabControl" Margin="0,5,0,0" BorderBrush="#FF0696F9" BorderThickness="2" Height="628" VerticalAlignment="Top" >
+                        <TabControl.Resources >
+                            <Style TargetType="TabPanel">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                            </Style>
+                            <Style TargetType="TabItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="TabItem">
+                                            <Border Name="Border" CornerRadius="4,4,0,0"
+                                                BorderThickness="2,2,2,0" 
+                                                Margin="-2,0,2,0">
+                                                <Border.BorderBrush>
+                                                    <SolidColorBrush Color="#FF0696F9" Opacity="0.5"/>
+                                                </Border.BorderBrush>
+                                                <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsSelected" Value="True">
 
-            </TextBox>
+                                                    <Setter TargetName="Border" Property="Background" >
+                                                        <Setter.Value>
+                                                            <SolidColorBrush Color="#FF0696F9" Opacity="0.3"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                                <Trigger Property="IsSelected" Value="False">
+                                                    <Setter TargetName="Border" Property="Background" >
+                                                        <Setter.Value>
+                                                            <SolidColorBrush Color="#FFE4ECF3" Opacity="0.2"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TabControl.Resources>
+                        <TabControl.Background>
+                            <SolidColorBrush Opacity="0" Color="#FF0696F9" />
+                        </TabControl.Background>
+                        <TabItem Width="120" 
+                                     Height="27" 
+                                     BorderBrush="#FF0696F9">
+                            <TabItem.Background>
+                                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                    <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                                    <GradientStop Color="#FFFDFBFB" Offset="1"/>
+                                </LinearGradientBrush>
+                            </TabItem.Background>
+                            <TabItem.Header>
+                                <TextBlock Text="Application Log" 
+                                           Foreground="White" 
+                                           FontSize="14" 
+                                           FontFamily="Arial" />
+                            </TabItem.Header>
+                            <TabItem.Content>
+                                <ScrollViewer Margin="10,2,8,1">
+                                    <TextBlock Name="AppLog"
+                                               Style="{StaticResource ResourceKey=WhiteLable15pt}" Padding="2,0,0,0"
+                                               Text="{Binding Path=ApplicationLog, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                               />
+                                </ScrollViewer>
+                            </TabItem.Content>
+                        </TabItem>
+                        <TabItem Width="120" 
+                                     Height="27" >
+                            <TabItem.Header>
 
+                                <TextBlock Text="TCD Log"  
+                                           Foreground="White" 
+                                           FontSize="14" 
+                                           FontFamily="Arial" />
 
+                            </TabItem.Header>
+                            <TabItem.Content>
+                                <ScrollViewer Margin="2,2,2,2">
+                                    <TextBlock Name="TCDLog" 
+                                               Style="{StaticResource ResourceKey=WhiteLable15pt}" 
+                                               Text="{Binding Path=TCDLog, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                Padding="2,0,0,0"/>
+                                </ScrollViewer>
+                            </TabItem.Content>
+                        </TabItem>
+
+                    </TabControl>
+                </Grid>
+            </Border>
         </Grid>
-
     </Grid>
 </UserControl>

@@ -13,6 +13,7 @@ using System.Xml;
 using UsbTcdLibrary.PacketFormats;
 using log4net;
 using MercuryEngApp.Views;
+using System.Windows.Controls;
 
 
 namespace MercuryEngApp
@@ -28,6 +29,8 @@ namespace MercuryEngApp
         internal bool isPowerOn;
         public static event TCDPower TurnTCDON;
         public static event TCDPower TurnTCDOFF;
+        public int previousIndex = 0;
+        public int LogSelectedTabIndex = 0;
         public MainViewModel mainViewModel = new MainViewModel();
         Action workAction;
         internal bool? IsPowerChecked
@@ -104,6 +107,7 @@ namespace MercuryEngApp
                 CalibrationTab.Content = new CalibrationUserControl();
                 PacketTab.Content = new PacketControl();
                 FPGATab.Content = new FPGAUserControl();
+                LogTab.Content = new LogUserControl();
                 BtnLeftProbe.IsHitTestVisible = false;
                 BtnRightProbe.IsHitTestVisible = false;
 
@@ -223,13 +227,31 @@ namespace MercuryEngApp
 
         private void ExpandClick(object sender, RoutedEventArgs e)
         {
-
+            previousIndex = NavigationTabs.SelectedIndex;
+            LogSelectedTabIndex = LogTabControl.SelectedIndex;
+            NavigationTabs.SelectedIndex = 5;
+            FooterTextBox.Visibility = Visibility.Collapsed;
         }
 
         private void ClearLogClick(object sender, RoutedEventArgs e)
         {
             mainViewModel.TCDLog = "";
             mainViewModel.ApplicationLog = "";
+        }
+
+        private void NavigationTabs_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (e.Source is TabControl)
+            {
+                if (NavigationTabs.SelectedIndex != 5)
+                {
+                    FooterTextBox.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    FooterTextBox.Visibility = Visibility.Collapsed;
+                }
+            }
         }
 
         //private void spectrumBinCombobox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

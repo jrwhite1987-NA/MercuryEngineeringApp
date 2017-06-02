@@ -35,7 +35,8 @@
               Grid.Column="0"
               VerticalAlignment="Top"
               HorizontalAlignment="Left" 
-              Margin='108,15,0,0'>
+              Margin='108,15,0,0'
+                   >
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="40"/>
@@ -79,9 +80,9 @@
               Width="1339" VerticalAlignment="Stretch" 
              HorizontalAlignment="Stretch">
                 <Grid>
-                    <TabControl x:Name="NavigationTabs"
+                    <TabControl x:Name="NavigationTabs" 
                         Height="705"
-                            VerticalAlignment="Top" BorderBrush="#FF0696F9" BorderThickness="2">
+                            VerticalAlignment="Top" BorderBrush="#FF0696F9" BorderThickness="2" SelectionChanged="NavigationTabs_SelectionChanged">
                         <TabControl.Resources >
                             <Style TargetType="TabPanel">
                                 <Setter Property="HorizontalAlignment" Value="Right"/>
@@ -174,6 +175,14 @@
                                            FontFamily="Arial" />
                             </TabItem.Header>
                         </TabItem>
+                        <TabItem Width="0" Height="0" x:Name="LogTab">
+                            <TabItem.Header>
+                                <TextBlock Text="Log"  
+                                           Foreground="White" 
+                                           FontSize="1" 
+                                           FontFamily="Arial" />
+                            </TabItem.Header>
+                        </TabItem>
                     </TabControl>
                 </Grid>
             </Grid>
@@ -202,7 +211,7 @@
                                     Click="ClearLogClick"
                                     Style="{StaticResource ResourceKey=ButtonClear}" />
                         </Grid>
-                        <TabControl Height="120" Margin="5,5,12,5"
+                        <TabControl Name="LogTabControl" Height="120" Margin="5,5,12,5"
                             VerticalAlignment="Top" BorderBrush="#FF0696F9" BorderThickness="2" >
                             <TabControl.Resources >
                                 <Style TargetType="TabPanel">

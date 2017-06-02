@@ -23,6 +23,26 @@ namespace MercuryEngApp.Views
         public LogUserControl()
         {
             InitializeComponent();
+            this.DataContext = App.mainWindow.mainViewModel;
+            Loaded += OnLogLoaded;
+            
+        }
+
+        private void OnLogLoaded(object sender, RoutedEventArgs e)
+        {
+            this.LogTabControl.SelectedIndex = App.mainWindow.LogSelectedTabIndex;
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            App.mainWindow.NavigationTabs.SelectedIndex = App.mainWindow.previousIndex;
+            App.mainWindow.FooterTextBox.Visibility = Visibility.Visible;
+        }
+
+        private void ClearLogClick(object sender, RoutedEventArgs e)
+        {
+            App.mainWindow.mainViewModel.TCDLog = "";
+            App.mainWindow.mainViewModel.ApplicationLog = "";
         }
     }
 }
