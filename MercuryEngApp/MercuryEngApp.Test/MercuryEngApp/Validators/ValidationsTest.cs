@@ -226,6 +226,10 @@ namespace MercuryEngApp.Test.MercuryEngApp.Validators
         }
         #endregion
 
+        /// <summary>
+        /// Writeoutput is console.
+        /// </summary>
+        /// <param name="result"></param>
         private void WriteOutput(ValidationResult result)
         {
             if (result.IsValid)
