@@ -93,7 +93,7 @@ namespace MercuryEngApp
                         break;
                 }
             };
-            //TestReview();
+           
             logger.Debug("--");
         }       
 
@@ -110,43 +110,9 @@ namespace MercuryEngApp
                 LogTab.Content = new LogUserControl();
                 BtnLeftProbe.IsHitTestVisible = false;
                 BtnRightProbe.IsHitTestVisible = false;
-
-                //spectrumBinCombobox.ItemsSource = Constants.SpectrumBinList;
+                
                 App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
                 await Dispatcher.BeginInvoke(workAction, System.Windows.Threading.DispatcherPriority.Normal, null);
-
-                //Task.Delay(4500).Wait();
-                //MainLayout.Visibility = Visibility.Visible;
-                //temp.Visibility = Visibility.Collapsed;
-            }
-            catch (Exception ex)
-            {
-                logger.Warn("Exception: ", ex);
-            }
-            logger.Debug("--");
-        }
-
-        public void TestReview()
-        {
-            logger.Debug("++");
-            try
-            {
-                List<ReadPointerModel> listReadPointerModel = new List<ReadPointerModel>();
-                ReadPointerModel readPointerModel = new ReadPointerModel();
-                readPointerModel.ChannelId = 1;
-                readPointerModel.ExamId = 13;
-                readPointerModel.ExamSnapShotId = 82;
-                readPointerModel.OffsetByte = 363372;
-                readPointerModel.RangeOffsetByte = 566000;
-                listReadPointerModel.Add(readPointerModel);
-                UsbTcd.TCDObj.ReadFromFileWithRange(13, listReadPointerModel);
-                List<DMIPmdDataPacket> ListDMIPmdDataPacket = UsbTcd.TCDObj.PacketQueue[82];
-                string json = JsonConvert.SerializeObject(ListDMIPmdDataPacket);
-                string jsonFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"LocalFolder\13-Channel1Json.txt");
-                System.IO.File.WriteAllText(jsonFilePath, json);
-                XmlDocument doc = JsonConvert.DeserializeXmlNode("{\"Row\":" + json + "}", "root");
-                string xmlFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"LocalFolder\13-Channel1Xml.xml");
-                doc.Save(xmlFilePath);
             }
             catch (Exception ex)
             {

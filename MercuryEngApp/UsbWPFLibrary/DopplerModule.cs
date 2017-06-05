@@ -214,8 +214,9 @@ namespace UsbTcdLibrary
         internal async Task<bool> ReadFile(int examId, int channelId)
         {
             try
-            {
-                //Logs.Instance.ErrorLog<DopplerModule>("Get file for examId:" + examId.ToString() + " channelId: " + channelId.ToString(), "ReadFile", Severity.Debug);
+            {   
+                Helper.logger.Debug("++");
+                Helper.logger.Debug("Get file for examId:" + examId.ToString() + " channelId: " + channelId.ToString());
 
                 string fileName = String.Format("{0}-Channel{1}.txt", examId, channelId);
 
@@ -229,15 +230,15 @@ namespace UsbTcdLibrary
                 }
                 else
                 {
-                    //Logs.Instance.ErrorLog<DopplerModule>("Recieved garbage value for Channel|" + channelId.ToString() + "|"
-                    //  + ExecutionConstants.MethodExecutionFail, "ReadFile", Severity.Warning);
+                    Helper.logger.Warn("Recieved garbage value for Channel|" + channelId.ToString() + "|" + ExecutionConstants.MethodExecutionFail);
                 }
 
                 StorageFile readFile = await ApplicationData.Current.LocalFolder.GetFileAsync(fileName);
 
                 if (readFile != null)
-                {
-                    //Logs.Instance.ErrorLog<DopplerModule>("Got storage file with file name:" + readFile.Name, "ReadFile", Severity.Debug);
+                {   
+                    Helper.logger.Debug("Got storage file with file name:" + readFile.Name);
+
                     byte[] fileBytes = await LoadFileData(channelId, readFile);
 
                     if (fileBytes != null)
@@ -247,13 +248,13 @@ namespace UsbTcdLibrary
                 }
                 else
                 {
-                    //Logs.Instance.ErrorLog<DopplerModule>("Got storage file with file name:" + (readFile.Name != null ? readFile.Name : string.Empty), "ReadFile", Severity.Debug);
+                    Helper.logger.Debug("Got storage file with file name:" + (readFile.Name != null ? readFile.Name : string.Empty));
                 }
                 return true;
             }
             catch (Exception ex)
-            {
-                //Logs.Instance.ErrorLog<DopplerModule>(ex, "ReadFile", Severity.Warning);
+            {   
+                Helper.logger.Warn("Exception: " + ex);
                 return false;
             }
         }
@@ -270,7 +271,8 @@ namespace UsbTcdLibrary
             ulong numPackets = 0;
             try
             {
-                //Logs.Instance.ErrorLog<DopplerModule>("Get file for examId:" + examId.ToString() + " channelId: " + channelId.ToString(), "ReadFile", Severity.Debug);
+                Helper.logger.Debug("++");                
+                Helper.logger.Debug("Get file for examId:" + examId.ToString() + " channelId: " + channelId.ToString());
 
                 string fileName = String.Format("{0}-Channel{1}.txt", examId, channelId);
 
@@ -284,8 +286,8 @@ namespace UsbTcdLibrary
                 }
                 else
                 {
-                    //Logs.Instance.ErrorLog<DopplerModule>("Recieved garbage value for Channel|" + channelId.ToString() + "|"
-                    //   + ExecutionConstants.MethodExecutionFail, "ReadFile", Severity.Warning);
+                    Helper.logger.Warn("Recieved garbage value for Channel|" + channelId.ToString() + "|"
+                     + ExecutionConstants.MethodExecutionFail);
                 }
 
                 StorageFile readFile = await ApplicationData.Current.LocalFolder.GetFileAsync(fileName);
@@ -293,7 +295,8 @@ namespace UsbTcdLibrary
 
                 if (readFile != null)
                 {
-                    //Logs.Instance.ErrorLog<DopplerModule>("Got storage file with file name:" + readFile.Name, "ReadFile", Severity.Debug);
+                    Helper.logger.Warn("Got storage file with file name:" + readFile.Name);
+
                     using (var stream = await readFile.OpenReadAsync())
                     {
                         //read a single packet at a time and append the positive mean velocity to the list
@@ -342,15 +345,18 @@ namespace UsbTcdLibrary
                 }
                 else
                 {
-                    //Logs.Instance.ErrorLog<DopplerModule>("Got storage file with file name:" + (readFile.Name != null ? readFile.Name : string.Empty), "ReadFile", Severity.Debug);
+                    Helper.logger.Warn("Got storage file with file name:" + (readFile.Name != null ? readFile.Name : string.Empty));
                 }
                 return numPackets;
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<DopplerModule>(ex, "ReadFile", Severity.Warning);
-                return numPackets;
+                Helper.logger.Warn("Exception: " + ex);                
             }
+
+            Helper.logger.Debug("--");
+
+            return numPackets;
         }
 
         /// <summary>
@@ -362,6 +368,8 @@ namespace UsbTcdLibrary
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
         internal async Task<bool> ReadFile(int examId, Dictionary<int, int> ReadPointerListCh1, Dictionary<int, int> ReadPointerListCh2)
         {
+            Helper.logger.Debug("++");
+
             bool result = false;
             try
             {
@@ -383,9 +391,13 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<DopplerModule>(ex, "ReadFile", Severity.Warning);
-                return result;
+                Helper.logger.Warn("Exception: " + ex);
+               
             }
+
+            Helper.logger.Debug("--");
+
+            return result;
         }
 
         /// <summary>
@@ -397,7 +409,10 @@ namespace UsbTcdLibrary
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
         internal async Task<bool> ReadFileWithRange(int examId, List<ReadPointerModel> ListReadPointerModelCh1, List<ReadPointerModel> ListReadPointerModelCh2)
         {
+            Helper.logger.Debug("--");
+
             bool result = false;
+
             try
             {
                 if (ListReadPointerModelCh1.Count > 0)
@@ -418,9 +433,12 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<DopplerModule>(ex, "ReadFile", Severity.Warning);
-                return result;
+                Helper.logger.Warn("Exception: " + ex);                
             }
+
+            Helper.logger.Debug("--");
+
+            return result;
         }
 
 
@@ -434,6 +452,8 @@ namespace UsbTcdLibrary
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
         internal async Task<bool> ReadFileWithRange(int examId, List<ReadPointerModel> ListReadPointerModelCh1)
         {
+            Helper.logger.Debug("++");
+
             bool result = false;
             try
             {
@@ -448,21 +468,28 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<DopplerModule>(ex, "ReadFile", Severity.Warning);
-                return result;
+                Helper.logger.Warn("Exception: " + ex);                   
             }
+
+            Helper.logger.Debug("--");
+
+            return result;
         }
 
         internal void ReadPacketFromFile(string fileName, int offsetByte, ref byte[] byteArray)
         {
+            Helper.logger.Debug("++");
+
             try
             {
                 LoadDataFromFile(fileName, offsetByte, ref byteArray);
             }
             catch (Exception ex)
             {
-
+                Helper.logger.Warn("Exception: " + ex);              
             }
+
+            Helper.logger.Debug("--");
         }
 
 
@@ -475,24 +502,38 @@ namespace UsbTcdLibrary
         {
             int i = 0;
             byte dump;
-            byte[] tempArray = new byte[DMIProtocol.PACKET_SIZE];
-            //Logs.Instance.ErrorLog<DopplerModule>("Enqueue all bytes to File Buffer for Channel|" + channelId.ToString(), "ConvertToPacket", Severity.Debug);
-            for (i = Constants.VALUE_0; i < fileBytes.Length; i++)
+            Helper.logger.Debug("++");
+
+            try
             {
-                DopplerModule.readFileBuffer.Enqueue(fileBytes[i]);
-            }
-            //Logs.Instance.ErrorLog<DopplerModule>("Packet conversion started for channel:" + channelId.ToString(), "ConvertToPacket", Severity.Debug);
-            while (readFileBuffer.Count() >= DMIProtocol.FilePacketSize)
-            {
-                byte[] arr = readFileBuffer.Take<byte>(DMIProtocol.SYNC_SIZE).ToArray<byte>();
-                ulong syncId = BitConverter.ToUInt64(arr, Constants.VALUE_0);
-                dump = ReadNextSync(ref arr, ref syncId);
-                if (syncId == DMIProtocol.DMI_PACKET_SYNC)
+                byte[] tempArray = new byte[DMIProtocol.PACKET_SIZE];
+                Helper.logger.Debug("Enqueue all bytes to File Buffer for Channel|" + channelId.ToString());
+
+                for (i = Constants.VALUE_0; i < fileBytes.Length; i++)
                 {
-                    PacketEnqueue(channelId, ref dump, ref tempArray);
+                    DopplerModule.readFileBuffer.Enqueue(fileBytes[i]);
+                }
+                
+                Helper.logger.Debug("Packet conversion started for channel:" + channelId.ToString());
+
+                while (readFileBuffer.Count() >= DMIProtocol.FilePacketSize)
+                {
+                    byte[] arr = readFileBuffer.Take<byte>(DMIProtocol.SYNC_SIZE).ToArray<byte>();
+                    ulong syncId = BitConverter.ToUInt64(arr, Constants.VALUE_0);
+                    dump = ReadNextSync(ref arr, ref syncId);
+                    if (syncId == DMIProtocol.DMI_PACKET_SYNC)
+                    {
+                        PacketEnqueue(channelId, ref dump, ref tempArray);
+                    }
                 }
             }
-            //Logs.Instance.ErrorLog<DopplerModule>("Packet conversion completed for Channel|" + channelId.ToString(), "ConvertToPacket", Severity.Debug);
+            catch (Exception ex)
+            {
+                Helper.logger.Warn("Exception: " + ex);
+            }
+
+            Helper.logger.Debug("Packet conversion completed for Channel|" + channelId.ToString());
+            Helper.logger.Debug("--");
         }
 
         /// <summary>
@@ -502,26 +543,43 @@ namespace UsbTcdLibrary
         /// <param name="fileBytes">The file bytes.</param>
         private void ExtractCVRInfo(int channelId, byte[] fileBytes)
         {
+            Helper.logger.Debug("++");
+
             int i = 0;
             byte dump;
-            byte[] tempArray = new byte[DMIProtocol.PACKET_SIZE];
-            //Logs.Instance.ErrorLog<DopplerModule>("Enqueue all bytes to File Buffer for Channel|" + channelId.ToString(), "ConvertToPacket", Severity.Debug);
-            for (i = Constants.VALUE_0; i < fileBytes.Length; i++)
+
+            try
             {
-                readFileBuffer.Enqueue(fileBytes[i]);
-            }
-            //Logs.Instance.ErrorLog<DopplerModule>("Packet conversion started for channel:" + channelId.ToString(), "ConvertToPacket", Severity.Debug);
-            while (readFileBuffer.Count() >= DMIProtocol.FilePacketSize)
-            {
-                byte[] arr = readFileBuffer.Take<byte>(DMIProtocol.SYNC_SIZE).ToArray<byte>();
-                ulong syncId = BitConverter.ToUInt64(arr, Constants.VALUE_0);
-                dump = ReadNextSync(ref arr, ref syncId);
-                if (syncId == DMIProtocol.DMI_PACKET_SYNC)
+                byte[] tempArray = new byte[DMIProtocol.PACKET_SIZE];
+                Helper.logger.Debug("Enqueue all bytes to File Buffer for Channel|" + channelId.ToString());
+
+                for (i = Constants.VALUE_0; i < fileBytes.Length; i++)
                 {
-                    CVREnqueue(channelId, ref dump, ref tempArray);
+                    readFileBuffer.Enqueue(fileBytes[i]);
                 }
+
+                Helper.logger.Debug("Packet conversion started for channel:" + channelId.ToString());
+
+                while (readFileBuffer.Count() >= DMIProtocol.FilePacketSize)
+                {
+                    byte[] arr = readFileBuffer.Take<byte>(DMIProtocol.SYNC_SIZE).ToArray<byte>();
+                    ulong syncId = BitConverter.ToUInt64(arr, Constants.VALUE_0);
+                    dump = ReadNextSync(ref arr, ref syncId);
+                    if (syncId == DMIProtocol.DMI_PACKET_SYNC)
+                    {
+                        CVREnqueue(channelId, ref dump, ref tempArray);
+                    }
+                }
+
+                Helper.logger.Debug("Packet conversion completed for Channel|" + channelId.ToString());
             }
-            //Logs.Instance.ErrorLog<DopplerModule>("Packet conversion completed for Channel|" + channelId.ToString(), "ConvertToPacket", Severity.Debug);
+            catch (Exception ex)
+            {
+                Helper.logger.Warn("Exception: " + ex);
+            }
+
+            Helper.logger.Debug("--");
+            
         }
 
         /// <summary>
@@ -532,27 +590,38 @@ namespace UsbTcdLibrary
         /// <param name="tempArray">The temporary array.</param>
         private void PacketEnqueue(int channelId, ref byte dump, ref byte[] tempArray)
         {
-            //Logs.Instance.ErrorLog<DopplerModule>("create packetQueue for channelId| " + channelId.ToString(), "PacketEnqueue", Severity.Debug);
+            Helper.logger.Debug("++");
 
-            tempArray = readFileBuffer.Take<byte>(DMIProtocol.FilePacketSize).ToArray<byte>();
-            for (int l = Constants.VALUE_0; l < DMIProtocol.FilePacketSize; l++)
+            try
             {
-                readFileBuffer.TryDequeue(out dump);
+                Helper.logger.Debug("create packetQueue for channelId| " + channelId.ToString());
+
+                tempArray = readFileBuffer.Take<byte>(DMIProtocol.FilePacketSize).ToArray<byte>();
+                for (int l = Constants.VALUE_0; l < DMIProtocol.FilePacketSize; l++)
+                {
+                    readFileBuffer.TryDequeue(out dump);
+                }
+
+                if (tempArray.Length >= DMIProtocol.FilePacketSize)
+                {
+                    if (channelId == DMIProtocol.DMI_CHANNEL_ONE)
+                    {
+                        packetQueueChannel1.Add(GetShortCVRPacket(tempArray));
+                    }
+                    if (channelId == DMIProtocol.DMI_CHANNEL_TWO)
+                    {
+                        packetQueueChannel2.Add(GetShortCVRPacket(tempArray));
+                    }
+                }
+
+                Helper.logger.Debug("packetQueue creation completed for channelId| " + channelId.ToString());                
+            }
+            catch (Exception ex)
+            {
+                Helper.logger.Warn("Exception:" + ex);
             }
 
-            if (tempArray.Length >= DMIProtocol.FilePacketSize)
-            {
-                if (channelId == DMIProtocol.DMI_CHANNEL_ONE)
-                {
-                    packetQueueChannel1.Add(GetShortCVRPacket(tempArray));
-                }
-                if (channelId == DMIProtocol.DMI_CHANNEL_TWO)
-                {
-                    packetQueueChannel2.Add(GetShortCVRPacket(tempArray));
-                }
-            }
-
-            //Logs.Instance.ErrorLog<DopplerModule>("packetQueue creation completed for channelId| " + channelId.ToString(), "PacketEnqueue", Severity.Debug);
+            Helper.logger.Debug("--");
         }
 
         /// <summary>
@@ -563,27 +632,37 @@ namespace UsbTcdLibrary
         /// <param name="tempArray">The temporary array.</param>
         private void CVREnqueue(int channelId, ref byte dump, ref byte[] tempArray)
         {
-            //Logs.Instance.ErrorLog<DopplerModule>("create packetQueue for channelId| " + channelId.ToString(), "PacketEnqueue", Severity.Debug);
-
-            tempArray = readFileBuffer.Take<byte>(DMIProtocol.FilePacketSize).ToArray<byte>();
-            for (int l = Constants.VALUE_0; l < DMIProtocol.FilePacketSize; l++)
+            Helper.logger.Debug("++");
+            try
             {
-                readFileBuffer.TryDequeue(out dump);
+                Helper.logger.Debug("create packetQueue for channelId| " + channelId.ToString());
+
+                tempArray = readFileBuffer.Take<byte>(DMIProtocol.FilePacketSize).ToArray<byte>();
+                for (int l = Constants.VALUE_0; l < DMIProtocol.FilePacketSize; l++)
+                {
+                    readFileBuffer.TryDequeue(out dump);
+                }
+
+                if (tempArray.Length >= DMIProtocol.FilePacketSize)
+                {
+                    if (channelId == DMIProtocol.DMI_CHANNEL_ONE)
+                    {
+                        cvrDataChannel1.Add(BitConverter.ToInt16(tempArray, Envelop.PosMean));
+                    }
+                    if (channelId == DMIProtocol.DMI_CHANNEL_TWO)
+                    {
+                        cvrDataChannel2.Add(BitConverter.ToInt16(tempArray, Envelop.PosMean));
+                    }
+                }
+                
+                Helper.logger.Debug("packetQueue creation completed for channelId| " + channelId.ToString());
+            }
+            catch (Exception ex)
+            {
+                Helper.logger.Warn("Exception: " + ex);
             }
 
-            if (tempArray.Length >= DMIProtocol.FilePacketSize)
-            {
-                if (channelId == DMIProtocol.DMI_CHANNEL_ONE)
-                {
-                    cvrDataChannel1.Add(BitConverter.ToInt16(tempArray, Envelop.PosMean));
-                }
-                if (channelId == DMIProtocol.DMI_CHANNEL_TWO)
-                {
-                    cvrDataChannel2.Add(BitConverter.ToInt16(tempArray, Envelop.PosMean));
-                }
-            }
-
-            //Logs.Instance.ErrorLog<DopplerModule>("packetQueue creation completed for channelId| " + channelId.ToString(), "PacketEnqueue", Severity.Debug);
+            Helper.logger.Debug("--");
         }
 
         /// <summary>
@@ -595,21 +674,33 @@ namespace UsbTcdLibrary
         private static byte ReadNextSync(ref byte[] arr, ref ulong syncId)
         {
             byte dump = 0;
-            //Logs.Instance.ErrorLog<DopplerModule>("Read Next Sync begins for syncId| " + syncId.ToString(), "ReadNextSync", Severity.Debug);
-            while (syncId != DMIProtocol.DMI_PACKET_SYNC)
-            {
-                readFileBuffer.TryDequeue(out dump);
-                while (readFileBuffer.First() != DMIProtocol.SYNCID_FIRSTBYTE)
+
+            try
+            {   
+                Helper.logger.Debug("Read Next Sync begins for syncId| " + syncId.ToString());
+
+                while (syncId != DMIProtocol.DMI_PACKET_SYNC)
                 {
                     readFileBuffer.TryDequeue(out dump);
+                    while (readFileBuffer.First() != DMIProtocol.SYNCID_FIRSTBYTE)
+                    {
+                        readFileBuffer.TryDequeue(out dump);
+                    }
+                    if (readFileBuffer.Count() >= DMIProtocol.SYNC_SIZE)
+                    {
+                        arr = readFileBuffer.Take<byte>(DMIProtocol.SYNC_SIZE).ToArray<byte>();
+                        syncId = BitConverter.ToUInt64(arr, Constants.VALUE_0);
+                    }
                 }
-                if (readFileBuffer.Count() >= DMIProtocol.SYNC_SIZE)
-                {
-                    arr = readFileBuffer.Take<byte>(DMIProtocol.SYNC_SIZE).ToArray<byte>();
-                    syncId = BitConverter.ToUInt64(arr, Constants.VALUE_0);
-                }
+
+                Helper.logger.Debug("Read Next Sync ends for syncId| " + syncId.ToString());
             }
-            //Logs.Instance.ErrorLog<DopplerModule>("Read Next Sync ends for syncId| " + syncId.ToString(), "ReadNextSync", Severity.Debug);
+            catch (Exception ex)
+            {
+                Helper.logger.Warn("Exception: " + ex);
+            }
+
+            Helper.logger.Debug("--");
             return dump;
         }
 
@@ -621,8 +712,10 @@ namespace UsbTcdLibrary
         /// <returns>Task&lt;System.Byte[]&gt;.</returns>
         private static async Task<byte[]> LoadFileData(int channelId, StorageFile readFile)
         {
-            //Logs.Instance.ErrorLog<DopplerModule>("await to load file data- file name:" +
-            //  (readFile.Name != null ? readFile.Name : string.Empty), "ReadFile", Severity.Debug);
+            Helper.logger.Debug("++");
+            Helper.logger.Debug("await to load file data- file name:" +
+              (readFile.Name != null ? readFile.Name : string.Empty));
+            
             byte[] fileBytes = null;
             try
             {
@@ -631,22 +724,23 @@ namespace UsbTcdLibrary
                 {
                     fileBytes = new byte[stream.Size];
                     using (var reader = new DataReader(stream))
-                    {
-                        //Logs.Instance.ErrorLog<DopplerModule>("reader.LoadAsync for Channel|" + channelId.ToString() +
-                        // "|" + ExecutionConstants.MethodExecutionFail, "LoadFileData",
-                        //Severity.Debug);
+                    {   
+                        Helper.logger.Debug("reader.LoadAsync for Channel|" + channelId.ToString() +
+                         "|" + ExecutionConstants.MethodExecutionFail);
+
                         await reader.LoadAsync((uint)stream.Size);
                         reader.ReadBytes(fileBytes);
                     }
                 }
 
-                //Logs.Instance.ErrorLog<DopplerModule>("Loaded data of size: " +
-                //  (fileBytes != null ? fileBytes.Length.ToString() : string.Empty), "LoadFileData", Severity.Debug);
+                Helper.logger.Debug("Loaded data of size: " +
+                (fileBytes != null ? fileBytes.Length.ToString() : string.Empty));                
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<DopplerModule>(ex, "LoadFileData", Severity.Critical);
+                Helper.logger.Warn("Exception: " + ex);
             }
+
             return fileBytes;
         }
 
@@ -660,6 +754,8 @@ namespace UsbTcdLibrary
         private async Task<bool> LoadFileData(int channelId, StorageFile readFile, Dictionary<int, int> readFromByte)
         {
             byte[] fileBytes = null;
+            Helper.logger.Debug("++");
+
             try
             {
                 //Reads required bytes from given position
@@ -693,7 +789,7 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<DopplerModule>(ex, "LoadFileData", Severity.Critical);
+                Helper.logger.Warn("Exception: " + ex);               
                 return false;
             }
             finally
@@ -701,6 +797,7 @@ namespace UsbTcdLibrary
                 packetQueueChannel1.Clear();
                 packetQueueChannel2.Clear();
                 fileBytes = null;
+                Helper.logger.Debug("--");
             }
         }
 
@@ -713,6 +810,8 @@ namespace UsbTcdLibrary
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
         private async Task<bool> LoadFileData(int channelId, StorageFile readFile, List<ReadPointerModel> readPointerList)
         {
+            Helper.logger.Debug("++");
+
             byte[] fileBytes = null;
             try
             {
@@ -756,7 +855,7 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<DopplerModule>(ex, "LoadFileData", Severity.Critical);
+                Helper.logger.Warn("Exception: " + ex);                
                 return false;
             }
             finally
@@ -764,6 +863,7 @@ namespace UsbTcdLibrary
                 packetQueueChannel1.Clear();
                 packetQueueChannel2.Clear();
                 fileBytes = null;
+                Helper.logger.Debug("--");
             }
         }
 
@@ -776,6 +876,7 @@ namespace UsbTcdLibrary
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
         private async Task<bool> LoadFileData(int channelId, string FilePath, List<ReadPointerModel> readPointerList)
         {
+            Helper.logger.Debug("++");
             byte[] fileBytes = null;
             try
             {
@@ -820,7 +921,7 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<DopplerModule>(ex, "LoadFileData", Severity.Critical);
+                Helper.logger.Warn("Exception: " + ex);
                 return false;
             }
             finally
@@ -828,11 +929,14 @@ namespace UsbTcdLibrary
                 packetQueueChannel1.Clear();
                 packetQueueChannel2.Clear();
                 fileBytes = null;
+                Helper.logger.Debug("--");
             }
         }
 
         private void LoadDataFromFile(string filePath, int offsetByte, ref byte[] byteArray)
         {
+            Helper.logger.Debug("++");
+
             try
             {
                 FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
@@ -863,22 +967,35 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<DopplerModule>(ex, "LoadFileData", Severity.Critical);               
+                Helper.logger.Warn("Exception: " + ex);
             }
             finally
             {
                 packetQueueChannel1.Clear();
                 packetQueueChannel2.Clear();
+                Helper.logger.Debug("--");
             }
         }
 
         public DMIPmdDataPacket GetPacketDetails(byte[] byteArray)
         {
-            if (byteArray != null)
+            Helper.logger.Debug("++");
+            DMIPmdDataPacket dMIPmdDataPacket = null;
+
+            try
             {
-                return GetSinglePacket(byteArray, Constants.VALUE_1);
+                if (byteArray != null)
+                {
+                    dMIPmdDataPacket = GetSinglePacket(byteArray, Constants.VALUE_1);
+                }
             }
-            return null;
+            catch (Exception ex)
+            {
+                Helper.logger.Warn("Exception " + ex);
+            }
+
+            Helper.logger.Debug("--");
+            return dMIPmdDataPacket;
         }
 
         /// <summary>
@@ -886,31 +1003,29 @@ namespace UsbTcdLibrary
         /// </summary>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         internal bool ReleaseTCDHandle()
-        {
-            //Logs.Instance.ErrorLog<DopplerModule>("Release TCD Handle begins", "ReleaseTCDHandle", Severity.Debug);
+        {   
+            Helper.logger.Debug("Release TCD Handle begins");
 
-            string RELEASE_READ_EVENT_HANDLER = "Released 'FormPacketsFromArray' and 'TCDHandler.Current.ReadTCDData' events handler.";
             try
             {
                 OnPacketFormationDual = null;
                 TCDHandler.OnTCDReadDual -= FormPacketsFromArray;
                 TCDHandler.OnTCDReadDual -= TCDHandler.Current.ReadTCDData;
-                //Logs.Instance.ErrorLog<DopplerModule>(RELEASE_READ_EVENT_HANDLER, "ReleaseTCDHandle", Severity.Debug);
+                Helper.logger.Debug("Released 'FormPacketsFromArray' and 'TCDHandler.Current.ReadTCDData' events handler");
                 //Resting the packet form counter.
                 counterPacketForm = 0;
-                //Logs.Instance.ErrorLog<DopplerModule>(MessageConstants.ExamTCDOff, "ReleaseTCDHandle", Severity.Error);
+                Helper.logger.Debug(MessageConstants.ExamTCDOff);                
                 TCDHandler.Current.CloseDevice();
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<DopplerModule>(ex, "ReleaseTCDHandle", Severity.Warning);
+                Helper.logger.Warn("Exception: " + ex);                
             }
             finally
             {
-                RELEASE_READ_EVENT_HANDLER = null;
-
-                //Logs.Instance.ErrorLog<DopplerModule>("Release TCD Handle ends", "ReleaseTCDHandle", Severity.Debug);
+                Helper.logger.Debug("Release TCD Handle ends");                
             }
+
             return !TCDHandler.Current.isTCDWorking;
         }
 
@@ -920,19 +1035,23 @@ namespace UsbTcdLibrary
         /// <returns>Task.</returns>
         internal async Task InitializeProbeEvents()
         {
-            await SendClearBufferCommand(TCDHandles.Channel1, EndpointNumber.EventMessage);
-            await SendClearBufferCommand(TCDHandles.Channel2, EndpointNumber.EventMessage);
-            InitializeProbeEvents(null);
-            //CheckProbeTimer =
-            //   ThreadPoolTimer.CreatePeriodicTimer(InitializeProbeEvents, TimeSpan.FromMinutes(Constants.VALUE_50));
+            try
+            {
+                await SendClearBufferCommand(TCDHandles.Channel1, EndpointNumber.EventMessage);
+                await SendClearBufferCommand(TCDHandles.Channel2, EndpointNumber.EventMessage);
+                InitializeProbeEvents(null);
+            }
+            catch (Exception ex)
+            {
+                Helper.logger.Warn("Exception: " + ex);
+            }
         }
 
         /// <summary>
         /// Initializes the probe events.
         /// </summary>
         /// <param name="timer">The timer.</param>
-        private async void InitializeProbeEvents(ThreadPoolTimer timer)
-        //private async void InitializeProbeEvents1()
+        private async void InitializeProbeEvents(ThreadPoolTimer timer)        
         {
             try
             {
@@ -982,7 +1101,7 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<DopplerModule>(ex, "InitializeProbeEvents", Severity.Warning);
+                Helper.logger.Warn("Exception: " + ex);
             }
         }
 
@@ -995,16 +1114,16 @@ namespace UsbTcdLibrary
         /// <returns>System.UInt32.</returns>
         internal async Task<uint> SendDopplerCommand(TCDHandles channel, DopplerParameters parameter, uint content)
         {
-            //Logs.Instance.ErrorLog<DopplerModule>("SendDopplerCommand begins for channel:" + channel.ToString() + " Doppler parameter: " + parameter.ToString() + " content: "
-            //  + content.ToString(),
-            //"SendDopplerCommand", Severity.Debug);
+            Helper.logger.Debug("SendDopplerCommand begins for channel:" + channel.ToString() + " Doppler parameter: " + parameter.ToString() + " content: "
+              + content.ToString());
+            
             try
             {
                 return await TCDHandler.Current.SendControlCommandAsync(channel, DMIProtocol.DMI_CMD_DOPPLER, (uint)parameter, content);
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<DopplerModule>(ex, "SendDopplerCommand", Severity.Warning);
+                Helper.logger.Warn("Exception: "+ ex);
                 return 0;
             }
         }
@@ -1018,15 +1137,15 @@ namespace UsbTcdLibrary
         /// <returns>System.UInt32.</returns>
         internal async Task<uint> SetPRF(TCDHandles channel, uint PRF, byte startDepth)
         {
-            //Logs.Instance.ErrorLog<DopplerModule>("Set PRF begins for channel:" + channel.ToString() + " PRF : " + PRF.ToString() + " startDepth: " + startDepth.ToString(),
-            //  "SetPRF", Severity.Debug);
+            Helper.logger.Debug("Set PRF begins for channel:" + channel.ToString() + " PRF : " + PRF.ToString() + " startDepth: " + startDepth.ToString());
+
             try
             {
                 return await TCDHandler.Current.SetPRFAsync(channel, PRF, startDepth);
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<DopplerModule>(ex, "SetPRF", Severity.Warning);
+                Helper.logger.Warn("Exception: " + ex);
                 return 0;
             }
         }
@@ -1040,9 +1159,7 @@ namespace UsbTcdLibrary
         /// <returns>System.UInt32.</returns>
         internal uint SetEnvelopeRange(TCDHandles channel, short posMaxVelocity, short negMaxVelocity)
         {
-            //Logs.Instance.ErrorLog<DopplerModule>("SetEnvelopeRange begins for channel:" + channel.ToString() + " posMaxVelocity : " + posMaxVelocity.ToString()
-            // + " negMaxVelocity: " + negMaxVelocity.ToString(),
-            //    "SetEnvelopeRange", Severity.Debug);
+            Helper.logger.Debug("SetEnvelopeRange begins for channel:" + channel.ToString() + " posMaxVelocity : " + posMaxVelocity.ToString());
 
             try
             {
@@ -1050,7 +1167,7 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<DopplerModule>(ex, "SetEnvelopeRange", Severity.Warning);
+                Helper.logger.Warn("Exception: " + ex);
                 return 0;
             }
         }
@@ -1063,15 +1180,14 @@ namespace UsbTcdLibrary
         /// <returns>System.UInt32.</returns>
         internal async Task<uint> SendClearBufferCommand(TCDHandles channel, EndpointNumber endpoint)
         {
-            //Logs.Instance.ErrorLog<DopplerModule>("SendClearBufferCommand begins for channel:" + channel.ToString() + " endpoint : " + endpoint.ToString(),
-            //   "SendClearBufferCommand", Severity.Debug);
+            Helper.logger.Debug("SendClearBufferCommand begins for channel:" + channel.ToString() + " endpoint : " + endpoint.ToString());
             try
             {
                 return await TCDHandler.Current.SendControlCommandAsync(channel, DMIProtocol.DMI_CMD_CLEAR_BUFFER, (uint)endpoint, 0);
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<DopplerModule>(ex, "SendClearBufferCommand", Severity.Warning);
+                Helper.logger.Warn("Exception: " + ex);
                 return 0;
             }
         }
@@ -1082,7 +1198,7 @@ namespace UsbTcdLibrary
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         internal bool StartDopplerData()
         {
-            //Logs.Instance.ErrorLog<DopplerModule>("StartDopplerData begins ", "StartDopplerData", Severity.Debug);
+            Helper.logger.Debug("StartDopplerData begins");
 
             try
             {
@@ -1100,7 +1216,7 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<DopplerModule>(ex, "StartDopplerData", Severity.Warning);
+                Helper.logger.Warn("Exception: " + ex);
                 return false;
             }
         }
@@ -1111,7 +1227,7 @@ namespace UsbTcdLibrary
         /// <param name="channel">The channel.</param>
         private async void SendCommandToDoppler(TCDHandles channel)
         {
-            //Logs.Instance.ErrorLog<DopplerModule>("SendCommandToDoppler begins for channel:" + channel.ToString(), "SendCommandToDoppler", Severity.Debug);
+            Helper.logger.Debug("SendCommandToDoppler begins for channel:" + channel.ToString());
             try
             {
                 //Clear Buffer for all endpoints
@@ -1137,10 +1253,10 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<DopplerModule>(ex, "SendCommandToDoppler", Severity.Warning);
+                Helper.logger.Warn("Exception: " + ex);
             }
 
-            //Logs.Instance.ErrorLog<DopplerModule>("SendCommandToDoppler ends ", "SendCommandToDoppler", Severity.Debug);
+            Helper.logger.Debug("SendCommandToDoppler ends");
         }
 
         /// <summary>
@@ -1148,28 +1264,23 @@ namespace UsbTcdLibrary
         /// </summary>
         internal void PacketsFromTCD()
         {
-            //Logs.Instance.ErrorLog<DopplerModule>("async PacketsFromTCD begins", "PacketsFromTCD", Severity.Debug);
+            Helper.logger.Debug("async PacketsFromTCD begins");
             try
             {
                 if (TCDHandler.Current.Channel1.IsChannelEnabled | TCDHandler.Current.Channel2.IsChannelEnabled)
                 {
                     TCDHandler.OnTCDReadDual += TCDHandler.Current.ReadTCDData;
-                    TCDHandler.OnTCDReadDual += FormPacketsFromArray;
-                    //handle messages
-                    //msgTimer.Tick += MessageTimerTick;
-                    //msgTimer.Interval = new TimeSpan(0, 0, 1);
+                    TCDHandler.OnTCDReadDual += FormPacketsFromArray;                   
                     TCDHandler.ChannelMessage += DecodeMessage;
                     t1.Start();
-
-                    TCDHandler.Current.ReadTCDData().Start();
-                    //msgTimer.Start();
+                    TCDHandler.Current.ReadTCDData().Start();                    
                 }
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<DopplerModule>(ex, "PacketsFromTCD", Severity.Warning);
+                Helper.logger.Warn("Exception: " + ex);
             }
-            //Logs.Instance.ErrorLog<DopplerModule>("async PacketsFromTCD ends", "PacketsFromTCD", Severity.Debug);
+            Helper.logger.Debug("async PacketsFromTCD ends");
         }
 
         /// <summary>
@@ -1192,7 +1303,7 @@ namespace UsbTcdLibrary
             //checks if there is enough data to form a packet
             ulong syncId = Constants.VALUE_0;
             ulong syncIdR = Constants.VALUE_0;
-            //Logs.Instance.ErrorLog<DopplerModule>("Packet formation from array begins", "FormPacketsFromArray", Severity.Debug);
+            Helper.logger.Debug("Packet formation from array begins");
             try
             {
                 syncId = SyncLeftChannelData();
@@ -1220,11 +1331,11 @@ namespace UsbTcdLibrary
                 {
                     PacketBackgroundThread(null, null);
                 }
-                //Logs.Instance.ErrorLog<DopplerModule>("Packet formation from array ends", "FormPacketsFromArray", Severity.Debug);
+                Helper.logger.Debug("Packet formation from array ends");
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<DopplerModule>(ex, "FormPacketsFromArray", Severity.Warning);
+                Helper.logger.Warn("Exception: " + ex);
             }
 
             return Task.FromResult(result);
@@ -1254,7 +1365,7 @@ namespace UsbTcdLibrary
         private static ulong SyncRightChannelData()
         {
             ulong syncIdR = Constants.VALUE_0;
-            //Logs.Instance.ErrorLog<DopplerModule>("SyncRightChannelData begins", "SyncRightChannelData", Severity.Debug);
+            Helper.logger.Debug("SyncRightChannelData begins");
             try
             {
                 if (CircularQueueChannel2.Channel2Queue.Count >= DMIProtocol.PACKET_SIZE)
@@ -1275,10 +1386,10 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<DopplerModule>(ex, "SyncRightChannelData", Severity.Warning);
+                Helper.logger.Warn("Exception: " + ex);
             }
 
-            //Logs.Instance.ErrorLog<DopplerModule>("SyncRightChannelData ends with return sync id: " + syncIdR.ToString(), "SyncRightChannelData", Severity.Debug);
+            Helper.logger.Debug("SyncRightChannelData ends with return sync id: " + syncIdR.ToString());
             return syncIdR;
         }
 
@@ -1297,7 +1408,7 @@ namespace UsbTcdLibrary
                 if (tempArr != null)
                 {
                     int offset = 0;
-                    //Logs.Instance.ErrorLog<DopplerModule>("GetLogFromArray begins for tempArray of size:" + tempArr.Length.ToString(), "GetLogFromArray", Severity.Debug);
+                    Helper.logger.Debug("GetLogFromArray begins for tempArray of size:" + tempArr.Length.ToString());
                     while (tempArr.Length > offset)
                     {
                         ServiceLogPacket ServicePacket = new ServiceLogPacket();
@@ -1325,9 +1436,9 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<DopplerModule>(ex, "GetLogFromArray", Severity.Warning);
+                Helper.logger.Warn("Exception: " + ex);
             }
-            //Logs.Instance.ErrorLog<DopplerModule>("GetLogFromArray ends with ServicePacket: " + ServicePacket.ToString(), "GetLogFromArray", Severity.Debug);
+            
             return ServicePackets;
         }
 
@@ -1338,7 +1449,7 @@ namespace UsbTcdLibrary
         private static ulong SyncLeftChannelData()
         {
             ulong syncId = Constants.VALUE_0;
-            //Logs.Instance.ErrorLog<DopplerModule>("SyncLeftChannelData begins", "SyncRightChannelData", Severity.Debug);
+            Helper.logger.Debug("SyncLeftChannelData begins");
             try
             {
                 if (CircularQueueChannel1.Channel1Queue.Count >= DMIProtocol.PACKET_SIZE)
@@ -1360,10 +1471,10 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<DopplerModule>(ex, "SyncLeftChannelData", Severity.Warning);
+                Helper.logger.Warn("Exception: " + ex);
             }
 
-            //Logs.Instance.ErrorLog<DopplerModule>("SyncLeftChannelData ends with return sync id: " + syncId.ToString(), "SyncRightChannelData", Severity.Debug);
+            Helper.logger.Debug("SyncLeftChannelData ends with return sync id: " + syncId.ToString());
 
             return syncId;
         }

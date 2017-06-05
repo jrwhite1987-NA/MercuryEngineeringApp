@@ -34,9 +34,7 @@ namespace MercuryEngApp
     public partial class PacketControl : UserControl
     {
         static ILog logger = LogManager.GetLogger("EnggAppAppender");
-        static ILog AppLogger = LogManager.GetLogger("AppLogAppender");
-        static ILog TCDLogger = LogManager.GetLogger("TCDLogAppender");
-
+        
         private System.Windows.Forms.Timer GrabTimer;
         private PacketViewModel packetViewModelObj = new PacketViewModel();
         private List<string> TList = new List<string>();
