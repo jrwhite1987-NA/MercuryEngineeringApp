@@ -110,9 +110,7 @@ namespace MercuryEngApp
             try
             {
                 if (packetViewModelObj.PacketNumber > count)
-                {
-                    throw new ArgumentNullException();
-                   
+                {  
                     if (App.CurrentChannel == TCDHandles.Channel1)
                     {
                         if (packets[0] != null)
