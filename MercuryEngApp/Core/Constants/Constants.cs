@@ -1348,6 +1348,11 @@ namespace Core.Constants
 
         #endregion pdf Constants
 
+        #region CalibrationConstants
+        public const int SAFETY_CALIBRATION_MAX_POWER = 150;
+        public const int SAFETY_CAL_START_POWER = 135;
+        #endregion
+
         #region LogConstants
         public const string APPLog = "APP";
         public const string TCDLog = "TCD";

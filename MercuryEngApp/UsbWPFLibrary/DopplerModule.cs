@@ -1968,7 +1968,7 @@ namespace UsbTcdLibrary
         /// </summary>
         /// <param name="channelID">The channel identifier.</param>
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
-        internal async Task<bool> StartMeasurementOfBoard(TCDHandles channelID)
+        internal async Task<bool> StartMeasurementOfBoard(TCDHandles channelID, uint value)
         {
             bool result = false;
             uint bytesTransferred = 0;
@@ -1978,7 +1978,6 @@ namespace UsbTcdLibrary
                 if (bytesTransferred == 0)
                 {
                     uint index = 30;
-                    uint value = 1;
                     if (await TCDHandler.Current.SendControlCommandAsync
                         (channelID,
                         DMIProtocol.DMI_CMD_SERVICE_CALIBRATE,

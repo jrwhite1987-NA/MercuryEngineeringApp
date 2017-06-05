@@ -1118,7 +1118,7 @@ namespace UsbTcdLibrary
             {
                 if (TCDHandler.Current.isTCDWorking)
                 {
-                    response.Result = await dopplerModule.StartMeasurementOfBoard(request.ChannelID);
+                    response.Result = await dopplerModule.StartMeasurementOfBoard(request.ChannelID,request.Value3);
                 }
             }
             catch (Exception ex)
