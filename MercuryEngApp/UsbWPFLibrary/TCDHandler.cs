@@ -271,8 +271,7 @@ namespace UsbTcdLibrary
             }
             else
             {
-                //Logs.Instance.ErrorLog<TCDHandler>(ExecutionConstants.TCDHandler + ExecutionConstants.MethodName,
-                   // "GetCurrentDevice:Received garbage value for Channel|" + currentHandle.ToString() + "|" + ExecutionConstants.MethodExecutionFail, Severity.Warning);
+                Helper.logger.Warn("GetCurrentDevice:Received garbage value for Channel|" + currentHandle.ToString() + "|" + ExecutionConstants.MethodExecutionFail);
                 return null;
             }
         }
@@ -290,7 +289,7 @@ namespace UsbTcdLibrary
             const int DEVICE_SECOND_INDEX = 1;
             try
             {
-                //Logs.Instance.ErrorLog<TCDHandler>("async GetDeviceHandleAsync begins", "GetDeviceHandleAsync", Severity.Debug);
+                Helper.logger.Debug("async GetDeviceHandleAsync begins");
                 string deviceQueryString = UsbDevice.GetDeviceSelector(DMIProtocol.TCD_VENDOR_ID, DMIProtocol.TCD_PRODUCT_ID);
                 DeviceInformationCollection myDevices = await DeviceInformation.FindAllAsync(deviceQueryString, null);
                 count = myDevices.Count();
@@ -321,12 +320,12 @@ namespace UsbTcdLibrary
                     return GetTCDStatus();
                 }
                 isTCDWorking = false;
-                //Logs.Instance.ErrorLog<TCDHandler>("async GetDeviceHandleAsync ends ", "GetDeviceHandleAsync", Severity.Debug);
+                Helper.logger.Debug("async GetDeviceHandleAsync ends ");
                 return isTCDWorking;
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<TCDHandler>(ex, "GetDeviceHandleAsync", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
                 return false;
             }
         }
@@ -339,7 +338,7 @@ namespace UsbTcdLibrary
         {
             try
             {
-                //Logs.Instance.ErrorLog<TCDHandler>("GetTCDStatus begins", "GetTCDStatus", Severity.Debug);
+                Helper.logger.Debug("GetTCDStatus begins");
                 if (Channel1.TCDHandleChannel == null && Channel2.TCDHandleChannel == null)
                 {
                     isTCDWorking = false;
@@ -348,13 +347,13 @@ namespace UsbTcdLibrary
                 else
                 {
                     isTCDWorking = true;
-                    //Logs.Instance.ErrorLog<TCDHandler>("GetTCDStatus ends ", "GetTCDStatus", Severity.Debug);
+                    Helper.logger.Debug("GetTCDStatus ends ");
                     return isTCDWorking;
                 }
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<TCDHandler>(ex, "GetTCDStatus", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
                 return false;
             }
         }
@@ -384,7 +383,7 @@ namespace UsbTcdLibrary
         {
             try
             {
-                //Logs.Instance.ErrorLog<TCDHandler>("InitializeStreams begins ", "GetActiveChannel", Severity.Debug);
+                Helper.logger.Debug("InitializeStreams begins ");
 
                 if (Channel1.TCDHandleChannel != null)
                 {
@@ -423,11 +422,11 @@ namespace UsbTcdLibrary
                         }
                     }
                 }
-                //Logs.Instance.ErrorLog<TCDHandler>("InitializeStreams ends ", "GetActiveChannel", Severity.Debug);
+                Helper.logger.Debug("InitializeStreams ends ");
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<TCDHandler>(ex, "InitializeStreams", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
             }
         }
 
@@ -439,18 +438,18 @@ namespace UsbTcdLibrary
         {
             try
             {
-                //Logs.Instance.ErrorLog<TCDHandler>("GetDescriptors begins for channel: " + channel.ToString(), "GetDescriptors", Severity.Debug);
+                Helper.logger.Debug("GetDescriptors begins for channel: " + channel.ToString());
 
                 _currentChannel = (int)channel;
                 deviceDescriptor = GeneralTCDHandle.DeviceDescriptor;
                 deviceConfig = GeneralTCDHandle.Configuration;
                 configDescriptor = GeneralTCDHandle.Configuration.ConfigurationDescriptor;
 
-                //Logs.Instance.ErrorLog<TCDHandler>("GetDescriptors ends ", "GetDescriptors", Severity.Debug);
+                Helper.logger.Debug("GetDescriptors ends ");
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<TCDHandler>(ex, "GetDescriptors", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
             }
         }
 
@@ -464,7 +463,7 @@ namespace UsbTcdLibrary
             _currentChannel = (int)channel;
             try
             {
-                //Logs.Instance.ErrorLog<TCDHandler>("GetModuleInfo begins for channel: " + channel.ToString(), "GetModuleInfo", Severity.Debug);
+                Helper.logger.Debug("GetModuleInfo begins for channel: " + channel.ToString());
 
                 if (GeneralTCDHandle != null)
                 {
@@ -475,13 +474,13 @@ namespace UsbTcdLibrary
                 }
                 else
                 {
-                    //Logs.Instance.ErrorLog<TCDHandler>("GetModuleInfo ends ", "GetModuleInfo", Severity.Debug);
+                    Helper.logger.Debug("GetModuleInfo ends ");
                     return new ModuleInfo();
                 }
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<TCDHandler>(ex, "GetModuleInfo", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
                 return new ModuleInfo();
             }
         }
@@ -494,7 +493,7 @@ namespace UsbTcdLibrary
         {
             try
             {
-                //Logs.Instance.ErrorLog<TCDHandler>("CloseDevice begins", "CloseDevice", Severity.Debug);
+                Helper.logger.Debug("CloseDevice begins");
                 OnTCDReadDual = null;
                 ChannelMessage = null;
 
@@ -506,12 +505,12 @@ namespace UsbTcdLibrary
                 {
                     Channel2.Dispose();
                 }
-                //Logs.Instance.ErrorLog<TCDHandler>("CloseDevice ends", "CloseDevice", Severity.Debug);
+                Helper.logger.Debug("CloseDevice ends");
                 isTCDWorking = false;
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<TCDHandler>(ex, "CloseDevice", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
             }
         }
 
@@ -525,7 +524,7 @@ namespace UsbTcdLibrary
         {
             try
             {
-                //Logs.Instance.ErrorLog<TCDHandler>("GetDescriptorsAsString begins for channel:" + channel.ToString(), "GetDescriptorsAsString", Severity.Debug);
+                Helper.logger.Debug("GetDescriptorsAsString begins for channel:" + channel.ToString());
 
                 _currentChannel = (int)channel;
                 GetDescriptors(channel);
@@ -592,12 +591,12 @@ namespace UsbTcdLibrary
                             + "\nMax Packet Size : " + endpointDescriptor.MaxPacketSize.ToString("D", NumberFormatInfo.InvariantInfo)
                     + "\nInterval : " + endpointDescriptor.Interval.Duration().ToString();
                 }
-                //Logs.Instance.ErrorLog<TCDHandler>("GetDescriptorsAsString ends ", "GetDescriptorsAsString", Severity.Debug);
+                Helper.logger.Debug("GetDescriptorsAsString ends ");
                 return descriptorString;
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<TCDHandler>(ex, "GetDescriptorsAsString", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
                 return "Could not connect to the TCD";
             }
         }
@@ -616,9 +615,8 @@ namespace UsbTcdLibrary
             uint bytesTransferred = 0;
             try
             {
-                //Logs.Instance.ErrorLog<TCDHandler>("SendControlCommandAsync begins for channel:" + channel.ToString() + " request:" + request.ToString() + " index:"
-              //  + index.ToString() + " value:" + value.ToString(),
-              //  "SendControlCommandAsync", Severity.Debug);
+                Helper.logger.Debug("SendControlCommandAsync begins for channel:" + channel.ToString() + " request:" + request.ToString() + " index:"
+                 + index.ToString() + " value:" + value.ToString());
                 if (GeneralTCDHandle != null)
                 {
                     const int PACKET_LENGTH = 0;
@@ -629,12 +627,12 @@ namespace UsbTcdLibrary
                 {
                     TCDHandler.Current.GetCurrentDevice(channel).CurrentMode = (TCDModes)index;
                 }
-                //Logs.Instance.ErrorLog<TCDHandler>("SendControlCommandAsync ends ", "SendControlCommandAsync", Severity.Debug);
+                Helper.logger.Debug("SendControlCommandAsync ends ");
                 return bytesTransferred;
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<TCDHandler>(ex, "SendControlCommandAsync", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
                 return 0;
             }
         }
@@ -655,9 +653,8 @@ namespace UsbTcdLibrary
             try
             {
                 IBuffer tempBuffer = new Windows.Storage.Streams.Buffer(bufferLength);
-                //Logs.Instance.ErrorLog<TCDHandler>("SendControlRequestAsync begins for channel:" + channel.ToString() + " request:" + request.ToString() + " index:"
-               // + index.ToString() + " value:" + value.ToString(),
-               // "SendControlRequestAsync", Severity.Debug);
+                Helper.logger.Debug("SendControlRequestAsync begins for channel:" + channel.ToString() + " request:" + request.ToString() + " index:"
+                + index.ToString() + " value:" + value.ToString());
                 if (GeneralTCDHandle != null)
                 {
                     const int PACKET_LENGTH = 0;
@@ -665,12 +662,12 @@ namespace UsbTcdLibrary
                     await GeneralTCDHandle.SendControlInTransferAsync(setupPacket, tempBuffer);
                     resultArray = tempBuffer.ToArray();
                 }
-                //Logs.Instance.ErrorLog<TCDHandler>("SendControlRequestAsync ends ", "SendControlRequestAsync", Severity.Debug);
+                Helper.logger.Debug("SendControlRequestAsync ends ");
                 return resultArray;
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<TCDHandler>(ex, "SendControlRequestAsync", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
                 return null;
             }
         }
@@ -714,7 +711,7 @@ namespace UsbTcdLibrary
         {
             try
             {
-                //Logs.Instance.ErrorLog<TCDHandler>("async GetChannelIdAsync begins for channel:" + tempHandle.ToString(), "GetChannelIdAsync", Severity.Debug);
+                Helper.logger.Debug("async GetChannelIdAsync begins for channel:" + tempHandle.ToString());
                 const int REQUEST_INDEX = 0;
                 const int REQUEST_VALUE = 0;
                 const int REQUEST_LENGTH = 1;
@@ -726,12 +723,12 @@ namespace UsbTcdLibrary
 
                 await tempHandle.SendControlInTransferAsync(setupPacket, channelId);
                 Byte[] result = channelId.ToArray();
-                //Logs.Instance.ErrorLog<TCDHandler>("async GetChannelIdAsync ends", "GetChannelIdAsync", Severity.Debug);
+                Helper.logger.Debug("async GetChannelIdAsync ends");
                 return result[0];
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<TCDHandler>(ex, "GetChannelIdAsync", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
                 return 0;
             }
         }
@@ -745,7 +742,7 @@ namespace UsbTcdLibrary
         {
             try
             {
-                //Logs.Instance.ErrorLog<TCDHandler>("async GetProbeInfoAsync begins for channel:" + tempDevice.ToString(), "GetProbeInfoAsync", Severity.Debug);
+                Helper.logger.Debug("async GetProbeInfoAsync begins for channel:" + tempDevice.ToString());
                 const int REQUEST_INDEX = 0;
                 const int REQUEST_VALUE = 0;
                 
@@ -756,7 +753,7 @@ namespace UsbTcdLibrary
 
                 await tempDevice.TCDHandleChannel.SendControlInTransferAsync(setupPacket, probeInfo);
                 tempDevice.IsChannelEnabled = true;
-                //Logs.Instance.ErrorLog<TCDHandler>("async GetProbeInfoAsync ends", "GetProbeInfoAsync", Severity.Debug);
+                Helper.logger.Debug("async GetProbeInfoAsync ends");
 
                 return ProbeInfo.ConvertArrayToInfo(probeInfo.ToArray());
             }
@@ -764,7 +761,7 @@ namespace UsbTcdLibrary
             {
                 if (ex.Message != "A device attached to the system is not functioning. (Exception from HRESULT: 0x8007001F)")
                 {
-                    //Logs.Instance.ErrorLog<TCDHandler>(ex, "GetProbeInfoAsync", Severity.Warning);
+                    Helper.logger.Warn("Exception: ", ex);
                 }
                 tempDevice.IsChannelEnabled = false;
                 return null;
@@ -787,8 +784,7 @@ namespace UsbTcdLibrary
                 byte[] tempBuffer = { DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE }; //TODO: Need to fix this after updating the firmware of TCD
                 try
                 {
-                    //Logs.Instance.ErrorLog<TCDHandler>("async ResetTimeStampAsync begins for channel:" + channel.ToString() + "currentTime: " + currentTime.ToString(),
-                     //   "ResetTimeStampAsync", Severity.Debug);
+                    Helper.logger.Debug("async ResetTimeStampAsync begins for channel:" + channel.ToString() + "currentTime: " + currentTime.ToString());
                     if (GeneralTCDHandle != null)
                     {
                         const int REQUEST_INDEX = 0;
@@ -799,12 +795,12 @@ namespace UsbTcdLibrary
                         REQUEST_INDEX, REQUEST_VALUE, DMIProtocol.DOPPLER_COMMAND, UsbTransferDirection.Out, REQUEST_LENGTH);
                         bytesTransferred = await GeneralTCDHandle.SendControlOutTransferAsync(setupPacket, tempBuffer.AsBuffer());
                     }
-                    //Logs.Instance.ErrorLog<TCDHandler>("async ResetTimeStampAsync ends", "ResetTimeStampAsync", Severity.Debug);
+                    Helper.logger.Debug("async ResetTimeStampAsync ends");
                     return DEFAULT_VALUE;
                 }
                 catch (Exception ex)
                 {
-                    //Logs.Instance.ErrorLog<TCDHandler>(ex, "ResetTimeStampAsync", Severity.Warning);
+                    Helper.logger.Warn("Exception: ", ex);
                     return DEFAULT_VALUE;
                 }
             }
@@ -837,7 +833,7 @@ namespace UsbTcdLibrary
                 }
                 catch (Exception ex)
                 {
-                    //Logs.Instance.ErrorLog<TCDHandler>(ex, "ResetTimeStampAsync", Severity.Warning);
+                    Helper.logger.Warn("Exception: ", ex);
                     throw;
                 }
             }
@@ -859,8 +855,7 @@ namespace UsbTcdLibrary
             {
                 const int DEFAULT_VALUE = 0;
                 byte[] prfBuffer = { startDepth, DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE };
-                //Logs.Instance.ErrorLog<TCDHandler>("async SetPRFAsync begins for channel:" + channel.ToString() + "PRF: " + PRF.ToString() + "startDepth:" + startDepth.ToString(),
-                 //   "SetPRFAsync", Severity.Debug);
+                Helper.logger.Debug("async SetPRFAsync begins for channel:" + channel.ToString() + "PRF: " + PRF.ToString() + "startDepth:" + startDepth.ToString());
                 try
                 {
                     const int REQUEST_INDEX = 5;
@@ -868,11 +863,11 @@ namespace UsbTcdLibrary
                     UsbSetupPacket setupPacket = SetupPacket(DMIProtocol.DMI_CMD_DOPPLER,
                     REQUEST_INDEX, PRF, DMIProtocol.DOPPLER_COMMAND, UsbTransferDirection.Out, REQUEST_LENGTH);
                     bytesTransferred = await GeneralTCDHandle.SendControlOutTransferAsync(setupPacket, prfBuffer.AsBuffer());
-                    //Logs.Instance.ErrorLog<TCDHandler>("async SetPRFAsync ends", "SetPRFAsync", Severity.Debug);
+                    Helper.logger.Debug("async SetPRFAsync ends");
                 }
                 catch (Exception ex)
                 {
-                    //Logs.Instance.ErrorLog<TCDHandler>(ex, "SetPRFAsync", Severity.Warning);
+                    Helper.logger.Warn("Exception: ", ex);
                     return DEFAULT_VALUE;
                 }
             }
@@ -902,8 +897,8 @@ namespace UsbTcdLibrary
 
                 try
                 {
-                    //Logs.Instance.ErrorLog<TCDHandler>("async SetEnvelopeRangeAsync begins for channel:" + channel.ToString() + "posMaxVelocity: " + posMaxVelocity.ToString()
-                       // + "negMaxVelocity:" + negMaxVelocity.ToString(), "SetPRFAsync", Severity.Debug);
+                    Helper.logger.Debug("async SetEnvelopeRangeAsync begins for channel:" + channel.ToString() + "posMaxVelocity: " + posMaxVelocity.ToString()
+                       + "negMaxVelocity:" + negMaxVelocity.ToString());
                     const int REQUEST_INDEX = 9;
                     const int REQUEST_VALUE = 0;
                     const int REQUEST_LENGTH = 4;
@@ -911,11 +906,11 @@ namespace UsbTcdLibrary
                     UsbSetupPacket setupPacket = SetupPacket(DMIProtocol.DMI_CMD_DOPPLER,
                     REQUEST_INDEX, REQUEST_VALUE, DMIProtocol.DOPPLER_COMMAND, UsbTransferDirection.Out, REQUEST_LENGTH);
                     bytesTransferred = await GeneralTCDHandle.SendControlOutTransferAsync(setupPacket, EnvelopeBuffer.AsBuffer());
-                    //Logs.Instance.ErrorLog<TCDHandler>("async SetEnvelopeRangeAsync ends", "SetEnvelopeRangeAsync", Severity.Debug);
+                    Helper.logger.Debug("async SetEnvelopeRangeAsync ends");
                 }
                 catch (Exception ex)
                 {
-                    //Logs.Instance.ErrorLog<TCDHandler>(ex, "SetEnvelopeRangeAsync", Severity.Warning);
+                    Helper.logger.Warn("Exception: ", ex);
                     return 0;
                 }
             }
@@ -930,7 +925,7 @@ namespace UsbTcdLibrary
         {
             try
             {
-                //Logs.Instance.ErrorLog<TCDHandler>("async ReadTCDData begins ", "ReadTCDData", Severity.Debug);
+                Helper.logger.Debug("async ReadTCDData begins ");
                 await ReadChannel1TCDData();
                 await ReadChannel2TCDData();
 
@@ -938,11 +933,11 @@ namespace UsbTcdLibrary
                 {
                     await OnTCDReadDual();
                 }
-                //Logs.Instance.ErrorLog<TCDHandler>("async ReadTCDData ends ", "ReadTCDData", Severity.Debug);
+                Helper.logger.Debug("async ReadTCDData ends ");
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<TCDHandler>(ex, "ReadTCDData", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
             }
         }
 
@@ -975,7 +970,7 @@ namespace UsbTcdLibrary
         {
             try
             {
-                //Logs.Instance.ErrorLog<TCDHandler>("async ReadChannel2TCDData begins ", "ReadChannel2TCDData", Severity.Debug);
+                Helper.logger.Debug("async ReadChannel2TCDData begins ");
                 if (Channel2.TCDHandleChannel != null)
                 {
                     uint bytesReadCh2 = 0;
@@ -992,11 +987,11 @@ namespace UsbTcdLibrary
                         }
                     }
                 }
-                //Logs.Instance.ErrorLog<TCDHandler>("async ReadChannel2TCDData ends ", "ReadChannel2TCDData", Severity.Debug);
+                Helper.logger.Debug("async ReadChannel2TCDData ends ");
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<TCDHandler>(ex, "ReaderChannel2 - ReadTCDData", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
             }
         }
 
@@ -1010,21 +1005,21 @@ namespace UsbTcdLibrary
         {
             try
             {
-                //Logs.Instance.ErrorLog<TCDHandler>("async WriteLog begins ", "WriteLog", Severity.Debug);
+                Helper.logger.Debug("async WriteLog begins ");
                 if (Exception.Message == "A device attached to the system is not functioning. (Exception from HRESULT: 0x8007001F)")
                 {
-                    //Logs.Instance.ErrorLog<TCDHandler>(ProbInfo, "ReaderChannel", Severity.Error);
+                    Helper.logger.Error(ProbInfo);
                 }
                 if (Exception.Message == "The system cannot find the file specified. (Exception from HRESULT: 0x80070002)")
                 {
                     isTCDWorking = false;
-                    //Logs.Instance.ErrorLog<TCDHandler>("TCD Turned off", "ReaderChannel", Severity.Error);
+                    Helper.logger.Error("TCD Turned off");
                 }
-                //Logs.Instance.ErrorLog<TCDHandler>("async WriteLog ends ", "WriteLog", Severity.Debug);
+                Helper.logger.Debug("async WriteLog ends ");
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<TCDHandler>(ex, "WriteLog", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
             }
         }
 
@@ -1036,7 +1031,7 @@ namespace UsbTcdLibrary
         {
             try
             {
-                //Logs.Instance.ErrorLog<TCDHandler>("async ReadChannel1TCDData begins ", "ReadChannel1TCDData", Severity.Debug);
+                Helper.logger.Debug("async ReadChannel1TCDData begins ");
                 if (Channel1.TCDHandleChannel != null)
                 {
                     uint bytesReadCh1 = 0;
@@ -1053,11 +1048,11 @@ namespace UsbTcdLibrary
                         }
                     }
                 }
-                //Logs.Instance.ErrorLog<TCDHandler>("async ReadChannel1TCDData ends ", "ReadChannel1TCDData", Severity.Debug);
+                Helper.logger.Debug("async ReadChannel1TCDData ends ");
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<TCDHandler>(ex, "ReaderChannel1 - ReadTCDData", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
             }
         }
 
@@ -1069,7 +1064,7 @@ namespace UsbTcdLibrary
         {
             try
             {
-                //Logs.Instance.ErrorLog<TCDHandler>("async DisableChannel begins for channel:" + channel.ToString(), "DisableChannel", Severity.Debug);
+                Helper.logger.Debug("async DisableChannel begins for channel:" + channel.ToString());
                 if (channel == TCDHandles.Channel1)
                 {
                     Channel1.ResetForSensing();
@@ -1080,14 +1075,13 @@ namespace UsbTcdLibrary
                 }
                 else
                 {
-                    //Logs.Instance.ErrorLog<TCDHandler>(ExecutionConstants.TCDHandler + ExecutionConstants.MethodName,
-                  //  "DisableChannel:Received garbage value for Channel|" + channel.ToString() + "|" + ExecutionConstants.MethodExecutionFail, Severity.Warning);
+                    Helper.logger.Warn("DisableChannel:Received garbage value for Channel|" + channel.ToString() + "|" + ExecutionConstants.MethodExecutionFail);
                 }
-                //Logs.Instance.ErrorLog<TCDHandler>("async DisableChannel ends ", "DisableChannel", Severity.Debug);
+                Helper.logger.Debug("async DisableChannel ends ");
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<TCDHandler>(ex, "DisableChannel", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
             }
         }
 
@@ -1101,7 +1095,7 @@ namespace UsbTcdLibrary
         {
             try
             {
-                //Logs.Instance.ErrorLog<TCDHandler>("async ReadServiceLog begins for channel:" + channel.ToString(), "ReadServiceLog", Severity.Debug);
+                Helper.logger.Debug("async ReadServiceLog begins for channel:" + channel.ToString());
                 TCDDevice tempParameter = GetCurrentDevice(channel);
                 if (tempParameter.CurrentMode != TCDModes.Service)
                 {
@@ -1128,7 +1122,7 @@ namespace UsbTcdLibrary
                     }
                     tempParameter.canReadLog = true;
                 }
-                //Logs.Instance.ErrorLog<TCDHandler>("async ReadServiceLog ends ", "ReadServiceLog", Severity.Debug);
+                Helper.logger.Debug("async ReadServiceLog ends ");
                 return tempParameter.ServiceBufferCh;
             }
             catch (Exception ex)

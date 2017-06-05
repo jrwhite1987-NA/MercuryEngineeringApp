@@ -130,7 +130,7 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<TCDHandler>(ex, "Dispose", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
             }
         }
 
@@ -156,7 +156,7 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<TCDHandler>(ex, "Dispose", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
             }
         }
     }

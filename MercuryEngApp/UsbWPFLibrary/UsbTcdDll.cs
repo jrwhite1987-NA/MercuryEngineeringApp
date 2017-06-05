@@ -224,7 +224,7 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<UsbTcdDll>(ex, "TurnTCDPowerOn", Severity.Critical);
+                Helper.logger.Error("Exception: ", ex);
                 responseObject.Result = false;
                 responseObject.Error = ex;
             }
@@ -254,7 +254,7 @@ namespace UsbTcdLibrary
             {
                 mockObject.isMockActive = false;
                 responseObj = new TCDResponse();
-                //Logs.Instance.ErrorLog<UsbTcdDll>("TurnTCDPowerOff begins for examId", "TurnTCDPowerOff", Severity.Debug);
+                Helper.logger.Debug("TurnTCDPowerOff begins for examId");
                 if (TCDHandler.Current.isTCDWorking)
                 {
                     if (TCDHandler.Current.Channel1.IsChannelEnabled ||
@@ -263,17 +263,17 @@ namespace UsbTcdLibrary
                         dopplerModule.OnPacketFormationDual -= DopplerModuleOnPacketFormation;
                     }
                     responseObj.Result = dopplerModule.ReleaseTCDHandle();
-                    //Logs.Instance.ErrorLog<UsbTcdDll>("TurnTCDPowerOff ends ", "TurnTCDPowerOff", Severity.Debug);
+                    Helper.logger.Debug("TurnTCDPowerOff ends ");
                 }
                 else
                 {
-                    //Logs.Instance.ErrorLog<UsbTcdDll>("TurnTCDPowerOff ends ", "TurnTCDPowerOff", Severity.Debug);
+                    Helper.logger.Debug("TurnTCDPowerOff ends ");
                     responseObj.Result = true;
                 }
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<UsbTcdDll>(ex, "TurnTCDPowerOff", Severity.Critical);
+                Helper.logger.Error("Exception: ", ex);
                 responseObj.Result = false;
                 responseObj.Error = ex;
             }
@@ -291,7 +291,7 @@ namespace UsbTcdLibrary
             try
             {
                 responseObj = new TCDResponse();
-                //Logs.Instance.ErrorLog<UsbTcdDll>("TurnRecordingOn begins for examId:" + requestObject.Value.ToString(), "TurnRecordingOn", Severity.Debug);
+                Helper.logger.Debug("TurnRecordingOn begins for examId:" + requestObject.Value.ToString());
                 if (TCDHandler.Current.isTCDWorking)
                 {
                     if (await dopplerModule.CreateBinaryFileOfExam(requestObject.Value))
@@ -301,11 +301,11 @@ namespace UsbTcdLibrary
                         dopplerModule.OnRecordingEnabled += dopplerModule.WriteToFile;
                     }
                 }
-                //Logs.Instance.ErrorLog<UsbTcdDll>("TurnRecordingOn ends ", "TurnRecordingOn", Severity.Debug);
+                Helper.logger.Debug("TurnRecordingOn ends ");
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<UsbTcdDll>(ex, "TurnRecordingOn", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
                 responseObj.Error = ex;
             }
             return responseObj;
@@ -327,7 +327,7 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<UsbTcdDll>(ex, "TurnRecordingOff", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
                 responseObj.Error = ex;
             }
             return responseObj;
@@ -353,7 +353,7 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<UsbTcdDll>(ex, "SetPRF", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
                 responseObj.Error = ex;
             }
             return responseObj;
@@ -446,15 +446,15 @@ namespace UsbTcdLibrary
         {
             try
             {
-                //Logs.Instance.ErrorLog<UsbTcdDll>("ReadFromFile begins for examId:" + examId.ToString() + " channelId:" + channelId.ToString(), "ReadFromFile", Severity.Debug);
+                Helper.logger.Debug("ReadFromFile begins for examId:" + examId.ToString() + " channelId:" + channelId.ToString());
                 bool result = false;
                 result = await dopplerModule.ReadFile(examId, channelId);
-                //Logs.Instance.ErrorLog<UsbTcdDll>("ReadFromFile ends", "ReadFromFile", Severity.Debug);
+                Helper.logger.Debug("ReadFromFile ends");
                 return result;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<UsbTcdDll>(e, "ReadFromFile", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
                 return false;
             }
         }
@@ -470,18 +470,18 @@ namespace UsbTcdLibrary
             TCDResponse responseObj = new TCDResponse();
             try
             {
-                //Logs.Instance.ErrorLog<UsbTcdDll>("ReadFromFile begins for examId:" + examId.ToString() + " channelId:" + channelId.ToString(), "ReadFromFile", Severity.Debug);
+                Helper.logger.Debug("ReadFromFile begins for examId:" + examId.ToString() + " channelId:" + channelId.ToString());
                 responseObj.Value = await dopplerModule.ReadFileCVR(examId, channelId);
                 if(responseObj.Value>0)
                 {
                     responseObj.Result = true;
                 }
-                //Logs.Instance.ErrorLog<UsbTcdDll>("ReadFromFile ends", "ReadFromFile", Severity.Debug);
+                Helper.logger.Debug("ReadFromFile ends");
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                responseObj.Error = e;
-                //Logs.Instance.ErrorLog<UsbTcdDll>(e, "ReadFromFile", Severity.Warning);
+                responseObj.Error = ex;
+                Helper.logger.Warn("Exception: ", ex);
             }
             return responseObj;
         }
@@ -499,12 +499,12 @@ namespace UsbTcdLibrary
             {
                 bool result = false;
                 result = await dopplerModule.ReadFile(examId, ReadPointerListCh1, ReadPointerListCh2);
-                //Logs.Instance.ErrorLog<UsbTcdDll>("ReadFromFile ends", "ReadFromFile", Severity.Debug);
+                Helper.logger.Debug("ReadFromFile ends");
                 return result;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<UsbTcdDll>(e, "ReadFromFile", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
                 return false;
             }
         }
@@ -522,12 +522,12 @@ namespace UsbTcdLibrary
             {
                 bool result = false;
                 result = await dopplerModule.ReadFileWithRange(examId, ListReadPointerModelCh1, ListReadPointerModelCh2);
-                //Logs.Instance.ErrorLog<UsbTcdDll>("ReadFromFile ends", "ReadFromFile", Severity.Debug);
+                Helper.logger.Debug("ReadFromFile ends");
                 return result;
             }
             catch (Exception e)
             {
-                //Logs.Instance.ErrorLog<UsbTcdDll>(e, "ReadFromFile", Severity.Warning);
+                Helper.logger.Warn("Exception: ", e);
                 return false;
             }
         }
@@ -545,12 +545,12 @@ namespace UsbTcdLibrary
             {
                 bool result = false;
                 result = await dopplerModule.ReadFileWithRange(examId, ListReadPointerModelCh1);
-                //Logs.Instance.ErrorLog<UsbTcdDll>("ReadFromFile ends", "ReadFromFile", Severity.Debug);
+                Helper.logger.Debug("ReadFromFile ends");
                 return result;
             }
             catch (Exception e)
             {
-                //Logs.Instance.ErrorLog<UsbTcdDll>(e, "ReadFromFile", Severity.Warning);
+                Helper.logger.Warn("Exception: ", e);
                 return false;
             }
         }
@@ -564,7 +564,7 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
- 
+                Helper.logger.Warn("Exception: ", ex);
             }
 
             return null;
@@ -579,14 +579,14 @@ namespace UsbTcdLibrary
         {
             try
             {
-                //Logs.Instance.ErrorLog<UsbTcdDll>("CreateBinaryFileOfExam begins for examId:" + examId.ToString(), "CreateBinaryFileOfExam", Severity.Debug);
+                Helper.logger.Debug("CreateBinaryFileOfExam begins for examId:" + examId.ToString());
                 bool result = await dopplerModule.CreateBinaryFileOfExam(examId);
-                //Logs.Instance.ErrorLog<UsbTcdDll>("CreateBinaryFileOfExam ends ", "CreateBinaryFileOfExam", Severity.Debug);
+                Helper.logger.Debug("CreateBinaryFileOfExam ends ");
                 return result;
             }
             catch (Exception e)
             {
-                //Logs.Instance.ErrorLog<UsbTcdDll>(e, "CreateBinaryFileOfExam", Severity.Warning);
+                Helper.logger.Warn("Exception: ", e);
                 return false;
             }
         }
@@ -601,7 +601,7 @@ namespace UsbTcdLibrary
             try
             {
                 responseObject = new TCDResponse();
-                //Logs.Instance.ErrorLog<UsbTcdDll>("GetProbesConnectedAsync begins ", "GetProbesConnectedAsync", Severity.Debug);
+                Helper.logger.Debug("GetProbesConnectedAsync begins ");
                 ActiveChannels activeChannel = ActiveChannels.NoTCD;
                 if (await TCDHandler.Current.GetDeviceHandleAsync())
                 {
@@ -621,11 +621,11 @@ namespace UsbTcdLibrary
                 dopplerModule.OnProbePlugged += DopplerModuleOnProbePlugged;
                 dopplerModule.OnProbeUnplugged += DopplerModuleOnProbeUnplugged;
                 await dopplerModule.InitializeProbeEvents();
-                //Logs.Instance.ErrorLog<UsbTcdDll>("GetProbesConnectedAsync ends ", "GetProbesConnectedAsync", Severity.Debug);
+                Helper.logger.Debug("GetProbesConnectedAsync ends ");
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<UsbTcdDll>(ex, "GetActiveChannelAsync", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
                 responseObject.ActiveChannel = ActiveChannels.None;
                 responseObject.Error = ex;
             }
@@ -692,10 +692,10 @@ namespace UsbTcdLibrary
             TCDReadInfoResponse readInfoResponse = new TCDReadInfoResponse();
             try
             {
-                //Logs.Instance.ErrorLog<UsbTcdDll>("GetModuleInfoOfTCD begins for channel:" + requestObject.ChannelID.ToString(), "IsProbeDisconnected", Severity.Debug);
+                Helper.logger.Debug("GetModuleInfoOfTCD begins for channel:" + requestObject.ChannelID.ToString());
                 if (TCDHandler.Current.isTCDWorking)
                 {
-                    //Logs.Instance.ErrorLog<UsbTcdDll>("GetModuleInfoOfTCD ends for channel:" + requestObject.ChannelID.ToString(), "GetModuleInfoOfTCD", Severity.Debug);
+                    Helper.logger.Debug("GetModuleInfoOfTCD ends for channel:" + requestObject.ChannelID.ToString());
                     if (requestObject.ChannelID == TCDHandles.Channel1)
                     {
                         await dopplerModule.SetMode(TCDHandles.Channel1, TCDModes.Active);
@@ -709,12 +709,12 @@ namespace UsbTcdLibrary
                 }
                 else
                 {
-                    //Logs.Instance.ErrorLog<UsbTcdDll>("GetModuleInfoOfTCD ends for channel:" + requestObject.ChannelID.ToString(), "GetModuleInfoOfTCD", Severity.Debug);
+                    Helper.logger.Debug("GetModuleInfoOfTCD ends for channel:" + requestObject.ChannelID.ToString());
                 }
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<UsbTcdDll>(ex, "GetModuleInfoOfTCD", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
                 readInfoResponse.Error = ex;
             }
             return readInfoResponse;
@@ -737,7 +737,7 @@ namespace UsbTcdLibrary
                 }
                 catch (Exception ex)
                 {
-                    //Logs.Instance.ErrorLog<UsbTcdDll>(ex, "SetEnvelopeRangeAsync", Severity.Warning);
+                    Helper.logger.Warn("Exception: ", ex);
                     responseObject.Result = false;
                     responseObject.Error = ex;
                 }
@@ -755,7 +755,7 @@ namespace UsbTcdLibrary
             TCDResponse responseObject = new TCDResponse();
             try
             {
-                //Logs.Instance.ErrorLog<UsbTcdDll>("IsProbeConnected begins for channel:" + requestObj.ChannelID.ToString(), "IsProbeConnected", Severity.Debug);
+                Helper.logger.Debug("IsProbeConnected begins for channel:" + requestObj.ChannelID.ToString());
 
                 ServiceLogPacket ep8Packet = dopplerModule.GetLogFromArray(await TCDHandler.Current.ReadServiceLog(requestObj.ChannelID, 1))[0];
 
@@ -770,11 +770,11 @@ namespace UsbTcdLibrary
                 {
                     responseObject.Result = true;
                 }
-                //Logs.Instance.ErrorLog<UsbTcdDll>("IsProbeConnected ends for channel:" + requestObj.ChannelID.ToString(), "IsProbeConnected", Severity.Debug);
+                Helper.logger.Debug("IsProbeConnected ends for channel:" + requestObj.ChannelID.ToString());
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<UsbTcdDll>(ex, "IsProbeConnected", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
                 responseObject.Result = true;
                 responseObject.Error = ex;
             }
@@ -792,7 +792,7 @@ namespace UsbTcdLibrary
             try
             {
                 responseObj = new TCDResponse();
-                //Logs.Instance.ErrorLog<UsbTcdDll>("TurnSingleChannelOff begins for channel:" + requestObject.ChannelID.ToString(), "TurnSingleChannelOff", Severity.Debug);
+                Helper.logger.Debug("TurnSingleChannelOff begins for channel:" + requestObject.ChannelID.ToString());
                 if (TCDHandler.Current.isTCDWorking)
                 {
                     if (requestObject.ChannelID == TCDHandles.Channel1)
@@ -805,15 +805,14 @@ namespace UsbTcdLibrary
                     }
                     else
                     {
-                        //Logs.Instance.ErrorLog<UsbTcdDll>(ExecutionConstants.UsbTcdDll + ExecutionConstants.MethodName,
-                      //  "TurnSingleChannelOff:Recieved garbage value for Channel|" + requestObject.ChannelID.ToString() + "|" + ExecutionConstants.MethodExecutionFail, Severity.Warning);
+                       Helper.logger.Warn("TurnSingleChannelOff:Recieved garbage value for Channel|" + requestObject.ChannelID.ToString() + "|" + ExecutionConstants.MethodExecutionFail);
                     }
                 }
-                //Logs.Instance.ErrorLog<UsbTcdDll>("TurnSingleChannelOff ends for channel:" + requestObject.ChannelID.ToString(), "TurnSingleChannelOff", Severity.Debug);
+                Helper.logger.Debug("TurnSingleChannelOff ends for channel:" + requestObject.ChannelID.ToString());
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<UsbTcdDll>(ex, "TurnSingleChannelOff", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
                 responseObj.Error = ex;
             }
             return responseObj;
@@ -875,7 +874,7 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<UsbTcdDll>(ex, "GetProbeInfo", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
                 response.Error = ex;
             }
 
@@ -1514,7 +1513,7 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<UsbTcdDll>(ex, "CloseTCD", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);
             }
         }
 
