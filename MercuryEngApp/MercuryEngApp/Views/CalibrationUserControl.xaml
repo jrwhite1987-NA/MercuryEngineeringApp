@@ -307,7 +307,7 @@
                                  Grid.Row="2" 
                                  Grid.Column="1" 
                                  Margin="0,5,5,0" 
-                                 Style="{StaticResource ResourceKey=MainTextbox}"/>
+                                 Style="{StaticResource ResourceKey=ComboBoxBorder}"/>
 
                         <ComboBox Width="170" 
                                  Height="32" 
@@ -316,7 +316,7 @@
                                  Grid.Row="2" 
                                  Grid.Column="2" 
                                  Margin="0,5,5,0"
-                                 Style="{StaticResource ResourceKey=MainTextbox}"/>
+                                 Style="{StaticResource ResourceKey=ComboBoxBorder}"/>
 
                         <TextBox Width="170" 
                                  Height="32"

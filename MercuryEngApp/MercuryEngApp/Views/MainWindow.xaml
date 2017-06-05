@@ -195,7 +195,11 @@
                      Width="1318"
                       >
                     <Grid>
-                        <Grid HorizontalAlignment="Right" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid HorizontalAlignment="Right" Grid.Row="0">
                             <Button Width="17" 
                                     Height="17"
                                     Margin="62,8,0,0"
@@ -203,7 +207,7 @@
                                     VerticalAlignment="Top"
                                     Click="ExpandClick"
                                      Style="{StaticResource ResourceKey=ButtonMaximise}"/>
-                             
+
                             <Button Width="17"
                                     Height="17"
                                     Margin="22,8,52,0"
@@ -211,7 +215,9 @@
                                     Click="ClearLogClick"
                                     Style="{StaticResource ResourceKey=ButtonClear}" />
                         </Grid>
+
                         <TabControl Name="LogTabControl" Height="120" Margin="5,5,12,5"
+
                             VerticalAlignment="Top" BorderBrush="#FF0696F9" BorderThickness="2" >
                             <TabControl.Resources >
                                 <Style TargetType="TabPanel">
@@ -268,7 +274,7 @@
                                     </LinearGradientBrush>
                                 </TabItem.Background>
                                 <TabItem.Header>
-                                        <TextBlock Text="Application Log" 
+                                    <TextBlock Text="Application Log" 
                                            Foreground="White" 
                                            FontSize="14" 
                                            FontFamily="Arial" />
@@ -279,18 +285,18 @@
                                                Style="{StaticResource ResourceKey=WhiteLable15pt}" Padding="2,0,0,0"
                                                Text="{Binding Path=ApplicationLog, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                />
-                                        </ScrollViewer>
+                                    </ScrollViewer>
                                 </TabItem.Content>
                             </TabItem>
                             <TabItem Width="120" 
                                      Height="27" >
                                 <TabItem.Header>
-                                   
-                                        <TextBlock Text="TCD Log"  
+
+                                    <TextBlock Text="TCD Log"  
                                            Foreground="White" 
                                            FontSize="14" 
                                            FontFamily="Arial" />
-                                  
+
                                 </TabItem.Header>
                                 <TabItem.Content>
                                     <ScrollViewer Margin="2,2,2,2">
