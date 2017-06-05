@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MercuryEngApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,12 +21,55 @@ namespace MercuryEngApp
     /// </summary>
     public partial class CalibrationUserControl : UserControl
     {
+        CalibrationViewModel calViewModel;
         public CalibrationUserControl()
         {
+            calViewModel = new CalibrationViewModel();
             InitializeComponent();
+            this.DataContext = calViewModel;
         }
 
-        private void ManualValuesChecked(object sender, RoutedEventArgs e)
+        private void OverrideCalChecked(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void OverrideCalibrationClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void StartMeasurement1Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void StartMeasurement2Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ApplyMeasurementsClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ConsistencyCheckStartClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ConsistencyCheckStopClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SafetyStartClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SafetyStopClick(object sender, RoutedEventArgs e)
         {
 
         }
