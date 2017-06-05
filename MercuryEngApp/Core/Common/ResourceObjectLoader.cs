@@ -11,7 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Core.Interfaces.CommonInterface;
+
 using Windows.ApplicationModel.Resources;
 
 namespace Core.Common
@@ -20,7 +20,7 @@ namespace Core.Common
     /// Class ResourceObjectLoader.
     /// </summary>
     /// <seealso cref="Core.Interfaces.CommonInterface.IResourceObjectLoader" />
-    public class ResourceObjectLoader : IResourceObjectLoader
+    public class ResourceObjectLoader 
     {
         #region Variable Declaration
 

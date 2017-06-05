@@ -1,4 +1,4 @@
-﻿using Core.Models.ExamModels;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +12,6 @@ namespace MercuryEngApp.Test
         /// </summary>
         /// <param name="examProcId">The exam proc identifier.</param>
         /// <returns>ExamProcedureSettings</returns>
-        ExamProcedureSettings GetAllVesselsByExamProcedureId(int examProcId);
+       // ExamProcedureSettings GetAllVesselsByExamProcedureId(int examProcId);
     }
 }

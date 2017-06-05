@@ -43,8 +43,7 @@
       <HintPath>..\packages\Moq.4.7.10\lib\net45\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
-
-    <Reference Include="PresentationFramework" />        
+    <Reference Include="PresentationFramework" />
     <Reference Include="System.Xaml" />
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
@@ -54,7 +53,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\WriteableBitmapEx.Wpf.dll</HintPath>
     </Reference>
-
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -72,6 +70,7 @@
     <Compile Include="ExamBusiness.cs" />
     <Compile Include="IExamBusinessTest.cs" />
     <Compile Include="MercuryEngApp\Common\MmodeSettingTest.cs" />
+    <Compile Include="MercuryEngApp\Common\ScaleTest.cs" />
     <Compile Include="MercuryEngApp\Validators\ValidationsTest.cs" />
     <Compile Include="PlottingLib\NAGraphTest.cs" />
     <Compile Include="UnitTest1.cs" />
