@@ -1351,6 +1351,9 @@ namespace Core.Constants
         #region CalibrationConstants
         public const int SAFETY_CALIBRATION_MAX_POWER = 150;
         public const int SAFETY_CAL_START_POWER = 135;
+        public const int INTERMODULE_ADDRESS = 0x080;
+        public const int PRIORITY_SELF_MASTER = 0;
+        public const int TX_PULSE_ADDRESS = 0x004;
         #endregion
 
         #region LogConstants

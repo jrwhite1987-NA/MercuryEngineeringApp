@@ -40,7 +40,7 @@ namespace MercuryEngApp
         async void CalibrationUserControlUnloaded(object sender, RoutedEventArgs e)
         {
             // Make sure FPGA is in reset
-            await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel });
+            await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = 1 });
 
             // Make sure that if a safety calibration is in progress it is stopped
             SafetyStopClick(null, null);
@@ -80,7 +80,7 @@ namespace MercuryEngApp
                 ClearSafetyStatus();
                 lastSafetyTrip = 0;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
@@ -110,7 +110,7 @@ namespace MercuryEngApp
                     LogWrapper.Log(Constants.APPLog, "Calibration override successful.");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogWrapper.Log(Constants.APPLog, "Calibration override failed.");
             }
@@ -131,7 +131,7 @@ namespace MercuryEngApp
             // Make sure that if a safety calibration is in progress it is stopped
             SafetyStopClick(null, null);
 
-            if((await UsbTcd.TCDObj.StartMeasurementOfBoardAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value3 = 1 })).Result)
+            if ((await UsbTcd.TCDObj.StartMeasurementOfBoardAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value3 = 1 })).Result)
             {
                 calViewModel.IsMeasurement1EditEnabled = true;
                 calViewModel.Measurement1 = 0;
@@ -151,7 +151,7 @@ namespace MercuryEngApp
             if ((await UsbTcd.TCDObj.StartMeasurementOfBoardAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value3 = 2 })).Result)
             {
                 calViewModel.IsMeasurement2EditEnabled = true;
-                if(calViewModel.Measurement2>0)
+                if (calViewModel.Measurement2 > 0)
                 {
                     calViewModel.IsApplyMeasurementEnabled = true;
                 }
@@ -162,24 +162,134 @@ namespace MercuryEngApp
             }
         }
 
-        private void ApplyMeasurementsClick(object sender, RoutedEventArgs e)
+        private async void ApplyMeasurementsClick(object sender, RoutedEventArgs e)
         {
+            bool m1Valid, m2Valid;
+            double m1AdjustmentFactor, m2AdjustmentFactor;
+            TCDRequest requestObj = new TCDRequest();
+            requestObj.ChannelID = App.CurrentChannel;
             // Make sure that if a safety calibration is in progress it is stopped
             SafetyStopClick(null, null);
+
+            m1AdjustmentFactor = 1.0645;
+            m2AdjustmentFactor = 1.102;
+
+            m1Valid = false;
+            if (calViewModel.Measurement1 > 0)
+            {
+                requestObj.Value = (int)(m1AdjustmentFactor * calViewModel.Measurement1);
+                m1Valid = true;
+            }
+            if (!m1Valid)
+            {
+                LogWrapper.Log(Constants.APPLog, "Invalid value for measurement #1.");
+            }
+
+            m2Valid = false;
+            if (calViewModel.Measurement2 > 0)
+            {
+                requestObj.Value = (int)(m2AdjustmentFactor * calViewModel.Measurement2);
+                m2Valid = true;
+            }
+            if (!m2Valid)
+            {
+                LogWrapper.Log(Constants.APPLog, "Invalid value for measurement #2.");
+            }
+
+            if (m1Valid & m2Valid)
+            {
+                if ((await UsbTcd.TCDObj.ApplyMeasurementToBoardAsync(requestObj)).Result)
+                {
+                    calViewModel.IsMeasurement1EditEnabled = false;
+                    calViewModel.IsMeasurement2EditEnabled = false;
+                    calViewModel.IsApplyMeasurementEnabled = false;
+                }
+                else
+                {
+                    LogWrapper.Log(Constants.APPLog, "Could not apply calibration.");
+                }
+            }
         }
 
-        private void ConsistencyCheckStartClick(object sender, RoutedEventArgs e)
+        private async void ConsistencyCheckStartClick(object sender, RoutedEventArgs e)
         {
+            const int CONSISTENCY_CHECK_DAC_DA1085 = 1705;
+            const int CONSISTENCY_CHECK_PRF = 8000;
+            const int CONSISTENCY_CHECK_SAMPLE_LENGTH = 9;
 
+
+            if(!await StartFixedTransmit(CONSISTENCY_CHECK_DAC_DA1085, CONSISTENCY_CHECK_PRF, CONSISTENCY_CHECK_SAMPLE_LENGTH))
+            {
+                LogWrapper.Log(Constants.APPLog, "Unable to start transmit.");
+            }
         }
 
-        private void ConsistencyCheckStopClick(object sender, RoutedEventArgs e)
+        private async Task<bool> StartFixedTransmit(int DAC, int PRF, int sampleLength)
         {
+            const int TX_CYCLES_PER_SECOND = 2000000; // 2MHz transmit carrier
+            await UsbTcd.TCDObj.SetModeAsync(App.CurrentChannel, TCDModes.Service);
+            // Start by putting the FPGA into reset to clear any previous state.
+            await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = 1 });
 
+            // Pull the FPGA out of reset.  Note that this calls AcqHW_Sleep in the
+            // Doppler module software, which also initializes the sample clock and
+            // transmit clock for a 2MHz carrier.
+            if (!(await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = 0 })).Result)
+            {
+                return false;
+            }
+
+            // Set as self-master because we don't want to depend on another
+            // module or have another module depend on us.
+            if (!(await UsbTcd.TCDObj.WriteValueToFPGAAsync
+                (new TCDRequest() { ChannelID = App.CurrentChannel, Value3 = Constants.INTERMODULE_ADDRESS, Value = Constants.PRIORITY_SELF_MASTER })).Result)
+            {
+                await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = 1 });
+                return false;
+            }
+
+            // *** Calculate the transmit control register *** //
+            // Convert PRF from pulse per second to tx cycles per pulse
+            int txCyclesPerPRF = TX_CYCLES_PER_SECOND / PRF;
+            // See module software for explanation of the conversion from mm to cycles
+            var txBurstCycles = ((24 * sampleLength) / 9) + 1;
+            // See module software for explanation of the transmit register format
+            if (txCyclesPerPRF == (1 << 12) && txBurstCycles == (1 << 8))
+            {
+                int txRegister = (txBurstCycles << 24) + (txCyclesPerPRF << 12) + DAC;
+
+                // Set the transmit control register
+                if (!(await UsbTcd.TCDObj.WriteValueToFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value3 = Constants.TX_PULSE_ADDRESS, Value = txRegister })).Result)
+                {
+                    await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = 1 });
+                    return false;
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        private void SafetyStartClick(object sender, RoutedEventArgs e)
+        private async void ConsistencyCheckStopClick(object sender, RoutedEventArgs e)
         {
+            await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = 1 });
+        }
+
+        private async void SafetyStartClick(object sender, RoutedEventArgs e)
+        {
+            // Make sure we're not in the middle of acoustic calibration
+            ResetMeasurements();
+
+            // Check for probe
+            ClearSafetyStatus();
+            if((await UsbTcd.TCDObj.GetProbeInfo(new TCDRequest() { ChannelID = App.CurrentChannel })).Probe==null)
+            {
+                return;
+            }
+            BtnSafetyStart.IsEnabled = false;
+            await UsbTcd.TCDObj.EnableTransmitTestControlAsync(new TCDRequest() { ChannelID = App.CurrentChannel });
 
         }
 
@@ -187,10 +297,6 @@ namespace MercuryEngApp
         {
 
         }
-
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
     }
 }

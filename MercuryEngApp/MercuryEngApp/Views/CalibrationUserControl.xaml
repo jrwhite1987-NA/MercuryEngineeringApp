@@ -496,7 +496,8 @@
                             <RowDefinition Height="40"/>
                         </Grid.RowDefinitions>
 
-                        <Button Content="Start" 
+                        <Button x:Name="BtnSafetyStart"
+                            Content="Start" 
                                     Style="{StaticResource ResourceKey=ButtonStyle1}" 
                                    Grid.Row="1" 
                                     Width="140" 

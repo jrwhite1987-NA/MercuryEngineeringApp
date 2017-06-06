@@ -346,6 +346,15 @@ namespace MercuryEngApp
             return isValid;
         }
 
+        private async void ReadOperatingMinutesClick(object sender, RoutedEventArgs e)
+        {
+            using (TCDRequest requestObj=new TCDRequest())
+            {
+                requestObj.ChannelID=App.CurrentChannel;
+                infoViewModelObj.OperatingMinutes = (uint)(await UsbTcd.TCDObj.ReadOperatingMinutesAsync(requestObj)).Value;
+            }
+        }
+
         //private bool ValidateControl(DependencyObject dependencyObject, out string errorMessage)
         //{
         //    StringBuilder errorList = new StringBuilder();

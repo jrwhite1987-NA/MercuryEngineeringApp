@@ -17,12 +17,29 @@ namespace MercuryEngApp
         internal ProbeInfo Probeinfo { get; set; }
 
         private byte channelNumber;
+        private uint operatingMins;
 
         public InfoViewModel()
         {
             BoardInfo = new BoardInfo();
             Probeinfo = new ProbeInfo();
             ProbePartNumberList = new List<string>();
+        }
+
+        public uint OperatingMinutes
+        {
+            get
+            {
+                return operatingMins;
+            }
+            set
+            {
+                if (operatingMins != value)
+                {
+                    operatingMins = value;
+                    RaisePropertyChanged();
+                }
+            }
         }
 
         public byte ChannelNumber
