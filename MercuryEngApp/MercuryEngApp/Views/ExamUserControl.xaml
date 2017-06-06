@@ -42,7 +42,7 @@
                      Margin="215,12,269,0" 
                      VerticalAlignment="Top"
                      Padding="5,2,3,0" Width="90" 
-                     TextAlignment="Center">
+                     TextAlignment="Center" Validation.ErrorTemplate="{x:Null}">
                 <TextBox.Text>
                     <Binding Path="Power" Mode="OneWayToSource" UpdateSourceTrigger="LostFocus">
                         <Binding.ValidationRules>
@@ -85,7 +85,7 @@
                        VerticalAlignment="Top"
                        Padding="5,2,3,0" 
                        Width="90" 
-                       TextAlignment="Center">
+                       TextAlignment="Center" Validation.ErrorTemplate="{x:Null}">
                 <TextBox.Text>
                     <Binding Path="Depth" Mode="OneWayToSource" UpdateSourceTrigger="LostFocus">
                         <Binding.ValidationRules>
@@ -126,7 +126,7 @@
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
                      Width="90" 
-                     TextAlignment="Center">
+                     TextAlignment="Center" Validation.ErrorTemplate="{x:Null}">
                 <TextBox.Text>
                     <Binding Path="Filter" Mode="OneWayToSource" UpdateSourceTrigger="LostFocus">
                         <Binding.ValidationRules>
@@ -169,7 +169,7 @@
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
                      Width="90" 
-                     TextAlignment="Center">
+                     TextAlignment="Center" Validation.ErrorTemplate="{x:Null}">
                 <TextBox.Text>
                     <Binding Path="SVol" Mode="OneWayToSource" UpdateSourceTrigger="LostFocus">
                         <Binding.ValidationRules>
@@ -212,7 +212,7 @@
                      Margin="218,162,272,0"
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
-                     Width="90">
+                     Width="90" Validation.ErrorTemplate="{x:Null}">
                 <TextBox.Text>
                     <Binding Path="StartDepth" Mode="OneWayToSource" UpdateSourceTrigger="LostFocus">
                         <Binding.ValidationRules>
@@ -258,7 +258,7 @@
                 	 Margin="218,202,272,0"
                      VerticalAlignment="Top"
                      Padding="5,2,3,0"
-                     Width="80">
+                     Width="80" Validation.ErrorTemplate="{x:Null}">
                 <ComboBox.SelectedItem>
                     <Binding Path="SelectedPRF">
                         <Binding.ValidationRules>
