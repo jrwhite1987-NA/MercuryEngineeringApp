@@ -56,7 +56,7 @@
                             <RowDefinition Height="34"/>
                             <RowDefinition Height="34"/>
                             <RowDefinition Height="41"/>
-                            <RowDefinition Height="44"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
                         <TextBlock Height="17" 

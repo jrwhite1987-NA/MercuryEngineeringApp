@@ -107,6 +107,7 @@ namespace MercuryEngApp
                 CalibrationTab.Content = new CalibrationUserControl();
                 PacketTab.Content = new PacketControl();
                 FPGATab.Content = new FPGAUserControl();
+                SoftwareTab.Content = new SoftwareUserControl();
                 LogTab.Content = new LogUserControl();
                 BtnLeftProbe.IsHitTestVisible = false;
                 BtnRightProbe.IsHitTestVisible = false;
@@ -195,7 +196,7 @@ namespace MercuryEngApp
         {
             previousIndex = NavigationTabs.SelectedIndex;
             LogSelectedTabIndex = LogTabControl.SelectedIndex;
-            NavigationTabs.SelectedIndex = 5;
+            NavigationTabs.SelectedIndex = 6;
             FooterTextBox.Visibility = Visibility.Collapsed;
         }
 
@@ -209,7 +210,7 @@ namespace MercuryEngApp
         {
             if (e.Source is TabControl)
             {
-                if (NavigationTabs.SelectedIndex != 5)
+                if (NavigationTabs.SelectedIndex != 6)
                 {
                     FooterTextBox.Visibility = Visibility.Visible;
                 }
