@@ -128,7 +128,7 @@
                         <TabControl.Background>
                             <SolidColorBrush Color="#FF0696F9" Opacity="0" />
                         </TabControl.Background>
-                        <TabItem Width="165" Height="38" x:Name="ExamTab" BorderBrush="#FF0696F9" >
+                        <TabItem Width="160" Height="38" x:Name="ExamTab" BorderBrush="#FF0696F9" >
                             <TabItem.Background>
                                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                                     <GradientStop Color="#FFF0F0F0" Offset="0"/>
@@ -142,7 +142,7 @@
                                            FontFamily="Arial" />
                             </TabItem.Header>
                         </TabItem>
-                        <TabItem Width="165" Height="38" x:Name="InfoTab">
+                        <TabItem Width="160" Height="38" x:Name="InfoTab">
                             <TabItem.Header>
                                 <TextBlock Text="Info"  
                                            Foreground="White" 
@@ -150,7 +150,7 @@
                                            FontFamily="Arial" />
                             </TabItem.Header>
                         </TabItem>
-                        <TabItem Width="165" Height="38" x:Name="CalibrationTab" >
+                        <TabItem Width="160" Height="38" x:Name="CalibrationTab" >
                             <TabItem.Header>
                                 <TextBlock Text="Calibration"  
                                            Foreground="White" 
@@ -158,7 +158,7 @@
                                            FontFamily="Arial" />
                             </TabItem.Header>
                         </TabItem>
-                        <TabItem Width="165" Height="38" x:Name="PacketTab">
+                        <TabItem Width="160" Height="38" x:Name="PacketTab">
                             <TabItem.Header>
                                 <TextBlock Text="Packet"  
                                            Foreground="White" 
@@ -167,9 +167,18 @@
                             </TabItem.Header>
                         </TabItem>
 
-                        <TabItem Width="165" Height="38" x:Name="FPGATab">
+                        <TabItem Width="160" Height="38" x:Name="FPGATab">
                             <TabItem.Header>
                                 <TextBlock Text="FPGA"  
+                                           Foreground="White" 
+                                           FontSize="18" 
+                                           FontFamily="Arial" />
+                            </TabItem.Header>
+                        </TabItem>
+
+                        <TabItem Width="165" Height="38" x:Name="SoftwareTab">
+                            <TabItem.Header>
+                                <TextBlock Text="Software Update"  
                                            Foreground="White" 
                                            FontSize="18" 
                                            FontFamily="Arial" />
