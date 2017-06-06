@@ -462,7 +462,7 @@
                                       IsReadOnly="False"
                                       IsEditable="False"
                                       ItemsSource="{Binding Path=ProbePartNumberList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                       
-                                      Margin="0,7,6,7" 
+                                      Margin="0,5,6,7" 
                                       Name="ProbePartNumberCombo"
                                       Style="{StaticResource ResourceKey=ComboBoxBorder}" HorizontalAlignment="Right" Width="277">
                             <ComboBox.SelectedItem>
