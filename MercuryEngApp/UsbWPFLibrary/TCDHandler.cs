@@ -657,8 +657,7 @@ namespace UsbTcdLibrary
                 + index.ToString() + " value:" + value.ToString());
                 if (GeneralTCDHandle != null)
                 {
-                    const int PACKET_LENGTH = 0;
-                    UsbSetupPacket setupPacket = SetupPacket(request, index, value, DMIProtocol.DOPPLER_REQUEST, UsbTransferDirection.In, PACKET_LENGTH);
+                    UsbSetupPacket setupPacket = SetupPacket(request, index, value, DMIProtocol.DOPPLER_REQUEST, UsbTransferDirection.In, bufferLength);
                     await GeneralTCDHandle.SendControlInTransferAsync(setupPacket, tempBuffer);
                     resultArray = tempBuffer.ToArray();
                 }
