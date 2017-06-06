@@ -38,7 +38,7 @@
                             Width="550" 
                             Margin="-2,-2,-2,0" Grid.ColumnSpan="2">
 
-                        <TextBlock Height="17" 
+                        <TextBlock Height="27" 
                                Margin="13,8,0,0" 
                                Text="Board Info" 
                                 Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
@@ -211,7 +211,7 @@
                             Margin="-2,-2,-2,0"
                             >
 
-                        <TextBlock Height="17" 
+                        <TextBlock Height="27" 
                                    Margin="13,8,0,0" 
                                    Text="Channel Assignment" 
                                    Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
@@ -295,7 +295,7 @@
                             Margin="-2,-2,-2,0"
                             >
 
-                        <TextBlock Height="17" 
+                        <TextBlock Height="27" 
                                    Margin="13,8,0,0" 
                                    Text="Operating Info" 
                                    Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
@@ -352,7 +352,7 @@
                 <Grid Name="rightPanelInfoTop" >
                     <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" Height="40" VerticalAlignment="Top" 
                                Width="744" Margin="-3,-2,-1,0" HorizontalAlignment="Right"/>
-                    <TextBlock Height="17" Margin="13,8,0,0" Text="Probe Info" Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
+                    <TextBlock Height="27" Margin="13,8,0,0" Text="Probe Info" Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
