@@ -17,12 +17,12 @@ namespace MercuryEngApp.Common
         {
             if (type == Constants.APPLog)
             {
-                App.ApplicationLog += message;
+                App.ApplicationLog = message + Environment.NewLine + App.ApplicationLog;
                 AppLogger.Info(message);
             }
             else
             {
-                App.TCDLog += message;
+                App.TCDLog = message + Environment.NewLine + App.TCDLog;
                 TCDLogger.Info(message);
             }
         }
