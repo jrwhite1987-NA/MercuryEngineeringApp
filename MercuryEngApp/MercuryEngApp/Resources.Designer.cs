@@ -250,7 +250,7 @@ namespace MercuryEngApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid Entry. {0} must be an number..
+        ///   Looks up a localized string similar to Invalid Entry. {0} must be a number..
         /// </summary>
         public static string MustBeNumber {
             get {
