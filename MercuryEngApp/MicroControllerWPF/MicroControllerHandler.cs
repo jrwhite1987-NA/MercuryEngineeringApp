@@ -234,7 +234,7 @@ namespace MicrochipController
             onDeviceAddedRemoved(false);
             ReleaseDevice();
             Helper.logger.Debug("--");
-            //Logs.Instance.ErrorLog<MicroControllerHandler>("Remote control disconnected.", "OnDeviceRemoved", Severity.Debug);
+             Helper.logger.Debug("Remote control disconnected.");
         }
 
         /// <summary>
@@ -248,7 +248,7 @@ namespace MicrochipController
             controllerInfo = args;
             onDeviceAddedRemoved(true);
             Helper.logger.Debug("--");
-            //Logs.Instance.ErrorLog<MicroControllerHandler>("Remote control connected.", "OnPowerControllerAdded", Severity.Debug);
+             Helper.logger.Debug("Remote control connected.");
         }
         #endregion
 
@@ -262,7 +262,7 @@ namespace MicrochipController
             Helper.logger.Debug("++");
             try
             {
-                //Logs.Instance.ErrorLog<MicroControllerHandler>("async GetDeviceHandleAsync begins" , "GetDeviceHandleAsync", Severity.Debug);
+                 Helper.logger.Debug("async GetDeviceHandleAsync begins" );
 
                 bool result = false;
                 controllerHandler = await UsbDevice.FromIdAsync(controllerInfo.Id);
@@ -286,13 +286,12 @@ namespace MicrochipController
                     result = true;
                 }
                 Helper.logger.Debug("--");
-                //Logs.Instance.ErrorLog<MicroControllerHandler>("async GetDeviceHandleAsync ends", "GetDeviceHandleAsync", Severity.Debug);
+                 Helper.logger.Debug("async GetDeviceHandleAsync ends");
                 return result;
             }
             catch (Exception ex)
             {
-                Helper.logger.Warn("Exception: ", ex);
-                //Logs.Instance.ErrorLog<MicroControllerHandler>(ex, "GetDeviceHandleAsync", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);                
                 return false;
             }
         }
@@ -306,7 +305,7 @@ namespace MicrochipController
             Helper.logger.Debug("++");
             try
             {
-                //Logs.Instance.ErrorLog<MicroControllerHandler>("async ReleaseDevice begins ", "ReleaseDevice", Severity.Debug);
+                 Helper.logger.Debug("async ReleaseDevice begins ");
                 if (IsControllerWorking)
                 {
                     controllerHandler.Dispose();
@@ -319,23 +318,21 @@ namespace MicrochipController
                     outStream = null;
                     inStream = null;
                     reader = null;
-                    writer = null;
-                    Helper.logger.Debug("--");
-                    //Logs.Instance.ErrorLog<MicroControllerHandler>("async ReleaseDevice ends ", "ReleaseDevice", Severity.Debug);
+                    writer = null;                    
+                    Helper.logger.Debug("async ReleaseDevice ends ");
                     return true;
                 }
                 else
                 {
                     Helper.logger.Debug("--");
-                    //Logs.Instance.ErrorLog<MicroControllerHandler>("async ReleaseDevice ends ", "ReleaseDevice", Severity.Debug);
+                     
                     return false;
                 }
 
             }
             catch (Exception ex)
             {
-                Helper.logger.Warn("Exception: ", ex);
-                //Logs.Instance.ErrorLog<MicroControllerHandler>(ex, "ReleaseDevice", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);               
                 return false;
             }
         }
@@ -362,7 +359,7 @@ namespace MicrochipController
             Helper.logger.Debug("++");
             try
             {
-                //Logs.Instance.ErrorLog<MicroControllerHandler>("async GetDescriptorsAsString begins ", "GetDescriptorsAsString", Severity.Debug);
+                 Helper.logger.Debug("async GetDescriptorsAsString begins ");
                 GetDescriptors();
                 var usbInterface = controllerHandler.DefaultInterface;
                 var bulkInPipes = usbInterface.BulkInPipes;
@@ -449,14 +446,13 @@ namespace MicrochipController
                     descriptorString.Append("\nInterval : ");
                     descriptorString.Append(endpointDescriptor.Interval.Duration().ToString());
                 }
-                Helper.logger.Debug("--");
-                //Logs.Instance.ErrorLog<MicroControllerHandler>("async GetDescriptorsAsString ends ", "GetDescriptorsAsString", Severity.Debug);
+
+                Helper.logger.Debug("--");                
                 return descriptorString.ToString();
             }
             catch (Exception ex)
             {
-                Helper.logger.Warn("Exception: ", ex);
-                //Logs.Instance.ErrorLog<MicroControllerHandler>(ex, "GetDescriptorsAsString", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);                
                 return "";
             }
 
@@ -502,8 +498,7 @@ namespace MicrochipController
             }
             catch (Exception ex)
             {
-                Helper.logger.Warn("Exception: ", ex);
-                //Logs.Instance.ErrorLog<MicroControllerHandler>(ex, "Command: " + cmd, Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);               
                 return null;
             }
         }
@@ -539,9 +534,10 @@ namespace MicrochipController
             Helper.logger.Debug("++");
             try
             {
-                //Logs.Instance.ErrorLog<MicroControllerHandler>("async SendPowerParameters begins for channel1Power:" + channel1Power.ToString()
-                   // + "channel2Power:" + channel2Power.ToString() + "channel1Reset:" + channel1Reset.ToString() + "channel2Reset:" + channel2Reset.ToString()
-                 //   + "moenable:" + moenable.ToString(), "SendPowerParameters", Severity.Debug);
+                 Helper.logger.Debug("async SendPowerParameters begins for channel1Power:" + channel1Power.ToString()
+                  + "channel2Power:" + channel2Power.ToString() + "channel1Reset:" + channel1Reset.ToString() + "channel2Reset:" + channel2Reset.ToString()
+                  + "moenable:" + moenable.ToString());
+
                 const byte CHANNEL_1_POWER = 0x01;
                 const byte CHANNEL_2_POWER = 0x04;
                 const byte MOENABLE = 0x20;
@@ -590,16 +586,19 @@ namespace MicrochipController
                 byte[] rawData = buf.ToArray();
 
                 Helper.logger.Debug("--");
-                //Logs.Instance.ErrorLog<MicroControllerHandler>("async SendPowerParameters ends ", "SendPowerParameters", Severity.Debug);
+               
                 if (verifyInputStream(rawData[0], rawData[1], MicroControllerProtocol.TCDControlReq))
+                {
                     return true;
+                }
                 else
+                {
                     return false;
+                }
             }
             catch (Exception ex)
             {
-                Helper.logger.Debug("Exception: ", ex);
-                //Logs.Instance.ErrorLog<MicroControllerHandler>(ex, "SendPowerParameters", Severity.Warning);
+                Helper.logger.Debug("Exception: ", ex);               
                 return false;
             }
         }
@@ -614,7 +613,7 @@ namespace MicrochipController
             String result = MessageConstants.NotAvailable;
             try
             {
-                //Logs.Instance.ErrorLog<MicroControllerHandler>("async GetVersionInfo begins ", "GetVersionInfo", Severity.Debug);
+                 Helper.logger.Debug("async GetVersionInfo begins ");
                 byte[] data = await SendMicroControllerRequest(MicroControllerProtocol.VersionNumberRequest, 3);
                 if (data != null)
                 {
@@ -628,8 +627,7 @@ namespace MicrochipController
             }
             catch (Exception ex)
             {
-                Helper.logger.Warn("Exception: ", ex);
-                //Logs.Instance.ErrorLog<MicroControllerHandler>(ex, "GetVoltageLevel", Severity.Debug);
+                Helper.logger.Warn("Exception: ", ex);                
                 return MessageConstants.NotAvailable;
             }
         }
@@ -644,7 +642,7 @@ namespace MicrochipController
             int voltage = 0;
             try
             {
-                //Logs.Instance.ErrorLog<MicroControllerHandler>("async GetVoltageLevel begins ", "GetVoltageLevel", Severity.Debug);
+                 Helper.logger.Debug("async GetVoltageLevel begins ");
                 byte[] data = await SendMicroControllerRequest(MicroControllerProtocol.BatteryVoltageValueRequest, sizeof(Int16));
 
                 if (data != null)
@@ -660,8 +658,7 @@ namespace MicrochipController
             }
             catch (Exception ex)
             {
-                Helper.logger.Warn("Exception: ", ex);
-                //Logs.Instance.ErrorLog<MicroControllerHandler>(ex, "GetVoltageLevel", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);               
                 return short.MaxValue;
             }
         }
@@ -676,7 +673,7 @@ namespace MicrochipController
             int current = 0;
             try
             {
-                //Logs.Instance.ErrorLog<MicroControllerHandler>("async GetBatteryCurrent begins ", "GetBatteryCurrent", Severity.Debug);
+                 Helper.logger.Debug("async GetBatteryCurrent begins ");
                 byte[] data = await SendMicroControllerRequest(MicroControllerProtocol.BatteryCurrentRequest, sizeof(Int16));
 
                 if (data != null)
@@ -693,8 +690,7 @@ namespace MicrochipController
             }
             catch (Exception ex)
             {
-                Helper.logger.Warn("Exception: ", ex);
-                //Logs.Instance.ErrorLog<MicroControllerHandler>(ex, "GetBatteryCurrent", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);               
                 return short.MaxValue;
             }
         }
@@ -708,8 +704,7 @@ namespace MicrochipController
             Helper.logger.Debug("++");
             int result = 0;
             try
-            {
-                //Logs.Instance.ErrorLog<MicroControllerHandler>("async GetBatteryCharge begins ", "GetBatteryCharge", Severity.Debug);
+            {   
                 byte[] data = await SendMicroControllerRequest(MicroControllerProtocol.BatteryStateRequest, sizeof(byte));
 
                 if (data != null)
@@ -722,8 +717,7 @@ namespace MicrochipController
             }
             catch (Exception ex)
             {
-                Helper.logger.Warn("Exception: ", ex);
-                //Logs.Instance.ErrorLog<MicroControllerHandler>(ex, "GetBatteryCharge", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);               
                 return 0;
             }
         }
@@ -738,7 +732,6 @@ namespace MicrochipController
             int remainingCharge = 0;
             try
             {
-                //Logs.Instance.ErrorLog<MicroControllerHandler>("async GetRemainingCharge begins ", "GetRemainingCharge", Severity.Debug);
                 byte[] data = await SendMicroControllerRequest(MicroControllerProtocol.RemainingChargeRequest, sizeof(Int16));
 
                 if (data != null)
@@ -751,8 +744,7 @@ namespace MicrochipController
             }
             catch (Exception ex)
             {
-                Helper.logger.Warn("Exception: ", ex);
-                //Logs.Instance.ErrorLog<MicroControllerHandler>(ex, "GetRemainingCharge", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);                
                 return 0;
             }
         }
@@ -767,7 +759,6 @@ namespace MicrochipController
             int fullCharge = 0;
             try
             {
-                //Logs.Instance.ErrorLog<MicroControllerHandler>("async GetFullCharge begins ", "GetFullCharge", Severity.Debug);
                 byte[] data = await SendMicroControllerRequest(MicroControllerProtocol.FullChargeRequest, sizeof(Int16));
 
                 if (data != null)
@@ -779,8 +770,7 @@ namespace MicrochipController
             }
             catch (Exception ex)
             {
-                Helper.logger.Warn("Exception: ", ex);
-                //Logs.Instance.ErrorLog<MicroControllerHandler>(ex, "GetFullCharge", Severity.Warning);
+                Helper.logger.Warn("Exception: ", ex);                
                 return 0;
             }
         }
@@ -795,7 +785,6 @@ namespace MicrochipController
             int voltageMask = 0;
             try
             {
-                //Logs.Instance.ErrorLog<MicroControllerHandler>("async GetVoltageState begins ", "GetVoltageState", Severity.Debug);
                 byte[] data = await SendMicroControllerRequest(MicroControllerProtocol.BatteryVoltageRequest, sizeof(byte));
                 if (data != null)
                 {
@@ -811,8 +800,7 @@ namespace MicrochipController
             }
             catch (Exception ex)
             {
-                Helper.logger.Warn("Exception", ex);
-                //Logs.Instance.ErrorLog<MicroControllerHandler>(ex, "GetVoltageState", Severity.Warning);
+                Helper.logger.Warn("Exception", ex);               
                 return short.MaxValue;
             }
         }
