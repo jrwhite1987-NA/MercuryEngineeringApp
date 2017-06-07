@@ -125,6 +125,7 @@ namespace MercuryEngApp
                 MainWindow.TurnTCDON += MainWindowTurnTCDON;
                 MainWindow.TurnTCDOFF += MainWindowTurnTCDOFF; 
                 btnEnvelop.IsChecked = true;
+                toggleLimits.IsChecked = true;
             }
             catch (Exception ex)
             {

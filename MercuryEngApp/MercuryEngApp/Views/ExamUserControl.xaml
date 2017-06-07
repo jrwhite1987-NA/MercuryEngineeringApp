@@ -557,7 +557,7 @@
             <ToggleButton x:Name = "toggleLimits" Margin="0,67,10,0"
                       VerticalAlignment="Top"  
                       HorizontalAlignment = "Right"
-                      Content = "Limits Off"
+                      Content = "Limits On"
                       Width="134" Height="40"
                           Click="toggleLimitsClick"
 
