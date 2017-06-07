@@ -106,7 +106,6 @@ namespace MercuryEngApp
                 if ((bool)App.mainWindow.IsPowerChecked)
                 {
                     MainWindowTurnTCDOFF();
-                    App.mainWindow.isPowerOn = false;
                     App.mainWindow.IsPowerChecked = false;
                 }
                 //Clear graph data

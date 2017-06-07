@@ -68,10 +68,6 @@
                                   Click="TCDPowerClick"
                                   VerticalAlignment="Top" 
                                   Grid.Column="0"/>
-
-                
-
-
                 </Grid>
             </Grid>
 

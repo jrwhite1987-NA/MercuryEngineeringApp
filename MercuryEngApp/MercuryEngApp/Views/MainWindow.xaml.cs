@@ -26,7 +26,6 @@ namespace MercuryEngApp
     {
         static ILog logger = LogManager.GetLogger("EnggAppAppender");
 
-        internal bool isPowerOn;
         public static event TCDPower TurnTCDON;
         public static event TCDPower TurnTCDOFF;
         public int previousIndex = 0;
@@ -73,7 +72,6 @@ namespace MercuryEngApp
             InitializeComponent();
             this.Loaded += MainWindowLoaded;
             this.DataContext = mainViewModel;
-            isPowerOn = false;
             PowerController.Instance.OnDeviceStateChanged += MicrocontrollerOnDeviceStateChanged;
             PowerController.Instance.StartWatcher();
             workAction = delegate
@@ -111,7 +109,6 @@ namespace MercuryEngApp
                 LogTab.Content = new LogUserControl();
                 BtnLeftProbe.IsHitTestVisible = false;
                 BtnRightProbe.IsHitTestVisible = false;
-                
                 App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
                 await Dispatcher.BeginInvoke(workAction, System.Windows.Threading.DispatcherPriority.Normal, null);
             }
@@ -156,12 +153,11 @@ namespace MercuryEngApp
             logger.Debug("++");
             try
             {
-                if (!isPowerOn)
+                if ((bool)IsPowerChecked)
                 {
                     //Turn TCD ON
                     if (TurnTCDON != null)
                     {
-                        isPowerOn = true;
                         TurnTCDON();
                     }
                 }
@@ -170,7 +166,6 @@ namespace MercuryEngApp
                     //Turn TCD OFF
                     if (TurnTCDOFF != null)
                     {
-                        isPowerOn = false;
                         TurnTCDOFF();
                     }
                 }
