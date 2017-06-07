@@ -323,24 +323,24 @@
             <TextBlock Text="To" 
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                        Padding="12,5,0,0" 
-                       Margin="207,4,0,0" 
+                       Margin="207,10,0,0" 
                        VerticalAlignment="Top"/>
 
             <TextBlock Text="Mean (cm/s)" 
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                        Padding="20" 
-                       Margin="0,19,0,0"/>
+                       Margin="0,22,0,0"/>
 
             <TextBlock Text="Min (cm/s)" 
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                        Padding="20,5,0,0" 
-                       Margin="0,75,0,0"/>
+                       Margin="0,78,0,0"/>
 
             <TextBox Height="29" 
                      Text="{Binding Path=PosMean, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                      FontSize="18" 
                      Style="{StaticResource ResourceKey=TexboxDisable}" 
-                     Margin="217,34,273,0" 
+                     Margin="217,37,273,0" 
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
                      Width="90" 
@@ -356,22 +356,22 @@
             <TextBlock Text="Max (cm/s)" 
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                        Padding="20,5,0,0" 
-                       Margin="0,113,0,0"/>
+                       Margin="0,116,0,0"/>
 
             <TextBlock Text="PI" 
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                        Padding="20,5,0,0" 
-                       Margin="0,150,0,0"/>
+                       Margin="0,153,0,0"/>
 
             <TextBlock Text="TIC" 
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                        Padding="20,5,0,0" 
-                       Margin="0,187,0,0"/>
+                       Margin="0,193,0,0"/>
 
             <TextBox Height="29" 
                      Text="{Binding Path=PosMin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                      FontSize="18" 
-                     Margin="217,70,273,0" 
+                     Margin="217,75,273,0" 
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
                      Width="90" 
@@ -390,7 +390,7 @@
             <TextBox Height="29" 
                      Text="{Binding Path=PosMax, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                      FontSize="18" 
-                     Margin="217,107,273,0"
+                     Margin="217,113,273,0"
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
                      Width="90" 
@@ -409,7 +409,7 @@
             <TextBox Height="29"
                      Text="{Binding Path=PosPI, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      FontSize="18" 
-                     Margin="217,144,273,0"
+                     Margin="217,152,273,0"
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0"
                      Width="90" 
@@ -428,7 +428,7 @@
             <TextBox Height="29" 
                      Text="{Binding Path=TIC, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                      FontSize="18"
-                     Margin="217,182,273,0" 
+                     Margin="217,190,273,0" 
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
                      Width="90" 
@@ -446,14 +446,14 @@
             </TextBox>
             <TextBlock Text="Away" Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                        Padding="12,5,0,0" 
-                       Margin="327,0,0,0" 
+                       Margin="327,6,0,0" 
                        VerticalAlignment="Top"
 					   HorizontalAlignment="Left"/>
 
             <TextBox Height="29" 
                      Text="{Binding Path=NegMean, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                      FontSize="18" 
-                     Margin="338,34,152,0" 
+                     Margin="338,37,152,0" 
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
                      Width="90" 
@@ -473,7 +473,7 @@
             <TextBox Height="29"
                      Text="{Binding Path=NegMin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                      FontSize="18" 
-                     Margin="338,72,152,0" 
+                     Margin="338,76,152,0" 
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
                      Width="90" 
@@ -493,7 +493,7 @@
             <TextBox Height="29"
                      Text="{Binding Path=NegMax, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      FontSize="18" 
-                     Margin="338,109,152,0" 
+                     Margin="338,114,152,0" 
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
                      Width="90" 
@@ -513,7 +513,7 @@
             <TextBox Height="29" 
                      Text="{Binding Path=NegPI, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                      FontSize="18" 
-                	 Margin="338,146,152,0" 
+                	 Margin="338,153,152,0" 
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" Width="90" 
                      TextAlignment="Center"  
@@ -532,29 +532,29 @@
 
             <Border  Style="{StaticResource ResourceKey=RoundedBorderMainpageCombo}" 
                              Grid.Column="0"  
-                             HorizontalAlignment="Right" Width="121" Height="30" Margin="0,146,16,54" Background="#FFEEEEEE"/>
+                             HorizontalAlignment="Right" Width="121" Height="30" Margin="0,149,16,51" Background="#FFEEEEEE"/>
             <ComboBox ItemsSource="{Binding Path=FFTList, Mode=TwoWay}"
                       SelectedItem="{Binding Path=SelectedFFT, UpdateSourceTrigger=PropertyChanged}"
                               Style="{StaticResource ResourceKey=ComboBoxBorder}" 
-                              SelectionChanged="spectrumBinCombobox_SelectionChanged" Height="25" Margin="450,149,23,56"/>
+                              SelectionChanged="spectrumBinCombobox_SelectionChanged" Height="25" Margin="450,152,23,53"/>
 
             <TextBlock Text="Spectrum Bin" 
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                        Padding="12,5,0,0"
-                       Margin="431,117,0,0"/>
+                       Margin="431,120,0,0"/>
 
 
 
             <ToggleButton x:Name="btnEnvelop" Content="Envelope On" 
                     Style="{StaticResource ResourceKey=ButtonStyle2}" 
-                    Margin="0,29,10,0" 
+                    Margin="0,31,10,0" 
                     VerticalAlignment="Top" 
                     Width="133" Height="40"                                      
                     HorizontalAlignment = "Right"
                     Checked="btnEnvelop_Checked"
                     Unchecked="btnEnvelop_Unchecked"/>
 
-            <ToggleButton x:Name = "toggleLimits" Margin="0,67,10,0"
+            <ToggleButton x:Name = "toggleLimits" Margin="0,72,10,0"
                       VerticalAlignment="Top"  
                       HorizontalAlignment = "Right"
                       Content = "Limits On"
@@ -635,7 +635,7 @@
                    Stretch="Fill" 
                    Panel.ZIndex="2"
                    Height="200">
-                
+
             </Image>
 
             <Rectangle Stroke="#1c2040" 
