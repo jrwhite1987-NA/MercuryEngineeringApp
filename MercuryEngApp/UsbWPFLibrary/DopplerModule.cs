@@ -111,12 +111,6 @@ namespace UsbTcdLibrary
         /// </summary>
         private ushort SequenceRightPacket = 0;
 
-
-        /// <summary>
-        /// The MSG timer
-        /// </summary>
-        //private DispatcherTimer msgTimer = new DispatcherTimer();
-
         /// <summary>
         /// The left buffer
         /// </summary>
@@ -215,7 +209,6 @@ namespace UsbTcdLibrary
         {
             try
             {   
-                Helper.logger.Debug("++");
                 Helper.logger.Debug("Get file for examId:" + examId.ToString() + " channelId: " + channelId.ToString());
 
                 string fileName = String.Format("{0}-Channel{1}.txt", examId, channelId);
@@ -271,7 +264,6 @@ namespace UsbTcdLibrary
             ulong numPackets = 0;
             try
             {
-                Helper.logger.Debug("++");                
                 Helper.logger.Debug("Get file for examId:" + examId.ToString() + " channelId: " + channelId.ToString());
 
                 string fileName = String.Format("{0}-Channel{1}.txt", examId, channelId);
@@ -712,7 +704,6 @@ namespace UsbTcdLibrary
         /// <returns>Task&lt;System.Byte[]&gt;.</returns>
         private static async Task<byte[]> LoadFileData(int channelId, StorageFile readFile)
         {
-            Helper.logger.Debug("++");
             Helper.logger.Debug("await to load file data- file name:" +
               (readFile.Name != null ? readFile.Name : string.Empty));
             
