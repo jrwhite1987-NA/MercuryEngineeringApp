@@ -321,10 +321,6 @@
       <Project>{5792e4a8-e600-4659-89d5-f6c36f5aab73}</Project>
       <Name>UsbWPFLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WPFPdfViewer\WPFPdfViewer.csproj">
-      <Project>{604b06c6-0037-4361-ad95-b9c25056abd8}</Project>
-      <Name>WPFPdfViewer</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <PublishFile Include="System.Runtime.WindowsRuntime">
