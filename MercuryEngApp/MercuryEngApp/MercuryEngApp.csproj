@@ -117,6 +117,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\AudioWrapper.cs" />
+    <Compile Include="Common\HexPacket\HexRecord.cs" />
+    <Compile Include="Common\HexPacket\ItemMenu.cs" />
     <Compile Include="Common\LogWrapper.cs" />
     <Compile Include="Common\PowerController.cs" />
     <Compile Include="Common\UsbTcd.cs" />

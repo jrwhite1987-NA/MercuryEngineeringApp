@@ -28,7 +28,7 @@ namespace UsbTcdLibrary
              /// <summary>
         /// The packet size
         /// </summary>
-        internal static int PACKET_SIZE = Packet_Size_128FFT;
+        public static int PACKET_SIZE = Packet_Size_128FFT;
 
         private const int Packet_Size_128FFT = 2756;
         private const int Packet_Size_256FFT = 3524;

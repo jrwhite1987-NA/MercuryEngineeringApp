@@ -300,6 +300,10 @@ namespace Core.Constants
         /// </summary>
         public const int VALUE_8 = 8;
         /// <summary>
+        /// The value 8
+        /// </summary>
+        public const int VALUE_9 = 9;
+        /// <summary>
         /// The value 10
         /// </summary>
         public const int VALUE_10 = 10;
@@ -316,9 +320,17 @@ namespace Core.Constants
         /// </summary>
         public const int VALUE_13 = 13;
         /// <summary>
+        /// The value 13
+        /// </summary>
+        public const int VALUE_14 = 14;
+        /// <summary>
         /// The value 15
         /// </summary>
         public const int VALUE_15 = 15;
+        /// <summary>
+        /// The value 13
+        /// </summary>
+        public const int VALUE_16 = 16;
         /// <summary>
         /// The value 18
         /// </summary>
@@ -595,6 +607,14 @@ namespace Core.Constants
         public const int X_VALUE = -410;
 
         #endregion Page Level Constants
+
+        #region Hex Packet
+        /// <summary>
+        /// Number of column
+        /// </summary>
+        public const int NumberOfCloumn = 16;
+        #endregion 
+
 
         #region CVR Constants
 

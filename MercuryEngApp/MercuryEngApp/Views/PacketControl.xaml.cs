@@ -329,12 +329,12 @@ namespace MercuryEngApp
         {
             string arrayValues = "[";
 
-            for (int i = 0; i < 3; i++)
+            for (int i = Constants.VALUE_0; i < Constants.VALUE_3; i++)
             {
                 arrayValues = arrayValues + array[i] + ", ";
             }
 
-            return arrayValues + array[3] + "..]";
+            return arrayValues + array[Constants.VALUE_3] + "..]";
         }
 
         void TreeItem_Selected(object sender, RoutedEventArgs e)
@@ -377,98 +377,98 @@ namespace MercuryEngApp
 
             item.Title = title;
             item.PakcetValue = packetValue;
-            item.StartRow = postion / 16;
-            item.StartColumn = (postion % 16) + 1;
+            item.StartRow = postion / Constants.NumberOfCloumn;
+            item.StartColumn = (postion % Constants.NumberOfCloumn) + Constants.VALUE_1;
             item.IsExpanded = IsItemExpanded(title);
 
             int byteSize = GetByteSize(type);
 
-            item.EndRow = (postion + byteSize) / 16;
-            item.EndColumn = ((postion + byteSize) % 16) + 1;
+            item.EndRow = (postion + byteSize) / Constants.NumberOfCloumn;
+            item.EndColumn = ((postion + byteSize) % Constants.NumberOfCloumn) + Constants.VALUE_1;
 
             return item;
         }
 
         public int GetByteSize(string type)
         {
-            int byteSize = 0;
+            int byteSize = Constants.VALUE_0;
 
             switch (type)
             {
                 case "packet":
-                    byteSize = 1131;
+                    byteSize = DMIProtocol.PACKET_SIZE - 1;
                     break;
                 case "int":
-                    byteSize = 3;
+                    byteSize = Constants.VALUE_3;
                     break;
                 case "uint":
-                    byteSize = 3;
+                    byteSize = Constants.VALUE_3;
                     break;
                 case "long":
-                    byteSize = 7;
+                    byteSize = Constants.VALUE_7;
                     break;
                 case "float":
-                    byteSize = 3;
+                    byteSize = Constants.VALUE_3;
                     break;
                 case "short":
-                    byteSize = 1;
+                    byteSize = Constants.VALUE_1;
                     break;
                 case "ushort":
-                    byteSize = 1;
+                    byteSize = Constants.VALUE_1;
                     break;
                 case "byte":
-                    byteSize = 0;
+                    byteSize = Constants.VALUE_0;
                     break;
                 case "header":
-                    byteSize = ServiceHeader.sequence + 1; //last element postion + byte size
+                    byteSize = ServiceHeader.sequence + Constants.VALUE_1; //last element postion + byte size
                     break;
                 case "points":
-                    byteSize = (DMIProtocol.SpectrumPointsCount * 2) - 1;
+                    byteSize = (DMIProtocol.SpectrumPointsCount * Constants.VALUE_2) - Constants.VALUE_1;
                     break;
                 case "audio":
-                    byteSize = (Audio.Away - 1) + (DMIProtocol.DMI_AUDIO_ARRAY_SIZE * 2) - Audio.Depth;
+                    byteSize = (Audio.Away - Constants.VALUE_1) + (DMIProtocol.DMI_AUDIO_ARRAY_SIZE * Constants.VALUE_2) - Audio.Depth;
                     break;
                 case "toward":
-                    byteSize = (DMIProtocol.DMI_AUDIO_ARRAY_SIZE * 2) - 1;
+                    byteSize = (DMIProtocol.DMI_AUDIO_ARRAY_SIZE * Constants.VALUE_2) - Constants.VALUE_1;
                     break;
                 case "away":
-                    byteSize = (DMIProtocol.DMI_AUDIO_ARRAY_SIZE * 2) - 1;
+                    byteSize = (DMIProtocol.DMI_AUDIO_ARRAY_SIZE * Constants.VALUE_2) - Constants.VALUE_1;
                     break;
                 case "envelop":
-                    byteSize = Envelop.NegRI + 1 - Envelop.Depth;
+                    byteSize = Envelop.NegRI + Constants.VALUE_1 - Envelop.Depth;
                     break;
                 case "Mmode":
-                    byteSize = (MMode.Velocity - 1) + (DMIProtocol.DMI_PKT_MMODE_PTS * 2) - MMode.AutoGainOffset;
+                    byteSize = (MMode.Velocity - Constants.VALUE_1) + (DMIProtocol.DMI_PKT_MMODE_PTS * Constants.VALUE_2) - MMode.AutoGainOffset;
                     break;
                 case "power":
-                    byteSize = (DMIProtocol.DMI_PKT_MMODE_PTS * 2) - 1;
+                    byteSize = (DMIProtocol.DMI_PKT_MMODE_PTS * Constants.VALUE_2) - Constants.VALUE_1;
                     break;
                 case "velocity":
-                    byteSize = (DMIProtocol.DMI_PKT_MMODE_PTS * 2) - 1;
+                    byteSize = (DMIProtocol.DMI_PKT_MMODE_PTS * Constants.VALUE_2) - Constants.VALUE_1;
                     break;
                 case "parameter":
-                    byteSize = Parameter.RFU + 1 - Parameter.LeftTimeStamp;
+                    byteSize = Parameter.RFU + Constants.VALUE_1 - Parameter.LeftTimeStamp;
                     break;
                 case "spectrum":
-                    byteSize = (Spectrum.Points - 1) + (DMIProtocol.SpectrumPointsCount * 2) - Spectrum.Depth;
+                    byteSize = (Spectrum.Points - Constants.VALUE_1) + (DMIProtocol.SpectrumPointsCount * Constants.VALUE_2) - Spectrum.Depth;
                     break;
                 case "EdetectResult":
-                    byteSize = EDetect.EDetectValue + 3 - EDetect.PhaseA_MQ;
+                    byteSize = EDetect.EDetectValue + Constants.VALUE_3 - EDetect.PhaseA_MQ;
                     break;
                 case "PhaseA":
-                    byteSize = EDetect.PhaseA_AEDetect + 3 - EDetect.PhaseA_MQ;
+                    byteSize = EDetect.PhaseA_AEDetect + Constants.VALUE_3 - EDetect.PhaseA_MQ;
                     break;
                 case "PhaseB":
-                    byteSize = EDetect.PhaseB_AEDetect + 3 - EDetect.PhaseB_MQ;
+                    byteSize = EDetect.PhaseB_AEDetect + Constants.VALUE_3 - EDetect.PhaseB_MQ;
                     break;
                 case "Archive":
-                    byteSize = (Archive.mmodePowerB - 1) + (DMIProtocol.DMI_ARCHIVE_MMODE_GATES * 4) - Archive.TimeSeriesDepth;
+                    byteSize = (Archive.mmodePowerB - Constants.VALUE_1) + (DMIProtocol.DMI_ARCHIVE_MMODE_GATES * Constants.VALUE_4) - Archive.TimeSeriesDepth;
                     break;
                 case "ArchiveMmode":
-                    byteSize = (Archive.mmodePowerB - 1) + (DMIProtocol.DMI_ARCHIVE_MMODE_GATES * 4) - Archive.MmodePhaseA;
+                    byteSize = (Archive.mmodePowerB - Constants.VALUE_1) + (DMIProtocol.DMI_ARCHIVE_MMODE_GATES * Constants.VALUE_4) - Archive.MmodePhaseA;
                     break;
                 case "FloatMmode":
-                    byteSize = (DMIProtocol.DMI_ARCHIVE_MMODE_GATES * 4) - 1;
+                    byteSize = (DMIProtocol.DMI_ARCHIVE_MMODE_GATES * Constants.VALUE_4) - Constants.VALUE_1;
                     break;     
                 default:
                     break;
@@ -482,8 +482,8 @@ namespace MercuryEngApp
 
             logger.Debug("++");
 
-            int hexIn;           
-            int count = 1;
+            int hexIn;
+            int count = Constants.VALUE_1;
             ObservableCollection<HexRecord> listHexRecord = new ObservableCollection<HexRecord>();
             StringBuilder sb = new StringBuilder();
             BigInteger InitailBInt = BigInteger.Parse("00000000", NumberStyles.HexNumber);
@@ -493,89 +493,89 @@ namespace MercuryEngApp
             try
             {
 
-                for (int i = 0; i < byteArray.Length; i++)
+                for (int i = Constants.VALUE_0; i < byteArray.Length; i++)
                 {
                     hexIn = byteArray[i];
 
-                    if (count == 1)
+                    if (count == Constants.VALUE_1)
                     {
                         hexRecord = new HexRecord();
                     }
 
                     switch (count)
                     {
-                        case 1:
+                        case Constants.VALUE_1:
                             hexRecord.Hx_00 = string.Format("{0:X2}", hexIn);
                             count++;
                             break;
-                        case 2:
+                        case Constants.VALUE_2:
                             hexRecord.Hx_01 = string.Format("{0:X2}", hexIn);
                             count++;
                             break;
-                        case 3:
+                        case Constants.VALUE_3:
                             hexRecord.Hx_02 = string.Format("{0:X2}", hexIn);
                             count++;
                             break;
-                        case 4:
+                        case Constants.VALUE_4:
                             hexRecord.Hx_03 = string.Format("{0:X2}", hexIn);
                             count++;
                             break;
-                        case 5:
+                        case Constants.VALUE_5:
                             hexRecord.Hx_04 = string.Format("{0:X2}", hexIn);
                             count++;
                             break;
-                        case 6:
+                        case Constants.VALUE_6:
                             hexRecord.Hx_05 = string.Format("{0:X2}", hexIn);
                             count++;
                             break;
-                        case 7:
+                        case Constants.VALUE_7:
                             hexRecord.Hx_06 = string.Format("{0:X2}", hexIn);
                             count++;
                             break;
-                        case 8:
+                        case Constants.VALUE_8:
                             hexRecord.Hx_07 = string.Format("{0:X2}", hexIn);
                             count++;
                             break;
-                        case 9:
+                        case Constants.VALUE_9:
                             hexRecord.Hx_08 = string.Format("{0:X2}", hexIn);
                             count++;
                             break;
-                        case 10:
+                        case Constants.VALUE_10:
                             hexRecord.Hx_09 = string.Format("{0:X2}", hexIn);
                             count++;
                             break;
-                        case 11:
+                        case Constants.VALUE_11:
                             hexRecord.Hx_0a = string.Format("{0:X2}", hexIn);
                             count++;
                             break;
-                        case 12:
+                        case Constants.VALUE_12:
                             hexRecord.Hx_0b = string.Format("{0:X2}", hexIn);
                             count++;
                             break;
-                        case 13:
+                        case Constants.VALUE_13:
                             hexRecord.Hx_0c = string.Format("{0:X2}", hexIn);
                             count++;
                             break;
-                        case 14:
+                        case Constants.VALUE_14:
                             hexRecord.Hx_0d = string.Format("{0:X2}", hexIn);
                             count++;
                             break;
-                        case 15:
+                        case Constants.VALUE_15:
                             hexRecord.Hx_0e = string.Format("{0:X2}", hexIn);
                             count++;
                             break;
-                        case 16:
+                        case Constants.VALUE_16:
                             hexRecord.Hx_0f = string.Format("{0:X2}", hexIn);
                             hexRecord.Offset = string.Format("{0:X8}", InitailBInt);
                             InitailBInt = BigInteger.Add(InitailBInt, ConstantBInt);
                             listHexRecord.Add(hexRecord);
-                            count = 1;
+                            count = Constants.VALUE_1;
                             break;
 
                     }
                 }
 
-                if (byteArray.Length % 16 != 0)
+                if (byteArray.Length % Constants.NumberOfCloumn != Constants.VALUE_0)
                 {
                     hexRecord.Offset = string.Format("{0:X8}", InitailBInt);
                     listHexRecord.Add(hexRecord);
@@ -686,7 +686,7 @@ namespace MercuryEngApp
 
         public T FindVisualChild<T>(DependencyObject obj) where T : DependencyObject
         {
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+            for (int i = Constants.VALUE_0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
             {
                 DependencyObject child = VisualTreeHelper.GetChild(obj, i);
                 if (child != null && child is T)
@@ -740,20 +740,20 @@ namespace MercuryEngApp
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> er)
         {
-            double sliderValue = (double)IntervalSilder.Value;            
+            double sliderValue = (double)IntervalSilder.Value;
 
-            if (sliderValue != 0)
+            if (sliderValue != Constants.VALUE_0)
             {
                 ClearRecentTimer();
                 GrabTimer = new System.Windows.Forms.Timer();
                 GrabTimer.Tick += new EventHandler(GrabPacket);
-                GrabTimer.Interval = Convert.ToInt16(sliderValue * 1000); // in miliseconds
+                GrabTimer.Interval = Convert.ToInt16(sliderValue * Constants.VALUE_1000); // in miliseconds
                 GrabTimer.Start();
             }
             else
             {
                 ClearRecentTimer();
-                IntervalSilder.Value = 0;                
+                IntervalSilder.Value = Constants.VALUE_0;                
             }
         }
 
@@ -799,49 +799,5 @@ namespace MercuryEngApp
 
             logger.Debug("--");
         }
-    }
-
-    public class HexRecord
-    {
-        public string Offset { get; set; }
-        public string Hx_00 { get; set; }
-        public string Hx_01 { get; set; }
-        public string Hx_02 { get; set; }
-        public string Hx_03 { get; set; }
-        public string Hx_04 { get; set; }
-        public string Hx_05 { get; set; }
-        public string Hx_06 { get; set; }
-        public string Hx_07 { get; set; }
-
-        public string Hx_08 { get; set; }
-        public string Hx_09 { get; set; }
-        public string Hx_0a { get; set; }
-        public string Hx_0b { get; set; }
-        public string Hx_0c { get; set; }
-        public string Hx_0d { get; set; }
-        public string Hx_0e { get; set; }
-        public string Hx_0f { get; set; }
-
-    }
-
-    public class ItemsMenu
-    {
-        public ItemsMenu()
-        {
-            this.Items = new ObservableCollection<ItemsMenu>();
-        }
-
-        public string Title { get; set; }
-        public string PakcetValue { get; set; }
-        public int StartRow { get; set; }
-        public int StartColumn { get; set; }
-        public int EndRow { get; set; }
-        public int EndColumn { get; set; }
-
-        public bool IsExpanded { get; set; }
-        public bool Collapsed { get; set; }
-
-        public ObservableCollection<ItemsMenu> Items { get; set; }
-
     }
 }
