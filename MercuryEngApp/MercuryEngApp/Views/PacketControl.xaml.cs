@@ -116,9 +116,9 @@ namespace MercuryEngApp
                             ListDMIPmdDataPacket.Add(packets[0]);
                         }
                     }
-                    else if (App.CurrentChannel == TCDHandles.Channel2)
+                    else 
                     {
-                        if (packets[1] != null)
+                        if (App.CurrentChannel == TCDHandles.Channel2 && packets[1] != null)
                         {
                             ListDMIPmdDataPacket.Add(packets[1]);
                         }
@@ -166,9 +166,7 @@ namespace MercuryEngApp
             logger.Debug("++");
 
             try
-            {
-                
-                //ListDMIPmdDataPacket = UsbTcd.TCDObj.PacketQueue[0];
+            {   
                 DMIPmdDataPacket dMIPmdDataPacket = UsbTcd.TCDObj.GetPacketDetails(byteArray);
                 ItemsMenu PacketRoot = new ItemsMenu();
                 trvMenu.Items.Clear();
@@ -312,7 +310,7 @@ namespace MercuryEngApp
                 PacketRoot.Items.Add(GetMenuItem("CheckSum", Checksum.ChecksumPos, "int", Convert.ToString(dMIPmdDataPacket.checksum)));
                 trvMenu.Items.Add(PacketRoot);
 
-                trvMenu.SelectedItemChanged += TreeItem_Selected;    
+                trvMenu.SelectedItemChanged += TreeItemSelected;    
                 
 
                 logger.Debug("TreeView Created");
@@ -337,9 +335,9 @@ namespace MercuryEngApp
             return arrayValues + array[Constants.VALUE_3] + "..]";
         }
 
-        void TreeItem_Selected(object sender, RoutedEventArgs e)
+        void TreeItemSelected(object sender, RoutedEventArgs e)
         {
-            ItemsMenu item = (ItemsMenu)trvMenu.SelectedItem;
+            ItemsMenu item = (ItemsMenu)trvMenu.SelectedItem; 
             item.IsExpanded = true;
             KeyValuePair<int, int> fromIndex;
             KeyValuePair<int, int> toIndex;
@@ -348,7 +346,7 @@ namespace MercuryEngApp
             SelectCellsByIndexes(fromIndex, toIndex);
         }
         
-        private void TreeViewItem_Expanded(object sender, RoutedEventArgs e)
+        private void TreeViewItemExpanded(object sender, RoutedEventArgs e)
         {
             TreeViewItem tvi = e.OriginalSource as TreeViewItem;
             ItemsMenu itemM =(ItemsMenu)tvi.Header;
@@ -484,8 +482,7 @@ namespace MercuryEngApp
 
             int hexIn;
             int count = Constants.VALUE_1;
-            ObservableCollection<HexRecord> listHexRecord = new ObservableCollection<HexRecord>();
-            StringBuilder sb = new StringBuilder();
+            ObservableCollection<HexRecord> listHexRecord = new ObservableCollection<HexRecord>();           
             BigInteger InitailBInt = BigInteger.Parse("00000000", NumberStyles.HexNumber);
             BigInteger ConstantBInt = BigInteger.Parse("00000010", NumberStyles.HexNumber);
             HexRecord hexRecord = null;
@@ -571,6 +568,8 @@ namespace MercuryEngApp
                             listHexRecord.Add(hexRecord);
                             count = Constants.VALUE_1;
                             break;
+                        default:
+                            break;
 
                     }
                 }
@@ -646,10 +645,10 @@ namespace MercuryEngApp
                 if (cell != null)
                 {
                     DataGridCellInfo dataGridCellInfo = new DataGridCellInfo(cell);
+
                     if (!grdMailbag.SelectedCells.Contains(dataGridCellInfo))
                     {
-                        grdMailbag.SelectedCells.Add(dataGridCellInfo);
-                        //cell.Focus();
+                        grdMailbag.SelectedCells.Add(dataGridCellInfo);                        
                     }
                 }
             }
@@ -690,18 +689,23 @@ namespace MercuryEngApp
             {
                 DependencyObject child = VisualTreeHelper.GetChild(obj, i);
                 if (child != null && child is T)
+                {
                     return (T)child;
+                }
                 else
                 {
                     T childOfChild = FindVisualChild<T>(child);
+
                     if (childOfChild != null)
+                    {
                         return childOfChild;
+                    }
                 }
             }
             return null;
         }       
 
-        private void Refresh_Click(object sender, RoutedEventArgs e)
+        private void RefreshClick(object sender, RoutedEventArgs e)
         {
             ClearRecentTimer();
             IntervalSilder.Value = 0;
@@ -738,7 +742,7 @@ namespace MercuryEngApp
             logger.Debug("--");
         }
 
-        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> er)
+        private void SliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double> er)
         {
             double sliderValue = (double)IntervalSilder.Value;
 
@@ -783,7 +787,7 @@ namespace MercuryEngApp
             logger.Debug("--");
         }
 
-        private void Export_Click(object sender, RoutedEventArgs e)
+        private void ExportClick(object sender, RoutedEventArgs e)
         {
             logger.Debug("++");
 

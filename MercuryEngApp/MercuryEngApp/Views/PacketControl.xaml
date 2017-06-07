@@ -61,7 +61,7 @@
                                     IsSnapToTickEnabled="True" 
                                     SmallChange="0.5"
                                     Value="0"                                    
-                                    ValueChanged="Slider_ValueChanged"
+                                    ValueChanged="SliderValueChanged"
                                     Ticks="0, 0.5, 1, 5">                               
                             </Slider>
                         </StackPanel>
@@ -81,7 +81,7 @@
                                 Height="35"
                                 Margin="0,8,23,18"
                                 HorizontalAlignment="Right"
-                                Click="Refresh_Click"/>
+                                Click="RefreshClick"/>
                             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" Width="323" Margin="7,10,0,6" Grid.RowSpan="2" Grid.Row="4"/>
                          
                         <TextBlock  Grid.Row="4" 
@@ -97,7 +97,7 @@
                                 Height="35"
                                 Margin="0,28,23,28"
                                 HorizontalAlignment="Right"
-                                Click="Export_Click"/>
+                                Click="ExportClick"/>
 
                         <TextBox Grid.Row="5" 
                                  HorizontalAlignment="Left"
@@ -136,7 +136,7 @@
                     </Border>
 
                     <Grid  Margin="1,40,0,5">
-                        <TreeView Name="trvMenu" TreeViewItem.Expanded="TreeViewItem_Expanded" TreeViewItem.Collapsed="TreeViewItem_Expanded" ItemsSource="{Binding FirstGeneration}"  Width="340" HorizontalAlignment="Center">
+                        <TreeView Name="trvMenu" TreeViewItem.Expanded="TreeViewItemExpanded" TreeViewItem.Collapsed="TreeViewItemExpanded" ItemsSource="{Binding FirstGeneration}"  Width="340" HorizontalAlignment="Center">
 
                             <TreeView.ItemTemplate>
                                 <HierarchicalDataTemplate DataType="{x:Type local:ItemsMenu}" ItemsSource="{Binding Items}">
