@@ -147,9 +147,6 @@
     <Compile Include="Views\CalibrationUserControl.xaml.cs">
       <DependentUpon>CalibrationUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CustomSlider.xaml.cs">
-      <DependentUpon>CustomSlider.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ExamUserControl.xaml.cs">
       <DependentUpon>ExamUserControl.xaml</DependentUpon>
     </Compile>
@@ -188,10 +185,6 @@
     <Page Include="Views\CalibrationUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\CustomSlider.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ExamUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -320,6 +313,10 @@
     <ProjectReference Include="..\UsbWPFLibrary\UsbWPFLibrary.csproj">
       <Project>{5792e4a8-e600-4659-89d5-f6c36f5aab73}</Project>
       <Name>UsbWPFLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WPFPdfViewer\WPFPdfViewer.csproj">
+      <Project>{604b06c6-0037-4361-ad95-b9c25056abd8}</Project>
+      <Name>WPFPdfViewer</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
