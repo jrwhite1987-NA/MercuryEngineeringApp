@@ -230,7 +230,7 @@
 
                         <TextBlock Height="17" 
                                    Margin="13,15,0,0" 
-                                   Text="Part Number" 
+                                   Text="Channel Number" 
                                    Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                    Grid.Row="1"/>
 
