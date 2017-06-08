@@ -159,7 +159,7 @@ namespace UsbTcdLibrary.StatusClasses
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<ProbeInfo>(ex, "ConvertArrayToInfo", Severity.Debug);
+                Helper.logger.Warn("Exception: " + ex);
             }
             return probeInfoObj;
         }
@@ -192,7 +192,7 @@ namespace UsbTcdLibrary.StatusClasses
             byteArray.AddRange(BitConverter.GetBytes(probeInfoObj.insertionLoss));
             byteArray.AddRange(BitConverter.GetBytes(probeInfoObj.adjustedM1));
             byteArray.AddRange(BitConverter.GetBytes(probeInfoObj.adjustedM2));
-            byteArray.AddRange(new byte[4]);
+            byteArray.AddRange(new byte[Constants.VALUE_4]);
 
             return byteArray.ToArray();
         }

@@ -521,7 +521,7 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<DMIProtocol>(ex, "Determine256FFT", Severity.Warning);
+                Helper.logger.Warn("Exception: " + ex);
             }
         }
     }

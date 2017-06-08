@@ -506,15 +506,13 @@ namespace PlottingLib
                     interval = Constants.VALUE_1;
                     break;
             }
-            Helper.logger.Debug("--");
-            //ScaleGenerator.CreateScaleTrendingHorizontal(HorizontalScalePanel, interval);
+            Helper.logger.Debug("--");            
         }
 
         #endregion
 
         public void Dispose()
         {
-            //TrendBitmap.Clear();
             TrendBitmap = null;
             TrendsListCollection.Dispose();
             BitmapStream.Dispose();

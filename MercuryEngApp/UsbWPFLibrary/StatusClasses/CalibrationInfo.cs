@@ -81,7 +81,7 @@ namespace UsbTcdLibrary.StatusClasses
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<CalibrationInfo>(ex, "ConvertArrayToInfo", Severity.Warning);
+                Helper.logger.Warn("Exception: " + ex);
                 return null;
             }
         }
@@ -106,7 +106,7 @@ namespace UsbTcdLibrary.StatusClasses
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<CalibrationInfo>(ex, "ConvertCalibrationInfoToArray", Severity.Warning);
+                Helper.logger.Warn("Exception: " + ex);
                 return null;
             }
         }

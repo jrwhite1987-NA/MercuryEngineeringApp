@@ -98,7 +98,7 @@ namespace UsbTcdLibrary.StatusClasses
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<BoardInfo>(ex, "ConvertBoardInfoToArray", Severity.Warning);
+                Helper.logger.Warn("Exception: " + ex);
                 return null;
             }
         }

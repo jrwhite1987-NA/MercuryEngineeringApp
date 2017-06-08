@@ -148,8 +148,7 @@ namespace MercuryEngApp.Validators
                 ReadOnlyObservableCollection<ValidationError> errors = Validation.GetErrors(dependencyObject);
                 foreach (var error in errors)
                 {
-                    errorList.Append(error.ErrorContent);
-                    //errorList.Append(Environment.NewLine);
+                    errorList.Append(error.ErrorContent);                    
                 }
             }
             errorMessage = errorList.ToString();

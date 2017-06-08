@@ -67,7 +67,7 @@ namespace UsbTcdLibrary.StatusClasses
             const int INDEX_120 = 120;
             try
             {
-                //Logs.Instance.ErrorLog<TCDHandler>("ConvertArraytoInfo begins for data:" + (data != null ? data.Length.ToString() : "Zero"), "ConvertArraytoInfo", Severity.Debug);
+                Helper.logger.Debug("ConvertArraytoInfo begins for data:" + (data != null ? data.Length.ToString() : "Zero"));
                 if (data.Length == DMIProtocol.MODULE_INFO_REQUEST_LENGTH)
                 {
                     ModuleInfo moduleInfoObj = new ModuleInfo();
@@ -94,13 +94,13 @@ namespace UsbTcdLibrary.StatusClasses
                 }
                 else
                 {
-                    //Logs.Instance.ErrorLog<TCDHandler>("ConvertArraytoInfo ends", "ConvertArraytoInfo", Severity.Debug);
+                    Helper.logger.Debug("ConvertArraytoInfo ends");
                     return null;
                 }
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<TCDHandler>(ex, "ConvertArraytoInfo", Severity.Warning);
+                Helper.logger.Warn("Exception: " + ex);
                 return null;
             }
         }

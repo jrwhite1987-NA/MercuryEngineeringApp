@@ -354,22 +354,5 @@ namespace MercuryEngApp
                 infoViewModelObj.OperatingMinutes = (uint)(await UsbTcd.TCDObj.ReadOperatingMinutesAsync(requestObj)).Value;
             }
         }
-
-        //private bool ValidateControl(DependencyObject dependencyObject, out string errorMessage)
-        //{
-        //    StringBuilder errorList = new StringBuilder();
-        //    bool hasError = Validation.GetHasError(dependencyObject);
-        //    if (hasError)
-        //    {
-        //        ReadOnlyObservableCollection<ValidationError> errors = Validation.GetErrors(dependencyObject);
-        //        foreach (var error in errors)
-        //        {
-        //            errorList.Append(error.ErrorContent);
-        //            errorList.Append(Environment.NewLine);
-        //        }
-        //    }
-        //    errorMessage = errorList.ToString();
-        //    return !hasError;
-        //}
     }
 }

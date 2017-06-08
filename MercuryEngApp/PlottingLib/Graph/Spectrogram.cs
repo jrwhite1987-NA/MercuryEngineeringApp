@@ -6,7 +6,6 @@ using Windows.UI;
 using UsbTcdLibrary.PacketFormats;
 using System.Windows.Media.Imaging;
 using UsbTcdLibrary;
-//using Windows.UI.Xaml.Media.Imaging;
 
 namespace PlottingLib
 {

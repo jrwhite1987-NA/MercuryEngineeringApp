@@ -5,7 +5,6 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Media.Imaging;
 using UsbTcdLibrary.PacketFormats;
 using Windows.UI;
-//using Windows.UI.Xaml.Media.Imaging;
 
 namespace PlottingLib
 {
@@ -83,8 +82,7 @@ namespace PlottingLib
         /// <param name="writeableBitmap">The writeable bitmap.</param>
         public BaseGraph(WriteableBitmap writeableBitmap)
         {            
-            GraphBitmap = writeableBitmap;
-            //BitmapStream = GraphBitmap.FromByteArray()
+            GraphBitmap = writeableBitmap;            
             ArrayPixel = new byte[GraphBitmap.PixelHeight * GraphBitmap.PixelWidth * Constants.BytesForColor];
         }
 
@@ -103,8 +101,7 @@ namespace PlottingLib
         public virtual void Dispose()
         {       
             
-            BitmapStream.Dispose();            
-            //GraphBitmap.Clear();
+            BitmapStream.Dispose();                      
             GraphBitmap = null;
             ArrayPixel = null;
         }
