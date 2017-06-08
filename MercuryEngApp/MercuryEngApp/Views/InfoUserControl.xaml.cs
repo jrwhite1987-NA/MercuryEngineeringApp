@@ -77,8 +77,15 @@ namespace MercuryEngApp
                     infoViewModelObj.SelectedBoardModelName = response.Module.modelString;
                     infoViewModelObj.SelectedHardwareRevision = response.Module.hardwareRevisionString;
                     infoViewModelObj.BoardSerialNumber = response.Module.serialNumberString;
-                }                
 
+                    request.Value = 10;
+                    response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
+
+                    foreach(var item in response.ServicePacketList)
+                    {
+                        LogWrapper.Log(Constants.TCDLog, item.Message);
+                    }
+                }                
                 LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.BoardInfo);
 
             }
@@ -259,6 +266,14 @@ namespace MercuryEngApp
                     infoViewModelObj.Fractional3dbBW = response.Probe.fractionalBW;
                     infoViewModelObj.Impedance = response.Probe.impedance;
                     infoViewModelObj.PhaseAngle = response.Probe.phaseAngle;
+
+                    request.Value = 10;
+                    response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
+
+                    foreach (var item in response.ServicePacketList)
+                    {
+                        LogWrapper.Log(Constants.TCDLog, item.Message);
+                    }
                 }              
 
                 LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.ProbeInfo);

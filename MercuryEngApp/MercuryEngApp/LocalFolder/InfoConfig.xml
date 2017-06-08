@@ -27,4 +27,10 @@
     <PRF>10000</PRF>
     <PRF>12500</PRF>
   </PRFList>
+  <ChannelNumbers>
+    <Channel>1</Channel>
+    <Channel>2</Channel>
+    <Channel>3</Channel>
+    <Channel>4</Channel>
+  </ChannelNumbers>
 </Configurations>
