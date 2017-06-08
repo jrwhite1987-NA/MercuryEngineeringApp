@@ -5,6 +5,22 @@
     <PartNumber>2</PartNumber>
     <PartNumber>3</PartNumber>
   </ProbePartNumbers>
+  <ProbeModelNames>
+    <ModelName>1</ModelName>
+    <ModelName>2</ModelName>
+    <ModelName>3</ModelName>
+  </ProbeModelNames>
+  <ProbeFormatIDs>
+    <FormatID>1</FormatID>
+    <FormatID>2</FormatID>
+    <FormatID>3</FormatID>
+    <FormatID>4</FormatID>
+  </ProbeFormatIDs>
+  <ProbePhysicalIDs>
+    <PhysicalID>1</PhysicalID>
+    <PhysicalID>2</PhysicalID>
+    <PhysicalID>3</PhysicalID>
+  </ProbePhysicalIDs>
   <BoardPartNumbers>
     <PartNumber>1</PartNumber>
     <PartNumber>2</PartNumber>

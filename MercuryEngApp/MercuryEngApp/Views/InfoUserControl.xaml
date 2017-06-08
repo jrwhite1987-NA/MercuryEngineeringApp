@@ -236,21 +236,21 @@
 
                      
 
-                        <TextBox Width="309" Height="25"
-                                  Style="{StaticResource ResourceKey=MainTextbox}"
+                        <ComboBox Width="309" Height="25"
+                                  Style="{StaticResource ResourceKey=ComboBoxBorder}"
                                   Name="ChannelPartNumber"
                                   Grid.Row="1" 
                                   Grid.Column="1" 
+                                  ItemsSource="{Binding Path=ChannelNumberList, Mode=TwoWay}"
                                   Margin="0,0,5,0">
-                            <TextBox.Text>
-                                <Binding Path="ChannelNumber" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
+                            <ComboBox.SelectedItem>
+                                <Binding Path="SelectedChannelNumber">
                                     <Binding.ValidationRules>
-                                        <validator:BlankValidationRule ValidatesOnTargetUpdated="True" ControlName="{x:Static local:Resources.ChannelPartNumber}" ErrorMessage="Channel Part Number cannot be blank." />
-                                        <validator:NumberValidationRule ControlName="{x:Static local:Resources.ChannelPartNumber}" ErrorMessage="{x:Static local:Resources.MustBeNumber}"/>
+                                        <validator:ComboBoxRequiredValidationRule ValidatesOnTargetUpdated="True" ControlName="{x:Static local:Resources.ChannelPartNumber}" ErrorMessage="{x:Static local:Resources.ComboBoxNotSelected}"/>
                                     </Binding.ValidationRules>
                                 </Binding>
-                            </TextBox.Text>
-                        </TextBox>
+                            </ComboBox.SelectedItem>
+                        </ComboBox>
 
                         <Button Content="Read" 
                                 Style="{StaticResource ResourceKey=ButtonStyle1}" 
@@ -474,23 +474,22 @@
                             </ComboBox.SelectedItem>
                         </ComboBox>
 
-                        <TextBox Height="25"
-                                     Name="ProbeModelNameTextBox"
-                                     Style="{StaticResource ResourceKey=MainTextbox}" 
-                                     Width="290" 
-                                     TextAlignment="Center" 
-                                     Grid.Row="2" 
-                                     Grid.Column="1">
-                            <TextBox.Text>
-                                <Binding Path="ProbeModelName" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
+                        <ComboBox Height="25"
+                                  Name="ProbeModelName"
+                                  IsEditable="False"
+                                  ItemsSource="{Binding Path=ProbeModelNameList, Mode=TwoWay}"
+                                  Style="{StaticResource ResourceKey=ComboBoxBorder}" 
+                                  Width="290" 
+                                  Grid.Row="2" 
+                                  Grid.Column="1">
+                            <ComboBox.SelectedItem>
+                                <Binding Path="ProbeModelName">
                                     <Binding.ValidationRules>
-                                        <validator:BlankValidationRule ValidatesOnTargetUpdated="True" ControlName="{x:Static local:Resources.ProbeModelName}" ErrorMessage="Filter cannot be blank."/>
-                                        <validator:NumberValidationRule ControlName="{x:Static local:Resources.ProbeModelName}" ErrorMessage="{x:Static local:Resources.MustBeNumber}"/>
-                                        <validator:MaxLengthValidationRule ControlName="{x:Static local:Resources.ProbeModelName}" ErrorMessage="{x:Static local:Resources.MaxLength}" MaxLength="30"/>
+                                        <validator:ComboBoxRequiredValidationRule ValidatesOnTargetUpdated="True" ControlName="{x:Static local:Resources.ProbeModelName}" ErrorMessage="{x:Static local:Resources.ComboBoxNotSelected}"/>
                                     </Binding.ValidationRules>
                                 </Binding>
-                            </TextBox.Text>
-                        </TextBox>
+                            </ComboBox.SelectedItem>
+                        </ComboBox>
 
                         <TextBox Height="25"
                                      Name="ProbeSerialNumberTextBox"
@@ -510,41 +509,39 @@
                             </TextBox.Text>
                         </TextBox>
 
-                        <TextBox Height="25"
-                                     Name="PhysicalIDTextBox"
-                                     Style="{StaticResource ResourceKey=MainTextbox}" 
+                        <ComboBox Height="25"
+                                     Name="PhysicalID"
+                                     Style="{StaticResource ResourceKey=ComboBoxBorder}" 
                                      Width="290" 
-                                     TextAlignment="Center" 
+                                  IsEditable="False"
+                                  ItemsSource="{Binding Path=ProbePhysicalIDList, Mode=TwoWay}"
                                      Grid.Row="4" 
                                      Grid.Column="1">
-                            <TextBox.Text>
+                            <ComboBox.SelectedItem>
                                 <Binding Path="PhysicalID" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
                                     <Binding.ValidationRules>
-                                        <validator:BlankValidationRule ValidatesOnTargetUpdated="True" ControlName="{x:Static local:Resources.PhysicalID}" ErrorMessage="Filter cannot be blank."/>
-                                        <validator:NumberValidationRule ControlName="{x:Static local:Resources.PhysicalID}" ErrorMessage="{x:Static local:Resources.MustBeNumber}"/>
-                                        <validator:RangeValidationRule ControlName="{x:Static local:Resources.PhysicalID}" ErrorMessage="{x:Static local:Resources.RangeValue}" StartStange="0" MaxRange="255"/>
+                                        <validator:ComboBoxRequiredValidationRule ValidatesOnTargetUpdated="True" ControlName="{x:Static local:Resources.PhysicalID}" ErrorMessage="{x:Static local:Resources.ComboBoxNotSelected}"/>
                                     </Binding.ValidationRules>
                                 </Binding>
-                            </TextBox.Text>
-                        </TextBox>
+                            </ComboBox.SelectedItem>
+                        </ComboBox>
 
-                        <TextBox Height="25"
-                                     Name="FormatIDTextBox"
-                                     Style="{StaticResource ResourceKey=MainTextbox}" 
+                        <ComboBox Height="25"
+                                     Name="FormatID"
+                                     Style="{StaticResource ResourceKey=ComboBoxBorder}" 
                                      Width="290" 
-                                     TextAlignment="Center" 
+                                  IsEditable="False"
+                                  ItemsSource="{Binding Path=ProbeFormatIDList, Mode=TwoWay}"
                                      Grid.Row="5" 
                                      Grid.Column="1">
-                            <TextBox.Text>
+                            <ComboBox.SelectedItem>
                                 <Binding Path="FormatID" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
                                     <Binding.ValidationRules>
-                                        <validator:BlankValidationRule ValidatesOnTargetUpdated="True" ControlName="{x:Static local:Resources.FormatID}" ErrorMessage="Filter cannot be blank."/>
-                                        <validator:NumberValidationRule ControlName="{x:Static local:Resources.FormatID}" ErrorMessage="{x:Static local:Resources.MustBeNumber}"/>
-                                        <validator:RangeValidationRule ControlName="{x:Static local:Resources.FormatID}" ErrorMessage="{x:Static local:Resources.RangeValue}" StartStange="0" MaxRange="255"/>
+                                        <validator:ComboBoxRequiredValidationRule ValidatesOnTargetUpdated="True" ControlName="{x:Static local:Resources.FormatID}" ErrorMessage="{x:Static local:Resources.ComboBoxNotSelected}"/>
                                     </Binding.ValidationRules>
                                 </Binding>
-                            </TextBox.Text>
-                        </TextBox>
+                            </ComboBox.SelectedItem>
+                        </ComboBox>
 
                         <TextBox Height="25"
                                      Name="CenterFrequencyTextBox"

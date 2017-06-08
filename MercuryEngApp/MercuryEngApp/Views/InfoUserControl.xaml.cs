@@ -47,6 +47,14 @@ namespace MercuryEngApp
             infoViewModelObj.BoardPartNumberList = xmlDoc.Root.Elements("BoardPartNumbers").Elements("PartNumber").Select(element => element.Value).ToList();
             infoViewModelObj.BoardModelNameList = xmlDoc.Root.Elements("BoardModelNames").Elements("ModelName").Select(element => element.Value).ToList();
             infoViewModelObj.BoardHardwareRevisionList = xmlDoc.Root.Elements("HardwareRevisions").Elements("Revision").Select(element => element.Value).ToList();
+            infoViewModelObj.ChannelNumberList = xmlDoc.Root.Elements("ChannelNumbers").Elements("Channel").
+                Select(element => Convert.ToByte(element.Value)).ToList();
+            infoViewModelObj.ProbeModelNameList = xmlDoc.Root.Elements("ProbeModelNames").Elements("ModelName").Select(element => element.Value).ToList();
+            infoViewModelObj.ProbePhysicalIDList = xmlDoc.Root.Elements("ProbePhysicalIDs").Elements("PhysicalID").
+                Select(element => Convert.ToByte(element.Value)).ToList();
+            infoViewModelObj.ProbeFormatIDList = xmlDoc.Root.Elements("ProbeFormatIDs").Elements("FormatID").
+                Select(element => Convert.ToByte(element.Value)).ToList();
+
         }
 
         async void InfoUserControlLoaded(object sender, RoutedEventArgs e)
@@ -87,7 +95,6 @@ namespace MercuryEngApp
                     }
                 }                
                 LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.BoardInfo);
-
             }
             catch (Exception ex)
             {
@@ -123,6 +130,18 @@ namespace MercuryEngApp
                         request.Board.hardwareRevision = BitConverter.ToUInt32(arr, 0);
                         request.Board.serialNumberString = infoViewModelObj.BoardSerialNumber;
                         await UsbTcd.TCDObj.WriteBoardInfoAsync(request);
+
+                    }
+
+                    using (TCDRequest request = new TCDRequest())
+                    {
+                        request.Value = 10;
+                        TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
+
+                        foreach (var item in response.ServicePacketList)
+                        {
+                            LogWrapper.Log(Constants.TCDLog, item.Message);
+                        }
                     }
                 }
                 else
@@ -196,7 +215,15 @@ namespace MercuryEngApp
                 using (TCDRequest request = new TCDRequest())
                 {
                     request.ChannelID = App.CurrentChannel;
-                    infoViewModelObj.ChannelNumber = await UsbTcd.TCDObj.GetChannelNumber(request);
+                    infoViewModelObj.SelectedChannelNumber = await UsbTcd.TCDObj.GetChannelNumber(request);
+
+                    request.Value = 10;
+                    TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
+
+                    foreach (var item in response.ServicePacketList)
+                    {
+                        LogWrapper.Log(Constants.TCDLog, item.Message);
+                    }
                 }
 
                 LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.BoardInfo);
@@ -219,8 +246,16 @@ namespace MercuryEngApp
                     using (TCDRequest request = new TCDRequest())
                     {
                         request.ChannelID = App.CurrentChannel;
-                        request.Value2 = infoViewModelObj.ChannelNumber;
+                        request.Value2 = infoViewModelObj.SelectedChannelNumber;
                         await UsbTcd.TCDObj.AssignChannelAsync(request);
+
+                        request.Value = 10;
+                        TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
+
+                        foreach (var item in response.ServicePacketList)
+                        {
+                            LogWrapper.Log(Constants.TCDLog, item.Message);
+                        }
                     }
                 }
                 else
@@ -315,6 +350,16 @@ namespace MercuryEngApp
                         request.Probe.phaseAngle = infoViewModelObj.PhaseAngle;
                         await UsbTcd.TCDObj.WriteProbeInfoAsync(request);
                     }
+                    using (TCDRequest request = new TCDRequest())
+                    {
+                        request.Value = 10;
+                        TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
+
+                        foreach (var item in response.ServicePacketList)
+                        {
+                            LogWrapper.Log(Constants.TCDLog, item.Message);
+                        }
+                    }
                 }
                 else
                 {
@@ -334,10 +379,10 @@ namespace MercuryEngApp
 
             List<DependencyObject> objects = new List<DependencyObject>();
             objects.Add(ProbePartNumberCombo);
-            objects.Add(ProbeModelNameTextBox);
+            objects.Add(ProbeModelName);
             objects.Add(ProbeSerialNumberTextBox);
-            objects.Add(PhysicalIDTextBox);
-            objects.Add(FormatIDTextBox);
+            objects.Add(PhysicalID);
+            objects.Add(FormatID);
             objects.Add(CenterFrequencyTextBox);
             objects.Add(DiameterTextBox);
             objects.Add(TankFocalTextBox);
@@ -363,11 +408,29 @@ namespace MercuryEngApp
 
         private async void ReadOperatingMinutesClick(object sender, RoutedEventArgs e)
         {
-            using (TCDRequest requestObj=new TCDRequest())
+            Helper.logger.Debug("++");
+            try
             {
-                requestObj.ChannelID=App.CurrentChannel;
-                infoViewModelObj.OperatingMinutes = (uint)(await UsbTcd.TCDObj.ReadOperatingMinutesAsync(requestObj)).Value;
+                using (TCDRequest requestObj = new TCDRequest())
+                {
+                    requestObj.ChannelID = App.CurrentChannel;
+                    infoViewModelObj.OperatingMinutes = (uint)(await UsbTcd.TCDObj.ReadOperatingMinutesAsync(requestObj)).Value;
+
+                    requestObj.Value = 10;
+                    TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(requestObj);
+
+                    foreach (var item in response.ServicePacketList)
+                    {
+                        LogWrapper.Log(Constants.TCDLog, item.Message);
+                    }
+                }
+                LogWrapper.Log(Constants.APPLog, "Read Operating Minutes");
             }
+            catch(Exception ex)
+            {
+                Helper.logger.Warn("Exception: ", ex);
+            }
+            Helper.logger.Debug("--");
         }
     }
 }

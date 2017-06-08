@@ -42,7 +42,8 @@ namespace MercuryEngApp
             }
         }
 
-        public byte ChannelNumber
+        public List<byte> ChannelNumberList { get; internal set; }
+        public byte SelectedChannelNumber
         {
             get
             {
@@ -126,7 +127,6 @@ namespace MercuryEngApp
         }
 
         public List<string> ProbePartNumberList { get; internal set; }
-
         public string SelectedProbePartNumber
         {
             get
@@ -143,8 +143,8 @@ namespace MercuryEngApp
             }
         }
 
-        
 
+        public List<string> ProbeModelNameList { get; internal set; }
         public string ProbeModelName
         {
             get
@@ -177,6 +177,7 @@ namespace MercuryEngApp
             }
         }
 
+        public List<byte> ProbePhysicalIDList { get; internal set; }
         public byte PhysicalID
         {
             get
@@ -193,6 +194,7 @@ namespace MercuryEngApp
             }
         }
 
+        public List<byte> ProbeFormatIDList { get; internal set; }
         public byte FormatID
         {
             get
