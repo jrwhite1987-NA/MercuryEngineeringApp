@@ -8,8 +8,8 @@
     <Grid>
         <Grid Name="LeftPanleInfo">
             <Grid.RowDefinitions>
-                <RowDefinition Height="120"/>
-                <RowDefinition Height="185"/>
+                <RowDefinition Height="130"/>
+                <RowDefinition Height="215"/>
             </Grid.RowDefinitions>
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
                     Width="1310"
@@ -96,7 +96,7 @@
 
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
                     Width="1310" 
-                    Height="210" 
+                    Height="225" 
                     VerticalAlignment="Center" 
                     Margin="10,-20,0,0" 
                     Grid.Column="0" 
@@ -122,7 +122,7 @@
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40"/>
-                            <RowDefinition Height="65"/>
+                            <RowDefinition Height="60"/>
                             <RowDefinition Height="55"/>
                             <RowDefinition Height="55"/>
                         </Grid.RowDefinitions>
