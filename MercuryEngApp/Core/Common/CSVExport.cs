@@ -56,8 +56,7 @@ namespace Core.Common
         /// <returns>System.String.</returns>
         public string Export()
         {
-            //Logs.Instance.ErrorLog<CSVExport<T>>("Calls the Export method to include header line in the data to be exported to Audit file.",
-              //  "Export", Severity.Debug);
+            Helper.logger.Debug("Calls the Export method to include header line in the data to be exported to Audit file.");              
             return Export(true);
         }
 
@@ -71,7 +70,7 @@ namespace Core.Common
             Helper.logger.Debug("++");
             var sb = new StringBuilder();
 
-            //Logs.Instance.ErrorLog<CSVExport<T>>("Get the property Infos of type : AuditTrailExport.", "Export", Severity.Debug);
+            Helper.logger.Debug("Get the property Infos of type : AuditTrailExport.");
             //Get properties using reflection.
             var propertyInfos = typeof(T).GetTypeInfo();
 
@@ -80,7 +79,7 @@ namespace Core.Common
                 if (includeHeaderLine)
                 {
                     //add header line.
-                    //Logs.Instance.ErrorLog<CSVExport<T>>("Check each property header if its an excluded property or not.", "Export", Severity.Debug);
+                    Helper.logger.Debug("Check each property header if its an excluded property or not.");
                     foreach (var propertyInfo in propertyInfos.DeclaredProperties)
                     {
                         if (ExcludedProperties != null && !ExcludedProperties.Contains(propertyInfo.Name))
@@ -89,15 +88,15 @@ namespace Core.Common
                         }
                     }
                     sb.Remove(sb.Length - 1, 1).AppendLine();
-                    //Logs.Instance.ErrorLog<CSVExport<T>>("Header line included.", "Export", Severity.Debug);
+                    Helper.logger.Debug("Header line included.");
                 }
                 else
                 {
-                    //Logs.Instance.ErrorLog<CSVExport<T>>("Header line excluded.", "Export", Severity.Debug);
+                    Helper.logger.Debug("Header line excluded.");
                 }
 
                 //add value for each property.
-                //Logs.Instance.ErrorLog<CSVExport<T>>("Check each property value if its an excluded property or not.", "Export", Severity.Debug);
+                Helper.logger.Debug("Check each property value if its an excluded property or not.");
                 foreach (T obj in Objects)
                 {
                     foreach (var propertyInfo in propertyInfos.DeclaredProperties)
@@ -131,9 +130,9 @@ namespace Core.Common
             {
                 var storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
                 var file = await storageFolder.CreateFileAsync(path, CreationCollisionOption.ReplaceExisting);
-                //Logs.Instance.ErrorLog<CSVExport<T>>("Created audit log file in given path.", "ExportToFile", Severity.Debug);
+                Helper.logger.Debug("Created audit log file in given path.");
                 await FileIO.WriteTextAsync(file, Export());
-                //Logs.Instance.ErrorLog<CSVExport<T>>("Logs written to audit file.", "ExportToFile", Severity.Debug);
+                Helper.logger.Debug("Logs written to audit file.");
             }
             catch (Exception ex)
             {
@@ -161,13 +160,13 @@ namespace Core.Common
         private string MakeValueCsvFriendly(object value)
         {
             Helper.logger.Debug("++");
-            //Logs.Instance.ErrorLog<CSVExport<T>>("Method execution begins to format the CSV file.", "ExportToBytes", Severity.Debug);
+            
             string output = null;
             try
             {
                 if (value == null)
                 {
-                    //Logs.Instance.ErrorLog<CSVExport<T>>("Null object.Return empty string.", "ExportToBytes", Severity.Debug);
+                    Helper.logger.Debug("Null object.Return empty string.");
                     return "";
                 }
 

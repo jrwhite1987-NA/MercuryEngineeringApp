@@ -82,7 +82,7 @@ namespace MicrochipController
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<PowerMicrocontroller>(ex, "TurnControllerOn", Severity.Critical);
+                Helper.logger.Warn("Exception: " + ex);
                 return false;
             }
         }
@@ -95,22 +95,23 @@ namespace MicrochipController
         {
             try
             {
-                //Logs.Instance.ErrorLog<MicroControllerHandler>("GetDescriptors begins ", "GetDescriptors", Severity.Debug);
+                Helper.logger.Debug("GetDescriptors begins");
+
                 if (MicroControllerHandler.Current.IsControllerWorking)
                 {
-                    //Logs.Instance.ErrorLog<MicroControllerHandler>("GetDescriptors ends ", "GetDescriptors", Severity.Debug);
+                    Helper.logger.Debug("GetDescriptors ends");
                     return MicroControllerHandler.Current.GetDescriptorsAsString();
                 }
                 else
                 {
-                    //Logs.Instance.ErrorLog<MicroControllerHandler>("GetDescriptors ends ", "GetDescriptors", Severity.Debug);
+                    Helper.logger.Debug("GetDescriptors ends");
                     return "";
                 }
 
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<PowerMicrocontroller>(ex, "GetDescriptors", Severity.Warning);
+                Helper.logger.Warn("Exception: " + ex);
                 return "";
             }
         }
@@ -165,27 +166,28 @@ namespace MicrochipController
         {
             try
             {
-                //Logs.Instance.ErrorLog<MicroControllerHandler>("async UpdatePowerParameters begins for channel1Power:" + channel1Power.ToString()
-                   // + "channel2Power:" + channel2Power.ToString() + "channel1Reset:" + channel1Reset.ToString() + "channel2Reset:" + channel2Reset.ToString()
-                   // + "moenable:" + MOEnable.ToString(), "UpdatePowerParameters", Severity.Debug);
+                
+                Helper.logger.Debug("async UpdatePowerParameters begins for channel1Power:" + channel1Power.ToString()
+                    + "channel2Power:" + channel2Power.ToString() + "channel1Reset:" + channel1Reset.ToString() + "channel2Reset:" + channel2Reset.ToString()
+                    + "moenable:" + MOEnable.ToString());
+
                 if (MicroControllerHandler.Current.IsControllerWorking)
                 {
-                    //Logs.Instance.ErrorLog<MicroControllerHandler>("async UpdatePowerParameters ends ", "UpdatePowerParameters", Severity.Debug);
+                    Helper.logger.Debug("async UpdatePowerParameters ends");
                     return await MicroControllerHandler.Current.SendPowerParameters
                         (channel1Power, channel2Power, channel1Reset, channel2Reset, MOEnable);
                 }
                 else
                 {
-                    //Logs.Instance.ErrorLog<MicroControllerHandler>
-                      //  (MessageConstants.MicroControllerConnectionFailed, "SendPowerParameters", Severity.Warning);
-                    //Logs.Instance.ErrorLog<MicroControllerHandler>("async UpdatePowerParameters ends ", "UpdatePowerParameters", Severity.Debug);
+                    Helper.logger.Warn(MessageConstants.MicroControllerConnectionFailed);
+                    Helper.logger.Debug("async UpdatePowerParameters ends");
                     return false;
                 }
 
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<PowerMicrocontroller>(ex, "UpdatePowerParameters", Severity.Warning);
+                Helper.logger.Warn("Exception: " + ex);
                 return false;
             }
         }
@@ -218,7 +220,7 @@ namespace MicrochipController
             }
             catch(Exception ex)
             {
-                //Logs.Instance.ErrorLog<PowerMicrocontroller>(ex, "StartWatcher", Severity.Warning);
+                Helper.logger.Warn("Exception: " + ex);
             }
         }
 
@@ -251,7 +253,7 @@ namespace MicrochipController
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<PowerMicrocontroller>(ex, "IsBatteryCharging", Severity.Warning);
+                Helper.logger.Warn("Exception: " + ex);
                 return ControllerEnumList.BatteryChargingState.NA;
             }
         }
