@@ -67,13 +67,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ExamBusiness.cs" />
-    <Compile Include="IExamBusinessTest.cs" />
     <Compile Include="MercuryEngApp\Common\MmodeSettingTest.cs" />
     <Compile Include="MercuryEngApp\Common\ScaleTest.cs" />
     <Compile Include="MercuryEngApp\Validators\ValidationsTest.cs" />
     <Compile Include="PlottingLib\NAGraphTest.cs" />
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

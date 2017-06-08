@@ -1567,8 +1567,6 @@ namespace UsbTcdLibrary
 
                     CreateParameter(ref byteArr, ref singleDopplerPacket);
 
-                    //Logstring.Append(CheckEmboli(channel, ref logflag, ref singleDopplerPacket));
-
                     if (logflag)
                     {
                         logflag = false;
@@ -2948,7 +2946,7 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<UsbTcdDll>(ex);
+                Helper.logger.Warn("Exception: " + ex);
             }
         }
 
@@ -2975,7 +2973,7 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<UsbTcdDll>(ex);
+                Helper.logger.Warn("Exception: " + ex);
             }
         }
 
@@ -3006,7 +3004,7 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<UsbTcdDll>(ex);
+                Helper.logger.Warn("Exception: " + ex);
             }
         }
 
@@ -3034,9 +3032,9 @@ namespace UsbTcdLibrary
                  Helper.logger.Debug("async CreateBinaryFileOfExam ends for examId:" + examId.ToString());
                 return true;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                //Logs.Instance.ErrorLog<UsbTcdDll>(e);
+                Helper.logger.Warn("Exception: " + ex);
                 return false;
             }
         }

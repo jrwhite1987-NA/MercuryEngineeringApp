@@ -130,22 +130,22 @@ namespace Core.Common
         /// <returns>The value to be passed to the target dependency property.</returns>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            //Logs.Instance.ErrorLog<DateFormatConverter>("Method execution begins to convert datetime to string.", "Convert", Severity.Debug);
+            Helper.logger.Debug("Method execution begins to convert datetime to string.");
             string returnString = string.Empty;
             if (value != null)
             {
-                //Logs.Instance.ErrorLog<DateFormatConverter>("Parse date from string.", "Convert", Severity.Debug);
+                Helper.logger.Debug("Parse date from string.");
                 DateTime date = DateTime.Parse(value.ToString());
                 if (date == new DateTime())
                 {
-                    //Logs.Instance.ErrorLog<DateFormatConverter>("Invalid date string.Return empty string.", "Convert", Severity.Debug);
+                    Helper.logger.Debug("Invalid date string.Return empty string.");
                     return returnString;
                 }
-                //Logs.Instance.ErrorLog<DateFormatConverter>("Method executed.Return date as string", "Convert", Severity.Debug);
+                Helper.logger.Debug("Method executed.Return date as string");
                 return date.ToString(parameter != null && parameter.ToString().Contains("Time") ?
                     RegionalSettings.DateTimeFormat : RegionalSettings.DateFormat, CultureInfo.InvariantCulture);
             }
-            //Logs.Instance.ErrorLog<DateFormatConverter>("Null object.Return empty string.", "Convert", Severity.Debug);
+            Helper.logger.Debug("Null object.Return empty string.");
             return returnString;
         }
 

@@ -560,6 +560,10 @@ namespace Core.Constants
         /// </summary>
         public const int VALUE_500 = 500;
         /// <summary>
+        /// The Value 512
+        /// </summary>
+        public const int VALUE_512 = 512;
+        /// <summary>
         /// The value 750
         /// </summary>
         public const int VALUE_750 = 750;
@@ -902,32 +906,11 @@ namespace Core.Constants
         #endregion Audit Error Constants
 
         #region Graph Constants
-
-        /// <summary>
-        /// The FFT size
-        /// </summary>
-       // private const int fftSize;
-
         /// <summary>
         /// Gets or sets the size of the FFT.
         /// </summary>
         /// <value>The size of the FFT.</value>
         public const int FFTSize  = 128;
-        //{
-        //    get
-        //    {
-        //        return fftSize;
-        //    }
-        //    set
-        //    {
-        //        fftSize = value;
-        //        //fftSize = value;
-        //        //DefaultBaseline = (value + Constants.VALUE_1) / Constants.VALUE_2;
-        //        //BaselineValue = value / Constants.VALUE_2;
-        //        //SpectrumBitmapHeight = value + Constants.VALUE_1;
-        //    }
-        //}
-
 
         private static int spectrumBin = FFTSize;
         public static int SpectrumBin
@@ -1386,9 +1369,9 @@ namespace Core.Constants
             get
             {
                 return new List<int> { 
-                    128,
-                    256,
-                    512 };
+                    Constants.VALUE_128 ,
+                    Constants.VALUE_256,
+                    Constants.VALUE_512 };
             }
         }
         /// <summary>
@@ -1410,14 +1393,6 @@ namespace Core.Constants
         /// The time wait for load
         /// </summary>
         public static TimeSpan TimeWaitForLoad = TimeSpan.FromMilliseconds(100);
-
-        /// <summary>
-        /// Initializes static members of the <see cref="Constants"/> class.
-        /// </summary>
-        //static Constants()
-        //{
-        //    FFTSize = Constants.VALUE_128;
-        //}
     }
 
     
