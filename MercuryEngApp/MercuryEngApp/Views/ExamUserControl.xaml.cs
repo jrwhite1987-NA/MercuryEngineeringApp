@@ -66,8 +66,8 @@ namespace MercuryEngApp
             examViewModelObj.PRFList = xmlDoc.Root.Elements("PRFList").
                 Elements("PRF").Select(element => Convert.ToUInt32(element.Value)).ToList();
             TCDAudio = new AudioWrapper();
-            TCDAudio.PRF = 8000;
-            TCDAudio.SetVolume(30);
+            TCDAudio.PRF = Constants.VALUE_8000;
+            TCDAudio.SetVolume(Constants.VALUE_30);
             logger.Debug("--");
         }
 
@@ -249,9 +249,13 @@ namespace MercuryEngApp
         private void AddPacketsToAudioCollection(DMIPmdDataPacket[] packets)
         {
             logger.Debug("++");
+
             var currentPacket = packets[0];
+
             if (currentPacket == null)
+            {
                 currentPacket = packets[1];
+            }
 
             if (currentPacket != null)
             {
@@ -260,7 +264,7 @@ namespace MercuryEngApp
                     if (TCDAudio.PRF != currentPacket.parameter.PRF)
                     {
                         TCDAudio.PRF = currentPacket.parameter.PRF;
-                        TCDAudio.soundBuffer = new byte[sizeof(short) * TCDAudio.PRF / 5];
+                        TCDAudio.soundBuffer = new byte[sizeof(short) * TCDAudio.PRF / Constants.VALUE_5];
                     }
 
                     TCDAudio.AudioCollection.Add(currentPacket);
@@ -283,14 +287,14 @@ namespace MercuryEngApp
                     DMIPmdDataPacket[] packet = PacketCollection.Dequeue();
                     if (App.ActiveChannels==ActiveChannels.Channel1 && packet[0]!=null)
                     {
-                        examViewModelObj.PosMean = packet[0].envelope.posMEAN / 10;
-                        examViewModelObj.PosMin = packet[0].envelope.posDIAS / 10;
-                        examViewModelObj.PosMax = packet[0].envelope.posPEAK / 10;
-                        examViewModelObj.PosPI = packet[0].envelope.posPI / 10;
-                        examViewModelObj.NegMean = packet[0].envelope.negMEAN / 10;
-                        examViewModelObj.NegMin = packet[0].envelope.negDIAS / 10;
-                        examViewModelObj.NegMax = packet[0].envelope.negPEAK / 10;
-                        examViewModelObj.NegPI = packet[0].envelope.negPI / 10;
+                        examViewModelObj.PosMean = packet[0].envelope.posMEAN / Constants.VALUE_10;
+                        examViewModelObj.PosMin = packet[0].envelope.posDIAS / Constants.VALUE_10;
+                        examViewModelObj.PosMax = packet[0].envelope.posPEAK / Constants.VALUE_10;
+                        examViewModelObj.PosPI = packet[0].envelope.posPI / Constants.VALUE_10;
+                        examViewModelObj.NegMean = packet[0].envelope.negMEAN / Constants.VALUE_10;
+                        examViewModelObj.NegMin = packet[0].envelope.negDIAS / Constants.VALUE_10;
+                        examViewModelObj.NegMax = packet[0].envelope.negPEAK / Constants.VALUE_10;
+                        examViewModelObj.NegPI = packet[0].envelope.negPI / Constants.VALUE_10;
 
                         examViewModelObj.PacketDepth = packet[0].spectrum.depth;
                         examViewModelObj.PacketFilter = packet[0].spectrum.clutterFilter;
@@ -299,27 +303,30 @@ namespace MercuryEngApp
                         examViewModelObj.PacketStartDepth = packet[0].mmode.startDepth;
                         examViewModelObj.PacketSVol = packet[0].parameter.sampleLength;
                         examViewModelObj.TIC = packet[0].parameter.TIC;
-                        NaGraph.ProcessPacket(packet, true, 1);
+                        NaGraph.ProcessPacket(packet, true, Constants.VALUE_1);
                     }
-                    else if (packet[1] != null && App.ActiveChannels==ActiveChannels.Channel2)
+                    else 
                     {
-                        examViewModelObj.PosMean = packet[1].envelope.posMEAN / 10;
-                        examViewModelObj.PosMin = packet[1].envelope.posDIAS / 10;
-                        examViewModelObj.PosMax = packet[1].envelope.posPEAK / 10;
-                        examViewModelObj.PosPI = packet[1].envelope.posPI / 10;
-                        examViewModelObj.NegMean = packet[1].envelope.negMEAN / 10;
-                        examViewModelObj.NegMin = packet[1].envelope.negDIAS / 10;
-                        examViewModelObj.NegMax = packet[1].envelope.negPEAK / 10;
-                        examViewModelObj.NegPI = packet[1].envelope.negPI / 10;
+                        if (packet[1] != null && App.ActiveChannels == ActiveChannels.Channel2)
+                        {
+                            examViewModelObj.PosMean = packet[1].envelope.posMEAN / Constants.VALUE_10;
+                            examViewModelObj.PosMin = packet[1].envelope.posDIAS / Constants.VALUE_10;
+                            examViewModelObj.PosMax = packet[1].envelope.posPEAK / Constants.VALUE_10;
+                            examViewModelObj.PosPI = packet[1].envelope.posPI / Constants.VALUE_10;
+                            examViewModelObj.NegMean = packet[1].envelope.negMEAN / Constants.VALUE_10;
+                            examViewModelObj.NegMin = packet[1].envelope.negDIAS / Constants.VALUE_10;
+                            examViewModelObj.NegMax = packet[1].envelope.negPEAK / Constants.VALUE_10;
+                            examViewModelObj.NegPI = packet[1].envelope.negPI / Constants.VALUE_10;
 
-                        examViewModelObj.PacketDepth = packet[1].spectrum.depth;
-                        examViewModelObj.PacketFilter = packet[1].spectrum.clutterFilter;
-                        examViewModelObj.PacketPower = packet[1].parameter.acousticPower;
-                        examViewModelObj.PacketPRF = packet[1].parameter.PRF;
-                        examViewModelObj.PacketStartDepth = packet[1].mmode.startDepth;
-                        examViewModelObj.PacketSVol = packet[1].parameter.sampleLength;
-                        examViewModelObj.TIC = packet[1].parameter.TIC;
-                        NaGraph.ProcessPacket(packet, true, 2);
+                            examViewModelObj.PacketDepth = packet[1].spectrum.depth;
+                            examViewModelObj.PacketFilter = packet[1].spectrum.clutterFilter;
+                            examViewModelObj.PacketPower = packet[1].parameter.acousticPower;
+                            examViewModelObj.PacketPRF = packet[1].parameter.PRF;
+                            examViewModelObj.PacketStartDepth = packet[1].mmode.startDepth;
+                            examViewModelObj.PacketSVol = packet[1].parameter.sampleLength;
+                            examViewModelObj.TIC = packet[1].parameter.TIC;
+                            NaGraph.ProcessPacket(packet, true, Constants.VALUE_2);
+                        }
                     }
                 }
             }
@@ -334,7 +341,7 @@ namespace MercuryEngApp
         private void InitializeBitmap()
         {
             logger.Debug("++");
-            int width = 500;
+            int width = Constants.VALUE_500;
 
             try
             {
@@ -342,7 +349,7 @@ namespace MercuryEngApp
                 imageSpectrogram.Source = leftSpectrumBitmap;
 
 
-                leftMModeBitmap = BitmapFactory.New(width, 30);
+                leftMModeBitmap = BitmapFactory.New(width, Constants.VALUE_30);
                 imageMmode.Source = leftMModeBitmap;
 
                 NaGraph = new NaGraph(new BitmapList
@@ -352,7 +359,7 @@ namespace MercuryEngApp
                     RightMmodeBitmap = leftMModeBitmap,
                     RightSpectrumBitmap = leftSpectrumBitmap
                 });
-                NaGraph.SizeOfQueue = 500;
+                NaGraph.SizeOfQueue = Constants.VALUE_500;
             }
             catch (Exception ex)
             {
@@ -377,7 +384,7 @@ namespace MercuryEngApp
                         requestObject.ChannelID = App.CurrentChannel;
                         requestObject.Value3 = examViewModelObj.Power;
                         await UsbTcd.TCDObj.SetPowerAsync(requestObject);
-                        await Task.Delay(100);
+                        await Task.Delay(Constants.VALUE_100);
                         if (examViewModelObj.Power == examViewModelObj.PacketPower)
                         {
                             LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.PowerSent);
@@ -415,7 +422,7 @@ namespace MercuryEngApp
                         requestObject.ChannelID = App.CurrentChannel;
                         requestObject.Value3 = examViewModelObj.Depth;
                         TCDResponse response = await UsbTcd.TCDObj.SetDepthAsync(requestObject);
-                        await Task.Delay(100);
+                        await Task.Delay(Constants.VALUE_100);
                         if (examViewModelObj.Depth == examViewModelObj.PacketDepth)
                         {
                             customDepthSlider.Value = examViewModelObj.Depth;
@@ -455,7 +462,7 @@ namespace MercuryEngApp
                         requestObject.ChannelID = App.CurrentChannel;
                         requestObject.Value3 = examViewModelObj.Filter;
                         await UsbTcd.TCDObj.SetFilterAsync(requestObject);
-                        await Task.Delay(100);
+                        await Task.Delay(Constants.VALUE_100);
                         if (examViewModelObj.Filter == examViewModelObj.PacketFilter)
                         {   
                             LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FilterSent);
@@ -487,7 +494,7 @@ namespace MercuryEngApp
                         requestObject.ChannelID = App.CurrentChannel;
                         requestObject.Value3 = examViewModelObj.SVol;
                         await UsbTcd.TCDObj.SetLengthAsync(requestObject);
-                        await Task.Delay(100);
+                        await Task.Delay(Constants.VALUE_100);
                         if (examViewModelObj.SVol == examViewModelObj.PacketSVol)
                         {   
                             LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.LengthSent);
@@ -527,7 +534,7 @@ namespace MercuryEngApp
                         requestObject.Value2 = (byte)examViewModelObj.StartDepth;
                         await UsbTcd.TCDObj.SetPRF(requestObject);
 
-                        await Task.Delay(100);
+                        await Task.Delay(Constants.VALUE_100);
                         if (examViewModelObj.SelectedPRF == examViewModelObj.PacketPRF)
                         {
                             examViewModelObj.VelocityRange = PRFOptions.GetMappedVelocityRange((int)examViewModelObj.SelectedPRF);
@@ -565,7 +572,7 @@ namespace MercuryEngApp
             {
                 NaGraph.LeftSpectrogram.BaseLinePosition = examViewModelObj.BaselinePosition;
                 NaGraph.RightSpectrogram.BaseLinePosition = examViewModelObj.BaselinePosition;
-                examViewModelObj.ScreenCoords = Thumb.TransformToVisual(scaleGrid).Transform(new Point(0, 25));   
+                examViewModelObj.ScreenCoords = Thumb.TransformToVisual(scaleGrid).Transform(new Point(Constants.VALUE_0, Constants.VALUE_25));   
                 scaleObj.CreateScale(new ScaleParameters
 
                 {

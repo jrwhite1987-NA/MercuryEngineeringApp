@@ -39,7 +39,9 @@ namespace MicroMvvm
         {
 
             if (execute == null)
+            {
                 throw new ArgumentNullException("execute");
+            }
             _execute = execute;
             _canExecute = canExecute;
         }
@@ -54,13 +56,17 @@ namespace MicroMvvm
             {
 
                 if (_canExecute != null)
+                {
                     CommandManager.RequerySuggested += value;
+                }
             }
             remove
             {
 
                 if (_canExecute != null)
+                {
                     CommandManager.RequerySuggested -= value;
+                }
             }
         }
 
@@ -111,7 +117,10 @@ namespace MicroMvvm
         {
 
             if (execute == null)
+            {
                 throw new ArgumentNullException("execute");
+            }
+
             _execute = execute;
             _canExecute = canExecute;
         }
@@ -126,13 +135,17 @@ namespace MicroMvvm
             {
 
                 if (_canExecute != null)
+                {
                     CommandManager.RequerySuggested += value;
+                }
             }
             remove
             {
 
                 if (_canExecute != null)
+                {
                     CommandManager.RequerySuggested -= value;
+                }
             }
         }
 

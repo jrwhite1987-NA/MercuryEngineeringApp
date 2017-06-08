@@ -487,7 +487,7 @@ namespace MicrochipController
                 byte[] rawData = buf.ToArray();
 
                 Helper.logger.Debug("--");
-                if (verifyInputStream(rawData[0], rawData[dataLength + 1], cmd))
+                if (VerifyInputStream(rawData[0], rawData[dataLength + 1], cmd))
                 {
                     return rawData;
                 }
@@ -509,10 +509,13 @@ namespace MicrochipController
         /// <param name="start">The start.</param>
         /// <param name="end">The end.</param>
         /// <returns>bool</returns>
-        bool verifyInputStream(byte start, byte end, byte cmd)
+        bool VerifyInputStream(byte start, byte end, byte cmd)
         {
             if (start != cmd)
+            {
                 return false;
+            }
+
             int x = start ^ end;
             bool val = x == 0xff;
             return ((start ^ end) == 0xFF);
@@ -587,7 +590,7 @@ namespace MicrochipController
 
                 Helper.logger.Debug("--");
                
-                if (verifyInputStream(rawData[0], rawData[1], MicroControllerProtocol.TCDControlReq))
+                if (VerifyInputStream(rawData[0], rawData[1], MicroControllerProtocol.TCDControlReq))
                 {
                     return true;
                 }

@@ -1,4 +1,5 @@
-﻿namespace UsbTcdLibrary
+﻿using Core.Constants;
+namespace UsbTcdLibrary
 {
     #region Property positions
 
@@ -335,16 +336,20 @@
 
         static MMode()
         {
-            if(DMIProtocol.Is256FFTEnable)
-                AutoGainOffset = DMIProtocol.SpectrumPointsCount * 2 + Spectrum.Points;
+            if (DMIProtocol.Is256FFTEnable)
+            {
+                AutoGainOffset = DMIProtocol.SpectrumPointsCount * Constants.VALUE_2 + Spectrum.Points;
+            }
             else
-                AutoGainOffset = DMIProtocol.FFT128_SPECTRUM_POINTS * 2 + Spectrum.Points;
+            {
+                AutoGainOffset = DMIProtocol.FFT128_SPECTRUM_POINTS * Constants.VALUE_2 + Spectrum.Points;
+            }
 
-            StartDepth = AutoGainOffset + 2;
-            EndDepth = StartDepth + 2;
-            PointsPerColumn = EndDepth + 2;
-            Power = PointsPerColumn + 2;
-            Velocity = DMIProtocol.DMI_PKT_MMODE_PTS * 2 + Power;
+            StartDepth = AutoGainOffset + Constants.VALUE_2;
+            EndDepth = StartDepth + Constants.VALUE_2;
+            PointsPerColumn = EndDepth + Constants.VALUE_2;
+            Power = PointsPerColumn + Constants.VALUE_2;
+            Velocity = DMIProtocol.DMI_PKT_MMODE_PTS * Constants.VALUE_2 + Power;
         }
     }
 
