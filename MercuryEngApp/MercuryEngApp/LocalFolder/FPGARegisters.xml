@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<FPGA>
+  <FPGARegister>
+    <Name>ADC_FREQ</Name>
+    <MemoryLocation>0x020</MemoryLocation>
+    <NoOfBytes>0</NoOfBytes>
+    <Desciption></Desciption>
+    <DefaultValue>1</DefaultValue>
+  </FPGARegister>
+  <FPGARegister>
+    <Name>INTERMODULE</Name>
+    <MemoryLocation>0x080</MemoryLocation>
+    <NoOfBytes>0</NoOfBytes>
+    <Desciption></Desciption>
+    <DefaultValue>0</DefaultValue>
+  </FPGARegister>
+  <FPGARegister>
+    <Name>RX_GAIN</Name>
+    <MemoryLocation>0x010</MemoryLocation>
+    <NoOfBytes>0</NoOfBytes>
+    <Desciption></Desciption>
+    <DefaultValue>0x199</DefaultValue>
+  </FPGARegister>
+  <FPGARegister>
+    <Name>TX_FREQ</Name>
+    <MemoryLocation>0x008</MemoryLocation>
+    <NoOfBytes>0</NoOfBytes>
+    <Desciption></Desciption>
+    <DefaultValue>24</DefaultValue>
+  </FPGARegister>
+  <FPGARegister>
+    <Name>TX_PULSE</Name>
+    <MemoryLocation>0x004</MemoryLocation>
+    <NoOfBytes>0</NoOfBytes>
+    <Desciption></Desciption>
+    <DefaultValue>0x100FA400</DefaultValue>
+  </FPGARegister>  
+</FPGA>
