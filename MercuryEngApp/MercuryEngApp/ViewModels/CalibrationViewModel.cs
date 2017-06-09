@@ -35,11 +35,11 @@ namespace MercuryEngApp.ViewModels
             IsMeasurement1EditEnabled = true;
             IsMeasurement2ClickEnabled = true;
             IsApplyMeasurementEnabled = true;
-            PRFList = new List<uint> { 5000, 6250, 8000 };
-            SVOLList = new List<uint> { 3, 6, 9 };
-            SelectedPRF = 8000;
-            SelectedSVOL = 9;
-            Power = 135;
+            PRFList = new List<uint> { Constants.VALUE_5000, Constants.VALUE_6250, Constants.VALUE_8000 };
+            SVOLList = new List<uint> { Constants.VALUE_3, Constants.VALUE_6, Constants.VALUE_9 };
+            SelectedPRF = Constants.VALUE_8000;
+            SelectedSVOL = Constants.VALUE_9;
+            Power = Constants.SAFETY_CAL_START_POWER;
         }
 
         public bool IsMeasurement2ClickEnabled

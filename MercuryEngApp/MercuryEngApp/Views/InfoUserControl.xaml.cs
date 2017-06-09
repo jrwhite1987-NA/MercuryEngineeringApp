@@ -96,7 +96,7 @@ namespace MercuryEngApp
                     infoViewModelObj.SelectedHardwareRevision = response.Module.hardwareRevisionString;
                     infoViewModelObj.BoardSerialNumber = response.Module.serialNumberString;
 
-                    request.Value = 10;
+                    request.Value = Constants.VALUE_10;
                     response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
 
                     foreach(var item in response.ServicePacketList)
@@ -144,7 +144,7 @@ namespace MercuryEngApp
 
                     using (TCDRequest request = new TCDRequest())
                     {
-                        request.Value = 10;
+                        request.Value = Constants.VALUE_10;
                         TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
 
                         foreach (var item in response.ServicePacketList)
@@ -227,7 +227,7 @@ namespace MercuryEngApp
                     request.ChannelID = App.CurrentChannel;
                     infoViewModelObj.SelectedChannelNumber = await UsbTcd.TCDObj.GetChannelNumber(request);
 
-                    request.Value = 10;
+                    request.Value = Constants.VALUE_10;
                     TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
 
                     foreach (var item in response.ServicePacketList)
@@ -258,7 +258,7 @@ namespace MercuryEngApp
                         request.Value2 = infoViewModelObj.SelectedChannelNumber;
                         await UsbTcd.TCDObj.AssignChannelAsync(request);
 
-                        request.Value = 10;
+                        request.Value = Constants.VALUE_10;
                         TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
 
                         foreach (var item in response.ServicePacketList)
@@ -283,8 +283,8 @@ namespace MercuryEngApp
         private bool IsValid(DependencyObject dependencyObject)
         {
             DependencyObject obj = ChannelPartNumber;
-            bool val = Validation.GetHasError(obj);
-            var error = Validation.GetErrors(obj);
+            Validation.GetHasError(obj);
+            Validation.GetErrors(obj);
             return !Validation.GetHasError(dependencyObject) && LogicalTreeHelper.GetChildren(dependencyObject).OfType<DependencyObject>().All(IsValid);
         }
 
@@ -312,7 +312,7 @@ namespace MercuryEngApp
                     infoViewModelObj.Impedance = response.Probe.impedance;
                     infoViewModelObj.PhaseAngle = response.Probe.phaseAngle;
 
-                    request.Value = 10;
+                    request.Value = Constants.VALUE_10;
                     response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
 
                     foreach (var item in response.ServicePacketList)
@@ -362,7 +362,7 @@ namespace MercuryEngApp
                     }
                     using (TCDRequest request = new TCDRequest())
                     {
-                        request.Value = 10;
+                        request.Value = Constants.VALUE_10;
                         TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
 
                         foreach (var item in response.ServicePacketList)

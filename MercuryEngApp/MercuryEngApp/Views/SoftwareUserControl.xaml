@@ -141,7 +141,7 @@
                                 Height="36" 
                                 HorizontalAlignment="Left" 
                                 Margin="1,0,10,0" 
-                                Click="Browse_Click"
+                                Click="BrowseClick"
                                 Style="{StaticResource ResourceKey=ButtonStyle1}"   
                                 Width="100" 
                                 Grid.Row="1" 

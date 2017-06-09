@@ -8,6 +8,7 @@ using PlottingLib;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Moq;
+using Core.Constants;
 namespace MercuryEngApp.Test.PlottingLib
 {
     [TestClass]
@@ -17,7 +18,7 @@ namespace MercuryEngApp.Test.PlottingLib
 
         public NAGraphTest()
         {
-            WriteableBitmap dummyBitmap = BitmapFactory.New(10, 10);
+            WriteableBitmap dummyBitmap = BitmapFactory.New(Constants.VALUE_10, Constants.VALUE_10);
             NaGraph = new NaGraph(new BitmapList {
                 LeftMmodeBitmap = dummyBitmap, 
                 LeftSpectrumBitmap = dummyBitmap,
@@ -27,29 +28,29 @@ namespace MercuryEngApp.Test.PlottingLib
         }
 
         [TestMethod]
-        public void InitializeTest_FourSecond()
+        public void InitializeTestFourSecond()
         {            
             SpectrumXScale scale = SpectrumXScale.FourSecond;
-            var gain = 10;
+            var gain = Constants.VALUE_10;
             NaGraph.Initialize(scale,gain);
             Assert.IsTrue(true);
         }
 
         [TestMethod]
-        public void InitializeTest_EightSecond()
+        public void InitializeTestEightSecond()
         {
             SpectrumXScale scale = SpectrumXScale.EightSecond;
-            var gain = 10;
+            var gain = Constants.VALUE_10;
             NaGraph.Initialize(scale, gain);
             Assert.IsTrue(true);
         }
 
 
         [TestMethod]
-        public void InitializeTest_TwelveSecond()
+        public void InitializeTestTwelveSecond()
         {
             SpectrumXScale scale = SpectrumXScale.TwelveSecond;
-            var gain = 10;
+            var gain = Constants.VALUE_10;
             NaGraph.Initialize(scale, gain);
             Assert.IsTrue(true);
         }
@@ -58,19 +59,19 @@ namespace MercuryEngApp.Test.PlottingLib
         [TestMethod]
         public void SetGainTestForPositive()
         {
-            var gain = 10;
+            var gain = Constants.VALUE_10;
             NaGraph.SetGain(gain);
             Assert.IsTrue(true);
 
-            gain = 20;
-            NaGraph.SetGain(gain);
-            Assert.IsTrue(true);
-           
-            gain = 30;
+            gain = Constants.VALUE_20;
             NaGraph.SetGain(gain);
             Assert.IsTrue(true);
 
-            gain = 39;
+            gain = Constants.VALUE_30;
+            NaGraph.SetGain(gain);
+            Assert.IsTrue(true);
+
+            gain = Constants.VALUE_39;
             NaGraph.SetGain(gain);
             Assert.IsTrue(true);
         }
@@ -79,19 +80,19 @@ namespace MercuryEngApp.Test.PlottingLib
         [TestMethod]
         public void SetGainTestForNegative()
         {
-            var gain = -10;
+            var gain = -Constants.VALUE_10;
             NaGraph.SetGain(gain);
             Assert.IsTrue(true);
 
-            gain = -20;
+            gain = -Constants.VALUE_20;
             NaGraph.SetGain(gain);
             Assert.IsTrue(true);
 
-            gain = -30;
+            gain = -Constants.VALUE_30;
             NaGraph.SetGain(gain);
             Assert.IsTrue(true);
 
-            gain = -39;
+            gain = -Constants.VALUE_39;
             NaGraph.SetGain(gain);
             Assert.IsTrue(true);
         }

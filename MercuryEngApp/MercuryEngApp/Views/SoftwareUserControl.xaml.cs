@@ -46,7 +46,7 @@ namespace MercuryEngApp.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Browse_Click(object sender, RoutedEventArgs e)
+        private void BrowseClick(object sender, RoutedEventArgs e)
         {
             // Create OpenFileDialog
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
@@ -64,10 +64,6 @@ namespace MercuryEngApp.Views
                 // Open document
                 string filename = dlg.FileName;
                 FileNameTextBox.Text = filename;
-
-                Paragraph paragraph = new Paragraph();
-                paragraph.Inlines.Add(System.IO.File.ReadAllText(filename));
-                FlowDocument document = new FlowDocument(paragraph);
             }
         }
 

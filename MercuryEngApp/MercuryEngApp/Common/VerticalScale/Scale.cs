@@ -119,10 +119,10 @@ namespace MercuryEngApp.Common
                 {
                     txtBlock = new TextBlock();
                     txtBlock.HorizontalAlignment = HorizontalAlignment.Right;
-                    txtBlock.Margin = new Thickness(-20, top, 0, 0);
+                    txtBlock.Margin = new Thickness(-Constants.VALUE_20, top, Constants.VALUE_0, Constants.VALUE_0);
                     txtBlock.Foreground = new SolidColorBrush(Colors.White);
                     txtBlock.Text = counter.ToString() + " -";
-                    Grid.SetColumn(txtBlock, 0);
+                    Grid.SetColumn(txtBlock, Constants.VALUE_0);
                     parentGrid.Children.Add(txtBlock);
                     top = top - interval;
                     counter = counter + tickPosition;
@@ -171,19 +171,19 @@ namespace MercuryEngApp.Common
             switch (velocityRange)
             {
                 case Constants.VALUE_192:
-                    interval = 30;
+                    interval = Constants.VALUE_30;
                     break;
                 case Constants.VALUE_240:
-                    interval = 40;
+                    interval = Constants.VALUE_40;
                     break;
                 case Constants.VALUE_308:
-                    interval = 50;
+                    interval = Constants.VALUE_50;
                     break;
                 case Constants.VALUE_385:
-                    interval = 60;
+                    interval = Constants.VALUE_60;
                     break;
                 case Constants.VALUE_480:
-                    interval = 70;
+                    interval = Constants.VALUE_70;
                     break;
                 default:
                     break;

@@ -40,7 +40,7 @@ namespace MercuryEngApp
         async void CalibrationUserControlUnloaded(object sender, RoutedEventArgs e)
         {
             // Make sure FPGA is in reset
-            await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = 1 });
+            await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = Constants.VALUE_1});
 
             // Make sure that if a safety calibration is in progress it is stopped
             SafetyStopClick(null, null);
@@ -131,11 +131,11 @@ namespace MercuryEngApp
             // Make sure that if a safety calibration is in progress it is stopped
             SafetyStopClick(null, null);
 
-            if ((await UsbTcd.TCDObj.StartMeasurementOfBoardAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value3 = 1 })).Result)
+            if ((await UsbTcd.TCDObj.StartMeasurementOfBoardAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value3 =  Constants.VALUE_1 })).Result)
             {
                 calViewModel.IsMeasurement1EditEnabled = true;
-                calViewModel.Measurement1 = 0;
-                calViewModel.Measurement2 = 0;
+                calViewModel.Measurement1 = Constants.VALUE_0;
+                calViewModel.Measurement2 = Constants.VALUE_0;
             }
             else
             {
@@ -151,7 +151,7 @@ namespace MercuryEngApp
             if ((await UsbTcd.TCDObj.StartMeasurementOfBoardAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value3 = 2 })).Result)
             {
                 calViewModel.IsMeasurement2EditEnabled = true;
-                if (calViewModel.Measurement2 > 0)
+                if (calViewModel.Measurement2 > Constants.VALUE_0)
                 {
                     calViewModel.IsApplyMeasurementEnabled = true;
                 }
@@ -171,11 +171,11 @@ namespace MercuryEngApp
             // Make sure that if a safety calibration is in progress it is stopped
             SafetyStopClick(null, null);
 
-            m1AdjustmentFactor = 1.0645;
-            m2AdjustmentFactor = 1.102;
+            m1AdjustmentFactor = Constants.M1AdjustmentFactor;
+            m2AdjustmentFactor = Constants.M2AdjustmentFactor;
 
             m1Valid = false;
-            if (calViewModel.Measurement1 > 0)
+            if (calViewModel.Measurement1 > Constants.VALUE_0)
             {
                 requestObj.Value = (int)(m1AdjustmentFactor * calViewModel.Measurement1);
                 m1Valid = true;
@@ -186,7 +186,7 @@ namespace MercuryEngApp
             }
 
             m2Valid = false;
-            if (calViewModel.Measurement2 > 0)
+            if (calViewModel.Measurement2 > Constants.VALUE_0)
             {
                 requestObj.Value = (int)(m2AdjustmentFactor * calViewModel.Measurement2);
                 m2Valid = true;
@@ -252,16 +252,16 @@ namespace MercuryEngApp
             // Convert PRF from pulse per second to tx cycles per pulse
             int txCyclesPerPRF = TX_CYCLES_PER_SECOND / PRF;
             // See module software for explanation of the conversion from mm to cycles
-            var txBurstCycles = ((24 * sampleLength) / 9) + 1;
+            var txBurstCycles = ((Constants.VALUE_24 * sampleLength) / Constants.VALUE_9) + Constants.VALUE_1;
             // See module software for explanation of the transmit register format
-            if (txCyclesPerPRF == (1 << 12) && txBurstCycles == (1 << 8))
+            if (txCyclesPerPRF == (Constants.VALUE_1 << Constants.VALUE_12) && txBurstCycles == (Constants.VALUE_1 << Constants.VALUE_8))
             {
-                int txRegister = (txBurstCycles << 24) + (txCyclesPerPRF << 12) + DAC;
+                int txRegister = (txBurstCycles << Constants.VALUE_24) + (txCyclesPerPRF << Constants.VALUE_12) + DAC;
 
                 // Set the transmit control register
                 if (!(await UsbTcd.TCDObj.WriteValueToFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value3 = Constants.TX_PULSE_ADDRESS, Value = txRegister })).Result)
                 {
-                    await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = 1 });
+                    await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = Constants.VALUE_1 });
                     return false;
                 }
                 return true;
@@ -274,7 +274,7 @@ namespace MercuryEngApp
 
         private async void ConsistencyCheckStopClick(object sender, RoutedEventArgs e)
         {
-            await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = 1 });
+            await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = Constants.VALUE_1 });
         }
 
         private async void SafetyStartClick(object sender, RoutedEventArgs e)

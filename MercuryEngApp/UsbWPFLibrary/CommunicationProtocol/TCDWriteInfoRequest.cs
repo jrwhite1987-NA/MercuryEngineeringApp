@@ -55,7 +55,10 @@ namespace UsbTcdLibrary.CommunicationProtocol
 
         public void Dispose()
         {
-
+            ChannelID = TCDHandles.None; 
+            Probe = null;
+            Board = null;
+            Calibration = null;
         }
     }
 }

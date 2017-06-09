@@ -520,7 +520,7 @@ namespace MercuryEngApp
             bool isPRFValid = false;
             string depthErrorMessage = string.Empty;
             string prfErrorMessage = string.Empty;
-            string errorMessage = string.Empty;
+            
             try
             {
                 isDepthValid = Validators.ValidationRules.ValidateControl(StartDepthTextBox, out depthErrorMessage);
@@ -564,7 +564,7 @@ namespace MercuryEngApp
         
 
 
-        private void CusomSlider_LostMouseCapture(object sender, MouseEventArgs e)
+        private void CusomSliderLostMouseCapture(object sender, MouseEventArgs e)
         {
             logger.Debug("++");
 
@@ -635,7 +635,7 @@ namespace MercuryEngApp
             return thumb;
         }
 
-        private void toggleLimitsClick(object sender, RoutedEventArgs e)
+        private void ToggleLimitsClick(object sender, RoutedEventArgs e)
         {
             logger.Debug("++");
             try
@@ -685,13 +685,13 @@ namespace MercuryEngApp
             UsbTcd.TCDObj.SetEnvelopeRangeAsync(requestObject);
         }
 
-        private void spectrumBinCombobox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void SpectrumBinComboboxSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            CusomSlider_LostMouseCapture(null, null);
+            CusomSliderLostMouseCapture(null, null);
             InitializeBitmap();
-        }       
+        }
 
-        private void btnEnvelop_Checked(object sender, RoutedEventArgs e)
+        private void BtnEnvelopChecked(object sender, RoutedEventArgs e)
         {
             NaGraph.LeftSpectrogram.SpectrumEnvolope.NegativeFlowVisible = true;
             NaGraph.LeftSpectrogram.SpectrumEnvolope.PositiveFlowVisible = true;
@@ -700,7 +700,7 @@ namespace MercuryEngApp
             btnEnvelop.Content = "Envelope On";
         }
 
-        private void btnEnvelop_Unchecked(object sender, RoutedEventArgs e)
+        private void BtnEnvelopUnchecked(object sender, RoutedEventArgs e)
         {
             NaGraph.LeftSpectrogram.SpectrumEnvolope.NegativeFlowVisible = false;
             NaGraph.LeftSpectrogram.SpectrumEnvolope.PositiveFlowVisible = false;

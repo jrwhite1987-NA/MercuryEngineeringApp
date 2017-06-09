@@ -516,8 +516,7 @@ namespace MicrochipController
                 return false;
             }
 
-            int x = start ^ end;
-            bool val = x == 0xff;
+            int x = start ^ end;            
             return ((start ^ end) == 0xFF);
         }
 
@@ -581,7 +580,7 @@ namespace MicrochipController
                 usbPacket[USB_PACKET_EOM] = MicroControllerProtocol.EOM;
 
                 writer.WriteBytes(usbPacket);
-                uint bytesSent = await writer.StoreAsync();
+                await writer.StoreAsync();
 
                 await Task.Delay(Constants.TimeWaitForLoad);
                 uint bytesRead = await reader.LoadAsync(MicroControllerProtocol.RESPONSE_MSG_LENGTH);

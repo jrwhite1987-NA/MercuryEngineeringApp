@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MercuryEngApp.Validators;
 using System.Windows.Controls;
+using Core.Constants;
 
 namespace MercuryEngApp.Test.MercuryEngApp.Validators
 {
@@ -89,12 +90,12 @@ namespace MercuryEngApp.Test.MercuryEngApp.Validators
             var validator = new RangeValidationRule();
             validator.ControlName = "Test";
             validator.ValidatesOnTargetUpdated = true;
-            validator.StartStange = 0;
-            validator.MaxRange = 255;
+            validator.StartStange = Constants.VALUE_0;
+            validator.MaxRange = Constants.VALUE_255;
             validator.ErrorMessage = Resources.RangeValue;
 
             //act
-            var result = validator.Validate(256, new System.Globalization.CultureInfo("en-US"));
+            var result = validator.Validate(Constants.VALUE_256, new System.Globalization.CultureInfo("en-US"));
 
             //Assert
             Assert.IsFalse(result.IsValid);
@@ -108,12 +109,12 @@ namespace MercuryEngApp.Test.MercuryEngApp.Validators
             var validator = new RangeValidationRule();
             validator.ControlName = "Test";
             validator.ValidatesOnTargetUpdated = true;
-            validator.StartStange = 0;
-            validator.MaxRange = 255;
+            validator.StartStange = Constants.VALUE_0;
+            validator.MaxRange = Constants.VALUE_255;
             validator.ErrorMessage = Resources.RangeValue;
 
             //act
-            var result = validator.Validate(12, new System.Globalization.CultureInfo("en-US"));
+            var result = validator.Validate(Constants.VALUE_12, new System.Globalization.CultureInfo("en-US"));
 
             //Assert
             Assert.IsTrue(result.IsValid);
@@ -128,7 +129,7 @@ namespace MercuryEngApp.Test.MercuryEngApp.Validators
             var validator = new MaxLengthValidationRule();
             validator.ControlName = "Test";
             validator.ValidatesOnTargetUpdated = true;
-            validator.MaxLength = 10;
+            validator.MaxLength = Constants.VALUE_10;
             validator.ErrorMessage = Resources.MaxLength;
 
             var result = validator.Validate(13213213133, new System.Globalization.CultureInfo("en-US"));
@@ -143,7 +144,7 @@ namespace MercuryEngApp.Test.MercuryEngApp.Validators
             var validator = new MaxLengthValidationRule();
             validator.ControlName = "Test";
             validator.ValidatesOnTargetUpdated = true;
-            validator.MaxLength = 10;
+            validator.MaxLength = Constants.VALUE_10;
             validator.ErrorMessage = Resources.MaxLength;
 
             var result = validator.Validate("1234567890", new System.Globalization.CultureInfo("en-US"));
@@ -158,7 +159,7 @@ namespace MercuryEngApp.Test.MercuryEngApp.Validators
             var validator = new MaxLengthValidationRule();
             validator.ControlName = "Test";
             validator.ValidatesOnTargetUpdated = true;
-            validator.MaxLength = 10;
+            validator.MaxLength = Constants.VALUE_10;
             validator.ErrorMessage = Resources.MaxLength;
 
             var result = validator.Validate("123", new System.Globalization.CultureInfo("en-US"));

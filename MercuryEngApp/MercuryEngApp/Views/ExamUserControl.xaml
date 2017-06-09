@@ -535,7 +535,7 @@
             <ComboBox ItemsSource="{Binding Path=FFTList, Mode=TwoWay}"
                       SelectedItem="{Binding Path=SelectedFFT, UpdateSourceTrigger=PropertyChanged}"
                               Style="{StaticResource ResourceKey=ComboBoxBorder}" 
-                              SelectionChanged="spectrumBinCombobox_SelectionChanged" Height="25" Margin="450,152,23,53"/>
+                              SelectionChanged="SpectrumBinComboboxSelectionChanged" Height="25" Margin="450,152,23,53"/>
 
             <TextBlock Text="Spectrum Bin" 
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
@@ -550,15 +550,15 @@
                     VerticalAlignment="Top" 
                     Width="133" Height="40"                                      
                     HorizontalAlignment = "Right"
-                    Checked="btnEnvelop_Checked"
-                    Unchecked="btnEnvelop_Unchecked"/>
+                    Checked="BtnEnvelopChecked"
+                    Unchecked="BtnEnvelopUnchecked"/>
 
             <ToggleButton x:Name = "toggleLimits" Margin="0,72,10,0"
                       VerticalAlignment="Top"  
                       HorizontalAlignment = "Right"
                       Content = "Limits On"
                       Width="134" Height="40"
-                          Click="toggleLimitsClick"
+                          Click="ToggleLimitsClick"
 
                       Style="{StaticResource ResourceKey=ButtonStyle2}" />
 
@@ -578,7 +578,7 @@
                     VerticalAlignment="Stretch"  
                     Style="{StaticResource SliderStyle}" 
                     Canvas.ZIndex="3"
-                    LostMouseCapture="CusomSlider_LostMouseCapture">
+                    LostMouseCapture="CusomSliderLostMouseCapture">
                 <Slider.Resources>
                     <clr:String  x:Key="textValue">0</clr:String>
                 </Slider.Resources>

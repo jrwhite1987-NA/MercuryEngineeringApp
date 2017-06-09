@@ -51,7 +51,7 @@ namespace MercuryEngApp
             FFTList = Constants.SpectrumBinList;
             SelectedFFT = FFTList[0];
             SliderValue = Constants.BaselineValue;
-            ScreenCoords = new System.Windows.Point(-17, 107);
+            ScreenCoords = new System.Windows.Point(-Constants.VALUE_17, Constants.VALUE_107);
         }
 
         public int SelectedFFT
@@ -66,8 +66,8 @@ namespace MercuryEngApp
                 {
                     currentFFT = value;
                     RaisePropertyChanged();
-                    SliderMax = value - 1;
-                    Constants.BaselineValue = value / 2;
+                    SliderMax = value - Constants.VALUE_1;
+                    Constants.BaselineValue = value / Constants.VALUE_2;
                     Constants.SpectrumBin = value;
                     SliderValue = Constants.BaselineValue;
                 }

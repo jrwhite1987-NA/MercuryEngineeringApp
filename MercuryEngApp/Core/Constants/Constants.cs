@@ -332,6 +332,10 @@ namespace Core.Constants
         /// </summary>
         public const int VALUE_16 = 16;
         /// <summary>
+        /// The value 17
+        /// </summary>
+        public const int VALUE_17 = 17;
+        /// <summary>
         /// The value 18
         /// </summary>
         public const int VALUE_18 = 18;
@@ -343,6 +347,10 @@ namespace Core.Constants
         /// The value 23
         /// </summary>
         public const int VALUE_23 = 23;
+        /// <summary>
+        /// The value 24
+        /// </summary>
+        public const int VALUE_24 = 24;
         /// <summary>
         /// The value 25
         /// </summary>
@@ -416,6 +424,10 @@ namespace Core.Constants
         /// </summary>
         public const int VALUE_68 = 68;
         /// <summary>
+        /// The value 68
+        /// </summary>
+        public const int VALUE_70 = 70;
+        /// <summary>
         /// The value 72
         /// </summary>
         public const int VALUE_72 = 72;
@@ -455,6 +467,10 @@ namespace Core.Constants
         /// The value 105
         /// </summary>
         public const int VALUE_105 = 105;
+        /// <summary>
+        /// The value 107
+        /// </summary>
+        public const int VALUE_107 = 107;
         /// <summary>
         /// The value 115
         /// </summary>
@@ -511,6 +527,10 @@ namespace Core.Constants
         /// The value 250
         /// </summary>
         public const int VALUE_250 = 250;
+        /// <summary>
+        /// The value 255
+        /// </summary>
+        public const int VALUE_255 = 255;
         /// <summary>
         /// The value 256
         /// </summary>
@@ -1357,6 +1377,9 @@ namespace Core.Constants
         public const int INTERMODULE_ADDRESS = 0x080;
         public const int PRIORITY_SELF_MASTER = 0;
         public const int TX_PULSE_ADDRESS = 0x004;
+        public const double M1AdjustmentFactor = 1.0645;
+        public const double M2AdjustmentFactor = 1.102;
+
         #endregion
 
         #region LogConstants
