@@ -214,22 +214,22 @@
     <value>Read board info successful.</value>
   </data>
   <data name="DepthSent" xml:space="preserve">
-    <value>Depth Sent Successfully</value>
+    <value>Depth sent successfully.</value>
   </data>
   <data name="FilterSent" xml:space="preserve">
-    <value>Filter Sent Successfully</value>
+    <value>Filter sent successfully.</value>
   </data>
   <data name="LengthSent" xml:space="preserve">
-    <value>Length Sent Successfully</value>
+    <value>Length sent successfully.</value>
   </data>
   <data name="PacketExport" xml:space="preserve">
     <value>Packet Exported Successfully</value>
   </data>
   <data name="PowerSent" xml:space="preserve">
-    <value>Power Sent Successfully</value>
+    <value>Power sent successfully.</value>
   </data>
-  <data name="PowerValueMsg" xml:space="preserve">
-    <value>Power value not accepted by TCD</value>
+  <data name="PowerNotAccepted" xml:space="preserve">
+    <value>Power value not accepted by TCD.</value>
   </data>
   <data name="ProbeInfoReadSuccessful" xml:space="preserve">
     <value>Read probe info successful.</value>
@@ -243,8 +243,35 @@
   <data name="ChannelWriteSuccessful" xml:space="preserve">
     <value>Write channel number successful.</value>
   </data>
+  <data name="DepthNotAccepted" xml:space="preserve">
+    <value>Depth value not accepted by TCD.</value>
+  </data>
+  <data name="EnvelopeRangeSet" xml:space="preserve">
+    <value>Envelope range set successfully.</value>
+  </data>
+  <data name="EnvelopeTurnedOff" xml:space="preserve">
+    <value>Envelope turned off.</value>
+  </data>
+  <data name="EnvelopeTurnedOn" xml:space="preserve">
+    <value>Envelope turned on.</value>
+  </data>
+  <data name="FilterNotAccepted" xml:space="preserve">
+    <value>Filter value not accepted by TCD.</value>
+  </data>
+  <data name="LengthNotAccepted" xml:space="preserve">
+    <value>Lenght value not accepted by TCD.</value>
+  </data>
+  <data name="MicrocontrollerDisconnected" xml:space="preserve">
+    <value>Microcontroller was disconnected.</value>
+  </data>
   <data name="OperatingMinutesReadSuccessful" xml:space="preserve">
     <value>Read operating minutes successful.</value>
+  </data>
+  <data name="PRFNotAccepted" xml:space="preserve">
+    <value>PRF value not accepted by TCD.</value>
+  </data>
+  <data name="PRFSet" xml:space="preserve">
+    <value>PRF sent successfully.</value>
   </data>
   <data name="ProbeInfoWriteSuccessful" xml:space="preserve">
     <value>Write probe info successful.</value>
@@ -317,5 +344,17 @@
   </data>
   <data name="Writing" xml:space="preserve">
     <value>Writing</value>
+    </data>
+  <data name="TCDTurnedOff" xml:space="preserve">
+    <value>TCD is turned off.</value>
+  </data>
+  <data name="TCDTurnedOn" xml:space="preserve">
+    <value>TCD is turned on.</value>
+  </data>
+  <data name="ToggleLimitsOff" xml:space="preserve">
+    <value>Envelope limits turned off.</value>
+  </data>
+  <data name="ToggleLimitsOn" xml:space="preserve">
+    <value>Envelope limits turned on.</value>
   </data>
 </root>

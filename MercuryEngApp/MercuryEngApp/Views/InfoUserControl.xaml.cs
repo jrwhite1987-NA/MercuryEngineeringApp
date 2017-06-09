@@ -66,6 +66,7 @@ namespace MercuryEngApp
                 await UsbTcd.TCDObj.SetModeAsync(App.CurrentChannel, TCDModes.Service);
                 using (TCDRequest request = new TCDRequest())
                 {
+                    request.ChannelID = App.CurrentChannel;
                     request.Value = 10;
                     TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
 
@@ -145,6 +146,7 @@ namespace MercuryEngApp
                     using (TCDRequest request = new TCDRequest())
                     {
                         request.Value = Constants.VALUE_10;
+                        request.ChannelID = App.CurrentChannel;
                         TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
 
                         foreach (var item in response.ServicePacketList)
@@ -363,6 +365,7 @@ namespace MercuryEngApp
                     using (TCDRequest request = new TCDRequest())
                     {
                         request.Value = Constants.VALUE_10;
+                        request.ChannelID = App.CurrentChannel;
                         TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
 
                         foreach (var item in response.ServicePacketList)

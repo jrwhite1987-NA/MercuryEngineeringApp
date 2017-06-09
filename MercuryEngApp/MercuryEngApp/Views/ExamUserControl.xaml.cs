@@ -78,6 +78,8 @@ namespace MercuryEngApp
             {
                 try
                 {
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.TCDTurnedOff);
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.MicrocontrollerDisconnected);
                     CompositionTarget.Rendering -= CompositionTargetRendering;
                     UsbTcd.TCDObj.OnPacketFormed -= TCDObjOnPacketFormed;
                     //microcontroller disconnected
@@ -129,7 +131,7 @@ namespace MercuryEngApp
             logger.Debug("--");
         }
 
-        void MainWindowTurnTCDOFF()
+        async void MainWindowTurnTCDOFF()
         {
             logger.Debug("++");
             try
@@ -137,7 +139,20 @@ namespace MercuryEngApp
                 TCDAudio.AudioCollection.CollectionChanged -= TCDAudio.AudioCollectionCollectionChanged;
                 CompositionTarget.Rendering -= CompositionTargetRendering;
                 UsbTcd.TCDObj.OnPacketFormed -= TCDObjOnPacketFormed;
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.TCDTurnedOff);
                 UsbTcd.TCDObj.TurnTCDPowerOff();
+
+                using (TCDRequest request = new TCDRequest())
+                {
+                    request.Value = 10;
+                    request.ChannelID = App.CurrentChannel;
+                    TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
+
+                    foreach (var item in response.ServicePacketList)
+                    {
+                        LogWrapper.Log(Constants.TCDLog, item.Message);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -194,6 +209,7 @@ namespace MercuryEngApp
             {
                 InitializeBitmap();
                 await UsbTcd.TCDObj.TurnTCDPowerOnAsync();
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.TCDTurnedOn);
 
                 if (UsbTcd.TCDObj.InitializeTCD())
                 {
@@ -202,19 +218,24 @@ namespace MercuryEngApp
                     request.ChannelID = App.CurrentChannel;
                     request.Value3 = Constants.defaultLength;
                     await UsbTcd.TCDObj.SetLengthAsync(request);
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.LengthSent);
 
                     request.Value3 = Constants.defaultDepth;
                     await UsbTcd.TCDObj.SetDepthAsync(request);
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.DepthSent);
 
                     request.Value3 = Constants.defaultPower;
                     await UsbTcd.TCDObj.SetPowerAsync(request);
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.PowerSent);
 
                     request.Value3 = Constants.defaultFilter;
                     await UsbTcd.TCDObj.SetFilterAsync(request);
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FilterSent);
 
                     request.Value3 = Constants.defaultPRF;
                     request.Value2 = Constants.defaultStartDepth;
                     await UsbTcd.TCDObj.SetPRF(request);
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.PRFSet);
 
                     UsbTcd.TCDObj.OnPacketFormed += TCDObjOnPacketFormed;
                     UsbTcd.TCDObj.StartTCDReading();
@@ -232,7 +253,6 @@ namespace MercuryEngApp
         void TCDObjOnPacketFormed(DMIPmdDataPacket[] packets)
         {
             logger.Debug("++");
-
             try
             {
                 PacketCollection.Enqueue(packets);
@@ -251,7 +271,6 @@ namespace MercuryEngApp
             logger.Debug("++");
 
             var currentPacket = packets[0];
-
             if (currentPacket == null)
             {
                 currentPacket = packets[1];
@@ -380,7 +399,6 @@ namespace MercuryEngApp
                 {
                     using (TCDRequest requestObject = new TCDRequest())
                     {
-
                         requestObject.ChannelID = App.CurrentChannel;
                         requestObject.Value3 = examViewModelObj.Power;
                         await UsbTcd.TCDObj.SetPowerAsync(requestObject);
@@ -391,7 +409,7 @@ namespace MercuryEngApp
                         }
                         else
                         {
-                            LogWrapper.Log(Constants.TCDLog, MercuryEngApp.Resources.PowerValueMsg);
+                            LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.PowerNotAccepted);
                         }
                     }       
                 }
@@ -434,6 +452,10 @@ namespace MercuryEngApp
                             customDepthSlider.InvalidateArrange();                          
                             LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.DepthSent);
                         }
+                        else
+                        {
+                            LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.DepthNotAccepted);
+                        }
 
                     }
                 }
@@ -467,6 +489,10 @@ namespace MercuryEngApp
                         {   
                             LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FilterSent);
                         }
+                        else
+                        {
+                            LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FilterNotAccepted);
+                        }
                     }
                 }
                 else
@@ -498,6 +524,10 @@ namespace MercuryEngApp
                         if (examViewModelObj.SVol == examViewModelObj.PacketSVol)
                         {   
                             LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.LengthSent);
+                        }
+                        else
+                        {
+                            LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.LengthNotAccepted);
                         }
                     }
                 }
@@ -538,7 +568,7 @@ namespace MercuryEngApp
                         if (examViewModelObj.SelectedPRF == examViewModelObj.PacketPRF)
                         {
                             examViewModelObj.VelocityRange = PRFOptions.GetMappedVelocityRange((int)examViewModelObj.SelectedPRF);
-
+                            LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.PRFSet);
                             scaleObj.CreateScale(new ScaleParameters
                             {
                                 ParentControl = scaleGrid,
@@ -547,6 +577,10 @@ namespace MercuryEngApp
                                 ScaleType = ScaleTypeEnum.Spectrogram,
                                 BitmapHeight = imageSpectrogram.Height
                             });
+                        }
+                        else
+                        {
+                            LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.PRFNotAccepted);
                         }
                     }
                 }
@@ -562,8 +596,6 @@ namespace MercuryEngApp
             logger.Debug("--");
         }
         
-
-
         private void CusomSliderLostMouseCapture(object sender, MouseEventArgs e)
         {
             logger.Debug("++");
@@ -593,7 +625,6 @@ namespace MercuryEngApp
             }
             logger.Debug("--");
         }
-
 
         public Thumb Thumb
         {
@@ -643,10 +674,12 @@ namespace MercuryEngApp
                 if (toggleLimits.Content.ToString() == "Limits Off")
                 {
                     toggleLimits.Content = "Limits On";
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.ToggleLimitsOn);
                 }
                 else
                 {
                     toggleLimits.Content = "Limits Off";
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.ToggleLimitsOff);
                 }
             }
             catch (Exception ex)
@@ -683,6 +716,7 @@ namespace MercuryEngApp
             requestObject.Value = negVelocity;
             requestObject.Value3 = (ushort)posVelocity;
             UsbTcd.TCDObj.SetEnvelopeRangeAsync(requestObject);
+            LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.EnvelopeRangeSet);
         }
 
         private void SpectrumBinComboboxSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -698,6 +732,7 @@ namespace MercuryEngApp
             NaGraph.RightSpectrogram.SpectrumEnvolope.NegativeFlowVisible = true;
             NaGraph.RightSpectrogram.SpectrumEnvolope.PositiveFlowVisible = true;
             btnEnvelop.Content = "Envelope On";
+            LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.EnvelopeTurnedOn);
         }
 
         private void BtnEnvelopUnchecked(object sender, RoutedEventArgs e)
@@ -707,6 +742,7 @@ namespace MercuryEngApp
             NaGraph.RightSpectrogram.SpectrumEnvolope.NegativeFlowVisible = false;
             NaGraph.RightSpectrogram.SpectrumEnvolope.PositiveFlowVisible = false;
             btnEnvelop.Content = "Envelope Off";
+            LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.EnvelopeTurnedOff);
         }
        
     }

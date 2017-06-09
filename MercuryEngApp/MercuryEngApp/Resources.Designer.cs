@@ -193,7 +193,9 @@ namespace MercuryEngApp {
             get {
                 return ResourceManager.GetString("ChannelWriteSuccessful", resourceCulture);
             }
-            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checksum Failure.
         /// </summary>
         public static string CheckSumFailure {
@@ -239,7 +241,16 @@ namespace MercuryEngApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Depth Sent Successfully.
+        ///   Looks up a localized string similar to Depth value not accepted by TCD..
+        /// </summary>
+        public static string DepthNotAccepted {
+            get {
+                return ResourceManager.GetString("DepthNotAccepted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Depth sent successfully..
         /// </summary>
         public static string DepthSent {
             get {
@@ -253,6 +264,33 @@ namespace MercuryEngApp {
         public static string Diameter {
             get {
                 return ResourceManager.GetString("Diameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Envelope range set successfully..
+        /// </summary>
+        public static string EnvelopeRangeSet {
+            get {
+                return ResourceManager.GetString("EnvelopeRangeSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Envelope turned off..
+        /// </summary>
+        public static string EnvelopeTurnedOff {
+            get {
+                return ResourceManager.GetString("EnvelopeTurnedOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Envelope turned on..
+        /// </summary>
+        public static string EnvelopeTurnedOn {
+            get {
+                return ResourceManager.GetString("EnvelopeTurnedOn", resourceCulture);
             }
         }
         
@@ -284,7 +322,16 @@ namespace MercuryEngApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Filter Sent Successfully.
+        ///   Looks up a localized string similar to Filter value not accepted by TCD..
+        /// </summary>
+        public static string FilterNotAccepted {
+            get {
+                return ResourceManager.GetString("FilterNotAccepted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter sent successfully..
         /// </summary>
         public static string FilterSent {
             get {
@@ -374,7 +421,16 @@ namespace MercuryEngApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Length Sent Successfully.
+        ///   Looks up a localized string similar to Lenght value not accepted by TCD..
+        /// </summary>
+        public static string LengthNotAccepted {
+            get {
+                return ResourceManager.GetString("LengthNotAccepted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Length sent successfully..
         /// </summary>
         public static string LengthSent {
             get {
@@ -388,6 +444,15 @@ namespace MercuryEngApp {
         public static string MaxLength {
             get {
                 return ResourceManager.GetString("MaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Microcontroller was disconnected..
+        /// </summary>
+        public static string MicrocontrollerDisconnected {
+            get {
+                return ResourceManager.GetString("MicrocontrollerDisconnected", resourceCulture);
             }
         }
         
@@ -455,20 +520,20 @@ namespace MercuryEngApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Power Sent Successfully.
+        ///   Looks up a localized string similar to Power value not accepted by TCD..
         /// </summary>
-        public static string PowerSent {
+        public static string PowerNotAccepted {
             get {
-                return ResourceManager.GetString("PowerSent", resourceCulture);
+                return ResourceManager.GetString("PowerNotAccepted", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Power value not accepted by TCD.
+        ///   Looks up a localized string similar to Power sent successfully..
         /// </summary>
-        public static string PowerValueMsg {
+        public static string PowerSent {
             get {
-                return ResourceManager.GetString("PowerValueMsg", resourceCulture);
+                return ResourceManager.GetString("PowerSent", resourceCulture);
             }
         }
         
@@ -478,6 +543,24 @@ namespace MercuryEngApp {
         public static string PRF {
             get {
                 return ResourceManager.GetString("PRF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PRF value not accepted by TCD..
+        /// </summary>
+        public static string PRFNotAccepted {
+            get {
+                return ResourceManager.GetString("PRFNotAccepted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PRF sent successfully..
+        /// </summary>
+        public static string PRFSet {
+            get {
+                return ResourceManager.GetString("PRFSet", resourceCulture);
             }
         }
         
@@ -599,6 +682,24 @@ namespace MercuryEngApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to TCD is turned off..
+        /// </summary>
+        public static string TCDTurnedOff {
+            get {
+                return ResourceManager.GetString("TCDTurnedOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TCD is turned on..
+        /// </summary>
+        public static string TCDTurnedOn {
+            get {
+                return ResourceManager.GetString("TCDTurnedOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} cannot be empty..
         /// </summary>
         public static string TextBoxBlank {
@@ -622,6 +723,24 @@ namespace MercuryEngApp {
         public static string TimeOut {
             get {
                 return ResourceManager.GetString("TimeOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Envelope limits turned off..
+        /// </summary>
+        public static string ToggleLimitsOff {
+            get {
+                return ResourceManager.GetString("ToggleLimitsOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Envelope limits turned on..
+        /// </summary>
+        public static string ToggleLimitsOn {
+            get {
+                return ResourceManager.GetString("ToggleLimitsOn", resourceCulture);
             }
         }
         
