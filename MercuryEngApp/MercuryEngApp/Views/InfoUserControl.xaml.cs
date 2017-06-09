@@ -67,7 +67,7 @@ namespace MercuryEngApp
                 using (TCDRequest request = new TCDRequest())
                 {
                     request.ChannelID = App.CurrentChannel;
-                    request.Value = 10;
+                    request.Value = Constants.VALUE_10;
                     TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
 
                     foreach (var item in response.ServicePacketList)
@@ -136,9 +136,9 @@ namespace MercuryEngApp
                         byte[] arr = new byte[4];
                         for (int i = 0; i < strLen; i++)
                         {
-                            arr[3 - i] = Convert.ToByte(temp[i]);
+                            arr[Constants.VALUE_3 - i] = Convert.ToByte(temp[i]);
                         }
-                        request.Board.hardwareRevision = BitConverter.ToUInt32(arr, 0);
+                        request.Board.hardwareRevision = BitConverter.ToUInt32(arr, Constants.VALUE_0);
                         request.Board.serialNumberString = infoViewModelObj.BoardSerialNumber;
                         await UsbTcd.TCDObj.WriteBoardInfoAsync(request);
                     }
@@ -430,7 +430,7 @@ namespace MercuryEngApp
                     requestObj.ChannelID = App.CurrentChannel;
                     infoViewModelObj.OperatingMinutes = (uint)(await UsbTcd.TCDObj.ReadOperatingMinutesAsync(requestObj)).Value;
 
-                    requestObj.Value = 10;
+                    requestObj.Value = Constants.VALUE_10;
                     TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(requestObj);
 
                     foreach (var item in response.ServicePacketList)

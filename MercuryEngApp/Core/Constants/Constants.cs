@@ -408,6 +408,10 @@ namespace Core.Constants
         /// </summary>
         public const int VALUE_52 = 52;
         /// <summary>
+        /// The value 55
+        /// </summary>
+        public const int VALUE_55 = 55;
+        /// <summary>
         /// The value 56
         /// </summary>
         public const int VALUE_56 = 56;
@@ -455,6 +459,10 @@ namespace Core.Constants
         /// The value 90
         /// </summary>
         public const int VALUE_90 = 90;
+        /// <summary>
+        /// The value 95
+        /// </summary>
+        public const int VALUE_95 = 95;
         /// <summary>
         /// The value 100
         /// </summary>
@@ -592,6 +600,10 @@ namespace Core.Constants
         /// </summary>
         public const int VALUE_1000 = 1000;
         /// <summary>
+        /// The value 1132
+        /// </summary>
+        public const int VALUE_1132 = 1132;
+        /// <summary>
         /// The value 1500
         /// </summary>
         public const int VALUE_1500 = 1500;
@@ -599,6 +611,10 @@ namespace Core.Constants
         /// The value 1540
         /// </summary>
         public const int VALUE_1540 = 1540;
+        /// <summary>
+        /// The value 4500
+        /// </summary>
+        public const int VALUE_4500 = 4500;
         /// <summary>
         /// The value 5000
         /// </summary>

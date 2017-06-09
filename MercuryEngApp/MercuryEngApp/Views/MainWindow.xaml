@@ -78,7 +78,7 @@
                 <Grid>
                     <TabControl x:Name="NavigationTabs" 
                         Height="705"
-                            VerticalAlignment="Top" BorderBrush="#FF0696F9" BorderThickness="2" SelectionChanged="NavigationTabs_SelectionChanged">
+                            VerticalAlignment="Top" BorderBrush="#FF0696F9" BorderThickness="2" SelectionChanged="NavigationTabsSelectionChanged">
                         <TabControl.Resources >
                             <Style TargetType="TabPanel">
                                 <Setter Property="HorizontalAlignment" Value="Right"/>

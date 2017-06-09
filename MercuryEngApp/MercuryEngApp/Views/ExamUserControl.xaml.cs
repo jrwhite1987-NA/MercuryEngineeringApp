@@ -144,7 +144,7 @@ namespace MercuryEngApp
 
                 using (TCDRequest request = new TCDRequest())
                 {
-                    request.Value = 10;
+                    request.Value = Constants.VALUE_10;
                     request.ChannelID = App.CurrentChannel;
                     TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
 
@@ -270,10 +270,10 @@ namespace MercuryEngApp
         {
             logger.Debug("++");
 
-            var currentPacket = packets[0];
+            var currentPacket = packets[Constants.VALUE_0];
             if (currentPacket == null)
             {
-                currentPacket = packets[1];
+                currentPacket = packets[Constants.VALUE_1];
             }
 
             if (currentPacket != null)
@@ -301,7 +301,7 @@ namespace MercuryEngApp
             logger.Debug("++");
             try
             {
-                while (PacketCollection.Count > 0)
+                while (PacketCollection.Count > Constants.VALUE_0)
                 {
                     DMIPmdDataPacket[] packet = PacketCollection.Dequeue();
                     if (App.ActiveChannels==ActiveChannels.Channel1 && packet[0]!=null)

@@ -202,7 +202,7 @@ namespace PlottingLib
         private bool ShouldDrawLine(int start, int end, int baseLinePosition)
         {            
             bool result = true;
-            var halfFFTSize = Constants.SpectrumBin / 2;
+            var halfFFTSize = Constants.SpectrumBin / Constants.VALUE_2;
             var diff = start - end;
 
             if ((diff > halfFFTSize) ||

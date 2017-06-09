@@ -191,7 +191,7 @@ namespace MercuryEngApp
         {
             previousIndex = NavigationTabs.SelectedIndex;
             LogSelectedTabIndex = LogTabControl.SelectedIndex;
-            NavigationTabs.SelectedIndex = 6;
+            NavigationTabs.SelectedIndex = Constants.VALUE_6;
             FooterTextBox.Visibility = Visibility.Collapsed;
         }
 
@@ -201,11 +201,11 @@ namespace MercuryEngApp
             mainViewModel.ApplicationLog = "";
         }
 
-        private void NavigationTabs_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void NavigationTabsSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             if (e.Source is TabControl)
             {
-                if (NavigationTabs.SelectedIndex != 6)
+                if (NavigationTabs.SelectedIndex != Constants.VALUE_6)
                 {
                     FooterTextBox.Visibility = Visibility.Visible;
                 }

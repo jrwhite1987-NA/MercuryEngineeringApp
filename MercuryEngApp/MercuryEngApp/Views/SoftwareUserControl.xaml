@@ -158,7 +158,7 @@
                                 Grid.ColumnSpan="1"
                                 HorizontalAlignment="Center" 
                                 Margin="10,0,0,0" 
-                                Click="PerformUpdate_Click"
+                                Click="PerformUpdateClick"
                                 IsEnabled="{Binding Path=IsPerformUpdateEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <Button Content="Abort Update" 
@@ -169,7 +169,7 @@
                                 Grid.ColumnSpan="1"
                                 HorizontalAlignment="Center" 
                                 Margin="350,0,0,0" 
-                                Click="AbortUpdate_Click"
+                                Click="AbortUpdateClick"
                                 IsEnabled="{Binding Path=IsAbortEnabled,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
 
 

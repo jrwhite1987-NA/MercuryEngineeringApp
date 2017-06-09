@@ -22,7 +22,7 @@
                                     Margin="62,8,0,0"
                                     HorizontalAlignment="Left"  
                                     VerticalAlignment="Top"
-                                    Click="Close_Click"
+                                    Click="CloseClick"
                                      Style="{StaticResource ResourceKey=ButtonMaximise}"/>
 
                         <Button Width="17"

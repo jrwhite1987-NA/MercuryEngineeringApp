@@ -106,13 +106,13 @@ namespace PlottingLib
         }
        
         public static int GetIndexforBaseline(int baseLinePosition)
-        {           
-            Constants.DefaultBaseline = Constants.SpectrumBin / 2;
+        {
+            Constants.DefaultBaseline = Constants.SpectrumBin / Constants.VALUE_2;
 
             if (baseLinePosition < Constants.DefaultBaseline &&
-                baseLinePosition >= -Constants.DefaultBaseline && baseLinePosition != 0)
+                baseLinePosition >= -Constants.DefaultBaseline && baseLinePosition != Constants.VALUE_0)
             {
-                if (baseLinePosition < 0)
+                if (baseLinePosition < Constants.VALUE_0)
                 {
                     Helper.logger.Debug("--");
                     return Constants.SpectrumBin + baseLinePosition;

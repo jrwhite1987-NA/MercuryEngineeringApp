@@ -111,7 +111,7 @@ namespace PlottingLib
         /// </summary>
         /// <param name="xScale"></param>
         /// <param name="examProcedureId"></param>
-        public void Initialize(SpectrumXScale xScale,  float gain = -40)
+        public void Initialize(SpectrumXScale xScale, float gain = -Constants.VALUE_40)
         {
             Helper.logger.Debug("++");
             switch (xScale)
@@ -132,7 +132,7 @@ namespace PlottingLib
                     SizeOfQueue = Constants.SpectrumXScale_500;
                     break;
             }
-            if ((int)gain != -40)
+            if ((int)gain != -Constants.VALUE_40)
             {
                 BaseGraph.ColorMap.SetLowerLimitFromGain(gain);
             }

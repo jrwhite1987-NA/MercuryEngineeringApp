@@ -148,7 +148,7 @@ namespace MercuryEngApp
             // Make sure that if a safety calibration is in progress it is stopped
             SafetyStopClick(null, null);
 
-            if ((await UsbTcd.TCDObj.StartMeasurementOfBoardAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value3 = 2 })).Result)
+            if ((await UsbTcd.TCDObj.StartMeasurementOfBoardAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value3 = Constants.VALUE_2 })).Result)
             {
                 calViewModel.IsMeasurement2EditEnabled = true;
                 if (calViewModel.Measurement2 > Constants.VALUE_0)

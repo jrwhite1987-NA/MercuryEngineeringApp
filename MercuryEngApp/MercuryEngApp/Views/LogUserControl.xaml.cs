@@ -33,7 +33,7 @@ namespace MercuryEngApp.Views
             this.LogTabControl.SelectedIndex = App.mainWindow.LogSelectedTabIndex;
         }
 
-        private void Close_Click(object sender, RoutedEventArgs e)
+        private void CloseClick(object sender, RoutedEventArgs e)
         {
             App.mainWindow.NavigationTabs.SelectedIndex = App.mainWindow.previousIndex;
             App.mainWindow.FooterTextBox.Visibility = Visibility.Visible;

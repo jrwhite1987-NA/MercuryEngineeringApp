@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using UsbTcdLibrary;
 using MercuryEngApp.Views;
+using Core.Constants;
 
 namespace MercuryEngApp
 {
@@ -94,13 +95,13 @@ namespace MercuryEngApp
             }
         }
 
-        private async void Application_Startup(object sender, StartupEventArgs e)
+        private async void ApplicationStartup(object sender, StartupEventArgs e)
         {
             MercuryEngApp.Views.SplashScreen splashScreen = new MercuryEngApp.Views.SplashScreen();
             mainWindow = new MainWindow();
             mainWindow.Show();
             splashScreen.Show();
-            await Task.Delay(4500);
+            await Task.Delay(Constants.VALUE_4500);
             mainWindow.Activate();
             splashScreen.Close();       
         }
