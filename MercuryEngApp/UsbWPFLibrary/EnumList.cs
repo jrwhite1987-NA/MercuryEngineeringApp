@@ -59,6 +59,7 @@ namespace UsbTcdLibrary
         Confirming = 40,
         ComparisionFailure = 41,
         ReadFailure = 42,
-        Aborted = 99
+        Aborted = 99,
+        Timeout = 100
     }
 }

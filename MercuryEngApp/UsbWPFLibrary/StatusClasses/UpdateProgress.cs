@@ -38,7 +38,7 @@ namespace UsbTcdLibrary.StatusClasses
         /// Gets or sets the status code.
         /// </summary>
         /// <value>The status code.</value>
-        private UpdateStatusCode StatusCode { get; set; }
+        public UpdateStatusCode StatusCode { get; set; }
         /// <summary>
         /// The status code
         /// </summary>
@@ -47,12 +47,12 @@ namespace UsbTcdLibrary.StatusClasses
         /// Gets or sets the bytes received erased.
         /// </summary>
         /// <value>The bytes received erased.</value>
-        private uint BytesReceivedErased { get; set; }
+        public uint BytesReceivedErased { get; set; }
         /// <summary>
         /// Gets or sets the bytes written.
         /// </summary>
         /// <value>The bytes written.</value>
-        private uint BytesWritten { get; set; }
+        public uint BytesWritten { get; set; }
 
         /// <summary>
         /// Converts the array to information.
