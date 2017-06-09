@@ -102,7 +102,7 @@ namespace MercuryEngApp.Views
             }
             else
             {
-                LogWrapper.Log(Constants.APPLog, "File not found.");
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FileNotFound);
             }
         }
 
@@ -115,11 +115,11 @@ namespace MercuryEngApp.Views
         {
             if (await AbortUpdate())
             {
-                LogWrapper.Log(Constants.APPLog, "Update Aborted");
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.Aborted);
             }
             else
             {
-                LogWrapper.Log(Constants.APPLog, "Update could not be Aborted");
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.AbortFailed);
             }
         }
 
@@ -142,7 +142,7 @@ namespace MercuryEngApp.Views
             TCDReadInfoResponse response = await UsbTcd.TCDObj.GetModuleInfo(new TCDRequest() { ChannelID = App.CurrentChannel });
             if (response.Module == null)
             {
-                LogWrapper.Log(Constants.APPLog, "Could not start update.");
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.StartUpdateFailed);
                 return;
             }
             else
@@ -151,13 +151,13 @@ namespace MercuryEngApp.Views
                 {
                     softwareViewModel.IsPerformUpdateEnabled = false;
                     softwareViewModel.IsAbortEnabled = true;
-                    LogWrapper.Log(Constants.APPLog, "Sending...");
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.Sending);
 
                     //Show warning labels - Pending
                 }
                 else
                 {
-                    LogWrapper.Log(Constants.APPLog, "Could not start update.");
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.StartUpdateFailed);
                     return;
                 }
 
@@ -245,80 +245,80 @@ namespace MercuryEngApp.Views
         /// <param name="fileSize"></param>
         private void UpdateProgressBar(UpdateProgress progress, long fileSize)
         {
-            LogWrapper.Log(Constants.APPLog, "Bytes Received:" + progress.BytesWritten.ToString());
-            LogWrapper.Log(Constants.APPLog, "Bytes Received Erased:" + progress.BytesReceivedErased.ToString());
-            LogWrapper.Log(Constants.APPLog, "Status:" + progress.StatusCode.ToString());
+            LogWrapper.Log(Constants.APPLog, string.Format(MercuryEngApp.Resources.BytesReceived, progress.BytesWritten.ToString()));
+            LogWrapper.Log(Constants.APPLog, string.Format(MercuryEngApp.Resources.BytesErased, progress.BytesReceivedErased.ToString()));
+            LogWrapper.Log(Constants.APPLog, string.Format(MercuryEngApp.Resources.Status, progress.StatusCode.ToString()));
 
             switch (progress.StatusCode)
             {
                 case UpdateStatusCode.Ready:
                     pbStatus.Value = 0;
-                    LogWrapper.Log(Constants.APPLog, "Sending...");
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.Sending);
                     break;
                 case UpdateStatusCode.Receiving:
                     pbStatus.Value = Math.Ceiling((Convert.ToDouble(progress.BytesReceivedErased / fileSize)) * 50);
-                    LogWrapper.Log(Constants.APPLog, "Sending...");
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.Sending);
                     break;
                 case UpdateStatusCode.Verifying:
                     pbStatus.Value = 55;
-                    LogWrapper.Log(Constants.APPLog, "Verifying..");
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.Verifying);
                     softwareViewModel.IsAbortEnabled = false;
                     break;
                 case UpdateStatusCode.Writing:
                     pbStatus.Value = 60 + Math.Ceiling((Convert.ToDouble(progress.BytesReceivedErased / fileSize)) * 15) + Math.Ceiling((Convert.ToDouble(progress.BytesWritten / fileSize)) * 15);
-                    LogWrapper.Log(Constants.APPLog, "Writing...");
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.Writing);
                     break;
                 case UpdateStatusCode.Confirming:
                     pbStatus.Value = 95;
-                    LogWrapper.Log(Constants.APPLog, "Confirming...");
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.Confirming);
                     break;
                 case UpdateStatusCode.Finished:
                     pbStatus.Value = 100;
-                    LogWrapper.Log(Constants.APPLog, "Finished...");
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.Finished);
                     break;
                 case UpdateStatusCode.ReceivingFailure:
                     pbStatus.Value = 0;
-                    LogWrapper.Log(Constants.APPLog, "Update receive error");
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.UpdateError);
                     break;
                 case UpdateStatusCode.ChecksumFailure:
                     pbStatus.Value = 0;
-                    LogWrapper.Log(Constants.APPLog, "Checksum failure");
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.CheckSumFailure);
                     break;
                 case UpdateStatusCode.IncompatibleVersion:
                     pbStatus.Value = 0;
-                    LogWrapper.Log(Constants.APPLog, "Incompatible Version");
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.IncompatVersion);
                     break;
                 case UpdateStatusCode.TableInvalid:
                     pbStatus.Value = 0;
-                    LogWrapper.Log(Constants.APPLog, "Update Invalid");
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.InvalidTable);
                     break;
                 case UpdateStatusCode.AddressInvalid:
                     pbStatus.Value = 0;
-                    LogWrapper.Log(Constants.APPLog, "Address Invalid");
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.InvalidAddress);
                     break;
                 case UpdateStatusCode.EraseFailure:
                     pbStatus.Value = 0;
-                    LogWrapper.Log(Constants.APPLog, "Erase Failure");
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.EraseFail);
                     break;
                 case UpdateStatusCode.WriteFailure:
                     pbStatus.Value = 0;
-                    LogWrapper.Log(Constants.APPLog, "Write failure");
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.WriteFail);
                     break;
                 case UpdateStatusCode.ComparisionFailure:
                     pbStatus.Value = 0;
-                    LogWrapper.Log(Constants.APPLog, "Comparison failure");
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.CompareFail);
                     break;
                 case UpdateStatusCode.ReadFailure:
                     pbStatus.Value = 0;
-                    LogWrapper.Log(Constants.APPLog, "Read failure");
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.ReadFail);
                     break;
                 case UpdateStatusCode.Timeout:
                     pbStatus.Value = 0;
-                    LogWrapper.Log(Constants.APPLog, "Timeout during update.");
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.TimeOut);
                     break;
                 case UpdateStatusCode.Aborted:
                     pbStatus.Value = 0;
-                    LogWrapper.Log(Constants.APPLog, "Host aborted process.");
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.HostAbort);
                     break;
             }
         }

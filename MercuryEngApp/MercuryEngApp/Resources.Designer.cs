@@ -61,6 +61,24 @@ namespace MercuryEngApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update Aborted.
+        /// </summary>
+        public static string Aborted {
+            get {
+                return ResourceManager.GetString("Aborted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update could not be Aborted.
+        /// </summary>
+        public static string AbortFailed {
+            get {
+                return ResourceManager.GetString("AbortFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Board Hardware Revision.
         /// </summary>
         public static string BoardHardwareRevision {
@@ -124,6 +142,24 @@ namespace MercuryEngApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bytes Received Erased: {0}.
+        /// </summary>
+        public static string BytesErased {
+            get {
+                return ResourceManager.GetString("BytesErased", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bytes Received: {0}.
+        /// </summary>
+        public static string BytesReceived {
+            get {
+                return ResourceManager.GetString("BytesReceived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Center Frequency.
         /// </summary>
         public static string CenterFrequency {
@@ -157,6 +193,13 @@ namespace MercuryEngApp {
             get {
                 return ResourceManager.GetString("ChannelWriteSuccessful", resourceCulture);
             }
+            }
+        ///   Looks up a localized string similar to Checksum Failure.
+        /// </summary>
+        public static string CheckSumFailure {
+            get {
+                return ResourceManager.GetString("CheckSumFailure", resourceCulture);
+            }
         }
         
         /// <summary>
@@ -165,6 +208,24 @@ namespace MercuryEngApp {
         public static string ComboBoxNotSelected {
             get {
                 return ResourceManager.GetString("ComboBoxNotSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comparison Failure.
+        /// </summary>
+        public static string CompareFail {
+            get {
+                return ResourceManager.GetString("CompareFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirming.
+        /// </summary>
+        public static string Confirming {
+            get {
+                return ResourceManager.GetString("Confirming", resourceCulture);
             }
         }
         
@@ -196,6 +257,24 @@ namespace MercuryEngApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Erase Failure.
+        /// </summary>
+        public static string EraseFail {
+            get {
+                return ResourceManager.GetString("EraseFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File not found..
+        /// </summary>
+        public static string FileNotFound {
+            get {
+                return ResourceManager.GetString("FileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filter.
         /// </summary>
         public static string Filter {
@@ -210,6 +289,15 @@ namespace MercuryEngApp {
         public static string FilterSent {
             get {
                 return ResourceManager.GetString("FilterSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finished.
+        /// </summary>
+        public static string Finished {
+            get {
+                return ResourceManager.GetString("Finished", resourceCulture);
             }
         }
         
@@ -232,6 +320,15 @@ namespace MercuryEngApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Host Aborted the update..
+        /// </summary>
+        public static string HostAbort {
+            get {
+                return ResourceManager.GetString("HostAbort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Impedance.
         /// </summary>
         public static string Impedance {
@@ -241,11 +338,38 @@ namespace MercuryEngApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Incompatible Version.
+        /// </summary>
+        public static string IncompatVersion {
+            get {
+                return ResourceManager.GetString("IncompatVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insertion Loss.
         /// </summary>
         public static string InsertionLoss {
             get {
                 return ResourceManager.GetString("InsertionLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Address Invalid.
+        /// </summary>
+        public static string InvalidAddress {
+            get {
+                return ResourceManager.GetString("InvalidAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Table Invalid.
+        /// </summary>
+        public static string InvalidTable {
+            get {
+                return ResourceManager.GetString("InvalidTable", resourceCulture);
             }
         }
         
@@ -412,11 +536,47 @@ namespace MercuryEngApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Read Failure.
+        /// </summary>
+        public static string ReadFail {
+            get {
+                return ResourceManager.GetString("ReadFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sending....
+        /// </summary>
+        public static string Sending {
+            get {
+                return ResourceManager.GetString("Sending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start Depth.
         /// </summary>
         public static string StartDepth {
             get {
                 return ResourceManager.GetString("StartDepth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update could not be started..
+        /// </summary>
+        public static string StartUpdateFailed {
+            get {
+                return ResourceManager.GetString("StartUpdateFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status: {0}.
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
             }
         }
         
@@ -453,6 +613,51 @@ namespace MercuryEngApp {
         public static string TIC {
             get {
                 return ResourceManager.GetString("TIC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timeout during update..
+        /// </summary>
+        public static string TimeOut {
+            get {
+                return ResourceManager.GetString("TimeOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Receive Error.
+        /// </summary>
+        public static string UpdateError {
+            get {
+                return ResourceManager.GetString("UpdateError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verfying.
+        /// </summary>
+        public static string Verifying {
+            get {
+                return ResourceManager.GetString("Verifying", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write Failure.
+        /// </summary>
+        public static string WriteFail {
+            get {
+                return ResourceManager.GetString("WriteFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Writing.
+        /// </summary>
+        public static string Writing {
+            get {
+                return ResourceManager.GetString("Writing", resourceCulture);
             }
         }
     }

@@ -249,4 +249,73 @@
   <data name="ProbeInfoWriteSuccessful" xml:space="preserve">
     <value>Write probe info successful.</value>
   </data>
+  <data name="Aborted" xml:space="preserve">
+    <value>Update Aborted</value>
+  </data>
+  <data name="AbortFailed" xml:space="preserve">
+    <value>Update could not be Aborted</value>
+  </data>
+  <data name="BytesErased" xml:space="preserve">
+    <value>Bytes Received Erased: {0}</value>
+  </data>
+  <data name="BytesReceived" xml:space="preserve">
+    <value>Bytes Received: {0}</value>
+  </data>
+  <data name="CheckSumFailure" xml:space="preserve">
+    <value>Checksum Failure</value>
+  </data>
+  <data name="CompareFail" xml:space="preserve">
+    <value>Comparison Failure</value>
+  </data>
+  <data name="Confirming" xml:space="preserve">
+    <value>Confirming</value>
+  </data>
+  <data name="EraseFail" xml:space="preserve">
+    <value>Erase Failure</value>
+  </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>File not found.</value>
+  </data>
+  <data name="Finished" xml:space="preserve">
+    <value>Finished</value>
+  </data>
+  <data name="HostAbort" xml:space="preserve">
+    <value>Host Aborted the update.</value>
+  </data>
+  <data name="IncompatVersion" xml:space="preserve">
+    <value>Incompatible Version</value>
+  </data>
+  <data name="InvalidAddress" xml:space="preserve">
+    <value>Address Invalid</value>
+  </data>
+  <data name="InvalidTable" xml:space="preserve">
+    <value>Update Table Invalid</value>
+  </data>
+  <data name="ReadFail" xml:space="preserve">
+    <value>Read Failure</value>
+  </data>
+  <data name="Sending" xml:space="preserve">
+    <value>Sending...</value>
+  </data>
+  <data name="StartUpdateFailed" xml:space="preserve">
+    <value>Update could not be started.</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status: {0}</value>
+  </data>
+  <data name="TimeOut" xml:space="preserve">
+    <value>Timeout during update.</value>
+  </data>
+  <data name="UpdateError" xml:space="preserve">
+    <value>Update Receive Error</value>
+  </data>
+  <data name="Verifying" xml:space="preserve">
+    <value>Verfying</value>
+  </data>
+  <data name="WriteFail" xml:space="preserve">
+    <value>Write Failure</value>
+  </data>
+  <data name="Writing" xml:space="preserve">
+    <value>Writing</value>
+  </data>
 </root>
