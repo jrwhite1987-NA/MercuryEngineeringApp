@@ -37,6 +37,28 @@
         <Setter Property="FontSize" Value="17" />
         <Setter Property="FontFamily" Value="Arial" />
     </Style>
+
+    <Style x:Key="RedLable17pt" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="17" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="Foreground" Value="#FFE60000" />
+        <Setter Property="FontFamily" Value="Arial" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+
+    <Style x:Key="RedLable20pt" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="#FFE60000" />
+        <Setter Property="FontFamily" Value="Arial" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
     <!--<TextBox Style>-->
     <Style TargetType="{x:Type TextBox}" x:Key="MainTextbox" BasedOn="{StaticResource TextFontSize}">
         <Setter Property="Template">

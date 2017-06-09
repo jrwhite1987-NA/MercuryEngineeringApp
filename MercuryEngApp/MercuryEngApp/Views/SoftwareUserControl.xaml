@@ -9,7 +9,7 @@
         <Grid Name="LeftPanleInfo">
             <Grid.RowDefinitions>
                 <RowDefinition Height="130"/>
-                <RowDefinition Height="215"/>
+                <RowDefinition Height="270"/>
             </Grid.RowDefinitions>
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
                     Width="1310"
@@ -38,9 +38,9 @@
 
                     <Grid Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="433*"/>
-                            <ColumnDefinition Width="397*"/>
-                            <ColumnDefinition Width="478"/>
+                            <ColumnDefinition Width="234*"/>
+                            <ColumnDefinition Width="205*"/>
+                            <ColumnDefinition Width="430"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
@@ -58,7 +58,7 @@
                                  Style="{StaticResource ResourceKey=MainTextbox}"
                                  Grid.Row="1" 
                                  Grid.Column="0" 
-                                 Margin="0,5,125,0"
+                                 Margin="155,5,105,0"
                                  Text="{Binding Path=SoftwareVersion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                  IsReadOnly="True"/>
 
@@ -96,7 +96,7 @@
 
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
                     Width="1310" 
-                    Height="225" 
+                    Height="280" 
                     VerticalAlignment="Center" 
                     Margin="10,-20,0,0" 
                     Grid.Column="0" 
@@ -111,7 +111,7 @@
 
                     <TextBlock Height="17" 
                                    Margin="13,8,0,0" 
-                                   Text="Entere a File Name or Browse to the Update file" 
+                                   Text="Enter File Name or Browse to the update file" 
                                    Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
 
 
@@ -122,9 +122,11 @@
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40"/>
-                            <RowDefinition Height="60"/>
                             <RowDefinition Height="55"/>
                             <RowDefinition Height="55"/>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="30"/>
                         </Grid.RowDefinitions>
 
                         <TextBox Height="35" 
@@ -148,7 +150,7 @@
                                 Grid.Column="1"
                                 IsEnabled="{Binding Path=IsBrowseEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                        <Button Content="Perfrom Update" 
+                        <Button Content="Perform Update" 
                                 Style="{StaticResource ResourceKey=ButtonStyle1}" 
                                 Grid.Row="2" 
                                 Width="155" 
@@ -174,7 +176,8 @@
                         <ProgressBar Minimum="0" Maximum="100" Value="75" Name="pbStatus" Width="300" Height="30" Grid.Row="3" Grid.ColumnSpan="2" Foreground="#FF00AEEF" Margin="65,0,0,0"/>
                         <TextBlock Text="{Binding ElementName=pbStatus, Path=Value, StringFormat={}{0:0}%}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="2" Style="{StaticResource ResourceKey=WhiteLable15pt}" />
 
-                     
+                        <TextBlock Text="WARNING!" Grid.Row="4" Style="{StaticResource ResourceKey=RedLable20pt}" Grid.ColumnSpan="2" Margin="60,0,0,0"/>
+                        <TextBlock Text="Do not power down the module during update process" Grid.Row="5" Style="{StaticResource ResourceKey=RedLable17pt}" Grid.ColumnSpan="2" Margin="60,0,0,0"/>
 
                     </Grid>
 

@@ -219,8 +219,8 @@
 
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto" MinWidth="316"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40"/>
@@ -232,19 +232,19 @@
                                    Margin="13,15,0,0" 
                                    Text="Channel Number" 
                                    Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                                   Grid.Row="1"/>
+                                   Grid.Row="1" Width="113"/>
 
 
                         <Border  Style="{StaticResource ResourceKey=RoundedBorderCombo}" 
                                  Grid.Row="1"
-                                 Grid.Column="1"  Width="310" />
-                        <ComboBox Width="300" Height="24"
+                                 Grid.Column="1" Width="310"/>
+                        <ComboBox
                                   Style="{StaticResource ResourceKey=ComboBoxBorder}"
                                   Name="ChannelPartNumber"
                                   Grid.Row="1" 
                                   Grid.Column="1" 
                                   ItemsSource="{Binding Path=ChannelNumberList, Mode=TwoWay}"
-                                  Margin="3,0,3,1">
+                                  Margin="0,0,8,0" Width="300" Height="25">
                             <ComboBox.SelectedItem>
                                 <Binding Path="SelectedChannelNumber">
                                     <Binding.ValidationRules>
@@ -257,7 +257,7 @@
                         <Button Content="Read" 
                                 Style="{StaticResource ResourceKey=ButtonStyle1}" 
                                 Grid.Column="1" 
-                                Grid.Row="5" 
+                                Grid.Row="2" 
                                 Width="125" 
                                 Height="38" 
                                 HorizontalAlignment="Left" 
@@ -267,7 +267,7 @@
                         <Button Content="Write" 
                                     Style="{StaticResource ResourceKey=ButtonStyle1}" 
                                     Grid.Column="1" 
-                                    Grid.Row="5"
+                                    Grid.Row="2"
                                 IsEnabled="True"
                                     Width="125" 
                                     Height="38" 
