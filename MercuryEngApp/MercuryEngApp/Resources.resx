@@ -210,8 +210,8 @@
   <data name="TIC" xml:space="preserve">
     <value>TIC</value>
   </data>
-  <data name="BoardInfo" xml:space="preserve">
-    <value>Read Board Info</value>
+  <data name="BoardInfoReadSuccessful" xml:space="preserve">
+    <value>Read board info successful.</value>
   </data>
   <data name="DepthSent" xml:space="preserve">
     <value>Depth Sent Successfully</value>
@@ -231,7 +231,22 @@
   <data name="PowerValueMsg" xml:space="preserve">
     <value>Power value not accepted by TCD</value>
   </data>
-  <data name="ProbeInfo" xml:space="preserve">
-    <value>Read Probe Info</value>
+  <data name="ProbeInfoReadSuccessful" xml:space="preserve">
+    <value>Read probe info successful.</value>
+  </data>
+  <data name="BoardInfoWriteSuccessful" xml:space="preserve">
+    <value>Write board info successful.</value>
+  </data>
+  <data name="ChannelReadSuccessful" xml:space="preserve">
+    <value>Read channel number successful.</value>
+  </data>
+  <data name="ChannelWriteSuccessful" xml:space="preserve">
+    <value>Write channel number successful.</value>
+  </data>
+  <data name="OperatingMinutesReadSuccessful" xml:space="preserve">
+    <value>Read operating minutes successful.</value>
+  </data>
+  <data name="ProbeInfoWriteSuccessful" xml:space="preserve">
+    <value>Write probe info successful.</value>
   </data>
 </root>

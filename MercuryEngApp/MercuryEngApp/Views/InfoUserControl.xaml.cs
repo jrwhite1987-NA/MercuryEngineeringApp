@@ -64,6 +64,16 @@ namespace MercuryEngApp
             {
                 App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
                 await UsbTcd.TCDObj.SetModeAsync(App.CurrentChannel, TCDModes.Service);
+                using (TCDRequest request = new TCDRequest())
+                {
+                    request.Value = 10;
+                    TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
+
+                    foreach (var item in response.ServicePacketList)
+                    {
+                        LogWrapper.Log(Constants.TCDLog, item.Message);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -93,8 +103,8 @@ namespace MercuryEngApp
                     {
                         LogWrapper.Log(Constants.TCDLog, item.Message);
                     }
-                }                
-                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.BoardInfo);
+                }
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.BoardInfoReadSuccessful);
             }
             catch (Exception ex)
             {
@@ -130,7 +140,6 @@ namespace MercuryEngApp
                         request.Board.hardwareRevision = BitConverter.ToUInt32(arr, 0);
                         request.Board.serialNumberString = infoViewModelObj.BoardSerialNumber;
                         await UsbTcd.TCDObj.WriteBoardInfoAsync(request);
-
                     }
 
                     using (TCDRequest request = new TCDRequest())
@@ -143,6 +152,7 @@ namespace MercuryEngApp
                             LogWrapper.Log(Constants.TCDLog, item.Message);
                         }
                     }
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.BoardInfoWriteSuccessful);
                 }
                 else
                 {
@@ -225,8 +235,7 @@ namespace MercuryEngApp
                         LogWrapper.Log(Constants.TCDLog, item.Message);
                     }
                 }
-
-                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.BoardInfo);
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.ChannelReadSuccessful);
             }
             catch (Exception ex)
             {
@@ -257,6 +266,7 @@ namespace MercuryEngApp
                             LogWrapper.Log(Constants.TCDLog, item.Message);
                         }
                     }
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.ChannelWriteSuccessful);
                 }
                 else
                 {
@@ -311,7 +321,7 @@ namespace MercuryEngApp
                     }
                 }              
 
-                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.ProbeInfo);
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.ProbeInfoReadSuccessful);
 
             }
             catch (Exception ex)
@@ -360,6 +370,7 @@ namespace MercuryEngApp
                             LogWrapper.Log(Constants.TCDLog, item.Message);
                         }
                     }
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.ProbeInfoWriteSuccessful);
                 }
                 else
                 {
@@ -424,7 +435,7 @@ namespace MercuryEngApp
                         LogWrapper.Log(Constants.TCDLog, item.Message);
                     }
                 }
-                LogWrapper.Log(Constants.APPLog, "Read Operating Minutes");
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.OperatingMinutesReadSuccessful);
             }
             catch(Exception ex)
             {

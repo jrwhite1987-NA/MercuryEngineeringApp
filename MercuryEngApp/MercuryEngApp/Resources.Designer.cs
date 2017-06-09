@@ -70,11 +70,20 @@ namespace MercuryEngApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Read Board Info.
+        ///   Looks up a localized string similar to Read board info successful..
         /// </summary>
-        public static string BoardInfo {
+        public static string BoardInfoReadSuccessful {
             get {
-                return ResourceManager.GetString("BoardInfo", resourceCulture);
+                return ResourceManager.GetString("BoardInfoReadSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write board info successful..
+        /// </summary>
+        public static string BoardInfoWriteSuccessful {
+            get {
+                return ResourceManager.GetString("BoardInfoWriteSuccessful", resourceCulture);
             }
         }
         
@@ -129,6 +138,24 @@ namespace MercuryEngApp {
         public static string ChannelPartNumber {
             get {
                 return ResourceManager.GetString("ChannelPartNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Read channel number successful..
+        /// </summary>
+        public static string ChannelReadSuccessful {
+            get {
+                return ResourceManager.GetString("ChannelReadSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write channel number successful..
+        /// </summary>
+        public static string ChannelWriteSuccessful {
+            get {
+                return ResourceManager.GetString("ChannelWriteSuccessful", resourceCulture);
             }
         }
         
@@ -259,6 +286,15 @@ namespace MercuryEngApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Read operating minutes successful..
+        /// </summary>
+        public static string OperatingMinutesReadSuccessful {
+            get {
+                return ResourceManager.GetString("OperatingMinutesReadSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Packet Exported Successfully.
         /// </summary>
         public static string PacketExport {
@@ -322,11 +358,20 @@ namespace MercuryEngApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Read Probe Info.
+        ///   Looks up a localized string similar to Read probe info successful..
         /// </summary>
-        public static string ProbeInfo {
+        public static string ProbeInfoReadSuccessful {
             get {
-                return ResourceManager.GetString("ProbeInfo", resourceCulture);
+                return ResourceManager.GetString("ProbeInfoReadSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write probe info successful..
+        /// </summary>
+        public static string ProbeInfoWriteSuccessful {
+            get {
+                return ResourceManager.GetString("ProbeInfoWriteSuccessful", resourceCulture);
             }
         }
         
