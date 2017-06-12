@@ -293,6 +293,10 @@ namespace UsbTcdLibrary
 
         Task<TCDResponse> ReadFromFileCVRAsync(int examId, int channelId);
 
+        TCDModes GetMode(TCDHandles channel);
+
+        Task<TCDResponse> WriteData(TCDWriteInfoRequest request);
+
         List<short> CVRDataChannel1
         {
             get;

@@ -344,7 +344,7 @@
   </data>
   <data name="Writing" xml:space="preserve">
     <value>Writing</value>
-    </data>
+  </data>
   <data name="TCDTurnedOff" xml:space="preserve">
     <value>TCD is turned off.</value>
   </data>
@@ -356,5 +356,8 @@
   </data>
   <data name="ToggleLimitsOn" xml:space="preserve">
     <value>Envelope limits turned on.</value>
+  </data>
+  <data name="ProbeDisconnected" xml:space="preserve">
+    <value>An active probe was disconnected from TCD.</value>
   </data>
 </root>

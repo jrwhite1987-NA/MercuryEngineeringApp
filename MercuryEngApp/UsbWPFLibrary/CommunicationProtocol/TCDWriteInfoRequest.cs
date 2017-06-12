@@ -42,11 +42,14 @@ namespace UsbTcdLibrary.CommunicationProtocol
         /// <value>The calibration.</value>
         public CalibrationInfo Calibration { get; set; }
 
+        public char[] UpdateData { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="TCDWriteInfoRequest"/> class.
         /// </summary>
         public TCDWriteInfoRequest()
         {
+            UpdateData = new char[DMIProtocol.UPDATE_LOAD_BLOCK_SIZE];
             ChannelID = TCDHandles.None;
             Probe = null;
             Board = null;

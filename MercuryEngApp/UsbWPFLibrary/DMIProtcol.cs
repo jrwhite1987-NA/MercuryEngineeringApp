@@ -43,6 +43,8 @@ namespace UsbTcdLibrary
         /// </summary>
         internal const byte DOPPLER_COMMAND = 0x40;
 
+        public const int UPDATE_LOAD_BLOCK_SIZE = 512 * 2;
+
         /// <summary>
         /// The doppler request
         /// </summary>

@@ -71,6 +71,15 @@ namespace MercuryEngApp
             logger.Debug("--");
         }
 
+        void TCDObjOnProbeUnplugged(TCDHandles probe)
+        {
+            if (probe == App.CurrentChannel)
+            {
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.ProbeDisconnected);
+                MainWindowTurnTCDOFF();
+            }
+        }
+
         private void MicrocontrollerOnDeviceStateChanged(bool flag)
         {
             logger.Debug("++");
@@ -78,12 +87,9 @@ namespace MercuryEngApp
             {
                 try
                 {
-                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.TCDTurnedOff);
-                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.MicrocontrollerDisconnected);
-                    CompositionTarget.Rendering -= CompositionTargetRendering;
-                    UsbTcd.TCDObj.OnPacketFormed -= TCDObjOnPacketFormed;
                     //microcontroller disconnected
-                    UsbTcd.TCDObj.TurnTCDPowerOff();
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.MicrocontrollerDisconnected);
+                    MainWindowTurnTCDOFF();
                 }
                 catch (Exception ex)
                 {
@@ -100,6 +106,7 @@ namespace MercuryEngApp
             {
                 MainWindow.TurnTCDON -= MainWindowTurnTCDON;
                 MainWindow.TurnTCDOFF -= MainWindowTurnTCDOFF;
+                UsbTcd.TCDObj.OnProbeUnplugged -= TCDObjOnProbeUnplugged;
                 if ((bool)App.mainWindow.IsPowerChecked)
                 {
                     MainWindowTurnTCDOFF();
@@ -120,7 +127,8 @@ namespace MercuryEngApp
             try
             {
                 MainWindow.TurnTCDON += MainWindowTurnTCDON;
-                MainWindow.TurnTCDOFF += MainWindowTurnTCDOFF; 
+                MainWindow.TurnTCDOFF += MainWindowTurnTCDOFF;
+                UsbTcd.TCDObj.OnProbeUnplugged += TCDObjOnProbeUnplugged;
                 btnEnvelop.IsChecked = true;
                 toggleLimits.IsChecked = true;
             }

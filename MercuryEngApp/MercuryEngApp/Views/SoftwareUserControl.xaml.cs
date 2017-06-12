@@ -168,9 +168,9 @@ namespace MercuryEngApp.Views
             bool updateAborted = false;
             int start = 0;
             int blockSize = 0;
-            const int UPDATE_LOAD_BLOCK_SIZE = 512*2;
+            
             const int UPDATE_PROCESS_TIMEOUT = 30000; //30 seconds
-            byte[] updateLoadBlock = new byte[UPDATE_LOAD_BLOCK_SIZE];
+            byte[] updateLoadBlock = new byte[DMIProtocol.UPDATE_LOAD_BLOCK_SIZE];
             UpdateProgress progress = new UpdateProgress();
 
             if (!File.Exists(fileName))
@@ -189,7 +189,7 @@ namespace MercuryEngApp.Views
             using (FileStream fs = File.OpenRead(fileName))
             {
                 //Read till the file is completed or update is finished.
-                while (((blockSize = fs.Read(updateLoadBlock, Constants.VALUE_0, UPDATE_LOAD_BLOCK_SIZE)) > Constants.VALUE_0) || updateFinished == true)
+                while (((blockSize = fs.Read(updateLoadBlock, Constants.VALUE_0, DMIProtocol.UPDATE_LOAD_BLOCK_SIZE)) > Constants.VALUE_0) || updateFinished == true)
                 {
                     //Write method to write data - pending
 

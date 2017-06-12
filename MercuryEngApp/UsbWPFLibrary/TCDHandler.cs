@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text;
 using System.Threading.Tasks;
 using UsbTcdLibrary.PacketFormats;
 using UsbTcdLibrary.StatusClasses;
@@ -598,6 +599,25 @@ namespace UsbTcdLibrary
             {
                 Helper.logger.Warn("Exception: ", ex);
                 return "Could not connect to the TCD";
+            }
+        }
+
+       internal  async Task<bool> WriteData(TCDHandles channel, char[] data)
+        {
+            _currentChannel = (int)channel;
+            try
+            {
+                IOutputStream outStream = GeneralTCDHandle.DefaultInterface.BulkOutPipes[0].OutputStream;
+                DataWriter writer = new DataWriter(outStream);
+                writer.WriteBytes(Encoding.UTF8.GetBytes(data));
+                await writer.StoreAsync();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Helper.logger.Warn("Exception: ", ex);
+                return false;
             }
         }
 

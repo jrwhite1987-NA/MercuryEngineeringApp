@@ -50,10 +50,20 @@ namespace MercuryEngApp
             this.DataContext = packetViewModelObj;
         }
 
+        void TCDObjOnProbeUnplugged(TCDHandles probe)
+        {
+            if (probe == App.CurrentChannel)
+            {
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.ProbeDisconnected);
+                MainWindowTurnTCDOFF();
+            }
+        }
+
         void PacketControlUnloaded(object sender, RoutedEventArgs e)
         {
             MainWindow.TurnTCDON -= MainWindowTurnTCDON;
             MainWindow.TurnTCDOFF -= MainWindowTurnTCDOFF;
+            UsbTcd.TCDObj.OnProbeUnplugged -= TCDObjOnProbeUnplugged;
             if ((bool)App.mainWindow.IsPowerChecked)
             {
                 MainWindowTurnTCDOFF();
@@ -65,6 +75,7 @@ namespace MercuryEngApp
         {
             MainWindow.TurnTCDON += MainWindowTurnTCDON;
             MainWindow.TurnTCDOFF += MainWindowTurnTCDOFF;
+            UsbTcd.TCDObj.OnProbeUnplugged += TCDObjOnProbeUnplugged;
         }
 
         void MainWindowTurnTCDOFF()

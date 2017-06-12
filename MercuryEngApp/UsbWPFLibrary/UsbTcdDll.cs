@@ -1565,6 +1565,38 @@ namespace UsbTcdLibrary
         {
             return dopplerModule.GrabSinglePacket();
         }
-        
+
+        public TCDModes GetMode(TCDHandles channel)
+        {
+            if (channel == TCDHandles.Channel1)
+            {
+                return TCDHandler.Current.Channel1.CurrentMode;
+            }
+            else if (channel == TCDHandles.Channel2)
+            {
+                return TCDHandler.Current.Channel2.CurrentMode;
+            }
+            else
+            {
+                return TCDModes.Standby;
+            }
+        }
+
+        public async Task<TCDResponse> WriteData(TCDWriteInfoRequest request)
+        {
+            TCDResponse response = new TCDResponse();
+            try
+            {
+                if (request.UpdateData.Length > 0)
+                {
+                    response.Result = await TCDHandler.Current.WriteData(request.ChannelID, request.UpdateData);
+                }
+            }
+            catch(Exception ex)
+            {
+                response.Error = ex;
+            }
+            return response;
+        }
     }
 }

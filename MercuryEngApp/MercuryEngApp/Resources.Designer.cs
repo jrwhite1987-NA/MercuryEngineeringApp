@@ -565,6 +565,15 @@ namespace MercuryEngApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An active probe was disconnected from TCD..
+        /// </summary>
+        public static string ProbeDisconnected {
+            get {
+                return ResourceManager.GetString("ProbeDisconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Read probe info successful..
         /// </summary>
         public static string ProbeInfoReadSuccessful {
