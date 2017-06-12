@@ -16,6 +16,8 @@ namespace MercuryEngApp.ViewModels
         private bool isBrowseEnabled;
         private bool isAbortEnabled;
         private uint progressPosition;
+        private bool showWarningLabels;
+        private string updateStatus;
 
         public string SoftwareVersion
         {
@@ -115,6 +117,32 @@ namespace MercuryEngApp.ViewModels
                 progressPosition = value;
                 RaisePropertyChanged();
             }
-        } 
+        }
+
+        public bool ShowWarningLabels
+        {
+            get
+            {
+                return showWarningLabels;
+            }
+            set
+            {
+                showWarningLabels = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string UpdateStatus
+        {
+            get
+            {
+                return updateStatus;
+            }
+            set
+            {
+                updateStatus = value;
+                RaisePropertyChanged();
+            }
+        }
     }
 }

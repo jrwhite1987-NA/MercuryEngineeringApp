@@ -602,14 +602,14 @@ namespace UsbTcdLibrary
             }
         }
 
-       internal  async Task<bool> WriteData(TCDHandles channel, char[] data)
+       internal  async Task<bool> WriteData(TCDHandles channel, byte[] data)
         {
             _currentChannel = (int)channel;
             try
             {
                 IOutputStream outStream = GeneralTCDHandle.DefaultInterface.BulkOutPipes[0].OutputStream;
                 DataWriter writer = new DataWriter(outStream);
-                writer.WriteBytes(Encoding.UTF8.GetBytes(data));
+                writer.WriteBytes(data);
                 await writer.StoreAsync();
 
                 return true;

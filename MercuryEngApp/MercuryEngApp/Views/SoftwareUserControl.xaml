@@ -3,8 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MercuryEngApp.Views"
                mc:Ignorable="d" 
              VerticalAlignment="Stretch"  HorizontalAlignment="Stretch">
+    <UserControl.Resources>
+        <local:Converter x:Key="Converter"></local:Converter>
+    </UserControl.Resources>
     <Grid>
         <Grid Name="LeftPanleInfo">
             <Grid.RowDefinitions>
@@ -173,11 +177,12 @@
                                 IsEnabled="{Binding Path=IsAbortEnabled,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
 
 
-                        <ProgressBar Minimum="0" Maximum="100" Value="75" Name="pbStatus" Width="300" Height="30" Grid.Row="3" Grid.ColumnSpan="2" Foreground="#FF00AEEF" Margin="65,0,0,0"/>
-                        <TextBlock Text="{Binding ElementName=pbStatus, Path=Value, StringFormat={}{0:0}%}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="2" Style="{StaticResource ResourceKey=WhiteLable15pt}" />
-
-                        <TextBlock Text="WARNING!" Grid.Row="4" Style="{StaticResource ResourceKey=RedLable20pt}" Grid.ColumnSpan="2" Margin="60,0,0,0"/>
-                        <TextBlock Text="Do not power down the module during update process" Grid.Row="5" Style="{StaticResource ResourceKey=RedLable17pt}" Grid.ColumnSpan="2" Margin="60,0,0,0"/>
+                        <ProgressBar Minimum="0" Maximum="100" Value="0" Name="pbStatus" Width="300" Height="30" Grid.Row="3" Grid.ColumnSpan="1" Foreground="#FF00AEEF" Margin="65,0,0,0" Visibility="Hidden"/>
+                        <TextBlock Text="{Binding ElementName=pbStatus, Path=Value, StringFormat={}{0:0}%}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="1" Visibility="Hidden" Style="{StaticResource ResourceKey=WhiteLable15pt}" />
+                        <TextBlock Text="{Binding Path=UpdateStatus, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" Name="UpdateProgressText" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="1" Style="{StaticResource ResourceKey=WhiteLable15pt}" />
+                        
+                        <TextBlock Text="WARNING!" Grid.Row="4" Style="{StaticResource ResourceKey=RedLable20pt}" Grid.ColumnSpan="2" Margin="60,0,0,0" Visibility="{Binding Path=ShowWarningLabels, Mode=TwoWay, Converter={StaticResource Converter}}"/>
+                        <TextBlock Text="Do not power down the module during update process" Grid.Row="5" Style="{StaticResource ResourceKey=RedLable17pt}" Grid.ColumnSpan="2" Margin="60,0,0,0" Visibility="{Binding Path=ShowWarningLabels, Mode=TwoWay, Converter={StaticResource Converter}}"/>
 
                     </Grid>
 

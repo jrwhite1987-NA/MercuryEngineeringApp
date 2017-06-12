@@ -81,6 +81,7 @@ namespace MercuryEngApp.Views
             softwareViewModel.IsPerformUpdateEnabled = response.Module != null;
             softwareViewModel.IsBrowseEnabled = response.Module != null;
             softwareViewModel.IsAbortEnabled = false;
+            softwareViewModel.ShowWarningLabels = false;
         }
 
         /// <summary>
@@ -149,7 +150,10 @@ namespace MercuryEngApp.Views
                     softwareViewModel.IsAbortEnabled = true;
                     LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.Sending);
 
-                    //Show warning labels - Pending
+                    //Show warning labels
+                    pbStatus.Visibility = Visibility.Visible;
+                    UpdateProgressText.Visibility = Visibility.Visible;
+                    softwareViewModel.ShowWarningLabels = true;
                 }
                 else
                 {
@@ -158,6 +162,7 @@ namespace MercuryEngApp.Views
                 }
 
                 await LoadModuleUpdate(App.CurrentChannel, FileNameTextBox.Text);
+                softwareViewModel.ShowWarningLabels = false;
             }
         }
 
@@ -192,7 +197,15 @@ namespace MercuryEngApp.Views
                 while (((blockSize = fs.Read(updateLoadBlock, Constants.VALUE_0, DMIProtocol.UPDATE_LOAD_BLOCK_SIZE)) > Constants.VALUE_0) || updateFinished == true)
                 {
                     //Write method to write data - pending
+                    TCDResponse writeResponse = await UsbTcd.TCDObj.WriteData(new TCDWriteInfoRequest() { ChannelID = App.CurrentChannel, UpdateData = updateLoadBlock });
 
+                    if (response == null)
+                    {
+                        pbStatus.Value = Constants.VALUE_0;
+                        softwareViewModel.UpdateStatus = MercuryEngApp.Resources.UpdateError;
+                        LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.UpdateError);
+                        return false;
+                    }
 
                     TCDReadInfoResponse progressResponse = await UsbTcd.TCDObj.GetUpdateProgressAsync(new TCDRequest() { ChannelID = App.CurrentChannel });
                     UpdateStatusCode currentStatus;
@@ -249,71 +262,88 @@ namespace MercuryEngApp.Views
             {
                 case UpdateStatusCode.Ready:
                     pbStatus.Value = Constants.VALUE_0;
+                    softwareViewModel.UpdateStatus = MercuryEngApp.Resources.Sending;
                     LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.Sending);
                     break;
                 case UpdateStatusCode.Receiving:
                     pbStatus.Value = Math.Ceiling((Convert.ToDouble(progress.BytesReceivedErased / fileSize)) * Constants.VALUE_50);
+                    softwareViewModel.UpdateStatus = MercuryEngApp.Resources.Sending;
                     LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.Sending);
                     break;
                 case UpdateStatusCode.Verifying:
                     pbStatus.Value = Constants.VALUE_55;
+                    softwareViewModel.UpdateStatus = MercuryEngApp.Resources.Verifying;
                     LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.Verifying);
                     softwareViewModel.IsAbortEnabled = false;
                     break;
                 case UpdateStatusCode.Writing:
                     pbStatus.Value = Constants.VALUE_60 + Math.Ceiling((Convert.ToDouble(progress.BytesReceivedErased / fileSize)) * Constants.VALUE_15) + Math.Ceiling((Convert.ToDouble(progress.BytesWritten / fileSize)) * Constants.VALUE_15);
+                    softwareViewModel.UpdateStatus = MercuryEngApp.Resources.Writing;
                     LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.Writing);
                     break;
                 case UpdateStatusCode.Confirming:
                     pbStatus.Value = Constants.VALUE_95;
+                    softwareViewModel.UpdateStatus = MercuryEngApp.Resources.Confirming;
                     LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.Confirming);
                     break;
                 case UpdateStatusCode.Finished:
                     pbStatus.Value = Constants.VALUE_100;
+                    softwareViewModel.UpdateStatus = MercuryEngApp.Resources.Finished;
                     LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.Finished);
                     break;
                 case UpdateStatusCode.ReceivingFailure:
                     pbStatus.Value = Constants.VALUE_0;
+                    softwareViewModel.UpdateStatus = MercuryEngApp.Resources.UpdateError;
                     LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.UpdateError);
                     break;
                 case UpdateStatusCode.ChecksumFailure:
                     pbStatus.Value = Constants.VALUE_0;
+                    softwareViewModel.UpdateStatus = MercuryEngApp.Resources.CheckSumFailure;
                     LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.CheckSumFailure);
                     break;
                 case UpdateStatusCode.IncompatibleVersion:
                     pbStatus.Value = Constants.VALUE_0;
+                    softwareViewModel.UpdateStatus = MercuryEngApp.Resources.IncompatVersion;
                     LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.IncompatVersion);
                     break;
                 case UpdateStatusCode.TableInvalid:
                     pbStatus.Value = Constants.VALUE_0;
+                    softwareViewModel.UpdateStatus = MercuryEngApp.Resources.InvalidTable;
                     LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.InvalidTable);
                     break;
                 case UpdateStatusCode.AddressInvalid:
                     pbStatus.Value = Constants.VALUE_0;
+                    softwareViewModel.UpdateStatus = MercuryEngApp.Resources.InvalidAddress;
                     LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.InvalidAddress);
                     break;
                 case UpdateStatusCode.EraseFailure:
                     pbStatus.Value = Constants.VALUE_0;
+                    softwareViewModel.UpdateStatus = MercuryEngApp.Resources.EraseFail;
                     LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.EraseFail);
                     break;
                 case UpdateStatusCode.WriteFailure:
                     pbStatus.Value = Constants.VALUE_0;
+                    softwareViewModel.UpdateStatus = MercuryEngApp.Resources.WriteFail;
                     LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.WriteFail);
                     break;
                 case UpdateStatusCode.ComparisionFailure:
                     pbStatus.Value = Constants.VALUE_0;
+                    softwareViewModel.UpdateStatus = MercuryEngApp.Resources.CompareFail;
                     LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.CompareFail);
                     break;
                 case UpdateStatusCode.ReadFailure:
                     pbStatus.Value = Constants.VALUE_0;
+                    softwareViewModel.UpdateStatus = MercuryEngApp.Resources.ReadFail;
                     LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.ReadFail);
                     break;
                 case UpdateStatusCode.Timeout:
                     pbStatus.Value = Constants.VALUE_0;
+                    softwareViewModel.UpdateStatus = MercuryEngApp.Resources.TimeOut;
                     LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.TimeOut);
                     break;
                 case UpdateStatusCode.Aborted:
                     pbStatus.Value = Constants.VALUE_0;
+                    softwareViewModel.UpdateStatus = MercuryEngApp.Resources.HostAbort;
                     LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.HostAbort);
                     break;
             }
@@ -321,11 +351,12 @@ namespace MercuryEngApp.Views
 
         private async Task<bool> InitModuleUpdate(TCDHandles currentChannel)
         {
-            //Write method to get the current mode.
-            TCDModes currentMode = TCDModes.Update;
+            //Command the module to update mode and wait for it to get there
+            TCDModes currentMode = UsbTcd.TCDObj.GetMode(currentChannel);
             bool result;
             if (currentMode != TCDModes.Update)
             {
+                // Switch to update mode
                 result = await UsbTcd.TCDObj.SetModeAsync(App.CurrentChannel, TCDModes.Update);
             }
             else
@@ -333,6 +364,20 @@ namespace MercuryEngApp.Views
                 result = false;
             }
             return result;
+        }
+    }
+
+    public class Converter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            bool ShowWarningLabels = (bool)value;
+            return ShowWarningLabels ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
         }
     }
 }
