@@ -131,6 +131,10 @@ namespace MercuryEngApp
                 UsbTcd.TCDObj.OnProbeUnplugged += TCDObjOnProbeUnplugged;
                 btnEnvelop.IsChecked = true;
                 toggleLimits.IsChecked = true;
+                if(!(bool)App.mainWindow.IsPowerChecked)
+                {
+                    this.IsEnabled = false;
+                }
             }
             catch (Exception ex)
             {
@@ -149,7 +153,7 @@ namespace MercuryEngApp
                 UsbTcd.TCDObj.OnPacketFormed -= TCDObjOnPacketFormed;
                 LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.TCDTurnedOff);
                 UsbTcd.TCDObj.TurnTCDPowerOff();
-
+                this.IsEnabled = false;
                 using (TCDRequest request = new TCDRequest())
                 {
                     request.Value = Constants.VALUE_10;
@@ -174,6 +178,7 @@ namespace MercuryEngApp
             logger.Debug("++");
             try
             {
+                this.IsEnabled = true;
                 await PlotGraph();
                 CreateVerticalScales();               
             }

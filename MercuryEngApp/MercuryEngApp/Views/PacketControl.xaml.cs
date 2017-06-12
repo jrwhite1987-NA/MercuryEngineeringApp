@@ -75,13 +75,19 @@ namespace MercuryEngApp
         {
             MainWindow.TurnTCDON += MainWindowTurnTCDON;
             MainWindow.TurnTCDOFF += MainWindowTurnTCDOFF;
+
             UsbTcd.TCDObj.OnProbeUnplugged += TCDObjOnProbeUnplugged;
+            if (!(bool)App.mainWindow.IsPowerChecked)
+            {
+                this.IsEnabled = false;
+            }
         }
 
         void MainWindowTurnTCDOFF()
         {
             UsbTcd.TCDObj.OnPacketFormed -= TCDObjOnPacketFormed;
             UsbTcd.TCDObj.TurnTCDPowerOff();
+            this.IsEnabled = false;
         }
 
         async void MainWindowTurnTCDON()
@@ -109,6 +115,7 @@ namespace MercuryEngApp
 
                 
                 UsbTcd.TCDObj.StartTCDReading();
+                this.IsEnabled = true;
             }
         }
 
