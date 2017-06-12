@@ -31,7 +31,6 @@ namespace MercuryEngApp
         public int previousIndex = 0;
         public int LogSelectedTabIndex = 0;
         public MainViewModel mainViewModel = new MainViewModel();
-        Action workAction;
         internal bool? IsPowerChecked
         {
             get
@@ -72,27 +71,79 @@ namespace MercuryEngApp
             InitializeComponent();
             this.Loaded += MainWindowLoaded;
             this.DataContext = mainViewModel;
+            UsbTcd.TCDObj.OnProbeUnplugged += TCDObjOnProbeUnplugged;
+            UsbTcd.TCDObj.OnProbePlugged += TCDObjOnProbePlugged;
             PowerController.Instance.OnDeviceStateChanged += MicrocontrollerOnDeviceStateChanged;
             PowerController.Instance.StartWatcher();
-            workAction = delegate
-            {
-                switch (App.ActiveChannels)
-                {
-                    case UsbTcdLibrary.ActiveChannels.Both:
-                        BtnLeftProbe.IsHitTestVisible = true;
-                        BtnRightProbe.IsHitTestVisible = true;
-                        App.ActiveChannels = UsbTcdLibrary.ActiveChannels.Channel2; //Temp for xoriant TCD since channel 1 doesn't work
-                        break;
-                    case UsbTcdLibrary.ActiveChannels.Channel1:
-                        BtnLeftProbe.IsHitTestVisible = true;
-                        break;
-                    case UsbTcdLibrary.ActiveChannels.Channel2:
-                        BtnRightProbe.IsHitTestVisible = true;
-                        break;
-                }
-            };
-           
             logger.Debug("--");
+        }
+
+        void TCDObjOnProbePlugged(UsbTcdLibrary.TCDHandles probe)
+        {
+            if(probe==UsbTcdLibrary.TCDHandles.Channel1)
+            {
+                this.Dispatcher.Invoke(() =>
+                    {
+                        BtnLeftProbe.IsHitTestVisible = true;
+                    });
+                if(App.ActiveChannels==UsbTcdLibrary.ActiveChannels.Channel2)
+                {
+                    App.ActiveChannels = UsbTcdLibrary.ActiveChannels.Both;
+                }
+                else
+                {
+                    App.ActiveChannels = UsbTcdLibrary.ActiveChannels.Channel1;
+                }
+            }
+            else if(probe == UsbTcdLibrary.TCDHandles.Channel2)
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    BtnRightProbe.IsHitTestVisible = true;
+                });
+                if(App.ActiveChannels==UsbTcdLibrary.ActiveChannels.Channel1)
+                {
+                    App.ActiveChannels = UsbTcdLibrary.ActiveChannels.Both;
+                }
+                else
+                {
+                    App.ActiveChannels = UsbTcdLibrary.ActiveChannels.Channel2;
+                }
+            }
+        }
+
+        void TCDObjOnProbeUnplugged(UsbTcdLibrary.TCDHandles probe)
+        {
+            if (probe == UsbTcdLibrary.TCDHandles.Channel1)
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    BtnLeftProbe.IsHitTestVisible = false;
+                });
+                if (App.ActiveChannels == UsbTcdLibrary.ActiveChannels.Both)
+                {
+                    App.ActiveChannels = UsbTcdLibrary.ActiveChannels.Channel2;
+                }
+                else
+                {
+                    App.ActiveChannels = UsbTcdLibrary.ActiveChannels.None;
+                }
+            }
+            else if (probe == UsbTcdLibrary.TCDHandles.Channel2)
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    BtnRightProbe.IsHitTestVisible = false;
+                });
+                if (App.ActiveChannels == UsbTcdLibrary.ActiveChannels.Both)
+                {
+                    App.ActiveChannels = UsbTcdLibrary.ActiveChannels.Channel1;
+                }
+                else
+                {
+                    App.ActiveChannels = UsbTcdLibrary.ActiveChannels.None;
+                }
+            }
         }       
 
         async void MainWindowLoaded(object sender, RoutedEventArgs e)
@@ -109,8 +160,6 @@ namespace MercuryEngApp
                 LogTab.Content = new LogUserControl();
                 BtnLeftProbe.IsHitTestVisible = false;
                 BtnRightProbe.IsHitTestVisible = false;
-                App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
-                await Dispatcher.BeginInvoke(workAction, System.Windows.Threading.DispatcherPriority.Normal, null);
             }
             catch (Exception ex)
             {
@@ -134,11 +183,34 @@ namespace MercuryEngApp
                     await PowerController.Instance.UpdatePowerParameters(true, true, false, false, true);
                     await Task.Delay(Constants.TimeForTCDtoLoad);
                     App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
-                    await Dispatcher.BeginInvoke(workAction, System.Windows.Threading.DispatcherPriority.Normal, null);
+                    this.Dispatcher.Invoke(() => 
+                    {
+                        switch (App.ActiveChannels)
+                        {
+                            case UsbTcdLibrary.ActiveChannels.Both:
+                                BtnLeftProbe.IsHitTestVisible = true;
+                                BtnRightProbe.IsHitTestVisible = true;
+                                App.ActiveChannels = UsbTcdLibrary.ActiveChannels.Channel2; //Temp for xoriant TCD since channel 1 doesn't work
+                                break;
+                            case UsbTcdLibrary.ActiveChannels.Channel1:
+                                BtnLeftProbe.IsHitTestVisible = true;
+                                break;
+                            case UsbTcdLibrary.ActiveChannels.Channel2:
+                                BtnRightProbe.IsHitTestVisible = true;
+                                break;
+                        }
+                        BtnPower.IsEnabled = true; 
+                    });
                 }
                 else
                 {
                     //microcontroller disconnected
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.MicrocontrollerDisconnected);
+                    TurnTCDOFF();
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        BtnPower.IsEnabled = false;
+                    });
                 }
             }
             catch (Exception ex)

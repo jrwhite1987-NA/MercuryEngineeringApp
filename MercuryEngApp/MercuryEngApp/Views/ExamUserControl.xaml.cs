@@ -60,7 +60,6 @@ namespace MercuryEngApp
             examViewModelObj = new ExamViewModel();
             this.Loaded += ExamUserControlLoaded;
             this.Unloaded += ExamUserControlUnloaded;
-            PowerController.Instance.OnDeviceStateChanged += MicrocontrollerOnDeviceStateChanged;
             this.DataContext = examViewModelObj;
             xmlDoc = XDocument.Load("LocalFolder/InfoConfig.xml");
             examViewModelObj.PRFList = xmlDoc.Root.Elements("PRFList").
@@ -78,25 +77,6 @@ namespace MercuryEngApp
                 LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.ProbeDisconnected);
                 MainWindowTurnTCDOFF();
             }
-        }
-
-        private void MicrocontrollerOnDeviceStateChanged(bool flag)
-        {
-            logger.Debug("++");
-            if (!flag)
-            {
-                try
-                {
-                    //microcontroller disconnected
-                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.MicrocontrollerDisconnected);
-                    MainWindowTurnTCDOFF();
-                }
-                catch (Exception ex)
-                {
-                    logger.Warn("Exception: ", ex);
-                }
-            }
-            logger.Debug("--");
         }
 
         void ExamUserControlUnloaded(object sender, RoutedEventArgs e)

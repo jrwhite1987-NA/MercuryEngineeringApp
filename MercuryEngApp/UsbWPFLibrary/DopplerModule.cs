@@ -40,11 +40,6 @@ namespace UsbTcdLibrary
         #region Variables
 
         /// <summary>
-        /// The check probe
-        /// </summary>
-        internal bool checkProbe;
-
-        /// <summary>
         /// Occurs when [on probe plugged].
         /// </summary>
         internal event ProbePlugUnplug OnProbePlugged;
@@ -1030,7 +1025,8 @@ namespace UsbTcdLibrary
             {
                 await SendClearBufferCommand(TCDHandles.Channel1, EndpointNumber.EventMessage);
                 await SendClearBufferCommand(TCDHandles.Channel2, EndpointNumber.EventMessage);
-                InitializeProbeEvents(null);
+                CheckProbeTimer =
+               ThreadPoolTimer.CreatePeriodicTimer(InitializeProbeEvents, TimeSpan.FromMilliseconds(Constants.VALUE_50));
             }
             catch (Exception ex)
             {
@@ -1042,51 +1038,47 @@ namespace UsbTcdLibrary
         /// Initializes the probe events.
         /// </summary>
         /// <param name="timer">The timer.</param>
-        private async void InitializeProbeEvents(ThreadPoolTimer timer)        
+        private async void InitializeProbeEvents(ThreadPoolTimer timer)
         {
             try
             {
-                checkProbe = true;
-                if (checkProbe)
+                if (TCDHandler.Current.Channel1.TCDHandleChannel != null)
                 {
-                    if (TCDHandler.Current.Channel1.TCDHandleChannel != null)
+                    uint eventCodeCh1 = GetLogFromArray(await TCDHandler.Current.ReadServiceLog(TCDHandles.Channel1, Constants.VALUE_1))[0].Message.MessageCode;
+
+                    if (eventCodeCh1 == DMIProtocol.DMI_EVENTCODE_PROBE_CONNECT)
                     {
-                        uint eventCodeCh1 = GetLogFromArray(await TCDHandler.Current.ReadServiceLog(TCDHandles.Channel1, Constants.VALUE_1))[0].Message.MessageCode;
-
-                        if (eventCodeCh1 == DMIProtocol.DMI_EVENTCODE_PROBE_CONNECT)
-                        {
-                            TCDHandler.Current.Channel1.ProbeInformation = 
-                                await TCDHandler.Current.GetProbeInfoAsync(TCDHandler.Current.Channel1);
-                            TCDHandler.Current.Channel1.ModuleInformation = 
-                                await TCDHandler.Current.GetModuleInfo(TCDHandles.Channel1);
-                            OnProbePlugged(TCDHandles.Channel1);
-                        }
-
-                        if (eventCodeCh1 == DMIProtocol.DMI_EVENTCODE_PROBE_DISCONNECT)
-                        {
-                            TCDHandler.Current.DisableChannel(TCDHandles.Channel1);
-                            OnProbeUnplugged(TCDHandles.Channel1);
-                        }
+                        TCDHandler.Current.Channel1.ProbeInformation =
+                            await TCDHandler.Current.GetProbeInfoAsync(TCDHandler.Current.Channel1);
+                        TCDHandler.Current.Channel1.ModuleInformation =
+                            await TCDHandler.Current.GetModuleInfo(TCDHandles.Channel1);
+                        OnProbePlugged(TCDHandles.Channel1);
                     }
 
-                    if (TCDHandler.Current.Channel2.TCDHandleChannel != null)
+                    if (eventCodeCh1 == DMIProtocol.DMI_EVENTCODE_PROBE_DISCONNECT)
                     {
-                        uint eventCodeCh2 = GetLogFromArray(await TCDHandler.Current.ReadServiceLog(TCDHandles.Channel2, 1))[0].Message.MessageCode;
+                        TCDHandler.Current.DisableChannel(TCDHandles.Channel1);
+                        OnProbeUnplugged(TCDHandles.Channel1);
+                    }
+                }
 
-                        if (eventCodeCh2 == DMIProtocol.DMI_EVENTCODE_PROBE_CONNECT)
-                        {
-                            TCDHandler.Current.Channel2.ProbeInformation =
-                                await TCDHandler.Current.GetProbeInfoAsync(TCDHandler.Current.Channel2);
-                            TCDHandler.Current.Channel2.ModuleInformation =
-                                await TCDHandler.Current.GetModuleInfo(TCDHandles.Channel2);
-                            OnProbePlugged(TCDHandles.Channel2);
-                        }
+                if (TCDHandler.Current.Channel2.TCDHandleChannel != null)
+                {
+                    uint eventCodeCh2 = GetLogFromArray(await TCDHandler.Current.ReadServiceLog(TCDHandles.Channel2, 1))[0].Message.MessageCode;
 
-                        if (eventCodeCh2 == DMIProtocol.DMI_EVENTCODE_PROBE_DISCONNECT)
-                        {
-                            TCDHandler.Current.Channel2.ResetForSensing();
-                            OnProbeUnplugged(TCDHandles.Channel2);
-                        }
+                    if (eventCodeCh2 == DMIProtocol.DMI_EVENTCODE_PROBE_CONNECT)
+                    {
+                        TCDHandler.Current.Channel2.ProbeInformation =
+                            await TCDHandler.Current.GetProbeInfoAsync(TCDHandler.Current.Channel2);
+                        TCDHandler.Current.Channel2.ModuleInformation =
+                            await TCDHandler.Current.GetModuleInfo(TCDHandles.Channel2);
+                        OnProbePlugged(TCDHandles.Channel2);
+                    }
+
+                    if (eventCodeCh2 == DMIProtocol.DMI_EVENTCODE_PROBE_DISCONNECT)
+                    {
+                        TCDHandler.Current.Channel2.ResetForSensing();
+                        OnProbeUnplugged(TCDHandles.Channel2);
                     }
                 }
             }
