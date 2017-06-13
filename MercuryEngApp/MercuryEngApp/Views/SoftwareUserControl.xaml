@@ -10,16 +10,16 @@
         <local:Converter x:Key="Converter"></local:Converter>
     </UserControl.Resources>
     <Grid>
-        <Grid Name="LeftPanleInfo">
+        <Grid Name="LeftPanleInfo" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="130"/>
                 <RowDefinition Height="270"/>
             </Grid.RowDefinitions>
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
-                    Width="1310"
+                   HorizontalAlignment="Stretch" 
                     Height="100" 
                     VerticalAlignment="Top" 
-                    Margin="10,5,0,0" 
+                    Margin="10,5,10,0" 
                     Grid.Column="0" 
                     Grid.Row="0">
                 <Grid Name="LeftPanelInfoTop" >
@@ -30,8 +30,7 @@
 
                     <Border Style="{StaticResource ResourceKey=RoundedRectangleBlue}" 
                             Height="40" 
-                            VerticalAlignment="Top" 
-                            Width="1310" 
+                            VerticalAlignment="Top" HorizontalAlignment="Stretch" 
                             Margin="-2,-2,-2,0" Grid.ColumnSpan="2">
 
                         <TextBlock Height="17" 
@@ -72,11 +71,11 @@
                                    Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                    Grid.Row="1" Grid.Column="1" Width="101"/>
 
-                        <TextBox Width="209"
+                        <TextBox 
                                  Style="{StaticResource ResourceKey=MainTextbox}"
                                  Grid.Row="1" 
                                  Grid.Column="1" 
-                                 Margin="118,5,0,0" HorizontalAlignment="Left"
+                                 Margin="118,5,60,0" 
                                  IsReadOnly="True"
                                  Text="{Binding ElementName=IntervalSilder, Path=Value}" />
 
@@ -86,11 +85,11 @@
                                    Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                    Grid.Row="1" Grid.Column="2" Width="128"/>
 
-                        <TextBox Width="209"
+                        <TextBox
                                  Style="{StaticResource ResourceKey=MainTextbox}"
                                  Grid.Row="1" 
                                  Grid.Column="2" 
-                                 Margin="150,5,0,0" HorizontalAlignment="Left"
+                                 Margin="150,5,60,0" 
                                  IsReadOnly="True"
                                  Text="{Binding Path=BootVersion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
@@ -99,10 +98,9 @@
             </Border>
 
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
-                    Width="1310" 
+                   VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
                     Height="280" 
-                    VerticalAlignment="Center" 
-                    Margin="10,-20,0,0" 
+                    Margin="10,-20,10,0" 
                     Grid.Column="0" 
                     Grid.Row="1">
 
@@ -110,7 +108,7 @@
                     <Border Height="40" 
                             VerticalAlignment="Top" 
                             Style="{StaticResource ResourceKey=RoundedRectangleBlue}"
-                            Width="1310" 
+                          HorizontalAlignment="Stretch" 
                             Margin="-2,-2,-2,0"/>
 
                     <TextBlock Height="17" 

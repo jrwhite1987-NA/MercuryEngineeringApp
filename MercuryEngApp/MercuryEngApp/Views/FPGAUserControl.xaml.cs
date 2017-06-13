@@ -146,8 +146,8 @@ namespace MercuryEngApp.Views
         private async void btnReset_Click(object sender, RoutedEventArgs e)
         {
             TCDResponse response = await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = Constants.VALUE_1 });
-            
-            if(!response.Result)
+
+            if (!response.Result)
             {
                 App.ApplicationLog = "Error at reset FPGA";
             }
