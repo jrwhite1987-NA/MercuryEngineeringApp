@@ -52,8 +52,8 @@ namespace MercuryEngApp.Views
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 
             // Set filter for file extension and default file extension
-            dlg.DefaultExt = ".txt";
-            dlg.Filter = "Text documents (.txt)|*.txt";
+            dlg.DefaultExt = ".upd";
+            dlg.Filter = "UPD File (.upd)|*.upd";
 
             // Display OpenFileDialog by calling ShowDialog method
             Nullable<bool> result = dlg.ShowDialog();
@@ -184,7 +184,7 @@ namespace MercuryEngApp.Views
             }
 
             TCDResponse response = await UsbTcd.TCDObj.StartUpdateProcessAsync(new TCDRequest() { ChannelID = App.CurrentChannel });
-            if (response == null)
+            if (response.Value == Constants.VALUE_0)
             {
                 await UsbTcd.TCDObj.EndUpdateProcessAsync(new TCDRequest() { ChannelID = App.CurrentChannel });
                 return false;
@@ -199,7 +199,7 @@ namespace MercuryEngApp.Views
                     //Write method to write data - pending
                     TCDResponse writeResponse = await UsbTcd.TCDObj.WriteData(new TCDWriteInfoRequest() { ChannelID = App.CurrentChannel, UpdateData = updateLoadBlock });
 
-                    if (response == null)
+                    if (response.Result == false)
                     {
                         pbStatus.Value = Constants.VALUE_0;
                         softwareViewModel.UpdateStatus = MercuryEngApp.Resources.UpdateError;
@@ -209,6 +209,15 @@ namespace MercuryEngApp.Views
 
                     TCDReadInfoResponse progressResponse = await UsbTcd.TCDObj.GetUpdateProgressAsync(new TCDRequest() { ChannelID = App.CurrentChannel });
                     UpdateStatusCode currentStatus;
+
+                    if (progressResponse.UpdateProgress == null)
+                    {
+                        pbStatus.Value = Constants.VALUE_0;
+                        softwareViewModel.UpdateStatus = MercuryEngApp.Resources.UpdateError;
+                        LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.UpdateError);
+                        return false;
+                    }
+
                     progress = progressResponse.UpdateProgress;
                     currentStatus = progress.StatusCode;
 
