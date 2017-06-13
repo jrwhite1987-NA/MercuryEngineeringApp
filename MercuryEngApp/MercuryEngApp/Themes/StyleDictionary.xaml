@@ -182,6 +182,14 @@
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="NA_btn_262x62_off.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -220,6 +228,14 @@
                             <Setter Property="Background" TargetName="border">
                                 <Setter.Value>
                                     <ImageBrush ImageSource="NA_btn_exam3_100x90_down.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="NA_btn_exam3_100x90_off.png"/>
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
@@ -517,6 +533,13 @@
                             <Setter Property="Background" TargetName="border">
                                 <Setter.Value>
                                     <ImageBrush ImageSource="NA_btn_262x62_down.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="NA_btn_262x62_off.png"/>
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
