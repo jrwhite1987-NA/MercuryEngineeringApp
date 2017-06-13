@@ -737,6 +737,12 @@ namespace MercuryEngApp
             btnEnvelop.Content = "Envelope Off";
             LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.EnvelopeTurnedOff);
         }
+
+        private void ExamControlSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            examViewModelObj.Column1Width = ParentGrid.ColumnDefinitions[0].ActualWidth;
+            examViewModelObj.Column2Width = ParentGrid.ColumnDefinitions[1].ActualWidth;
+        }
        
     }
 

@@ -21,6 +21,28 @@ namespace MercuryEngApp
         public TCDParameters InputParams { get; set; }
         public TCDParameters PacketData { get; set; }
         public int VelocityRange { get; set; }
+
+        private double col1Width;
+
+        public double Column1Width
+        {
+            get { return col1Width; }
+            set { col1Width = value;
+            RaisePropertyChanged();
+            }
+        }
+
+        private double col2Width;
+
+        public double Column2Width
+        {
+            get { return col2Width; }
+            set { col2Width = value;
+            RaisePropertyChanged();
+            }
+        }
+        
+        
         
         public List<int> FFTList { get; internal set; }
 
