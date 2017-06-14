@@ -206,14 +206,6 @@
                                    VerticalAlignment="Center" 
                                  HorizontalAlignment="Right"/>
 
-                        <CheckBox Grid.Column="0" 
-                                  Grid.Row="3"
-                                  Margin="15,0,20,0" 
-                                  Content="Not using reference transducer"
-                                  VerticalAlignment="Center" 
-                                  HorizontalAlignment="left"
-                                  Style="{StaticResource ResourceKey=CheckBoxsize}"/>
-
                         <Button x:Name="ApplyMeasurements"
                                 Content="Apply Measurements" 
                                 IsEnabled="{Binding Path=IsApplyMeasurementEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
@@ -395,14 +387,6 @@
                             Content="Manually Enter Values"
                                   HorizontalAlignment="left"
                             Click="OverrideCalClick"
-                                  Style="{StaticResource ResourceKey=CheckBoxsize}"/>
-
-                        <CheckBox x:Name="ManualSafety"
-                                  Grid.Row="2"
-                                  Margin="15,0,20,0" 
-                            Content="Safety Verified"
-                                  VerticalAlignment="Center" 
-                                  HorizontalAlignment="left"
                                   Style="{StaticResource ResourceKey=CheckBoxsize}"/>
 
                         <Button Content="Write Calibration"

@@ -28,6 +28,7 @@ namespace MercuryEngApp
     {
         CalibrationViewModel calViewModel;
         int lastSafetyTrip;
+        bool isSafetyCalibrationInProgress;
 
         public CalibrationUserControl()
         {
@@ -290,13 +291,26 @@ namespace MercuryEngApp
                 return;
             }
             BtnSafetyStart.IsEnabled = false;
+            isSafetyCalibrationInProgress = true;
             await UsbTcd.TCDObj.EnableTransmitTestControlAsync(new TCDRequest() { ChannelID = App.CurrentChannel });
+            await Task.Delay(100);
+            await UsbTcd.TCDObj.TransmitTestPowerAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = calViewModel.Power });
+            await UsbTcd.TCDObj.TransmitTestSampleLengthAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = (int)calViewModel.SelectedSVOL });
+            await UsbTcd.TCDObj.TransmitTestPRFAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = (int)calViewModel.SelectedPRF });
 
+            // Warn the user if they leave tab without performing safety verification,
+            // but only if the module is actually capable of performing verification.
         }
 
-        private void SafetyStopClick(object sender, RoutedEventArgs e)
+        private async void SafetyStopClick(object sender, RoutedEventArgs e)
         {
-
+            if(isSafetyCalibrationInProgress)
+            {
+                isSafetyCalibrationInProgress = false;
+                BtnSafetyStart.IsEnabled = true;
+                await UsbTcd.TCDObj.EnableTransmitTestControlAsync(new TCDRequest() { ChannelID = App.CurrentChannel });
+            }
+            ClearSafetyStatus();
         }
         
     }
