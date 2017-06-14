@@ -17,8 +17,7 @@ namespace MercuryEngApp.Test.MercuryEngApp.Common
         [HostTypeAttribute("Moles")]
         public void GetDepthRangeForDepth48()
         {
-            
-            
+            throw new NotSupportedException();
         }
     }
 }

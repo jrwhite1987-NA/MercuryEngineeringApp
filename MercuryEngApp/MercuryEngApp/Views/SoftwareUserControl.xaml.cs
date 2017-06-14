@@ -59,7 +59,7 @@ namespace MercuryEngApp.Views
             Nullable<bool> result = dlg.ShowDialog();
 
             // Get the selected file name and display in a TextBox
-            if (result == true)
+            if (result.Value)
             {
                 // Open document
                 string filename = dlg.FileName;
@@ -140,7 +140,6 @@ namespace MercuryEngApp.Views
 
         private async void ExecuteUpdate()
         {
-            string serial = string.Empty;
             TCDReadInfoResponse response = await UsbTcd.TCDObj.GetModuleInfo(new TCDRequest() { ChannelID = App.CurrentChannel });
             if (response.Module == null)
             {
@@ -201,12 +200,13 @@ namespace MercuryEngApp.Views
             using (FileStream fs = File.OpenRead(fileName))
             {
                 //Read till the file is completed or update is finished.
-                while (((blockSize = fs.Read(updateLoadBlock, Constants.VALUE_0, DMIProtocol.UPDATE_LOAD_BLOCK_SIZE)) > Constants.VALUE_0) || updateFinished == true)
+                blockSize = fs.Read(updateLoadBlock, Constants.VALUE_0, DMIProtocol.UPDATE_LOAD_BLOCK_SIZE);
+                while (blockSize > Constants.VALUE_0 || updateFinished)
                 {
-                    //Write method to write data - pending
+                    //Write method to write data
                     TCDResponse writeResponse = await UsbTcd.TCDObj.WriteData(new TCDWriteInfoRequest() { ChannelID = App.CurrentChannel, UpdateData = updateLoadBlock });
 
-                    if (response.Result == false)
+                    if (!writeResponse.Result)
                     {
                         pbStatus.Value = Constants.VALUE_0;
                         softwareViewModel.UpdateStatus = MercuryEngApp.Resources.UpdateError;

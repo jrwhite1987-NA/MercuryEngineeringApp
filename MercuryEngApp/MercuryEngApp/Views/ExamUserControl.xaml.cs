@@ -432,7 +432,7 @@ namespace MercuryEngApp
                     {
                         requestObject.ChannelID = App.CurrentChannel;
                         requestObject.Value3 = examViewModelObj.Depth;
-                        TCDResponse response = await UsbTcd.TCDObj.SetDepthAsync(requestObject);
+                        await UsbTcd.TCDObj.SetDepthAsync(requestObject);
                         await Task.Delay(Constants.VALUE_100);
                         if (examViewModelObj.Depth == examViewModelObj.PacketDepth)
                         {

@@ -20,7 +20,6 @@ namespace MercuryEngApp.Test.PlottingLib
         {
             WriteableBitmap dummyBitmap = BitmapFactory.New(Constants.VALUE_10, Constants.VALUE_10);
 
-            //var mockCVRRepository =Create<ICVRDualChannelRepository>();
             NaGraph = new NaGraph(new BitmapList {
                 LeftMmodeBitmap = dummyBitmap, 
                 LeftSpectrumBitmap = dummyBitmap,

@@ -170,9 +170,12 @@ namespace MercuryEngApp.ViewModels
                 {
                     if (value > Constants.SAFETY_CALIBRATION_MAX_POWER)
                     {
-                        value = Constants.SAFETY_CAL_START_POWER;
+                        power = Constants.SAFETY_CAL_START_POWER;
                     }
-                    power = value;
+                    else
+                    {
+                        power = value;
+                    }
                     RaisePropertyChanged();
                 }
             }

@@ -1413,7 +1413,7 @@ namespace UsbTcdLibrary
                         ServicePacket.Message.MessageText = Helper.ConvertBytesToString(tempArr, ServiceMessage.messageText + offset, ServicePacket.PacketHeader.DataLength - Constants.VALUE_4);
                         ServicePacket.Message.MessageText = ServicePacket.Message.MessageText.Substring(0, ServicePacket.Message.MessageText.IndexOf('\0'));
                         ServicePackets.Add(ServicePacket);
-                        offset = DMIProtocol.DMI_SERVICELOG_HEADER_SIZE + ServicePacket.PacketHeader.DataLength + offset; ;
+                        offset = DMIProtocol.DMI_SERVICELOG_HEADER_SIZE + ServicePacket.PacketHeader.DataLength + offset;
                     }
                 }
             }
@@ -2849,7 +2849,7 @@ namespace UsbTcdLibrary
             }
             catch (Exception ex)
             {
-
+                Helper.logger.Debug(ex);
             }
             return SinglePacket;
         }

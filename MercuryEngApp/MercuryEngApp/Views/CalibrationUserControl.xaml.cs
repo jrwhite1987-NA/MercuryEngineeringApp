@@ -1,4 +1,5 @@
-﻿using Core.Constants;
+﻿using Core.Common;
+using Core.Constants;
 using MercuryEngApp.Common;
 using MercuryEngApp.ViewModels;
 using System;
@@ -82,7 +83,7 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-
+                Helper.logger.Warn("Exception: ", ex);
             }
         }
 

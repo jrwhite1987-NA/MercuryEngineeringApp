@@ -44,22 +44,6 @@ namespace MercuryEngApp.Views
             this.DataContext = fpgaViewModel;
         }
 
-
-        public void Activate()
-        {
-
-        }
-
-        public void Deactivate()
-        {
-
-        }
-
-        public void Refresh()
-        {
-
-        }
-
         public async Task<bool> StartFixedTransmit(int channel, int DAC, int PRF, int sampleLen)
         {
 
@@ -77,7 +61,10 @@ namespace MercuryEngApp.Views
             // transmit clock for a 2MHz carrier.
             TCDResponse response = await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = Constants.VALUE_0 });
 
-            if (!response.Result) return false;
+            if (!response.Result)
+            {
+                return false;
+            }
 
 
             // Set as self-master because we don't want to depend on another

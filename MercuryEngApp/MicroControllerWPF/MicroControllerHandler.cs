@@ -516,7 +516,7 @@ namespace MicrochipController
                 return false;
             }
 
-            int x = start ^ end;            
+            //int x = start ^ end;            
             return ((start ^ end) == 0xFF);
         }
 
