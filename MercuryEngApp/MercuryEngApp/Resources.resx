@@ -363,4 +363,28 @@
   <data name="TCDNotConnected" xml:space="preserve">
     <value>No TCD device connected to the system.</value>
   </data>
+  <data name="FPGAReadFailure" xml:space="preserve">
+    <value>Error at read FPGA.</value>
+  </data>
+  <data name="FPGAReadSuccess" xml:space="preserve">
+    <value>FPGA register value read successfully.</value>
+  </data>
+  <data name="FPGAResetFailure" xml:space="preserve">
+    <value>Error at reset FPGA.</value>
+  </data>
+  <data name="FPGAResetSuccess" xml:space="preserve">
+    <value>FPGA register value reset successfully.</value>
+  </data>
+  <data name="FPGASetAllDefaultSuccess" xml:space="preserve">
+    <value>Set all defaults command executed successfully.</value>
+  </data>
+  <data name="FPGASetDefaultFailure" xml:space="preserve">
+    <value>Error at write FPGA for register</value>
+  </data>
+  <data name="FPGAWriteFailure" xml:space="preserve">
+    <value>Error at write FPGA.</value>
+  </data>
+  <data name="FPGAWriteSuccess" xml:space="preserve">
+    <value>FPGA register value write successfully.</value>
+  </data>
 </root>

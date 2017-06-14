@@ -106,7 +106,7 @@ namespace MercuryEngApp.Views
         {
             return (await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = Constants.VALUE_1 })).Result;
         }
-        int i = 2;
+      
         private async void btnRead_Click(object sender, RoutedEventArgs e)
         {
             uint address = Convert.ToUInt32(fpgaViewModel.SelectedRegister.MemoryLocation, Constants.VALUE_16);
@@ -114,43 +114,58 @@ namespace MercuryEngApp.Views
             if(response.Result)
             {
                 fpgaViewModel.SelectedRegister.Value = (int)response.Value;
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FPGAReadSuccess);               
             }
             else
             {
-                App.ApplicationLog = "Error at read FPGA";
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FPGAReadFailure);  
             }
         }
 
         private async void btnWrite_Click(object sender, RoutedEventArgs e)
         {
             TCDResponse response = await UsbTcd.TCDObj.WriteValueToFPGAAsync(new TCDRequest { ChannelID = App.CurrentChannel, Value = fpgaViewModel.SelectedRegister.Value, Value3 = Convert.ToUInt32(fpgaViewModel.SelectedRegister.MemoryLocation) });
-            if (!response.Result)
+            if (response.Result)
             {
-                App.ApplicationLog = "Error at write FPGA";
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FPGAWriteSuccess);               
+            }
+            else
+            {
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FPGAWriteFailure);               
             }
         }
 
         private async void btnReset_Click(object sender, RoutedEventArgs e)
         {
             TCDResponse response = await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = Constants.VALUE_1 });
-            
-            if(!response.Result)
+
+            if (response.Result)
             {
-                App.ApplicationLog = "Error at reset FPGA";
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FPGAResetSuccess);
+            }
+            else
+            {
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FPGAResetFailure);
             }
         }
 
         private async void btnSetAllDefault_Click(object sender, RoutedEventArgs e)
         {
             TCDResponse response;
+            var isSuccess = true;
             foreach (var register in fpgaViewModel.FPGARegisterList)
             {
                 response = await UsbTcd.TCDObj.WriteValueToFPGAAsync(new TCDRequest { ChannelID = App.CurrentChannel, Value = Convert.ToInt32(register.DefaultValue), Value3 = Convert.ToUInt32(register.MemoryLocation) });
                 if (!response.Result)
                 {
-                    App.ApplicationLog = "Error at write FPGA for register "+ register.Name;
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FPGASetDefaultFailure + " " + register.Name );
+                    isSuccess = false;
                 }
             }
+
+            if (isSuccess)
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FPGASetAllDefaultSuccess);
+
         }
     }
 }
