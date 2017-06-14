@@ -59,7 +59,7 @@
                                    Grid.Row="1" Grid.Column="0" Width="122"/>
 
                         <TextBox
-                                 Style="{StaticResource ResourceKey=MainTextbox}"
+                                 Style="{StaticResource ResourceKey=MainTextboxwithoutBorder}"
                                  Grid.Row="1" 
                                  Grid.Column="0" 
                                  Margin="155,5,105,0"
@@ -73,7 +73,7 @@
                                    Grid.Row="1" Grid.Column="1" Width="101"/>
 
                         <TextBox Width="209"
-                                 Style="{StaticResource ResourceKey=MainTextbox}"
+                                 Style="{StaticResource ResourceKey=MainTextboxwithoutBorder}"
                                  Grid.Row="1" 
                                  Grid.Column="1" 
                                  Margin="118,5,0,0" HorizontalAlignment="Left"
@@ -87,7 +87,7 @@
                                    Grid.Row="1" Grid.Column="2" Width="128"/>
 
                         <TextBox Width="209"
-                                 Style="{StaticResource ResourceKey=MainTextbox}"
+                                 Style="{StaticResource ResourceKey=MainTextboxwithoutBorder}"
                                  Grid.Row="1" 
                                  Grid.Column="2" 
                                  Margin="150,5,0,0" HorizontalAlignment="Left"
@@ -137,7 +137,7 @@
                         <TextBox 
                                  HorizontalAlignment="Left" 
                                  Margin="10,10,0,10"  
-                                 Style="{StaticResource ResourceKey=MainTextbox}"
+                                 Style="{StaticResource ResourceKey=MainTextboxwithoutBorder}"
                                  Width="1180" 
                                  Grid.Row="1" 
                                  Grid.Column="0" 
@@ -191,7 +191,7 @@
                                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                        Margin="10,10,0,0"  />
                             <TextBox
-                                 Style="{StaticResource ResourceKey=MainTextbox}" 
+                                 Style="{StaticResource ResourceKey=MainTextboxwithoutBorder}" 
                                 Name="UpdateProgressText" 
                                  Grid.Column="1" 
                                  Text="{Binding Path=UpdateStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
@@ -204,7 +204,7 @@
                                        Margin="40,10,0,0"  />
 
                             <TextBox
-                                 Style="{StaticResource ResourceKey=MainTextbox}" 
+                                 Style="{StaticResource ResourceKey=MainTextboxwithoutBorder}" 
                                  Grid.Column="3" 
                                  Text="{Binding Path=BytesReceivedErased, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                 Margin="10,0,20,0"
@@ -216,7 +216,7 @@
                                        Margin="25,10,0,0"  />
 
                             <TextBox
-                                 Style="{StaticResource ResourceKey=MainTextbox}" 
+                                 Style="{StaticResource ResourceKey=MainTextboxwithoutBorder}" 
                                  Grid.Column="5" 
                                  Text="{Binding Path=BytesWritten, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                 Margin="10,0,20,0"

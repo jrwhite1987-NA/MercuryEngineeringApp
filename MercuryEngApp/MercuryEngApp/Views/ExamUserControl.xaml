@@ -41,7 +41,7 @@
                      Margin="215,12,269,0" 
                      VerticalAlignment="Top"
                      Padding="5,2,3,0" Width="90" 
-                     TextAlignment="Center" Validation.ErrorTemplate="{x:Null}">
+                    Validation.ErrorTemplate="{x:Null}">
                 <TextBox.Text>
                     <Binding Path="Power" Mode="OneWayToSource" UpdateSourceTrigger="LostFocus">
                         <Binding.ValidationRules>
@@ -57,7 +57,6 @@
                       Text="{Binding Path=PacketPower, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                       FontSize="18" 
                       HorizontalAlignment="Right" 
-                      TextAlignment="Center"
                       Margin="215,12,16,0" 
                       VerticalAlignment="Top" 
                       Padding="5,2,3,0" 
@@ -84,7 +83,7 @@
                        VerticalAlignment="Top"
                        Padding="5,2,3,0" 
                        Width="90" 
-                       TextAlignment="Center" Validation.ErrorTemplate="{x:Null}">
+                       Validation.ErrorTemplate="{x:Null}">
                 <TextBox.Text>
                     <Binding Path="Depth" Mode="OneWayToSource" UpdateSourceTrigger="LostFocus">
                         <Binding.ValidationRules>
@@ -103,8 +102,7 @@
                      Margin="0,49,16,0" 
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0"
-                     Width="90" IsReadOnly="True" 
-                     TextAlignment="Center">
+                     Width="90" IsReadOnly="True">
 
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -125,7 +123,7 @@
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
                      Width="90" 
-                     TextAlignment="Center" Validation.ErrorTemplate="{x:Null}">
+                     Validation.ErrorTemplate="{x:Null}">
                 <TextBox.Text>
                     <Binding Path="Filter" Mode="OneWayToSource" UpdateSourceTrigger="LostFocus">
                         <Binding.ValidationRules>
@@ -144,8 +142,7 @@
                      Margin="0,86,16,0" 
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
-                     Width="90" IsReadOnly="True" 
-                     TextAlignment="Center">
+                     Width="90" IsReadOnly="True">
 
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -168,7 +165,7 @@
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
                      Width="90" 
-                     TextAlignment="Center" Validation.ErrorTemplate="{x:Null}">
+                     Validation.ErrorTemplate="{x:Null}">
                 <TextBox.Text>
                     <Binding Path="SVol" Mode="OneWayToSource" UpdateSourceTrigger="LostFocus">
                         <Binding.ValidationRules>
@@ -188,8 +185,7 @@
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
                      Width="90" 
-                     IsReadOnly="True" 
-                     TextAlignment="Center">
+                     IsReadOnly="True">
 
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -207,7 +203,6 @@
                      Style="{StaticResource ResourceKey=MainTextbox}"
                      FontSize="18" 
                      Name="StartDepthTextBox"
-                     TextAlignment="Center"
                      Margin="218,162,272,0"
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
@@ -231,8 +226,7 @@
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
                      Width="90" 
-                     IsReadOnly="True" 
-                     TextAlignment="Center">
+                     IsReadOnly="True">
 
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -271,7 +265,6 @@
                      Text="{Binding Path=PacketPRF, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      FontSize="18" 
                      HorizontalAlignment="Right" 
-                     TextAlignment="Center"
                      Margin="0,202,16,0" 
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
@@ -343,7 +336,6 @@
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
                      Width="90" 
-                     TextAlignment="Center"  
                      IsReadOnly="True">
 
                 <TextBox.Resources>
@@ -374,7 +366,7 @@
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
                      Width="90" 
-                     TextAlignment="Center"  
+                     
                      IsReadOnly="True">
 
                 <TextBox.Resources>
@@ -393,7 +385,7 @@
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
                      Width="90" 
-                     TextAlignment="Center"  
+                     
                      IsReadOnly="True">
 
                 <TextBox.Resources>
@@ -412,7 +404,7 @@
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0"
                      Width="90" 
-                     TextAlignment="Center"  
+                     
                      IsReadOnly="True">
 
                 <TextBox.Resources>
@@ -431,7 +423,7 @@
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
                      Width="90" 
-                     TextAlignment="Center"  
+                     
                      IsReadOnly="True">
 
                 <TextBox.Resources>
@@ -456,7 +448,7 @@
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
                      Width="90" 
-                     TextAlignment="Center"  
+                     
                      IsReadOnly="True">
 
                 <TextBox.Resources>
@@ -476,7 +468,6 @@
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
                      Width="90" 
-                     TextAlignment="Center"  
                      IsReadOnly="True">
 
                 <TextBox.Resources>
@@ -496,7 +487,7 @@
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" 
                      Width="90" 
-                     TextAlignment="Center"  
+                     
                      IsReadOnly="True">
 
                 <TextBox.Resources>
@@ -515,7 +506,7 @@
                 	 Margin="338,153,152,0" 
                      VerticalAlignment="Top" 
                      Padding="5,2,3,0" Width="90" 
-                     TextAlignment="Center"  
+                     
                      IsReadOnly="True">
 
                 <TextBox.Resources>
