@@ -69,6 +69,7 @@
                               Style="{StaticResource ResourceKey=ComboBoxBorder}"                                 
                               Grid.Row="1" 
                               Grid.Column="1" 
+                              HorizontalContentAlignment="Left"
                               Margin="3,5,5,5"/>
 
                     <TextBox  Width="309" Height="32"
