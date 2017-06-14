@@ -25,6 +25,7 @@ using UsbTcdLibrary.CommunicationProtocol;
 using Core.Constants;
 using Newtonsoft.Json;
 using System.Xml;
+using Core.Common;
 
 namespace MercuryEngApp
 {
@@ -33,8 +34,6 @@ namespace MercuryEngApp
     /// </summary>
     public partial class PacketControl : UserControl
     {
-        static ILog logger = LogManager.GetLogger("EnggAppAppender");
-        
         private System.Windows.Forms.Timer GrabTimer;
         private PacketViewModel packetViewModelObj = new PacketViewModel();
         private List<string> TList = new List<string>();
@@ -121,7 +120,7 @@ namespace MercuryEngApp
 
         void TCDObjOnPacketFormed(DMIPmdDataPacket[] packets)
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
 
             try
             {
@@ -173,15 +172,15 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception:" + ex);
+                Helper.logger.Warn("Exception:" + ex);
             }
 
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         private void LoadTreeView(byte[] byteArray)
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
 
             try
             {   
@@ -331,14 +330,14 @@ namespace MercuryEngApp
                 trvMenu.SelectedItemChanged += TreeItemSelected;    
                 
 
-                logger.Debug("TreeView Created");
+                Helper.logger.Debug("TreeView Created");
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception:" + ex);
+                Helper.logger.Warn("Exception:" + ex);
             }
 
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         public string GetStringFromArray<T>(IList<T> array)
@@ -496,7 +495,7 @@ namespace MercuryEngApp
         public void LoadBinaryData(byte[] byteArray)
         {
 
-            logger.Debug("++");
+            Helper.logger.Debug("++");
 
             int hexIn;
             int count = Constants.VALUE_1;
@@ -608,10 +607,10 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception:" + ex);
+                Helper.logger.Warn("Exception:" + ex);
             }
 
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         private void SelectCellsByIndexes(KeyValuePair<int, int> fromIndex, KeyValuePair<int, int> toIndex)
@@ -733,7 +732,7 @@ namespace MercuryEngApp
 
         public async void ReloadHexViewer(List<byte[]> byteArray)
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
 
             try
             {                
@@ -765,10 +764,10 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
 
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         private void SliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double> er)
@@ -801,7 +800,7 @@ namespace MercuryEngApp
 
         private void GrabPacket(object sender, EventArgs e)
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
 
             try
             {
@@ -810,15 +809,15 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
 
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         private void ExportClick(object sender, RoutedEventArgs e)
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
 
             try
             {
@@ -827,10 +826,10 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: " + ex);
+                Helper.logger.Warn("Exception: " + ex);
             }
 
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
     }
 }

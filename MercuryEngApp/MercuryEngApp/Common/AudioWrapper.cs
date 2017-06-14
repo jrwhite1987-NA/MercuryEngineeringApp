@@ -11,6 +11,7 @@ using UsbTcdLibrary;
 using Core.Constants;
 using AudioLib;
 using log4net;
+using Core.Common;
 
 namespace MercuryEngApp.Common
 {
@@ -44,8 +45,6 @@ namespace MercuryEngApp.Common
 
         #endregion
 
-        static ILog logger = LogManager.GetLogger("EnggAppAppender");
-
         /// <summary>
         /// The audio collection
         /// </summary>
@@ -73,7 +72,7 @@ namespace MercuryEngApp.Common
         /// <param name="e">The <see cref="System.Collections.Specialized.NotifyCollectionChangedEventArgs" /> instance containing the event data.</param>
         public void AudioCollectionCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
             try
             {
                 if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
@@ -106,9 +105,9 @@ namespace MercuryEngApp.Common
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         /// <summary>
@@ -170,17 +169,18 @@ namespace MercuryEngApp.Common
         /// <returns></returns>
         private static async Task DeleteIfFileExists(StorageFolder folder, string fileName)
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
             try
             {
                 StorageFile audioFile = await folder.GetFileAsync(fileName);
                 await audioFile.DeleteAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // Ignore. File does not exist.
+                Helper.logger.Warn("Expection:-", ex);
             }
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         /// <summary>
@@ -194,7 +194,7 @@ namespace MercuryEngApp.Common
         private static async Task GenerateWavFile(byte[] bytes, int sampleRate, int durationInSeconds,
             StorageFolder folder, string fileName)
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
             const short tracks = 2;
             const short bitsPerSample = 16;
             const int waveSize = 4;
@@ -241,9 +241,9 @@ namespace MercuryEngApp.Common
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         /// <summary>
@@ -257,7 +257,7 @@ namespace MercuryEngApp.Common
         /// <returns></returns>
         public static async Task CreateAudioFile(List<DMIPmdDataPacket> dataPackets, StorageFolder folder, string fileName)
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
             int prf = dataPackets[0].audio.sampleRate;
             int numSamples = (int)prf / Constants.PACKETS_PER_SEC;
 
@@ -350,10 +350,10 @@ namespace MercuryEngApp.Common
                 }
                 catch (Exception ex)
                 {
-                    logger.Warn("Exception: ", ex);
+                    Helper.logger.Warn("Exception: ", ex);
                 }
             }
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
     }
 }

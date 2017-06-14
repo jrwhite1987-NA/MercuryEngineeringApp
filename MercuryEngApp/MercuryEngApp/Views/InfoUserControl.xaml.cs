@@ -33,10 +33,6 @@ namespace MercuryEngApp
         public System.Xml.XmlReader stream { get; set; }
         XDocument xmlDoc;
 
-        static ILog logger = LogManager.GetLogger("EnggAppAppender");
-        static ILog AppLogger = LogManager.GetLogger("AppLogAppender");
-        static ILog TCDLogger = LogManager.GetLogger("TCDLogAppender");
-
         public InfoUserControl()
         {
             InitializeComponent();

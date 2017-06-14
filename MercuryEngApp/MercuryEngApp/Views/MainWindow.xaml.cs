@@ -14,6 +14,7 @@ using UsbTcdLibrary.PacketFormats;
 using log4net;
 using MercuryEngApp.Views;
 using System.Windows.Controls;
+using Core.Common;
 
 
 namespace MercuryEngApp
@@ -24,8 +25,6 @@ namespace MercuryEngApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        static ILog logger = LogManager.GetLogger("EnggAppAppender");
-
         public static event TCDPower TurnTCDON;
         public static event TCDPower TurnTCDOFF;
         public int previousIndex = 0;
@@ -67,7 +66,7 @@ namespace MercuryEngApp
 
         public MainWindow()
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
             InitializeComponent();
             this.Loaded += MainWindowLoaded;
             this.DataContext = mainViewModel;
@@ -75,7 +74,7 @@ namespace MercuryEngApp
             UsbTcd.TCDObj.OnProbePlugged += TCDObjOnProbePlugged;
             PowerController.Instance.OnDeviceStateChanged += MicrocontrollerOnDeviceStateChanged;
             PowerController.Instance.StartWatcher();
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         void TCDObjOnProbePlugged(UsbTcdLibrary.TCDHandles probe)
@@ -148,7 +147,7 @@ namespace MercuryEngApp
 
         void MainWindowLoaded(object sender, RoutedEventArgs e)
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
             try
             {
                 ExamTab.Content = new ExamUserControl();
@@ -163,14 +162,14 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         private async void MicrocontrollerOnDeviceStateChanged(bool flag)
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
             try
             {
                 if (flag)
@@ -215,14 +214,14 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         private async void TCDPowerClick(object sender, RoutedEventArgs e)
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
             try
             {
                 if (App.CurrentChannel == UsbTcdLibrary.TCDHandles.Channel1 || App.CurrentChannel == UsbTcdLibrary.TCDHandles.Channel2)
@@ -248,9 +247,9 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         private void LeftProbeClick(object sender, RoutedEventArgs e)

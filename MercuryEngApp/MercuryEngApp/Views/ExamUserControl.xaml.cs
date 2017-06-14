@@ -16,6 +16,7 @@ using UsbTcdLibrary.CommunicationProtocol;
 using UsbTcdLibrary.PacketFormats;
 using log4net;
 using System.Xml.Linq;
+using Core.Common;
 
 namespace MercuryEngApp
 {
@@ -25,10 +26,6 @@ namespace MercuryEngApp
     public partial class ExamUserControl : UserControl
     {
         #region private fields
-
-        static ILog logger = LogManager.GetLogger("EnggAppAppender");
-        static ILog AppLogger = LogManager.GetLogger("AppLogAppender");
-        static ILog TCDLogger = LogManager.GetLogger("TCDLogAppender");
 
         private ExamViewModel examViewModelObj;
 
@@ -55,7 +52,7 @@ namespace MercuryEngApp
 
         public ExamUserControl()
         {
-            logger.Debug("++");           
+            Helper.logger.Debug("++");           
             InitializeComponent();
             examViewModelObj = new ExamViewModel();
             this.Loaded += ExamUserControlLoaded;
@@ -67,7 +64,7 @@ namespace MercuryEngApp
             TCDAudio = new AudioWrapper();
             TCDAudio.PRF = Constants.VALUE_8000;
             TCDAudio.SetVolume(Constants.VALUE_30);
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         void TCDObjOnProbeUnplugged(TCDHandles probe)
@@ -81,7 +78,7 @@ namespace MercuryEngApp
 
         void ExamUserControlUnloaded(object sender, RoutedEventArgs e)
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
             try
             {
                 MainWindow.TurnTCDON -= MainWindowTurnTCDON;
@@ -96,14 +93,14 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         void ExamUserControlLoaded(object sender, RoutedEventArgs e)
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
             try
             {
                 MainWindow.TurnTCDON += MainWindowTurnTCDON;
@@ -118,9 +115,9 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         /// <summary>
@@ -196,13 +193,13 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
         }
 
         async void MainWindowTurnTCDOFF()
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
             try
             {
                 TCDAudio.AudioCollection.CollectionChanged -= TCDAudio.AudioCollectionCollectionChanged;
@@ -225,14 +222,14 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         async void MainWindowTurnTCDON()
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
             try
             {
                 this.IsEnabled = true;
@@ -241,14 +238,14 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         private void CreateVerticalScales()
         {
-            logger.Debug("++");            
+            Helper.logger.Debug("++");            
             try
             {
                 scaleObj.CreateScale(new ScaleParameters
@@ -267,14 +264,14 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         async Task PlotGraph()
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
             try
             {
                 InitializeBitmap();
@@ -314,15 +311,15 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
 
         void TCDObjOnPacketFormed(DMIPmdDataPacket[] packets)
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
             try
             {
                 PacketCollection.Enqueue(packets);
@@ -330,15 +327,15 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
 
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         private void AddPacketsToAudioCollection(DMIPmdDataPacket[] packets)
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
 
             var currentPacket = packets[Constants.VALUE_0];
             if (currentPacket == null)
@@ -360,15 +357,15 @@ namespace MercuryEngApp
                 }
                 catch (Exception ex)
                 {
-                    logger.Warn("Exception: ", ex);
+                    Helper.logger.Warn("Exception: ", ex);
                 }
             }
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         void CompositionTargetRendering(object sender, EventArgs e)
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
             try
             {
                 if (PacketCollection.Count > 0)
@@ -437,15 +434,15 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
                 throw;
             }
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         private void InitializeBitmap()
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
             int width = Constants.VALUE_500;
 
             try
@@ -468,14 +465,14 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         private async void SendPower(object sender, RoutedEventArgs e)
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
             bool isValid = false;
             string errorMessage = string.Empty;
             try
@@ -506,14 +503,14 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         private async void SendDepth(object sender, RoutedEventArgs e)
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
             bool isValid = false;
             string errorMessage = string.Empty;
             try
@@ -552,14 +549,14 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         private async void SendFilter(object sender, RoutedEventArgs e)
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
             string errorMessage = string.Empty;
             try
             {
@@ -588,14 +585,14 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         private async void SendLength(object sender, RoutedEventArgs e)
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
             string errorMessage = string.Empty;
             try
             {
@@ -624,14 +621,14 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         private async void SendPRF(object sender, RoutedEventArgs e)
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
             bool isDepthValid = false;
             bool isPRFValid = false;
             string depthErrorMessage = string.Empty;
@@ -677,14 +674,14 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
         
         private void CusomSliderLostMouseCapture(object sender, MouseEventArgs e)
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
 
             try
             {
@@ -707,9 +704,9 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         public Thumb Thumb
@@ -722,7 +719,7 @@ namespace MercuryEngApp
 
         private DependencyObject GetThumb(DependencyObject root)
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
             if (root is Thumb)
             {
                 return root;
@@ -745,16 +742,16 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
-            logger.Debug("--");
+            Helper.logger.Debug("--");
 
             return thumb;
         }
 
         private void ToggleLimitsClick(object sender, RoutedEventArgs e)
         {
-            logger.Debug("++");
+            Helper.logger.Debug("++");
             try
             {
                 if (toggleLimits.Content.ToString() == "Limits Off")
@@ -770,9 +767,9 @@ namespace MercuryEngApp
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception: ", ex);
+                Helper.logger.Warn("Exception: ", ex);
             }
-            logger.Debug("--");
+            Helper.logger.Debug("--");
         }
 
         /// <summary>

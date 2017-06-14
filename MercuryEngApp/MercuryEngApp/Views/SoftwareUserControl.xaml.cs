@@ -208,7 +208,6 @@ namespace MercuryEngApp.Views
                     {
                         pbStatus.Value = Constants.VALUE_0;
                         softwareViewModel.UpdateStatus = MercuryEngApp.Resources.UpdateError;
-                        //LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.UpdateError);
                         return false;
                     }
 
@@ -219,7 +218,6 @@ namespace MercuryEngApp.Views
                     {
                         pbStatus.Value = Constants.VALUE_0;
                         softwareViewModel.UpdateStatus = MercuryEngApp.Resources.UpdateError;
-                        //LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.UpdateError);
                         return false;
                     }
 
