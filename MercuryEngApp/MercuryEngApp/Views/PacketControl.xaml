@@ -131,7 +131,7 @@
 
                         <TextBlock Height="21" 
                                Margin="13,8,0,0" 
-                               Text="Envelope Tree" 
+                               Text="Packet Tree" 
                                Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
                     </Border>
 
