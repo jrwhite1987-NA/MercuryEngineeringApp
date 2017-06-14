@@ -41,7 +41,13 @@ namespace MercuryEngApp.Views
         public FPGAUserControl()
         {
             InitializeComponent();
+            this.Loaded += FPGAUserControl_Loaded;
             this.DataContext = fpgaViewModel;
+        }
+
+        void FPGAUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            txtUserGuide.Text = fpgaViewModel.GetFPGAUserGuideContent();
         }
 
         public async Task<bool> StartFixedTransmit(int channel, int DAC, int PRF, int sampleLen)

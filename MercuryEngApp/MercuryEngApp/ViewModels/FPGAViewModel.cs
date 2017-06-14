@@ -56,5 +56,10 @@ namespace MercuryEngApp
                 throw;
             }
         }
+
+        public string GetFPGAUserGuideContent()
+        {            
+            return System.IO.File.ReadAllText("LocalFolder/FPGAUserGuide.txt");
+        }
     }
 }

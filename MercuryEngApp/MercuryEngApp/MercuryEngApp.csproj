@@ -270,6 +270,9 @@
     <Content Include="LocalFolder\FPGARegisters.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="LocalFolder\FPGAUserGuide.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="LocalFolder\InfoConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
