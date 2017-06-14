@@ -123,6 +123,83 @@ namespace MercuryEngApp
             logger.Debug("--");
         }
 
+        /// <summary>
+        /// The counter packet check left
+        /// </summary>
+        private int _counterPacketCh1;
+
+        /// <summary>
+        /// Gets or sets the counter packet check left.
+        /// </summary>
+        /// <value>The counter packet check left.</value>
+        private int counterPacketCh1
+        {
+            get
+            {
+                return _counterPacketCh1;
+            }
+            set
+            {
+                _counterPacketCh1 = value;
+                if (value == Constants.PACKETS_PER_SEC)
+                {
+                    _counterPacketCh1 = 0;
+                    DisableProbe(TCDHandles.Channel1);
+                }
+            }
+        }
+
+        /// <summary>
+        /// The counter packet check left
+        /// </summary>
+        private int _counterPacketCh2;
+
+        /// <summary>
+        /// Gets or sets the counter packet check left.
+        /// </summary>
+        /// <value>The counter packet check left.</value>
+        private int counterPacketCh2
+        {
+            get
+            {
+                return _counterPacketCh2;
+            }
+            set
+            {
+                _counterPacketCh2 = value;
+                if (value == Constants.PACKETS_PER_SEC)
+                {
+                    _counterPacketCh2 = 0;
+                    DisableProbe(TCDHandles.Channel2);
+                }
+            }
+        }
+
+        private async void DisableProbe(TCDHandles channel)
+        {
+            TCDRequest requestObject = null;
+            try
+            {
+                requestObject = new TCDRequest();
+                requestObject.ChannelID = channel;
+                bool result = (await UsbTcd.TCDObj.IsProbeConnectedAsync(requestObject)).Result;
+                if (!result)
+                {
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.ProbeDisconnected);
+                    MainWindowTurnTCDOFF();
+                    App.mainWindow.IsPowerChecked = false;
+                    App.mainWindow.TCDObjOnProbeUnplugged(channel);
+                    await PowerController.Instance.UpdatePowerParameters(true, true, false, false, true);
+                    await Task.Delay(Constants.TimeForTCDtoLoad);
+                    App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("Exception: ", ex);
+            }
+        }
+
         async void MainWindowTurnTCDOFF()
         {
             logger.Debug("++");
@@ -294,51 +371,67 @@ namespace MercuryEngApp
             logger.Debug("++");
             try
             {
-                while (PacketCollection.Count > Constants.VALUE_0)
+                if (PacketCollection.Count > 0)
                 {
-                    DMIPmdDataPacket[] packet = PacketCollection.Dequeue();
-                    if (App.ActiveChannels==ActiveChannels.Channel1 && packet[0]!=null)
+                    while (PacketCollection.Count > Constants.VALUE_0)
                     {
-                        examViewModelObj.PosMean = packet[0].envelope.posMEAN / Constants.VALUE_10;
-                        examViewModelObj.PosMin = packet[0].envelope.posDIAS / Constants.VALUE_10;
-                        examViewModelObj.PosMax = packet[0].envelope.posPEAK / Constants.VALUE_10;
-                        examViewModelObj.PosPI = packet[0].envelope.posPI / Constants.VALUE_10;
-                        examViewModelObj.NegMean = packet[0].envelope.negMEAN / Constants.VALUE_10;
-                        examViewModelObj.NegMin = packet[0].envelope.negDIAS / Constants.VALUE_10;
-                        examViewModelObj.NegMax = packet[0].envelope.negPEAK / Constants.VALUE_10;
-                        examViewModelObj.NegPI = packet[0].envelope.negPI / Constants.VALUE_10;
+                        DMIPmdDataPacket[] packet = PacketCollection.Dequeue();
 
-                        examViewModelObj.PacketDepth = packet[0].spectrum.depth;
-                        examViewModelObj.PacketFilter = packet[0].spectrum.clutterFilter;
-                        examViewModelObj.PacketPower = packet[0].parameter.acousticPower;
-                        examViewModelObj.PacketPRF = packet[0].parameter.PRF;
-                        examViewModelObj.PacketStartDepth = packet[0].mmode.startDepth;
-                        examViewModelObj.PacketSVol = packet[0].parameter.sampleLength;
-                        examViewModelObj.TIC = packet[0].parameter.TIC;
-                        NaGraph.ProcessPacket(packet, true, Constants.VALUE_1);
-                    }
-                    else 
-                    {
-                        if (packet[1] != null && App.ActiveChannels == ActiveChannels.Channel2)
+                        if (App.ActiveChannels == ActiveChannels.Channel1 && packet[0] != null)
                         {
-                            examViewModelObj.PosMean = packet[1].envelope.posMEAN / Constants.VALUE_10;
-                            examViewModelObj.PosMin = packet[1].envelope.posDIAS / Constants.VALUE_10;
-                            examViewModelObj.PosMax = packet[1].envelope.posPEAK / Constants.VALUE_10;
-                            examViewModelObj.PosPI = packet[1].envelope.posPI / Constants.VALUE_10;
-                            examViewModelObj.NegMean = packet[1].envelope.negMEAN / Constants.VALUE_10;
-                            examViewModelObj.NegMin = packet[1].envelope.negDIAS / Constants.VALUE_10;
-                            examViewModelObj.NegMax = packet[1].envelope.negPEAK / Constants.VALUE_10;
-                            examViewModelObj.NegPI = packet[1].envelope.negPI / Constants.VALUE_10;
+                            counterPacketCh1 = 0;
+                            examViewModelObj.PosMean = packet[0].envelope.posMEAN / Constants.VALUE_10;
+                            examViewModelObj.PosMin = packet[0].envelope.posDIAS / Constants.VALUE_10;
+                            examViewModelObj.PosMax = packet[0].envelope.posPEAK / Constants.VALUE_10;
+                            examViewModelObj.PosPI = packet[0].envelope.posPI / Constants.VALUE_10;
+                            examViewModelObj.NegMean = packet[0].envelope.negMEAN / Constants.VALUE_10;
+                            examViewModelObj.NegMin = packet[0].envelope.negDIAS / Constants.VALUE_10;
+                            examViewModelObj.NegMax = packet[0].envelope.negPEAK / Constants.VALUE_10;
+                            examViewModelObj.NegPI = packet[0].envelope.negPI / Constants.VALUE_10;
 
-                            examViewModelObj.PacketDepth = packet[1].spectrum.depth;
-                            examViewModelObj.PacketFilter = packet[1].spectrum.clutterFilter;
-                            examViewModelObj.PacketPower = packet[1].parameter.acousticPower;
-                            examViewModelObj.PacketPRF = packet[1].parameter.PRF;
-                            examViewModelObj.PacketStartDepth = packet[1].mmode.startDepth;
-                            examViewModelObj.PacketSVol = packet[1].parameter.sampleLength;
-                            examViewModelObj.TIC = packet[1].parameter.TIC;
-                            NaGraph.ProcessPacket(packet, true, Constants.VALUE_2);
+                            examViewModelObj.PacketDepth = packet[0].spectrum.depth;
+                            examViewModelObj.PacketFilter = packet[0].spectrum.clutterFilter;
+                            examViewModelObj.PacketPower = packet[0].parameter.acousticPower;
+                            examViewModelObj.PacketPRF = packet[0].parameter.PRF;
+                            examViewModelObj.PacketStartDepth = packet[0].mmode.startDepth;
+                            examViewModelObj.PacketSVol = packet[0].parameter.sampleLength;
+                            examViewModelObj.TIC = packet[0].parameter.TIC;
+                            NaGraph.ProcessPacket(packet, true, Constants.VALUE_1);
                         }
+                        else
+                        {
+                            if (packet[1] != null && App.ActiveChannels == ActiveChannels.Channel2)
+                            {
+                                examViewModelObj.PosMean = packet[1].envelope.posMEAN / Constants.VALUE_10;
+                                examViewModelObj.PosMin = packet[1].envelope.posDIAS / Constants.VALUE_10;
+                                examViewModelObj.PosMax = packet[1].envelope.posPEAK / Constants.VALUE_10;
+                                examViewModelObj.PosPI = packet[1].envelope.posPI / Constants.VALUE_10;
+                                examViewModelObj.NegMean = packet[1].envelope.negMEAN / Constants.VALUE_10;
+                                examViewModelObj.NegMin = packet[1].envelope.negDIAS / Constants.VALUE_10;
+                                examViewModelObj.NegMax = packet[1].envelope.negPEAK / Constants.VALUE_10;
+                                examViewModelObj.NegPI = packet[1].envelope.negPI / Constants.VALUE_10;
+
+                                examViewModelObj.PacketDepth = packet[1].spectrum.depth;
+                                examViewModelObj.PacketFilter = packet[1].spectrum.clutterFilter;
+                                examViewModelObj.PacketPower = packet[1].parameter.acousticPower;
+                                examViewModelObj.PacketPRF = packet[1].parameter.PRF;
+                                examViewModelObj.PacketStartDepth = packet[1].mmode.startDepth;
+                                examViewModelObj.PacketSVol = packet[1].parameter.sampleLength;
+                                examViewModelObj.TIC = packet[1].parameter.TIC;
+                                NaGraph.ProcessPacket(packet, true, Constants.VALUE_2);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (App.CurrentChannel == TCDHandles.Channel1)
+                    {
+                        counterPacketCh1++;
+                    }
+                    else if(App.CurrentChannel == TCDHandles.Channel2)
+                    {
+                        counterPacketCh2++;
                     }
                 }
             }

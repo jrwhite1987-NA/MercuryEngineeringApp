@@ -2843,9 +2843,13 @@ namespace UsbTcdLibrary
             List<byte[]> SinglePacket = null;
             try
             {
-                SinglePacket = new List<byte[]>();
-                SinglePacket.Add(leftPacket);
-                SinglePacket.Add(rightPacket);
+                if (leftPacket != null || rightPacket != null)
+                {
+                    SinglePacket = new List<byte[]>();
+                    SinglePacket.Add(leftPacket);
+                    SinglePacket.Add(rightPacket);
+                    leftPacket = rightPacket = null;
+                }
             }
             catch (Exception ex)
             {

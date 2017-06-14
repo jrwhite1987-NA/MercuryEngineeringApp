@@ -112,7 +112,7 @@ namespace MercuryEngApp
             }
         }
 
-        void TCDObjOnProbeUnplugged(UsbTcdLibrary.TCDHandles probe)
+        internal void TCDObjOnProbeUnplugged(UsbTcdLibrary.TCDHandles probe)
         {
             if (probe == UsbTcdLibrary.TCDHandles.Channel1)
             {
@@ -146,7 +146,7 @@ namespace MercuryEngApp
             }
         }       
 
-        async void MainWindowLoaded(object sender, RoutedEventArgs e)
+        void MainWindowLoaded(object sender, RoutedEventArgs e)
         {
             logger.Debug("++");
             try
@@ -220,25 +220,29 @@ namespace MercuryEngApp
             logger.Debug("--");
         }
 
-        private void TCDPowerClick(object sender, RoutedEventArgs e)
+        private async void TCDPowerClick(object sender, RoutedEventArgs e)
         {
             logger.Debug("++");
             try
             {
-                if ((bool)IsPowerChecked)
+                if (App.CurrentChannel == UsbTcdLibrary.TCDHandles.Channel1 || App.CurrentChannel == UsbTcdLibrary.TCDHandles.Channel2)
                 {
-                    //Turn TCD ON
-                    if (TurnTCDON != null)
+                    if ((bool)IsPowerChecked)
                     {
-                        TurnTCDON();
+                        //Turn TCD ON
+                        if (TurnTCDON != null)
+                        {
+                            TurnTCDON();
+                        }
                     }
-                }
-                else
-                {
-                    //Turn TCD OFF
-                    if (TurnTCDOFF != null)
+                    else
                     {
-                        TurnTCDOFF();
+                        //Turn TCD OFF
+                        if (TurnTCDOFF != null)
+                        {
+                            App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
+                            TurnTCDOFF();
+                        }
                     }
                 }
             }

@@ -731,7 +731,7 @@ namespace MercuryEngApp
             ReloadHexViewer(byteArray);
         }
 
-        public void ReloadHexViewer(List<byte[]> byteArray)
+        public async void ReloadHexViewer(List<byte[]> byteArray)
         {
             logger.Debug("++");
 
@@ -750,6 +750,17 @@ namespace MercuryEngApp
                         LoadTreeView(byteArray[1]);
                         LoadBinaryData(byteArray[1]);
                     }
+                }
+                else
+                {
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.ProbeDisconnected);
+                    ClearRecentTimer();
+                    MainWindowTurnTCDOFF();
+                    App.mainWindow.IsPowerChecked = false;
+                    App.mainWindow.TCDObjOnProbeUnplugged(App.CurrentChannel);
+                    await PowerController.Instance.UpdatePowerParameters(true, true, false, false, true);
+                    await Task.Delay(Constants.TimeForTCDtoLoad);
+                    App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
                 }
             }
             catch (Exception ex)
