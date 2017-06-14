@@ -691,6 +691,15 @@ namespace MercuryEngApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No TCD device connected to the system..
+        /// </summary>
+        public static string TCDNotConnected {
+            get {
+                return ResourceManager.GetString("TCDNotConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TCD is turned off..
         /// </summary>
         public static string TCDTurnedOff {

@@ -360,4 +360,7 @@
   <data name="ProbeDisconnected" xml:space="preserve">
     <value>An active probe was disconnected from TCD.</value>
   </data>
+  <data name="TCDNotConnected" xml:space="preserve">
+    <value>No TCD device connected to the system.</value>
+  </data>
 </root>
