@@ -177,7 +177,7 @@
 
                         <ProgressBar Minimum="0" Maximum="100" Value="0" Name="pbStatus" Grid.Row="3" Grid.ColumnSpan="1" Foreground="#FF00AEEF" Margin="481,6,416,7" Visibility="Hidden"/>
                         <TextBlock Text="{Binding ElementName=pbStatus, Path=Value, StringFormat={}{0:0}%}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="1" Visibility="Hidden" Style="{StaticResource ResourceKey=WhiteLable15pt}" Height="16" Margin="591,17,585,16" Width="22" />
-                        <Grid  Grid.Row="4" Grid.ColumnSpan="2">
+                        <Grid  Grid.Row="4" Grid.ColumnSpan="2" Name="StatusGridRow" Visibility="Collapsed">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="49*"/>
                                 <ColumnDefinition Width="200*"/>
@@ -187,14 +187,14 @@
                                 <ColumnDefinition Width="200*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="Status" 
-                                       Name="UpdateProgressText" 
                                        Grid.Column="0" 
                                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                        Margin="10,10,0,0"  />
                             <TextBox
                                  Style="{StaticResource ResourceKey=MainTextbox}" 
+                                Name="UpdateProgressText" 
                                  Grid.Column="1" 
-                                 Text="" 
+                                 Text="{Binding Path=UpdateStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                 Margin="0,0,10,0"
                                  IsReadOnly="True"/>
 
@@ -206,7 +206,7 @@
                             <TextBox
                                  Style="{StaticResource ResourceKey=MainTextbox}" 
                                  Grid.Column="3" 
-                                 Text="" 
+                                 Text="{Binding Path=BytesReceivedErased, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                 Margin="10,0,20,0"
                                  IsReadOnly="True"/>
 
@@ -218,7 +218,7 @@
                             <TextBox
                                  Style="{StaticResource ResourceKey=MainTextbox}" 
                                  Grid.Column="5" 
-                                 Text="" 
+                                 Text="{Binding Path=BytesWritten, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                 Margin="10,0,20,0"
                                  IsReadOnly="True"/>
                         </Grid>

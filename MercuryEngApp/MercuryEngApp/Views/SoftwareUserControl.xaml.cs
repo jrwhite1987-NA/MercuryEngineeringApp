@@ -157,7 +157,8 @@ namespace MercuryEngApp.Views
 
                     //Show warning labels
                     pbStatus.Visibility = Visibility.Visible;
-                    UpdateProgressText.Visibility = Visibility.Visible;
+                    //UpdateProgressText.Visibility = Visibility.Visible;
+                    StatusGridRow.Visibility=Visibility.Visible;
                     softwareViewModel.ShowWarningLabels = true;
                 }
                 else
@@ -270,9 +271,8 @@ namespace MercuryEngApp.Views
         /// <param name="fileSize"></param>
         private void UpdateProgressBar(UpdateProgress progress, long fileSize)
         {
-            LogWrapper.Log(Constants.APPLog, string.Format(MercuryEngApp.Resources.BytesReceived, progress.BytesWritten.ToString()));
-            LogWrapper.Log(Constants.APPLog, string.Format(MercuryEngApp.Resources.BytesErased, progress.BytesReceivedErased.ToString()));
-            LogWrapper.Log(Constants.APPLog, string.Format(MercuryEngApp.Resources.Status, progress.StatusCode.ToString()));
+            softwareViewModel.BytesReceivedErased = progress.BytesReceivedErased;
+            softwareViewModel.BytesWritten = progress.BytesWritten;
 
             switch (progress.StatusCode)
             {

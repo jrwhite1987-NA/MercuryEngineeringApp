@@ -18,6 +18,8 @@ namespace MercuryEngApp.ViewModels
         private uint progressPosition;
         private bool showWarningLabels;
         private string updateStatus;
+        private uint bytesWritten;
+        private uint bytesReceivedErased;
 
         public string SoftwareVersion
         {
@@ -141,6 +143,32 @@ namespace MercuryEngApp.ViewModels
             set
             {
                 updateStatus = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public uint BytesWritten
+        {
+            get
+            {
+                return bytesWritten;
+            }
+            set
+            {
+                bytesWritten = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public uint BytesReceivedErased
+        {
+            get
+            {
+                return bytesReceivedErased;
+            }
+            set
+            {
+                bytesReceivedErased = value;
                 RaisePropertyChanged();
             }
         }
