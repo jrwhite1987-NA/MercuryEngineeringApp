@@ -106,8 +106,8 @@ namespace MercuryEngApp.Views
         {
             return (await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = Constants.VALUE_1 })).Result;
         }
-      
-        private async void btnRead_Click(object sender, RoutedEventArgs e)
+
+        private async void ReadRegisterClick(object sender, RoutedEventArgs e)
         {
             uint address = Convert.ToUInt32(fpgaViewModel.SelectedRegister.MemoryLocation, Constants.VALUE_16);
             TCDResponse response = await UsbTcd.TCDObj.ReadFPGAValueAsync(new TCDRequest { ChannelID = App.CurrentChannel, Value3 = address });
@@ -122,7 +122,7 @@ namespace MercuryEngApp.Views
             }
         }
 
-        private async void btnWrite_Click(object sender, RoutedEventArgs e)
+        private async void WriteRegisterClick(object sender, RoutedEventArgs e)
         {
             TCDResponse response = await UsbTcd.TCDObj.WriteValueToFPGAAsync(new TCDRequest { ChannelID = App.CurrentChannel, Value = fpgaViewModel.SelectedRegister.Value, Value3 = Convert.ToUInt32(fpgaViewModel.SelectedRegister.MemoryLocation) });
             if (response.Result)
@@ -135,7 +135,7 @@ namespace MercuryEngApp.Views
             }
         }
 
-        private async void btnReset_Click(object sender, RoutedEventArgs e)
+        private async void ResetRegisterClick(object sender, RoutedEventArgs e)
         {
             TCDResponse response = await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = Constants.VALUE_1 });
 
@@ -149,7 +149,7 @@ namespace MercuryEngApp.Views
             }
         }
 
-        private async void btnSetAllDefault_Click(object sender, RoutedEventArgs e)
+        private async void SetAllDefaultsClick(object sender, RoutedEventArgs e)
         {
             TCDResponse response;
             var isSuccess = true;
@@ -164,8 +164,9 @@ namespace MercuryEngApp.Views
             }
 
             if (isSuccess)
+            {
                 LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FPGASetAllDefaultSuccess);
-
+            }
         }
     }
 }

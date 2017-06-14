@@ -56,7 +56,6 @@ namespace PlottingLib
         private void ClearList(List<int> list)
         {
             list.Clear();
-            //list = null;
         }
     }
 

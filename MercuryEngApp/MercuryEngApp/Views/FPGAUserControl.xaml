@@ -90,7 +90,7 @@
                                     HorizontalAlignment="Left" 
                                     VerticalAlignment="Top" 
                                     Margin="0,7,5,0"
-                                   Click="btnRead_Click"/>
+                                   Click="ReadRegisterClick"/>
 
 
                     <Button x:Name="btnWrite" Content="Write" 
@@ -103,7 +103,7 @@
                                     HorizontalAlignment="Right" 
                                     VerticalAlignment="Top" 
                                     Margin="0,7,5,0"
-                                    Click="btnWrite_Click"/>
+                                    Click="WriteRegisterClick"/>
 
 
                     <Button x:Name="btnReset" Content="Reset" 
@@ -114,7 +114,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Margin="0,5,0,0"
-                    Click="btnReset_Click"/>
+                    Click="ResetRegisterClick"/>
 
 
                     <Button x:Name="btnSetAllDefault" Content="Set All Defaults" 
@@ -126,7 +126,7 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
                     Margin="0,5,5,0"
-                    Click="btnSetAllDefault_Click"/>
+                    Click="SetAllDefaultsClick"/>
                 </Grid>
 
             </Grid>
