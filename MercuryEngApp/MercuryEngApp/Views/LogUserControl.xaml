@@ -23,7 +23,7 @@
                                     HorizontalAlignment="Left"  
                                     VerticalAlignment="Top"
                                     Click="CloseClick"
-                                     Style="{StaticResource ResourceKey=ButtonMaximise}"/>
+                                     Style="{StaticResource ResourceKey=ButtonMinimize}"/>
 
                         <Button Width="17"
                                     Height="17"
