@@ -73,7 +73,7 @@ namespace MercuryEngApp.Views
         private async void Refresh()
         {
             TCDReadInfoResponse response = await UsbTcd.TCDObj.GetModuleInfo(new TCDRequest() { ChannelID = App.CurrentChannel });
-            softwareViewModel.SoftwareVersion = response.Module != null ? response.Module.dopplerSWRevisionString : string.Empty;
+            softwareViewModel.SoftwareVersion = response.Module != null ? response.Module.dopplerSWRevisionString.Replace("\0", string.Empty) : string.Empty;
             softwareViewModel.BootVersion = response.Module != null ? response.Module.bootSWRevisionString : string.Empty;
             softwareViewModel.HardwareRevision = response.Module != null ? response.Module.hardwareRevisionString : string.Empty;
 

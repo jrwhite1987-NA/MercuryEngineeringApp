@@ -78,7 +78,7 @@
                                  Grid.Column="1" 
                                  Margin="118,5,0,0" HorizontalAlignment="Left"
                                  IsReadOnly="True"
-                                 Text="{Binding ElementName=IntervalSilder, Path=Value}" />
+                                 Text="{Binding Path=BootVersion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                         <TextBlock Height="17" 
                                    Margin="5,15,0,0" 
@@ -92,7 +92,7 @@
                                  Grid.Column="2" 
                                  Margin="150,5,0,0" HorizontalAlignment="Left"
                                  IsReadOnly="True"
-                                 Text="{Binding Path=BootVersion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                 Text="{Binding Path=HardwareRevision, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
 
                 </Grid>
