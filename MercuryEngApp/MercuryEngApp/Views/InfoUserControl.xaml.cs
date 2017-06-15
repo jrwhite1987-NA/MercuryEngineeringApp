@@ -194,7 +194,6 @@ namespace MercuryEngApp
                 {
                     errorCount++;
                     message.Append(errorMessage);
-                    message.Append(Environment.NewLine);
                 }
             }
 

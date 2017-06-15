@@ -387,4 +387,10 @@
   <data name="FPGAWriteSuccess" xml:space="preserve">
     <value>FPGA register value write successfully.</value>
   </data>
+  <data name="NoOfOPacketsNonZero" xml:space="preserve">
+    <value>No of Packets to be exported cannot be 0.</value>
+  </data>
+  <data name="NoOfPacket" xml:space="preserve">
+    <value>Number of Packet</value>
+  </data>
 </root>

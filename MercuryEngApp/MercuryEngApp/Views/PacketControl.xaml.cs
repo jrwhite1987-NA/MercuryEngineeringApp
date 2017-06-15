@@ -818,11 +818,25 @@ namespace MercuryEngApp
         private void ExportClick(object sender, RoutedEventArgs e)
         {
             Helper.logger.Debug("++");
-
+            string errorMessage = string.Empty;
             try
             {
-                ListDMIPmdDataPacket = new List<DMIPmdDataPacket>();
-                UsbTcd.TCDObj.OnPacketFormed += TCDObjOnPacketFormed;
+                if (ValidatePacketExport(out errorMessage))
+                {
+                    if (packetViewModelObj.PacketNumber != 0)
+                    {
+                        ListDMIPmdDataPacket = new List<DMIPmdDataPacket>();
+                        UsbTcd.TCDObj.OnPacketFormed += TCDObjOnPacketFormed;
+                    }
+                    else
+                    {
+                        LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.NoOfOPacketsNonZero);
+                    }
+                }
+                else
+                {
+                    LogWrapper.Log(Constants.APPLog, errorMessage);
+                }
             }
             catch (Exception ex)
             {
@@ -830,6 +844,37 @@ namespace MercuryEngApp
             }
 
             Helper.logger.Debug("--");
+        }
+
+        private bool ValidatePacketExport(out string errorMessage)
+        {
+            bool isValid = true;
+            List<DependencyObject> objects = new List<DependencyObject>();
+            objects.Add(NoOfPacket);
+
+            isValid = ValidateObjects(objects, out errorMessage);
+            return isValid;
+        }
+
+        private bool ValidateObjects(List<DependencyObject> objects, out string validationMessage)
+        {
+            bool isValid = true;
+            string errorMessage = string.Empty;
+            StringBuilder message = new StringBuilder();
+            int errorCount = 0;
+
+            foreach (DependencyObject obj in objects)
+            {
+                isValid = Validators.ValidationRules.ValidateControl(obj, out errorMessage);
+                if (!isValid)
+                {
+                    errorCount++;
+                    message.Append(errorMessage);
+                }
+            }
+
+            validationMessage = message.ToString();
+            return errorCount > 0 ? false : true;
         }
     }
 }
