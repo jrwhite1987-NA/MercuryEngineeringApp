@@ -93,8 +93,20 @@ namespace MercuryEngApp
                 {
                     request.ChannelID = App.CurrentChannel;
                     TCDReadInfoResponse response = await UsbTcd.TCDObj.GetModuleInfo(request);
+                    if (!infoViewModelObj.BoardPartNumberList.Contains(response.Module.partNumberString))
+                    {
+                        infoViewModelObj.BoardPartNumberList.Add(response.Module.partNumberString);
+                    }
                     infoViewModelObj.SelectedBoardPartNumber = response.Module.partNumberString;
+                    if (!infoViewModelObj.BoardModelNameList.Contains(response.Module.modelString))
+                    {
+                        infoViewModelObj.BoardModelNameList.Add(response.Module.modelString);
+                    }
                     infoViewModelObj.SelectedBoardModelName = response.Module.modelString;
+                    if (!infoViewModelObj.BoardHardwareRevisionList.Contains(response.Module.hardwareRevisionString))
+                    {
+                        infoViewModelObj.BoardHardwareRevisionList.Add(response.Module.hardwareRevisionString);
+                    }
                     infoViewModelObj.SelectedHardwareRevision = response.Module.hardwareRevisionString;
                     infoViewModelObj.BoardSerialNumber = response.Module.serialNumberString;
 
@@ -204,7 +216,12 @@ namespace MercuryEngApp
                 using (TCDRequest request = new TCDRequest())
                 {
                     request.ChannelID = App.CurrentChannel;
-                    infoViewModelObj.SelectedChannelNumber = await UsbTcd.TCDObj.GetChannelNumber(request);
+                    byte channel = await UsbTcd.TCDObj.GetChannelNumber(request);
+                    if(!infoViewModelObj.ChannelNumberList.Contains(channel))
+                    {
+                        infoViewModelObj.ChannelNumberList.Add(channel);
+                    }
+                    infoViewModelObj.SelectedChannelNumber = channel;
 
                     request.Value = Constants.VALUE_10;
                     await ReadServiceLog(request);
@@ -266,11 +283,31 @@ namespace MercuryEngApp
                 {
                     request.ChannelID = App.CurrentChannel;
                     TCDReadInfoResponse response = await UsbTcd.TCDObj.GetProbeInfo(request);
+
+                    if (!infoViewModelObj.ProbePartNumberList.Contains(response.Probe.partNumber))
+                    {
+                        infoViewModelObj.ProbePartNumberList.Add(response.Probe.partNumber);
+                    }
                     infoViewModelObj.SelectedProbePartNumber = response.Probe.partNumber;
-                    infoViewModelObj.SelectedProbePartNumber = "2";
+
+                    if (!infoViewModelObj.ProbeModelNameList.Contains(response.Probe.descriptionString))
+                    {
+                        infoViewModelObj.ProbeModelNameList.Add(response.Probe.descriptionString);
+                    }
                     infoViewModelObj.ProbeModelName = response.Probe.descriptionString;
+
+                    if (!infoViewModelObj.ProbePhysicalIDList.Contains(response.Probe.physicalId))
+                    {
+                        infoViewModelObj.ProbePhysicalIDList.Add(response.Probe.physicalId);
+                    }
                     infoViewModelObj.PhysicalID = response.Probe.physicalId;
+
                     infoViewModelObj.ProbeSerialNumber = response.Probe.serialNumberString;
+
+                    if (!infoViewModelObj.ProbeFormatIDList.Contains(response.Probe.formatId))
+                    {
+                        infoViewModelObj.ProbeFormatIDList.Add(response.Probe.formatId);
+                    }
                     infoViewModelObj.FormatID = response.Probe.formatId;
                     infoViewModelObj.CenterFrequency = response.Probe.centerFrequency;
                     infoViewModelObj.Diameter = response.Probe.diameter;

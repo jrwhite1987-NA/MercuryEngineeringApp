@@ -674,7 +674,7 @@
                                      Grid.Row="13" 
                                      Grid.Column="1">
                             <TextBox.Text>
-                                <Binding Path="PhaseAngleTextBox" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
+                                <Binding Path="PhaseAngle" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
                                     <Binding.ValidationRules>
                                         <validator:BlankValidationRule ValidatesOnTargetUpdated="True" ControlName="{x:Static local:Resources.PhaseAngle}" ErrorMessage="Filter cannot be blank."/>
                                         <validator:NumberValidationRule ControlName="{x:Static local:Resources.PhaseAngle}" ErrorMessage="{x:Static local:Resources.MustBeNumber}"/>
