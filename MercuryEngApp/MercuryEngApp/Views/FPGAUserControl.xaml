@@ -61,7 +61,7 @@
                     <ComboBox Width="300" 
                               Height="30"
                               IsReadOnly="False"
-                              IsEditable="True"
+                              IsEditable="False"
                               ItemsSource="{Binding Path=FPGARegisterList  , Mode=TwoWay}"
                               DisplayMemberPath="Name"
                               SelectedValuePath="Name"
