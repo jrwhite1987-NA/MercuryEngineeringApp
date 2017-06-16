@@ -41,6 +41,7 @@ namespace MercuryEngApp
                 BtnPower.IsChecked = value;
             }
         }
+
         internal bool IsProbe1HitTestVisible
         {
             get
@@ -83,7 +84,7 @@ namespace MercuryEngApp
             {
                 this.Dispatcher.Invoke(() =>
                     {
-                        BtnLeftProbe.IsHitTestVisible = true;
+                        BtnLeftProbe.IsEnabled = true;
                     });
                 if(App.ActiveChannels==UsbTcdLibrary.ActiveChannels.Channel2)
                 {
@@ -98,7 +99,7 @@ namespace MercuryEngApp
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    BtnRightProbe.IsHitTestVisible = true;
+                    BtnRightProbe.IsEnabled = true;
                 });
                 if(App.ActiveChannels==UsbTcdLibrary.ActiveChannels.Channel1)
                 {
@@ -117,7 +118,7 @@ namespace MercuryEngApp
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    BtnLeftProbe.IsHitTestVisible = false;
+                    BtnLeftProbe.IsEnabled = false;
                 });
                 if (App.ActiveChannels == UsbTcdLibrary.ActiveChannels.Both)
                 {
@@ -132,7 +133,7 @@ namespace MercuryEngApp
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    BtnRightProbe.IsHitTestVisible = false;
+                    BtnRightProbe.IsEnabled = false;
                 });
                 if (App.ActiveChannels == UsbTcdLibrary.ActiveChannels.Both)
                 {
@@ -157,8 +158,8 @@ namespace MercuryEngApp
                 FPGATab.Content = new FPGAUserControl();
                 SoftwareTab.Content = new SoftwareUserControl();
                 LogTab.Content = new LogUserControl();
-                BtnLeftProbe.IsHitTestVisible = false;
-                BtnRightProbe.IsHitTestVisible = false;
+                BtnLeftProbe.IsEnabled = false;
+                BtnRightProbe.IsEnabled = false;
             }
             catch (Exception ex)
             {
@@ -187,15 +188,15 @@ namespace MercuryEngApp
                         switch (App.ActiveChannels)
                         {
                             case UsbTcdLibrary.ActiveChannels.Both:
-                                BtnLeftProbe.IsHitTestVisible = true;
-                                BtnRightProbe.IsHitTestVisible = true;
+                                BtnLeftProbe.IsEnabled = true;
+                                BtnRightProbe.IsEnabled = true;
                                 App.ActiveChannels = UsbTcdLibrary.ActiveChannels.Channel2; //Temp for xoriant TCD since channel 1 doesn't work
                                 break;
                             case UsbTcdLibrary.ActiveChannels.Channel1:
-                                BtnLeftProbe.IsHitTestVisible = true;
+                                BtnLeftProbe.IsEnabled = true;
                                 break;
                             case UsbTcdLibrary.ActiveChannels.Channel2:
-                                BtnRightProbe.IsHitTestVisible = true;
+                                BtnRightProbe.IsEnabled = true;
                                 break;
                         }
                         BtnPower.IsEnabled = true; 

@@ -60,10 +60,30 @@ namespace MercuryEngApp
             }
         }
 
+        private static TCDHandles currentChannel;
         internal static TCDHandles CurrentChannel
         {
-            get;
-            set;
+            get
+            {
+                return currentChannel;
+            }
+            set
+            {
+                currentChannel = value;
+                mainWindow.Dispatcher.Invoke(() =>
+                    {
+                        if (currentChannel == TCDHandles.Channel1)
+                        {
+                            mainWindow.BtnLeftProbe.IsChecked = true;
+                            mainWindow.BtnRightProbe.IsChecked = false;
+                        }
+                        else if (currentChannel == TCDHandles.Channel2)
+                        {
+                            mainWindow.BtnLeftProbe.IsChecked = false;
+                            mainWindow.BtnRightProbe.IsChecked = true;
+                        }
+                    });
+            }
         }
         internal static MainWindow mainWindow;
         public App()

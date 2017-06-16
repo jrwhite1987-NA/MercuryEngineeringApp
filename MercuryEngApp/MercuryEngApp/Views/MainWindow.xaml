@@ -46,14 +46,13 @@
                         <ColumnDefinition Width="110"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button x:Name="BtnLeftProbe" Style="{StaticResource ResourceKey=ButttonSplitL}" 
-
+                    <ToggleButton x:Name="BtnLeftProbe" Style="{StaticResource ResourceKey=ButttonSplitL}" 
                     HorizontalAlignment="Left" 
                     UseLayoutRounding="True" 
                             Click="LeftProbeClick"
                     VerticalAlignment="Top" Grid.ColumnSpan="3" Margin="0,0,0,-2" Grid.Column="1"/>
 
-                    <Button x:Name="BtnRightProbe"
+                    <ToggleButton x:Name="BtnRightProbe"
                         Style="{StaticResource ResourceKey=ButttonSplitR}" 
                     HorizontalAlignment="Right" 
                     UseLayoutRounding="True" 

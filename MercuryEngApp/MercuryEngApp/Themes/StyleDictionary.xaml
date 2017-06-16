@@ -307,7 +307,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type Button}" x:Key="ButttonSplitL">
+    <Style TargetType="{x:Type ToggleButton}" x:Key="ButttonSplitL">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="Background">
             <Setter.Value>
@@ -319,7 +319,7 @@
         <Setter Property="Margin" Value="-10,0,0,0"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="Button">
+                <ControlTemplate TargetType="ToggleButton">
                     <Border Name="border" 
                         BorderThickness="0" 
                         Background="{TemplateBinding Background}">
@@ -333,14 +333,14 @@
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
+                        <Trigger Property="IsChecked" Value="True">
                             <Setter Property="Background" TargetName="border">
                                 <Setter.Value>
                                     <ImageBrush ImageSource="NA_btn_exam_split_l_262x62_selected.png"/>
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
-                        <Trigger Property="IsHitTestVisible" Value="False">
+                        <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Background" TargetName="border">
                                 <Setter.Value>
                                     <ImageBrush ImageSource="NA_btn_exam_split_l_262x62_off.png"/>
@@ -353,7 +353,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type Button}" x:Key="ButttonSplitR">
+    <Style TargetType="{x:Type ToggleButton}" x:Key="ButttonSplitR">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="Background">
             <Setter.Value>
@@ -364,14 +364,14 @@
         <Setter Property="Height" Value="42"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="Button">
+                <ControlTemplate TargetType="ToggleButton">
                     <Border Name="border" 
                         BorderThickness="0" 
                         Background="{TemplateBinding Background}">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
+                        <Trigger Property="IsChecked" Value="True">
                             <Setter Property="Background" TargetName="border">
                                 <Setter.Value>
                                     <ImageBrush ImageSource="NA_btn_exam_split_r_262x62_selected.png"/>
@@ -385,7 +385,7 @@
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
-                        <Trigger Property="IsHitTestVisible" Value="False">
+                        <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Background" TargetName="border">
                                 <Setter.Value>
                                     <ImageBrush ImageSource="NA_btn_exam_split_r_262x62_off.png"/>
