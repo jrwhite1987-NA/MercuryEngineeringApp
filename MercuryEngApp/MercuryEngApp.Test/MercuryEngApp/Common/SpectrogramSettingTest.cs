@@ -23,8 +23,7 @@ namespace MercuryEngApp.Test.MercuryEngApp.Common
             "Value of depth can not be zero.")]
         public void GetSpectrogramSettingExTest()
         {
-            SpectrogramSetting spectrogramSetting =
-                SpectrogramSetting.GetSpectrogramSetting(0, false);
+            SpectrogramSetting.GetSpectrogramSetting(0, false);
         }
 
         [TestMethod]

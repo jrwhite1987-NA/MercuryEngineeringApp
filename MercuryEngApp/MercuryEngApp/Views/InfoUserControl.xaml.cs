@@ -64,12 +64,7 @@ namespace MercuryEngApp
                 {
                     request.ChannelID = App.CurrentChannel;
                     request.Value = Constants.VALUE_10;
-                    TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
-
-                    foreach (var item in response.ServicePacketList)
-                    {
-                        LogWrapper.Log(Constants.TCDLog, item.Message);
-                    }
+                    await ReadServiceLog(request);
                 }
             }
             catch (Exception ex)
@@ -77,6 +72,16 @@ namespace MercuryEngApp
                 Helper.logger.Warn("Exception: ", ex);
             }
             Helper.logger.Debug("--");
+        }
+
+        private static async Task ReadServiceLog(TCDRequest request)
+        {
+            TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
+
+            foreach (var item in response.ServicePacketList)
+            {
+                LogWrapper.Log(Constants.TCDLog, item.Message);
+            }
         }
 
         private async void ReadBoardInfoClick(object sender, RoutedEventArgs e)
@@ -94,12 +99,7 @@ namespace MercuryEngApp
                     infoViewModelObj.BoardSerialNumber = response.Module.serialNumberString;
 
                     request.Value = Constants.VALUE_10;
-                    response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
-
-                    foreach(var item in response.ServicePacketList)
-                    {
-                        LogWrapper.Log(Constants.TCDLog, item.Message);
-                    }
+                    await ReadServiceLog(request);                    
                 }
                 LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.BoardInfoReadSuccessful);
             }
@@ -143,12 +143,7 @@ namespace MercuryEngApp
                     {
                         request.Value = Constants.VALUE_10;
                         request.ChannelID = App.CurrentChannel;
-                        TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
-
-                        foreach (var item in response.ServicePacketList)
-                        {
-                            LogWrapper.Log(Constants.TCDLog, item.Message);
-                        }
+                        await ReadServiceLog(request);
                     }
                     LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.BoardInfoWriteSuccessful);
                 }
@@ -201,19 +196,6 @@ namespace MercuryEngApp
             return errorCount > 0 ? false : true;
         }
 
-        private bool ValidNumber(string value)
-        {
-            int number;
-            if (int.TryParse(value, out number))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         private async void ReadChannelClick(object sender, RoutedEventArgs e)
         {
             Helper.logger.Debug("++");
@@ -225,12 +207,7 @@ namespace MercuryEngApp
                     infoViewModelObj.SelectedChannelNumber = await UsbTcd.TCDObj.GetChannelNumber(request);
 
                     request.Value = Constants.VALUE_10;
-                    TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
-
-                    foreach (var item in response.ServicePacketList)
-                    {
-                        LogWrapper.Log(Constants.TCDLog, item.Message);
-                    }
+                    await ReadServiceLog(request);
                 }
                 LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.ChannelReadSuccessful);
             }
@@ -256,12 +233,7 @@ namespace MercuryEngApp
                         await UsbTcd.TCDObj.AssignChannelAsync(request);
 
                         request.Value = Constants.VALUE_10;
-                        TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
-
-                        foreach (var item in response.ServicePacketList)
-                        {
-                            LogWrapper.Log(Constants.TCDLog, item.Message);
-                        }
+                        await ReadServiceLog(request);
                     }
                     LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.ChannelWriteSuccessful);
                 }
@@ -310,12 +282,7 @@ namespace MercuryEngApp
                     infoViewModelObj.PhaseAngle = response.Probe.phaseAngle;
 
                     request.Value = Constants.VALUE_10;
-                    response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
-
-                    foreach (var item in response.ServicePacketList)
-                    {
-                        LogWrapper.Log(Constants.TCDLog, item.Message);
-                    }
+                    await ReadServiceLog(request);
                 }              
 
                 LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.ProbeInfoReadSuccessful);
@@ -361,12 +328,7 @@ namespace MercuryEngApp
                     {
                         request.Value = Constants.VALUE_10;
                         request.ChannelID = App.CurrentChannel;
-                        TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
-
-                        foreach (var item in response.ServicePacketList)
-                        {
-                            LogWrapper.Log(Constants.TCDLog, item.Message);
-                        }
+                        await ReadServiceLog(request);
                     }
                     LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.ProbeInfoWriteSuccessful);
                 }
@@ -426,12 +388,7 @@ namespace MercuryEngApp
                     infoViewModelObj.OperatingMinutes = (uint)(await UsbTcd.TCDObj.ReadOperatingMinutesAsync(requestObj)).Value;
 
                     requestObj.Value = Constants.VALUE_10;
-                    TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(requestObj);
-
-                    foreach (var item in response.ServicePacketList)
-                    {
-                        LogWrapper.Log(Constants.TCDLog, item.Message);
-                    }
+                    await ReadServiceLog(requestObj);
                 }
                 LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.OperatingMinutesReadSuccessful);
             }

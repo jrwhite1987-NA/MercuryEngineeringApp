@@ -113,9 +113,7 @@ namespace PlottingLib
         {           
             var baseLineOffset = spectrum.BaseLinePosition == Constants.SpectrumBin ? 0 : spectrum.BaseLinePosition;
             int currentPoint = 0;
-            int prevPoint = 0;
-            int start = 0;
-            int end = 0;
+            
             if (NegativeFlowVisible)
             {
                 //calculate negative envelope position
@@ -124,25 +122,7 @@ namespace PlottingLib
                 currentPoint = (currentPoint < 0 ? currentPoint * NEGATIVE_FACTOR : currentPoint) - baseLineOffset;
                 currentPoint = (currentPoint > Constants.SpectrumBin) ? currentPoint - Constants.SpectrumBin : currentPoint;
 
-                prevPoint = EnvelopDataPoints.Count <= OFFSET_1 ? currentPoint : EnvelopDataPoints[EnvelopDataPoints.Count - OFFSET_2];
-
-                start = currentPoint >= prevPoint ? prevPoint : currentPoint;
-                end = currentPoint >= prevPoint ? currentPoint : prevPoint;
-                int columnOffset = spectrum.XStart * Constants.BytesForColor;
-                //draw negative envelope
-                if (ShouldDrawLine(start, end, spectrum.BaseLinePosition))
-                {
-                    for (int i = start; i < end + 1; i++)
-                    {
-                        if (i < Constants.SpectrumBin && i >= 0)
-                        {
-                            spectrum.ArrayPixel[columnOffset + i * pixelsFactor] = Colors.White.B; // B Value
-                            spectrum.ArrayPixel[columnOffset + i * pixelsFactor + OFFSET_1] = Colors.White.G; // G Value
-                            spectrum.ArrayPixel[columnOffset + i * pixelsFactor + OFFSET_2] = Colors.White.R; // R Value
-                            spectrum.ArrayPixel[columnOffset + i * pixelsFactor + OFFSET_3] = Colors.White.A;// A Value
-                        }
-                    }
-                }
+                SetSpectrumPixels(spectrum, pixelsFactor, currentPoint);
             }
             EnvelopDataPoints.Add(currentPoint);            
         }
@@ -157,9 +137,6 @@ namespace PlottingLib
         {
             var baseLineOffset = spectrum.BaseLinePosition == Constants.SpectrumBin ? 0 : spectrum.BaseLinePosition;
             int currentPoint = 0;
-            int prevPoint = 0;
-            int start = 0;
-            int end = 0;
             if (PositiveFlowVisible)
             {
                 //calculate positive envelope position
@@ -169,27 +146,36 @@ namespace PlottingLib
                 currentPoint -= baseLineOffset;
                 currentPoint = (currentPoint < 0) ? currentPoint + Constants.SpectrumBin : currentPoint;
 
-                prevPoint = EnvelopDataPoints.Count <= 1 ? currentPoint : EnvelopDataPoints[EnvelopDataPoints.Count - Constants.VALUE_2];
-                start = currentPoint >= prevPoint ? prevPoint : currentPoint;
-                end = currentPoint >= prevPoint ? currentPoint : prevPoint;
-                //reset offset and plot positive envelope
-                int columnOffset = spectrum.XStart * Constants.BytesForColor;
+                SetSpectrumPixels(spectrum, pixelsFactor, currentPoint);
+            }
+            EnvelopDataPoints.Add(currentPoint);           
+        }
 
-                if (ShouldDrawLine(start, end, spectrum.BaseLinePosition))
+        private void SetSpectrumPixels(Spectrogram spectrum, int pixelsFactor, int currentPoint)
+        {
+            int prevPoint = 0;
+            int start = 0;
+            int end = 0;
+
+            prevPoint = EnvelopDataPoints.Count <= OFFSET_1 ? currentPoint : EnvelopDataPoints[EnvelopDataPoints.Count - OFFSET_2];
+            start = currentPoint >= prevPoint ? prevPoint : currentPoint;
+            end = currentPoint >= prevPoint ? currentPoint : prevPoint;
+            //reset offset and plot positive envelope
+            int columnOffset = spectrum.XStart * Constants.BytesForColor;
+
+            if (ShouldDrawLine(start, end, spectrum.BaseLinePosition))
+            {
+                for (int i = start; i < end + OFFSET_1; i++)
                 {
-                    for (int i = start; i < end + OFFSET_1; i++)
+                    if (i < Constants.SpectrumBin && i >= 0)
                     {
-                        if (i < Constants.SpectrumBin && i >= 0)
-                        {
-                            spectrum.ArrayPixel[columnOffset + i * pixelsFactor] = Colors.White.B; // B Value
-                            spectrum.ArrayPixel[columnOffset + i * pixelsFactor + OFFSET_1] = Colors.White.G; // G Value
-                            spectrum.ArrayPixel[columnOffset + i * pixelsFactor + OFFSET_2] = Colors.White.R; // R Value
-                            spectrum.ArrayPixel[columnOffset + i * pixelsFactor + OFFSET_3] = Colors.White.A;// A Value
-                        }
+                        spectrum.ArrayPixel[columnOffset + i * pixelsFactor] = Colors.White.B; // B Value
+                        spectrum.ArrayPixel[columnOffset + i * pixelsFactor + OFFSET_1] = Colors.White.G; // G Value
+                        spectrum.ArrayPixel[columnOffset + i * pixelsFactor + OFFSET_2] = Colors.White.R; // R Value
+                        spectrum.ArrayPixel[columnOffset + i * pixelsFactor + OFFSET_3] = Colors.White.A;// A Value
                     }
                 }
             }
-            EnvelopDataPoints.Add(currentPoint);           
         }
 
         /// <summary>
