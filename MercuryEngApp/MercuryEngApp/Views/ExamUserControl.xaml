@@ -541,8 +541,7 @@
                     VerticalAlignment="Top" 
                     Width="133" Height="40"                                      
                     HorizontalAlignment = "Right"
-                    Checked="BtnEnvelopChecked"
-                    Unchecked="BtnEnvelopUnchecked"/>
+                    Click="EnvelopeClick"/>
 
             <ToggleButton x:Name = "toggleLimits" Margin="0,72,10,0"
                       VerticalAlignment="Top"  

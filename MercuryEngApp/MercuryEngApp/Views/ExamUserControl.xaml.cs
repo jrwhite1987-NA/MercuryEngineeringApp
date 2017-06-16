@@ -808,24 +808,35 @@ namespace MercuryEngApp
             InitializeBitmap();
         }
 
-        private void BtnEnvelopChecked(object sender, RoutedEventArgs e)
+        private void EnvelopeClick(object sender, RoutedEventArgs e)
         {
-            NaGraph.LeftSpectrogram.SpectrumEnvolope.NegativeFlowVisible = true;
-            NaGraph.LeftSpectrogram.SpectrumEnvolope.PositiveFlowVisible = true;
-            NaGraph.RightSpectrogram.SpectrumEnvolope.NegativeFlowVisible = true;
-            NaGraph.RightSpectrogram.SpectrumEnvolope.PositiveFlowVisible = true;
-            btnEnvelop.Content = "Envelope On";
-            LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.EnvelopeTurnedOn);
-        }
-
-        private void BtnEnvelopUnchecked(object sender, RoutedEventArgs e)
-        {
-            NaGraph.LeftSpectrogram.SpectrumEnvolope.NegativeFlowVisible = false;
-            NaGraph.LeftSpectrogram.SpectrumEnvolope.PositiveFlowVisible = false;
-            NaGraph.RightSpectrogram.SpectrumEnvolope.NegativeFlowVisible = false;
-            NaGraph.RightSpectrogram.SpectrumEnvolope.PositiveFlowVisible = false;
-            btnEnvelop.Content = "Envelope Off";
-            LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.EnvelopeTurnedOff);
+            Helper.logger.Debug("++");
+            try
+            {
+                if (btnEnvelop.Content.ToString() == "Envelope Off")
+                {
+                    btnEnvelop.Content = "Envelope On";
+                    NaGraph.LeftSpectrogram.SpectrumEnvolope.NegativeFlowVisible = true;
+                    NaGraph.LeftSpectrogram.SpectrumEnvolope.PositiveFlowVisible = true;
+                    NaGraph.RightSpectrogram.SpectrumEnvolope.NegativeFlowVisible = true;
+                    NaGraph.RightSpectrogram.SpectrumEnvolope.PositiveFlowVisible = true;
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.EnvelopeTurnedOn);
+                }
+                else
+                {
+                    NaGraph.LeftSpectrogram.SpectrumEnvolope.NegativeFlowVisible = false;
+                    NaGraph.LeftSpectrogram.SpectrumEnvolope.PositiveFlowVisible = false;
+                    NaGraph.RightSpectrogram.SpectrumEnvolope.NegativeFlowVisible = false;
+                    NaGraph.RightSpectrogram.SpectrumEnvolope.PositiveFlowVisible = false;
+                    btnEnvelop.Content = "Envelope Off";
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.EnvelopeTurnedOff);
+                }
+            }
+            catch (Exception ex)
+            {
+                Helper.logger.Warn("Exception: ", ex);
+            }
+            Helper.logger.Debug("--");
         }
        
     }
