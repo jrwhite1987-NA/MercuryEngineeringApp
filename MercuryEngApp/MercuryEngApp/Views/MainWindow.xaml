@@ -66,6 +66,7 @@
                                   HorizontalAlignment="Left" 
                                   UseLayoutRounding="True" 
                                   Click="TCDPowerClick"
+                                  IsEnabled="False"
                                   VerticalAlignment="Top" 
                                   Grid.Column="0"/>
                 </Grid>
