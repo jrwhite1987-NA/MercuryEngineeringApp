@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="MercuryEngApp\Common\MmodeSettingTest.cs" />
     <Compile Include="MercuryEngApp\Common\ScaleTest.cs" />
+    <Compile Include="MercuryEngApp\Common\SpectrogramSettingTest.cs" />
     <Compile Include="MercuryEngApp\Validators\ValidationsTest.cs" />
     <Compile Include="PlottingLib\NAGraphTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
