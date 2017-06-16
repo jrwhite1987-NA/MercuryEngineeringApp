@@ -21,7 +21,7 @@ namespace MercuryEngApp.Test.MercuryEngApp.Common
         [TestMethod]
         [ExpectedException(typeof(Exception),
             "Value of depth can not be zero.")]
-        public void GetSpectrogramSettingTest2()
+        public void GetSpectrogramSettingExTest()
         {
             SpectrogramSetting spectrogramSetting =
                 SpectrogramSetting.GetSpectrogramSetting(0, false);
@@ -32,6 +32,28 @@ namespace MercuryEngApp.Test.MercuryEngApp.Common
         {
             Assert.IsTrue(true);
             //SpectrogramSetting.GetNearestVelocityRange(10)
+        }
+         
+        [TestMethod]
+        public void GetIndexforBaselineTest()
+        {
+            const int baseLinePosition = Constants.VALUE_0;
+            Assert.IsTrue(SpectrogramSetting.GetIndexforBaseline(baseLinePosition) ==
+                baseLinePosition);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception),
+            "Value of PRF can not be zero.")]
+        public void GetTotalVelocityRangeExTest()
+        {
+            PRFOptions.GetTotalVelocityRange(0);
+        }
+
+        [TestMethod]
+        public void GetTotalVelocityRangeTest()
+        {
+            PRFOptions.GetTotalVelocityRange(1);
         }
     }
 }
