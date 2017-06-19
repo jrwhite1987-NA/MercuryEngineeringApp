@@ -58,11 +58,21 @@ namespace MercuryEngApp
             Helper.logger.Debug("++");
             try
             {
-                App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
-                await UsbTcd.TCDObj.SetModeAsync(App.CurrentChannel, TCDModes.Service);
-                using (TCDRequest request = new TCDRequest())
+                if (PowerController.Instance.IsControllerOn)
                 {
-                    await ReadServiceLog(request);
+                    this.IsEnabled = true;
+                    App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
+                    await UsbTcd.TCDObj.SetModeAsync(App.CurrentChannel, TCDModes.Service);
+                    using (TCDRequest request = new TCDRequest())
+                    {
+                        request.ChannelID = App.CurrentChannel;
+                        request.Value = Constants.VALUE_10;
+                        await ReadServiceLog(request);
+                    }
+                }
+                else
+                {
+                    this.IsEnabled = false;
                 }
             }
             catch (Exception ex)

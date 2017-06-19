@@ -48,6 +48,14 @@ namespace MercuryEngApp.Views
         void FPGAUserControlLoaded(object sender, RoutedEventArgs e)
         {
             txtUserGuide.Text = fpgaViewModel.GetFPGAUserGuideContent();
+            if(PowerController.Instance.IsControllerOn)
+            {
+                this.IsEnabled = true;
+            }
+            else
+            {
+                this.IsEnabled = false;
+            }
         }
 
         public async Task<bool> StartFixedTransmit(int channel, int DAC, int PRF, int sampleLen)

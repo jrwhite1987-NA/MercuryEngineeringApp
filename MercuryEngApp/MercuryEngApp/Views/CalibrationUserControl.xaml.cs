@@ -65,22 +65,31 @@ namespace MercuryEngApp
         {
             try
             {
-                if (App.CurrentChannel == TCDHandles.Channel1 || App.CurrentChannel == TCDHandles.Channel2)
+                if (PowerController.Instance.IsControllerOn)
                 {
-                    TCDReadInfoResponse readInfo = await UsbTcd.TCDObj.ReadCalibrationInfoAsync(new UsbTcdLibrary.CommunicationProtocol.TCDRequest() { ChannelID = App.CurrentChannel });
-                    if (readInfo.Calibration != null)
+                    this.IsEnabled = true;
+                    if (App.CurrentChannel == TCDHandles.Channel1 || App.CurrentChannel == TCDHandles.Channel2)
                     {
-                        calViewModel.TxOffset = readInfo.Calibration.ZeroIntensityDAC;
-                        calViewModel.TxEnergy = readInfo.Calibration.MaxDACIntensity;
-                        OverrideCalibration.IsChecked = true;
+                        TCDReadInfoResponse readInfo = await UsbTcd.TCDObj.ReadCalibrationInfoAsync(
+                            new UsbTcdLibrary.CommunicationProtocol.TCDRequest() { ChannelID = App.CurrentChannel });
+                        if (readInfo.Calibration != null)
+                        {
+                            calViewModel.TxOffset = readInfo.Calibration.ZeroIntensityDAC;
+                            calViewModel.TxEnergy = readInfo.Calibration.MaxDACIntensity;
+                            OverrideCalibration.IsChecked = true;
+                        }
+                        else
+                        {
+                            LogWrapper.Log(Constants.APPLog, "Failed to retrieve calibration data");
+                        }
                     }
-                    else
-                    {
-                        LogWrapper.Log(Constants.APPLog, "Failed to retrieve calibration data");
-                    }
+                    ClearSafetyStatus();
+                    lastSafetyTrip = 0;
                 }
-                ClearSafetyStatus();
-                lastSafetyTrip = 0;
+                else
+                {
+                    this.IsEnabled = false;
+                }
             }
             catch (Exception ex)
             {

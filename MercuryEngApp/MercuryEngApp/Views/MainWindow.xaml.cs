@@ -199,7 +199,11 @@ namespace MercuryEngApp
                                 BtnRightProbe.IsEnabled = true;
                                 break;
                         }
-                        BtnPower.IsEnabled = true; 
+                        BtnPower.IsEnabled = true;
+                        (this.InfoTab.Content as InfoUserControl).IsEnabled = true;
+                        (this.FPGATab.Content as FPGAUserControl).IsEnabled = true;
+                        (this.CalibrationTab.Content as CalibrationUserControl).IsEnabled = true;
+                        (this.SoftwareTab.Content as SoftwareUserControl).IsEnabled = true;
                     });
                 }
                 else

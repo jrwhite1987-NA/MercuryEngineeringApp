@@ -38,7 +38,15 @@ namespace MercuryEngApp.Views
 
         void SoftwareUserControlLoaded(object sender, RoutedEventArgs e)
         {
-            Refresh();
+            if (PowerController.Instance.IsControllerOn)
+            {
+                this.IsEnabled = true;
+                Refresh();
+            }
+            else
+            {
+                this.IsEnabled = false;
+            }
         }
 
         /// <summary>
