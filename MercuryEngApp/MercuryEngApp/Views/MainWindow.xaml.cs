@@ -236,6 +236,8 @@ namespace MercuryEngApp
                         //Turn TCD ON
                         if (TurnTCDON != null)
                         {
+                            BtnLeftProbe.IsHitTestVisible = false;
+                            BtnRightProbe.IsHitTestVisible = false;
                             TurnTCDON();
                         }
                     }
@@ -244,8 +246,10 @@ namespace MercuryEngApp
                         //Turn TCD OFF
                         if (TurnTCDOFF != null)
                         {
-                            App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
                             TurnTCDOFF();
+                            BtnLeftProbe.IsHitTestVisible = true;
+                            BtnRightProbe.IsHitTestVisible = true;
+                            App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
                         }
                     }
                 }
