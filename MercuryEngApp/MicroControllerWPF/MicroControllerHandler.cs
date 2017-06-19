@@ -511,12 +511,13 @@ namespace MicrochipController
         /// <returns>bool</returns>
         bool VerifyInputStream(byte start, byte end, byte cmd)
         {
+            const byte ALPHA = 0xFF;
             if (start != cmd)
             {
                 return false;
             }
 
-            return ((start ^ end) == 0xFF);
+            return ((start ^ end) == ALPHA);
         }
 
         #endregion

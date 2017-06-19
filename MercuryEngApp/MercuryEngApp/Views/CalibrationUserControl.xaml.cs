@@ -293,7 +293,7 @@ namespace MercuryEngApp
             BtnSafetyStart.IsEnabled = false;
             isSafetyCalibrationInProgress = true;
             await UsbTcd.TCDObj.EnableTransmitTestControlAsync(new TCDRequest() { ChannelID = App.CurrentChannel });
-            await Task.Delay(100);
+            await Task.Delay(Constants.VALUE_100);
             await UsbTcd.TCDObj.TransmitTestPowerAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = calViewModel.Power });
             await UsbTcd.TCDObj.TransmitTestSampleLengthAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = (int)calViewModel.SelectedSVOL });
             await UsbTcd.TCDObj.TransmitTestPRFAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = (int)calViewModel.SelectedPRF });

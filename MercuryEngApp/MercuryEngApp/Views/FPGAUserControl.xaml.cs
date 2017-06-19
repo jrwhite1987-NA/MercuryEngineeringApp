@@ -41,11 +41,11 @@ namespace MercuryEngApp.Views
         public FPGAUserControl()
         {
             InitializeComponent();
-            this.Loaded += FPGAUserControl_Loaded;
+            this.Loaded += FPGAUserControlLoaded;
             this.DataContext = fpgaViewModel;
         }
 
-        void FPGAUserControl_Loaded(object sender, RoutedEventArgs e)
+        void FPGAUserControlLoaded(object sender, RoutedEventArgs e)
         {
             txtUserGuide.Text = fpgaViewModel.GetFPGAUserGuideContent();
         }
