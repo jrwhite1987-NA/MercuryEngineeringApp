@@ -8,8 +8,8 @@
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="820*"/>
+            <ColumnDefinition Width="380*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="448"/>
@@ -25,19 +25,18 @@
             </Grid.RowDefinitions>
 
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
-                    Width="780"
-                    Height="128" 
+                   Height="128" 
                     VerticalAlignment="Top" 
-                    Margin="10,5,0,0" 
+                    Margin="10,5,10,0" 
                     Grid.Column="0" 
-                    Grid.Row="0">
+                    Grid.Row="0"
+                   HorizontalAlignment="Stretch">
 
                 <Grid Name="LeftPanelCalibrationTop" >
                     <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" 
                              Height="40" 
                              VerticalAlignment="Top" 
-                             Width="780" 
-                             Margin="-2,-2,-2,0">
+                             Margin="-2,-2,-2,0" HorizontalAlignment="Stretch">
 
                         <TextBlock Height="27" 
                                    Margin="13,8,0,0" 
@@ -47,8 +46,8 @@
 
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="629*"/>
+                            <ColumnDefinition Width="629*"/>
                         </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>
@@ -57,39 +56,37 @@
                             <RowDefinition Height="35"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Height="auto" 
-                                   Margin="13,15,0,0" 
+                        <TextBlock Height="17" 
+                                   Margin="13,15,13,0" 
                                    Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                    Grid.Row="1" 
-                                   Width="350"> 
+                                   HorizontalAlignment="Stretch"> 
                             The DAC Value where the Tx energy function intercepts zero
 
                         </TextBlock>
-                        <TextBlock Height="Auto" 
-                                   Margin="13,15,0,0" 
+                        <TextBlock Height="17" 
+                                   Margin="13,15,13,0" 
                                    Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                    Grid.Row="1" 
                                    Grid.Column="1" 
-                                   Width="350">
+                                   HorizontalAlignment="Stretch">
                             The acoustics energy, 
                             in nanowatts* sec, per 2MHz cycle when the DAC is at its maximum
                         </TextBlock>
 
-                        <TextBox Width="370" 
-                                 Height="30" 
+                        <TextBox HorizontalAlignment="Stretch" 
                                  IsEnabled="{Binding Path=IsTxOffsetEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  Text="{Binding Path=TxOffset, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                  Grid.Row="2" 
                                  Grid.Column="0" 
-                                 Margin="0,0,5,0"  Style="{StaticResource ResourceKey=MainTextbox}"/>
+                                 Margin="15,3,15,3"  Style="{StaticResource ResourceKey=MainTextbox}"/>
 
-                        <TextBox Width="370" 
-                                 Height="30"
+                        <TextBox HorizontalAlignment="Stretch"
                                  IsEnabled="{Binding Path=IsTxEnergyEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  Text="{Binding Path=TxEnergy, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                  Grid.Row="2" 
                                  Grid.Column="1" 
-                                 Margin="10,0,8,0" 
+                                 Margin="15,3,15,3"
                                  Style="{StaticResource ResourceKey=MainTextbox}"/>
                     </Grid>
 
@@ -97,10 +94,10 @@
             </Border>
 
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
-                    Width="780"
+                   HorizontalAlignment="Stretch"
                     Height="175" 
                     VerticalAlignment="Top" 
-                    Margin="10,0,0,0" 
+                    Margin="10,0,10,0" 
                     Grid.Column="0" 
                     Grid.Row="1">
 
@@ -108,124 +105,124 @@
                     <Border Style="{StaticResource ResourceKey=RoundedRectangleBlue}" 
                             Height="40" 
                             VerticalAlignment="Top" 
-                            Width="780" 
-                             Margin="-2,-2,-2,0">
+                           HorizontalAlignment="Stretch"
+                            >
 
                         <TextBlock Height="27" 
                                    Margin="13,8,0,0" 
                                    Text="Tx Calibration" 
+                                     HorizontalAlignment="Stretch"
                                    Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
                     </Border>
 
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="190*"/>
+                            <ColumnDefinition Width="145*"/>
+                            <ColumnDefinition Width="80*"/>
+                            <ColumnDefinition Width="190*"/>
+                            <ColumnDefinition Width="145*"/>
+                            <ColumnDefinition Width="80*"/>
                         </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="29"/>
                             <RowDefinition Height="38"/>
                             <RowDefinition Height="42"/>
-                            <RowDefinition Height="22"/>
+                            <RowDefinition Height="25"/>
                             <RowDefinition Height="40"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Height="auto" 
+                        <TextBlock Height="17" 
                                    Margin="13,15,0,0" 
                                    Style="{StaticResource ResourceKey=WhiteLableSub15ptBold}" 
                                    Grid.Row="1" 
-                                   Width="340" 
-                                   Text="Acoustic Measurement # 1"/>
-                        <TextBlock Height="Auto" 
+                                   Text="Acoustic Measurement # 1"
+                                   HorizontalAlignment="Stretch"/>
+                        <TextBlock Height="17" 
                                    Margin="13,15,0,0" 
                                    Style="{StaticResource ResourceKey=WhiteLableSub15ptBold}" 
                                    Grid.Row="1" 
-                                   Grid.Column="1" 
-                                   Width="368" 
+                                   Grid.Column="3" 
+                                   HorizontalAlignment="Stretch"
                                    Text="Acoustic Measurement # 2"/>
 
                         <Button Content="Start Measurement #1" 
                                     Style="{StaticResource ResourceKey=ButtonStyle1}" 
                                     Grid.Column="0" 
                                     Grid.Row="2" 
-                                    Width="185" 
                                     Height="35" 
-                                    HorizontalAlignment="Left"
+                                Padding="5,0,5,0"
+                                   HorizontalAlignment="Stretch"
                                 Click="StartMeasurement1Click"
-                                    VerticalAlignment="Top" Margin="10,5,0,0" />
+                                    VerticalAlignment="Top" Margin="10,5,10,0" />
 
                         <TextBox Height="30" 
                                  Text="{Binding Path=Measurement1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                  Style="{StaticResource ResourceKey=MainTextbox}" 
                                  IsEnabled="{Binding Path=IsMeasurement1EditEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                 Margin="105,7,2,0" 
+                                 Margin="10,7,10,0" 
                                  VerticalAlignment="Top" 
-                                 HorizontalAlignment="Center"
-                                 Width="90" 
-                                 Grid.Column="0" 
+                                 HorizontalAlignment="Stretch"
+                                 Grid.Column="1" 
                                  Grid.Row="2"/>
 
-                        <TextBlock Height="17" 
-                                   Margin="285,0,15,0" 
+                        <TextBlock Height="16" 
+                                   Margin="0,13,0,13" 
                                    Text="mW/cm2" 
                                    Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                                   Grid.Column="0" 
+                                   Grid.Column="2" 
                                    Grid.Row="2"
-                                   VerticalAlignment="Center" 
-                                 HorizontalAlignment="Center"/>
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Center"/>
 
                         <Button Content="Start Measurement #2" 
                                     Style="{StaticResource ResourceKey=ButtonStyle1}" 
-                                    Grid.Column="1" 
+                                    Grid.Column="3" 
                                     Grid.Row="2" 
-                                    Width="185" 
                                     Height="35" 
+                                Padding="5,0,5,0"
                                 IsEnabled="{Binding Path=IsMeasurement2ClickEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                    HorizontalAlignment="Left" 
+                                     HorizontalAlignment="Stretch"
                                 Click="StartMeasurement2Click"
-                                    VerticalAlignment="Top" Margin="10,5,0,0" />
+                                    VerticalAlignment="Top" Margin="10,5,10,0" />
 
                         <TextBox Height="30" 
                                  Text="{Binding Path=Measurement2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                  Style="{StaticResource ResourceKey=MainTextbox}" 
                                  IsEnabled="{Binding Path=IsMeasurement2EditEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                 Margin="115,7,2,0" 
+                                Margin="10,7,10,0" 
                                  VerticalAlignment="Top" 
-                                 HorizontalAlignment="Center"
-                                 Width="90" 
-                                 Grid.Column="1" 
+                                 HorizontalAlignment="Stretch"
+                                 Grid.Column="4" 
                                  Grid.Row="2"/>
 
-                        <TextBlock Height="17" 
-                                   Margin="20,0,20,0" 
+                        <TextBlock Margin="0,13,0,13" 
                                    Text="mW/cm2" 
                                    Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                                   Grid.Column="1" 
+                                   Grid.Column="5" 
                                    Grid.Row="2"
                                    VerticalAlignment="Center" 
-                                 HorizontalAlignment="Right"/>
+                                    HorizontalAlignment="Stretch"/>
 
-                        <CheckBox Grid.Column="0" 
+                        <CheckBox Grid.ColumnSpan="6"
                                   Grid.Row="3"
-                                  Margin="15,0,20,0" 
+                                  Margin="15,1,0,1" 
                                   Content="Not using reference transducer"
                                   VerticalAlignment="Center" 
-                                  HorizontalAlignment="left"
-                                  Style="{StaticResource ResourceKey=CheckBoxsize}"/>
+                                  Style="{StaticResource ResourceKey=CheckBoxsize}" Height="20"/>
 
                         <Button x:Name="ApplyMeasurements"
                                 Content="Apply Measurements" 
                                 IsEnabled="{Binding Path=IsApplyMeasurementEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                 Style="{StaticResource ResourceKey=ButtonStyle1}"
-                                Grid.Column="0"
-                                Grid.ColumnSpan="2"
+                                Grid.ColumnSpan="6"
                                 Grid.Row="4" 
-                                Width="185" 
+                                Width="184" 
                                 Height="35" 
                                 HorizontalAlignment="Center" 
                                 Click="ApplyMeasurementsClick"
-                                VerticalAlignment="Top" Margin="10,0,0,0" />
+                                VerticalAlignment="Top" Margin="280,0,270,0" />
                     </Grid>
 
 
@@ -233,10 +230,10 @@
             </Border>
 
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
-                    Width="780"
+                  HorizontalAlignment="Stretch"
                     Height="118" 
                     VerticalAlignment="Top" 
-                    Margin="10,5,0,0" 
+                    Margin="10,5,10,0" 
                     Grid.Column="0" 
                     Grid.Row="2">
 
@@ -244,8 +241,7 @@
                     <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" 
                              Height="40" 
                              VerticalAlignment="Top" 
-                             Width="780" 
-                             Margin="-2,-2,-2,0">
+                           HorizontalAlignment="Stretch">
 
                         <TextBlock Height="27" 
                                    Margin="13,8,0,0"
@@ -253,12 +249,12 @@
                                    Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
                     </Border>
 
-                    <Grid>
+                    <Grid HorizontalAlignment="Stretch">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="195"/>
-                            <ColumnDefinition Width="195"/>
-                            <ColumnDefinition Width="195"/>
+                            <ColumnDefinition Width="180*"/>
+                            <ColumnDefinition Width="195*"/>
+                            <ColumnDefinition Width="195*"/>
+                            <ColumnDefinition Width="195*"/>
                         </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>
@@ -267,78 +263,73 @@
                             <RowDefinition Height="38"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Height="auto" 
-                                   Margin="13,15,0,0" 
+                        <TextBlock Margin="13,15,0,0" 
                                    Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                    Grid.Row="1" 
-                                   Width="170"
+                                   HorizontalAlignment="Stretch"
                                    Text="Safety Trip Status"/>
 
-                        <TextBlock Height="Auto" 
-                                   Margin="13,15,0,0" 
+                        <TextBlock Margin="13,15,10,0" 
                                    Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                    Grid.Row="1" 
                                    Grid.Column="1" 
-                                   Width="170"
+                                  HorizontalAlignment="Stretch"
                                    Text="Sample"/>
 
-                        <TextBlock Height="Auto" 
-                                   Margin="13,15,0,0" 
+                        <TextBlock Margin="13,15,0,0" 
                                    Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                    Grid.Row="1" 
                                    Grid.Column="2" 
                                    Width="170"
                                    Text="PRF"/>
 
-                        <TextBlock Height="Auto" 
-                                   Margin="13,15,0,0" 
+                        <TextBlock Margin="13,15,0,0" 
                                    Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                    Grid.Row="1" 
                                    Grid.Column="3" 
                                    Width="170"
                                    Text="Power %"/>
 
-                        <TextBlock Height="17" 
-                                   Margin="58,0,59,14" 
+                        <TextBlock Margin="58,0,59,14" 
                                    Text="{Binding Path=SafetyTripStatus, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
                                    Style="{StaticResource ResourceKey=WhiteLable15ptBold}"
                                    Grid.Row="2" 
                                    Grid.Column="0" 
-                                   HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                                   HorizontalAlignment="Stretch" VerticalAlignment="Bottom"/>
 
                         <Border  Style="{StaticResource ResourceKey=RoundedBorderCombo}" 
                                 Grid.Row="2" 
                                  Grid.Column="1" 
                                  Height="36"
-                                 Width="170" 
-                                 VerticalAlignment="Center" Margin="10,4,0,-1"/>
-                        
-                        <ComboBox Width="160" 
+                                 HorizontalAlignment="Stretch"
+                                 Margin="10,4,10,-1"/>
+
+                        <ComboBox HorizontalAlignment="Stretch"
                                   Height="32"
                                   ItemsSource="{Binding Path=SVOLList, Mode=TwoWay}"
                                   SelectedItem="{Binding Path=SelectedSVOL}"
                                  Grid.Row="2" 
                                  Grid.Column="1" 
-                                 Margin="0,5,5,0" 
+                                 Margin="20,5,20,0" 
                                  Style="{StaticResource ResourceKey=ComboBoxBorder}"/>
-                        
+
                         <Border  Style="{StaticResource ResourceKey=RoundedBorderCombo}" 
                                 Grid.Row="2" 
                                 Grid.Column="2"  
                                  Height="36"
-                                 Width="170" 
-                                 VerticalAlignment="Center" Margin="10,4,0,-1"/>
+                                  HorizontalAlignment="Stretch"
+                                 Margin="10,4,10,-1"/>
 
-                        <ComboBox Width="160" 
+                        <ComboBox  HorizontalAlignment="Stretch"
                                  Height="32" 
                                  ItemsSource="{Binding Path=PRFList, Mode=TwoWay}"
                                  SelectedItem="{Binding Path=SelectedPRF}"
                                  Grid.Row="2" 
                                  Grid.Column="2" 
-                                 Margin="0,5,5,0"
+                                 Margin="20,5,20,0" 
                                  Style="{StaticResource ResourceKey=ComboBoxBorder}"/>
 
-                        <TextBox Width="170" 
+                        <TextBox HorizontalAlignment="Stretch" 
                                  Height="35"
                                  Text="{Binding Path=Power, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                  Grid.Row="2" 
@@ -360,7 +351,7 @@
             </Grid.RowDefinitions>
 
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
-                    Width="515"
+                   HorizontalAlignment="Stretch"
                     Height="155" 
                     VerticalAlignment="Top" 
                     Margin="0,5,0,0" 
@@ -371,8 +362,7 @@
                     <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" 
                              Height="40" 
                              VerticalAlignment="Top" 
-                             Width="515" 
-                             Margin="-2,-2,-2,0">
+                           HorizontalAlignment="Stretch">
 
                         <TextBlock Height="27" 
                                    Margin="13,8,0,0" 
@@ -420,7 +410,7 @@
             </Border>
 
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
-                    Width="515"
+                    HorizontalAlignment="Stretch"
                     Height="133" 
                     VerticalAlignment="Top" 
                     Margin="0,5,0,0" 
@@ -431,8 +421,7 @@
                     <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" 
                              Height="40" 
                              VerticalAlignment="Top" 
-                             Width="515" 
-                             Margin="-2,-2,-2,0">
+                            HorizontalAlignment="Stretch">
 
                         <TextBlock Height="27" 
                                    Margin="13,8,0,0" 
@@ -469,7 +458,7 @@
             </Border>
 
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
-                    Width="515"
+                   HorizontalAlignment="Stretch"
                     Height="135" 
                     VerticalAlignment="Top" 
                     Margin="0,5,0,0" 
@@ -480,8 +469,8 @@
                     <Border Style="{StaticResource ResourceKey=RoundedRectangleBlue}" 
                             Height="40" 
                             VerticalAlignment="Top"
-                            Width="515" 
-                             Margin="-2,-2,-2,0">
+                            HorizontalAlignment="Stretch"
+                             >
 
                         <TextBlock Height="27" 
                                    Margin="13,8,0,0" 
@@ -522,10 +511,10 @@
 
         <Border Name="bottomLarge" 
                 Style="{StaticResource ResourceKey=RoundedBorderBlue}"
-                Width="1315"
+                HorizontalAlignment="Stretch"
                 Height="42"
                 VerticalAlignment="Top"
-                Margin="10,7,0,0"
+                Margin="10,7,10,0"
                 Grid.Column="0" 
                 Grid.ColumnSpan="2"
                 Grid.Row="1">

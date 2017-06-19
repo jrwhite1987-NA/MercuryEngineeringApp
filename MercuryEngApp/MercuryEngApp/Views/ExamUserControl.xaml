@@ -10,28 +10,35 @@
              SizeChanged="ExamControlSizeChanged"
              x:Name="ExamControl">
 
-    <Grid x:Name="ParentGrid" >
+    <Grid x:Name="ParentGrid" HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="1.22*"/>
+            <ColumnDefinition Width="400*"/>
+            <ColumnDefinition Width="700*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="270"/>
-            <RowDefinition Height="290"/>
+            <RowDefinition Height="280"/>
+            <RowDefinition Height="295"/>
         </Grid.RowDefinitions>
-        
+        <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
+                   HorizontalAlignment="Stretch"
+                    Height="275" 
+                    VerticalAlignment="Top" 
+                    Margin="10,5,0,0" 
+                    Grid.Column="0" 
+                    Grid.Row="0"/>
             <Grid
                 VerticalAlignment="Top" 
-              HorizontalAlignment="Left" 
-              Margin="10,5,0,0" 
+              HorizontalAlignment="Stretch" 
+              Margin="10,5,10,0" 
               Grid.Column="0" 
                   Width="{Binding Path=Column1Width}"
               Grid.Row="0" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+            
+                <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="140*"/>
+                <ColumnDefinition Width="90*"/>
+                <ColumnDefinition Width="90*"/>
+                <ColumnDefinition Width="90*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -41,26 +48,17 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Rectangle Stroke="#02486e"  
-                       RadiusX="8" 
-                       RadiusY="8" 
-                       StrokeThickness="2" 
-                       Margin="0,0,0,0" 
-                           Grid.RowSpan="6"
-                           Grid.ColumnSpan="4" />
+
             <TextBlock Text="Power (%) (0-100)" 
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                        Grid.Column="0"
-                       Padding="17"/>
+                       Padding="15"/>
             <TextBox Height="29" 
                      FontSize="18" 
                      Name="Power"
                      Style="{StaticResource ResourceKey=MainTextbox}" 
-                     Margin="10" 
-                     VerticalAlignment="Center"
-                     Grid.Column="1"
-                     Padding="5,2,3,0"
-                     TextAlignment="Center" 
+                     Margin="5,2,5,0"
+                     Grid.Column="1"                     
                      Validation.ErrorTemplate="{x:Null}">
                 <TextBox.Text>
                     <Binding Path="Power" Mode="OneWayToSource" UpdateSourceTrigger="LostFocus">
@@ -76,11 +74,9 @@
                       TextWrapping="Wrap" 
                       Text="{Binding Path=PacketPower, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                       FontSize="18" 
-                      TextAlignment="Center"
-                      Margin="0,12,0,0" 
+                     Margin="5,10,5,0" 
                       VerticalAlignment="Top" 
-                      Padding="5,2,3,0" 
-                      Width="90" 
+                      HorizontalAlignment="Stretch"
                       Grid.Column="3"
                       IsReadOnly="True" 
                       Style="{StaticResource ResourceKey=TexboxDisable}">
@@ -93,21 +89,17 @@
             </TextBox>
             <Button Content="Send" 
                     Style="{StaticResource ResourceKey=ButtonStyle1}" 
-                    VerticalAlignment="Center"
-                    Click="SendPower"
 					Height="33"
-                     Width="105"
+                    Margin="5,2,5,0"
                     Grid.Column="2"
                     />
             <TextBox   Height="29" Style="{StaticResource ResourceKey=MainTextbox}"
                        FontSize="18" 
                        Grid.Column="1"
                        Grid.Row="1"
-                       Margin="10"
+                       Margin="5,2,5,0"
                        Name="DepthTextBox"
-                       VerticalAlignment="Center"
-                       Padding="5,2,3,0" 
-                       TextAlignment="Center" Validation.ErrorTemplate="{x:Null}">
+                       Validation.ErrorTemplate="{x:Null}">
                 <TextBox.Text>
                     <Binding Path="Depth" Mode="OneWayToSource" UpdateSourceTrigger="LostFocus">
                         <Binding.ValidationRules>
@@ -124,10 +116,9 @@
                      FontSize="18" 
                      Grid.Row="1"
                      Grid.Column="3"
-                     VerticalAlignment="Center" 
-                     Padding="5,2,3,0"
-                     Width="90" IsReadOnly="True" 
-                     TextAlignment="Center">
+                     HorizontalAlignment="Stretch" 
+                    Margin="5,2,5,0" 
+                     IsReadOnly="True">
 
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -138,8 +129,7 @@
             <Button Content="Send"
                     Style="{StaticResource ResourceKey=ButtonStyle1}" 
                     Grid.Row="1"
-                    Width="105"
-                    VerticalAlignment="Center"
+                    Margin="5,2,5,0"
                     Grid.Column="2"
 					Height="33"
                     Click="SendDepth"/>
@@ -149,10 +139,7 @@
                      Grid.Row="2"
                      Grid.Column="1"
                      Name="FilterTextBox"
-                     VerticalAlignment="Center" 
-                     Padding="5,2,3,0" 
-                     Margin="10"
-                     TextAlignment="Center" Validation.ErrorTemplate="{x:Null}">
+                     Margin="5,2,5,0" Validation.ErrorTemplate="{x:Null}">
                 <TextBox.Text>
                     <Binding Path="Filter" Mode="OneWayToSource" UpdateSourceTrigger="LostFocus">
                         <Binding.ValidationRules>
@@ -169,10 +156,9 @@
                      FontSize="18" 
                      Grid.Row="2"
                      Grid.Column="3"
-                     VerticalAlignment="Center" 
-                     Padding="5,2,3,0" 
-                     Width="90" IsReadOnly="True" 
-                     TextAlignment="Center">
+                     HorizontalAlignment="Stretch" 
+                      Margin="5,2,5,0" 
+                     IsReadOnly="True">
 
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -184,9 +170,8 @@
                     Style="{StaticResource ResourceKey=ButtonStyle1}" 
                     Grid.Column="2"
                     Grid.Row="2"
-                    VerticalAlignment="Center"
                     Height="33"
-                    Width="105"
+                    Margin="5,2,5,0"
 
                     Click="SendFilter"/>
             <TextBox Height="29" 
@@ -194,11 +179,9 @@
                      Name="SVolumeTextBox"
                      FontSize="18"  
                      Grid.Row="3"
+                     Margin="5,2,5,0"
                      Grid.Column="1"
-                     VerticalAlignment="Center" 
-                     Padding="5,2,3,0" 
-                     Width="90" 
-                     TextAlignment="Center" Validation.ErrorTemplate="{x:Null}">
+                      Validation.ErrorTemplate="{x:Null}">
                 <TextBox.Text>
                     <Binding Path="SVol" Mode="OneWayToSource" UpdateSourceTrigger="LostFocus">
                         <Binding.ValidationRules>
@@ -214,12 +197,10 @@
                      Text="{Binding Path=PacketSVol, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                      FontSize="18" 
                      Grid.Column="3"
-                     VerticalAlignment="Center" 
-                     Padding="5,2,3,0" 
+                     HorizontalAlignment="Stretch" 
                      Grid.Row="3"
-                     Width="90" 
                      IsReadOnly="True" 
-                     TextAlignment="Center">
+                     Margin="5,2,5,0" >
 
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -230,21 +211,18 @@
             <Button Content="Send" 
                     Style="{StaticResource ResourceKey=ButtonStyle1}" 
                     Grid.Column="2"
-                    VerticalAlignment="Center"
                     Height="33"
                     Grid.Row="3"
-                    Width="105"
+                    Margin="5,2,5,0"
                     Click="SendLength"/>
             <TextBox Height="29" 
                      Style="{StaticResource ResourceKey=MainTextbox}"
                      FontSize="18" 
                      Name="StartDepthTextBox"
                      Grid.Row="4"
-                     TextAlignment="Center"
                      Grid.Column="1"
-                     VerticalAlignment="Center" 
-                     Padding="5,2,3,0" 
-                     Width="90" Validation.ErrorTemplate="{x:Null}">
+                     Margin="5,2,5,0"
+                     Validation.ErrorTemplate="{x:Null}">
                 <TextBox.Text>
                     <Binding Path="StartDepth" Mode="OneWayToSource" UpdateSourceTrigger="LostFocus">
                         <Binding.ValidationRules>
@@ -259,13 +237,11 @@
                      Style="{StaticResource ResourceKey=TexboxDisable}"
                      Text="{Binding Path=PacketStartDepth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                      FontSize="18" 
-                     VerticalAlignment="Center" 
+                     HorizontalAlignment="Stretch" 
                      Grid.Row="4"
-                     Padding="5,2,3,0" 
-                     Width="90" 
                      Grid.Column="3"
                      IsReadOnly="True" 
-                     TextAlignment="Center">
+                      Margin="5,2,5,0" >
 
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -276,18 +252,19 @@
             <Button Content="Send" 
                     Style="{StaticResource ResourceKey=LargeButtonStyle}" 
                     Grid.Column="2"
-                    Width="105"
+                    Margin="5,2,5,0"
                     Grid.Row="4"
                     Grid.RowSpan="2"
-                    Height="66"
-                    VerticalAlignment="Center"
+                    Height="80"
                     Click="SendPRF"/>
             <Border  Style="{StaticResource ResourceKey=RoundedBorderCombo}" 
                      Grid.Column="1"
                      Grid.Row="5"
-                     HorizontalAlignment="Center"
-                     Width="90" Height="30"  />
+                     HorizontalAlignment="Stretch"
+                     Margin="5,2,5,0"
+                    Height="30"  />
             <ComboBox Height="25" 
+                      Margin="15,2,15,0"
                       IsReadOnly="False"
                       Grid.Row="5"
                       IsEditable="False"
@@ -296,9 +273,7 @@
                      Style="{StaticResource ResourceKey=ComboBoxBorder}"
                      FontSize="18"
                       Grid.Column="1"
-                     VerticalAlignment="Center"
-                     Padding="5,2,3,0"
-                     Width="80" Validation.ErrorTemplate="{x:Null}">
+                      Validation.ErrorTemplate="{x:Null}">
                 <ComboBox.SelectedItem>
                     <Binding Path="SelectedPRF">
                         <Binding.ValidationRules>
@@ -312,11 +287,9 @@
                      Text="{Binding Path=PacketPRF, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      FontSize="18" 
                      Grid.Row="5"
-                     TextAlignment="Center"
-                     VerticalAlignment="Center" 
+                      Margin="5,2,5,0" 
+                     HorizontalAlignment="Stretch" 
                      Grid.Column="3"
-                     Padding="5,2,3,0" 
-                     Width="90" 
                      IsReadOnly="True" 
                      Style="{StaticResource ResourceKey=TexboxDisable}">
 
@@ -328,34 +301,34 @@
             </TextBox>
             <TextBlock Text="Depth (mm) (23-146)" 
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                       Padding="17" 
+                       Padding="15" 
                        Grid.Row="1"
                        Grid.Column="0"/>
                 
             <TextBlock Text="Filter (Hz) (25-2400)" 
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                       Padding="17" 
+                       Padding="15" 
                        Grid.Row="2"
                        Grid.Column="0"/>
                 
             <TextBlock Text="S Volume (mm) (2-12)" 
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                       Padding="17" 
+                       Padding="15" 
                        Grid.Row="3"
                        Grid.Column="0" />
             <TextBlock Text="Start Depth (mm) (23-146)" 
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                       Padding="17" 
+                       Padding="15" 
                        Grid.Column="0"
                        Height="57" 
                        Grid.Row="4"/>
             <TextBlock Text="PRF (k) (5,6.25,8,10,12.5)" 
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                       Padding="17" 
+                       Padding="15" 
                        Grid.Column="0"
                        Grid.Row="5"/>
         </Grid>
-        <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Height="230" Grid.Column="0" Width="580" Grid.Row="1" Margin="10,0,0,0">
+        <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="230" Grid.Column="0" Grid.Row="1" Margin="10,5,0,0">
             <Rectangle   
                 Stroke="#02486e"  
                 RadiusX="8" 
@@ -614,7 +587,7 @@
               Grid.Column="1"
               Width="{Binding Path=Column2Width}"
                
-              Grid.Row="0">
+              Grid.Row="0" Margin="10,-0,10,0">
             
             <Slider HorizontalAlignment="Left" 
                     OverridesDefaultStyle="True" 
@@ -660,7 +633,7 @@
                   HorizontalAlignment="Left" 
                   Margin="60,0,0,0" />
         </Grid>
-        <Grid HorizontalAlignment="Right" Grid.Column="1" VerticalAlignment="top" Height="230" Grid.Row="1" Width="715"  Margin="0,-0,10,0">
+        <Grid HorizontalAlignment="Stretch" Grid.Column="1" VerticalAlignment="top" Height="230" Grid.Row="1" Margin="10,10,10,0">
 
             <Slider Name="customDepthSlider" 
                     HorizontalAlignment="Left" 

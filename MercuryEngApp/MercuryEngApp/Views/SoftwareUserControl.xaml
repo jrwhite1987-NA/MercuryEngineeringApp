@@ -39,12 +39,15 @@
                                 Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
                     </Border>
 
-                    <Grid Grid.ColumnSpan="2">
+                    <Grid Grid.ColumnSpan="2" HorizontalAlignment="Stretch">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="234*"/>
-                            <ColumnDefinition Width="205*"/>
-                            <ColumnDefinition Width="430"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="150*"/>
+                            <ColumnDefinition Width="280*"/>
+                            <ColumnDefinition Width="100*"/>
+                            <ColumnDefinition Width="280*"/>
+                            <ColumnDefinition Width="150*"/>
+                            <ColumnDefinition Width="280*" />
+
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="44"/>
@@ -52,44 +55,47 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock Height="17" 
-                                   Margin="15,15,0,0" 
+                                   Margin="-10,10,5,0" 
                                    Text="Software Version :" 
+                                   HorizontalAlignment="Right"
                                    Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                                   Grid.Row="1" Grid.Column="0" Width="122"/>
+                                   Grid.Row="1" Grid.Column="0" />
 
                         <TextBox
                                  Style="{StaticResource ResourceKey=MainTextbox}"
                                  Grid.Row="1" 
-                                 Grid.Column="0" 
-                                 Margin="155,5,105,0"
+                                 Grid.Column="1" 
+                            Margin="0,5,15,0" 
                                  Text="{Binding Path=SoftwareVersion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                  IsReadOnly="True"/>
 
                         <TextBlock Height="17" 
-                                   Margin="5,15,0,0" 
+                                   Margin="5,10,5,0" 
                                    Text="Boot Version :" 
+                                   HorizontalAlignment="Right"
                                    Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                                   Grid.Row="1" Grid.Column="1" Width="101"/>
+                                   Grid.Row="1" Grid.Column="2" />
 
                         <TextBox 
                                  Style="{StaticResource ResourceKey=MainTextbox}"
                                  Grid.Row="1" 
-                                 Grid.Column="1" 
-                                 Margin="118,5,60,0" 
+                                 Grid.Column="3" 
+                                 Margin="0,5,15,0" 
                                  IsReadOnly="True"
                                  Text="{Binding ElementName=IntervalSilder, Path=Value}" />
 
                         <TextBlock Height="17" 
-                                   Margin="5,15,0,0" 
+                                   Margin="5,10,5,0" 
                                    Text="Hardware Version :" 
+                                   HorizontalAlignment="Right"
                                    Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                                   Grid.Row="1" Grid.Column="2" Width="128"/>
+                                   Grid.Row="1" Grid.Column="4" />
 
-                        <TextBox
+                        <TextBox 
                                  Style="{StaticResource ResourceKey=MainTextbox}"
                                  Grid.Row="1" 
-                                 Grid.Column="2" 
-                                 Margin="150,5,60,0" 
+                                 Grid.Column="5" 
+                                 Margin="0,5,15,0" 
                                  IsReadOnly="True"
                                  Text="{Binding Path=BootVersion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
@@ -132,11 +138,8 @@
                             <RowDefinition Height="30"/>
                         </Grid.RowDefinitions>
 
-                        <TextBox Height="35" 
-                                 HorizontalAlignment="Left" 
-                                 Margin="10,0,0,0"  
+                        <TextBox Height="35" Margin="10,0,7,0"  
                                  Style="{StaticResource ResourceKey=MainTextbox}"
-                                 Width="1180" 
                                  Grid.Row="1" 
                                  Grid.Column="0" 
                                  Name="FileNameTextBox" 
@@ -179,8 +182,8 @@
                         <ProgressBar Minimum="0" Maximum="100" Value="0" Name="pbStatus" Width="300" Height="30" Grid.Row="3" Grid.ColumnSpan="1" Foreground="#FF00AEEF" Margin="65,0,0,0" Visibility="Hidden"/>
                         <TextBlock Text="{Binding ElementName=pbStatus, Path=Value, StringFormat={}{0:0}%}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="1" Visibility="Hidden" Style="{StaticResource ResourceKey=WhiteLable15pt}" />
                         <TextBlock Text="{Binding Path=UpdateStatus, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" Name="UpdateProgressText" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" Grid.ColumnSpan="1" Style="{StaticResource ResourceKey=WhiteLable15pt}" Margin="60,0,0,0"/>
-                        
-                        <TextBlock Text="WARNING!" Grid.Row="5" Style="{StaticResource ResourceKey=RedLable20pt}" Grid.ColumnSpan="2" Margin="60,0,0,0" Visibility="{Binding Path=ShowWarningLabels, Mode=TwoWay, Converter={StaticResource Converter}}"/>
+
+                        <TextBlock Text="WARNING!" Grid.Row="5" Style="{StaticResource ResourceKey=RedLable20pt}" Grid.ColumnSpan="2" Margin="60,0,0,0" Visibility="{Binding Path=ShowWarningLabels, Mode=TwoWay, Converter={StaticResource Converter}}" />
                         <TextBlock Text="Do not power down the module during update process" Grid.Row="6" Style="{StaticResource ResourceKey=RedLable17pt}" Grid.ColumnSpan="2" Margin="60,0,0,0" Visibility="{Binding Path=ShowWarningLabels, Mode=TwoWay, Converter={StaticResource Converter}}"/>
 
                     </Grid>
