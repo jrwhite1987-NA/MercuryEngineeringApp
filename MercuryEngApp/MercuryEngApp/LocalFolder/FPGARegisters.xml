@@ -1,38 +1,65 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <FPGA>
   <FPGARegister>
-    <Name>ADC_FREQ</Name>
-    <MemoryLocation>0x020</MemoryLocation>
+    <Name>Tx Pulse Control</Name>
+    <MemoryLocation>0x004</MemoryLocation>
     <NoOfBytes>0</NoOfBytes>
-    <Desciption></Desciption>
-    <DefaultValue>1</DefaultValue>
+    <Desciption>
+      Read:  Holds the number of samples read per PRF
+      Write: b11-0  = Tx DAC value (0x000 - 0xFFF)
+      b23-12 = Tx cycles between pulse bursts (0x000 - 0xFFF)
+      b31-24 = Tx cycles per pulse burst (0x00 - 0xFF)
+      Examples (assume 8MHz sample rate):
+      10% DAC, 8KHz PRF, 16 cycle burst = 0x100FA199
+      20% DAC, 15.625KHz PRF, 12 cycle burst = 0x0C080333
+      50% DAC, 6.25KHz PRF, 20 cycle burst = 0x141407FF
+    </Desciption>
+    <DefaultValue>0x100FA400</DefaultValue>
   </FPGARegister>
   <FPGARegister>
-    <Name>INTERMODULE</Name>
-    <MemoryLocation>0x080</MemoryLocation>
+    <Name>Tx Frequency Control</Name>
+    <MemoryLocation>0x008</MemoryLocation>
     <NoOfBytes>0</NoOfBytes>
-    <Desciption></Desciption>
-    <DefaultValue>0</DefaultValue>
+    <Desciption>
+      Write a value of 0x1 to enable transmit output
+    </Desciption>
+    <DefaultValue>24</DefaultValue>
   </FPGARegister>
+
   <FPGARegister>
-    <Name>RX_GAIN</Name>
+    <Name>Rx Gain Control</Name>
     <MemoryLocation>0x010</MemoryLocation>
     <NoOfBytes>0</NoOfBytes>
-    <Desciption></Desciption>
+    <Desciption>
+      Write Rx DAC value directly (0x000 - 0xFFF)
+    </Desciption>
     <DefaultValue>0x199</DefaultValue>
   </FPGARegister>
   <FPGARegister>
-    <Name>TX_FREQ</Name>
-    <MemoryLocation>0x008</MemoryLocation>
+    <Name>ADC Frequency Control</Name>
+    <MemoryLocation>0x020</MemoryLocation>
     <NoOfBytes>0</NoOfBytes>
-    <Desciption></Desciption>
-    <DefaultValue>24</DefaultValue>
+    <Desciption>
+      Write the divisor of 48MHz for the sample clock.
+      Examples:
+      16MHz sampling, 4MHz carrier = 0x03
+      8MHz sampling, 2MHz carrier = 0x06
+      4MHz sampling, 1MHz carrier = 0x0C
+    </Desciption>
+    <DefaultValue>1</DefaultValue>
   </FPGARegister>
   <FPGARegister>
-    <Name>TX_PULSE</Name>
-    <MemoryLocation>0x004</MemoryLocation>
+    <Name>Intermodule Control</Name>
+    <MemoryLocation>0x080</MemoryLocation>
     <NoOfBytes>0</NoOfBytes>
-    <Desciption></Desciption>
-    <DefaultValue>0x100FA400</DefaultValue>
-  </FPGARegister>  
+    <Desciption>
+      Read to determine if master (1 = master)
+      Write a priority for intermodule arbitration.
+      Examples:
+      0x0000          = Self master.  Runs independently.
+      0x0001 - 0xFFFE = Arbitration priority
+      0xFFFF          = Slave only.  Requires another master.
+    </Desciption>
+    <DefaultValue>0</DefaultValue>
+  </FPGARegister>
 </FPGA>
