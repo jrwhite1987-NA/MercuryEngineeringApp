@@ -61,30 +61,13 @@ namespace MercuryEngApp
 
         }
 
-        async void CalibrationUserControlLoaded(object sender, RoutedEventArgs e)
+        void CalibrationUserControlLoaded(object sender, RoutedEventArgs e)
         {
             try
             {
                 if (PowerController.Instance.IsControllerOn)
                 {
                     this.IsEnabled = true;
-                    if (App.CurrentChannel == TCDHandles.Channel1 || App.CurrentChannel == TCDHandles.Channel2)
-                    {
-                        TCDReadInfoResponse readInfo = await UsbTcd.TCDObj.ReadCalibrationInfoAsync(
-                            new UsbTcdLibrary.CommunicationProtocol.TCDRequest() { ChannelID = App.CurrentChannel });
-                        if (readInfo.Calibration != null)
-                        {
-                            calViewModel.TxOffset = readInfo.Calibration.ZeroIntensityDAC;
-                            calViewModel.TxEnergy = readInfo.Calibration.MaxDACIntensity;
-                            OverrideCalibration.IsChecked = true;
-                        }
-                        else
-                        {
-                            LogWrapper.Log(Constants.APPLog, "Failed to retrieve calibration data");
-                        }
-                    }
-                    ClearSafetyStatus();
-                    lastSafetyTrip = 0;
                 }
                 else
                 {
@@ -95,6 +78,28 @@ namespace MercuryEngApp
             {
                 Helper.logger.Warn("Exception: ", ex);
             }
+        }
+
+
+        private async void ReadCalibrationClick(object sender, RoutedEventArgs e)
+        {
+            if (App.CurrentChannel == TCDHandles.Channel1 || App.CurrentChannel == TCDHandles.Channel2)
+            {
+                TCDReadInfoResponse readInfo = await UsbTcd.TCDObj.ReadCalibrationInfoAsync(
+                    new UsbTcdLibrary.CommunicationProtocol.TCDRequest() { ChannelID = App.CurrentChannel });
+                if (readInfo.Calibration != null)
+                {
+                    calViewModel.TxOffset = readInfo.Calibration.ZeroIntensityDAC;
+                    calViewModel.TxEnergy = readInfo.Calibration.MaxDACIntensity;
+                    OverrideCalibration.IsChecked = true;
+                }
+                else
+                {
+                    LogWrapper.Log(Constants.APPLog, "Failed to retrieve calibration data");
+                }
+            }
+            ClearSafetyStatus();
+            lastSafetyTrip = 0;
         }
 
         private void OverrideCalClick(object sender, RoutedEventArgs e)
@@ -321,6 +326,7 @@ namespace MercuryEngApp
             }
             ClearSafetyStatus();
         }
+
         
     }
 }
