@@ -196,7 +196,7 @@ namespace MercuryEngApp.Views
             }
 
             TCDResponse response = await UsbTcd.TCDObj.StartUpdateProcessAsync(new TCDRequest() { ChannelID = App.CurrentChannel });
-            if (response.Value == Constants.VALUE_0)
+            if (response.Value != Constants.VALUE_0)
             {
                 await UsbTcd.TCDObj.EndUpdateProcessAsync(new TCDRequest() { ChannelID = App.CurrentChannel });
                 return false;
