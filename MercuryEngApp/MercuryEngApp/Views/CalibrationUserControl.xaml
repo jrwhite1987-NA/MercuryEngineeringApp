@@ -56,20 +56,21 @@
                             <RowDefinition Height="35"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Height="17" 
+                        <TextBlock Height="auto" 
                                    Margin="13,15,13,0" 
                                    Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                    Grid.Row="1" 
-                                   HorizontalAlignment="Stretch"> 
+                                   TextWrapping="Wrap"> 
                             The DAC Value where the Tx energy function intercepts zero
 
                         </TextBlock>
-                        <TextBlock Height="17" 
+                        <TextBlock Height="auto" 
                                    Margin="13,15,13,0" 
                                    Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                    Grid.Row="1" 
                                    Grid.Column="1" 
-                                   HorizontalAlignment="Stretch">
+                                   TextWrapping="Wrap"
+                                   >
                             The acoustics energy, 
                             in nanowatts* sec, per 2MHz cycle when the DAC is at its maximum
                         </TextBlock>

@@ -12,16 +12,17 @@
 
     <Grid HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="243*"/>
-            <ColumnDefinition Width="350*"/>
-            <ColumnDefinition Width="835*"/>
+            <ColumnDefinition Width="323*"/>
+            <ColumnDefinition Width="380*"/>
+            <ColumnDefinition Width="725*"/>
         </Grid.ColumnDefinitions>
-        <Grid Name="LeftPanlePacket" HorizontalAlignment="Stretch">
+        <Grid Name="LeftPanlePacket" >
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
                     Height="495" 
                     VerticalAlignment="Top" 
                     Margin="5,5,0,0" 
-                    Grid.Column="0">
+                    Grid.Column="0"
+                    HorizontalAlignment="Stretch">
                 <Grid>
 
                     <Border Style="{StaticResource ResourceKey=RoundedRectangleBlue}" 
@@ -34,7 +35,7 @@
                                Text="Setting" 
                                Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
                     </Border>
-                    <Grid Margin="0,40,0,5" HorizontalAlignment="Stretch">
+                    <Grid Margin="0,40,0,5">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="58"/>
                             <RowDefinition Height="74"/>
@@ -195,7 +196,8 @@
                     Height="495" 
                     VerticalAlignment="Top" 
                     Margin="10,5,10,0" 
-                    Grid.Column="0">
+                    Grid.Column="0"
+                    HorizontalAlignment="Stretch">
 
                 <Grid Name="rightPanelPacketTop" >
                     <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" Height="40" VerticalAlignment="Top" 

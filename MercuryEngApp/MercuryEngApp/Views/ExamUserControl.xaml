@@ -16,26 +16,25 @@
             <ColumnDefinition Width="700*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="280"/>
-            <RowDefinition Height="295"/>
+            <RowDefinition Height="250"/>
+            <RowDefinition Height="325"/>
         </Grid.RowDefinitions>
         <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
                    HorizontalAlignment="Stretch"
-                    Height="275" 
+                    Height="245" 
                     VerticalAlignment="Top" 
                     Margin="10,5,0,0" 
                     Grid.Column="0" 
                     Grid.Row="0"/>
-            <Grid
+        <Grid
                 VerticalAlignment="Top" 
               HorizontalAlignment="Stretch" 
               Margin="10,5,10,0" 
               Grid.Column="0" 
-                  Width="{Binding Path=Column1Width}"
-              Grid.Row="0" >
-            
-                <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="140*"/>
+              Grid.Row="0" Height="232" >
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="240*"/>
                 <ColumnDefinition Width="90*"/>
                 <ColumnDefinition Width="90*"/>
                 <ColumnDefinition Width="90*"/>
@@ -52,7 +51,7 @@
             <TextBlock Text="Power (%) (0-100)" 
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                        Grid.Column="0"
-                       Padding="15"/>
+                       Padding="15,10,5,10"/>
             <TextBox Height="29" 
                      FontSize="18" 
                      Name="Power"
@@ -75,7 +74,6 @@
                       Text="{Binding Path=PacketPower, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                       FontSize="18" 
                      Margin="5,10,5,0" 
-                      VerticalAlignment="Top" 
                       HorizontalAlignment="Stretch"
                       Grid.Column="3"
                       IsReadOnly="True" 
@@ -301,300 +299,284 @@
             </TextBox>
             <TextBlock Text="Depth (mm) (23-146)" 
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                       Padding="15" 
+                       Padding="15,10,5,10"
                        Grid.Row="1"
                        Grid.Column="0"/>
-                
+
             <TextBlock Text="Filter (Hz) (25-2400)" 
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                       Padding="15" 
+                       Padding="15,10,5,10"
                        Grid.Row="2"
                        Grid.Column="0"/>
-                
+
             <TextBlock Text="S Volume (mm) (2-12)" 
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                       Padding="15" 
+                       Padding="15,10,5,10"
                        Grid.Row="3"
                        Grid.Column="0" />
             <TextBlock Text="Start Depth (mm) (23-146)" 
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                       Padding="15" 
+                       Padding="15,10,5,10"
                        Grid.Column="0"
                        Height="57" 
                        Grid.Row="4"/>
             <TextBlock Text="PRF (k) (5,6.25,8,10,12.5)" 
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                       Padding="15" 
+                       Padding="15,10,5,10" 
                        Grid.Column="0"
                        Grid.Row="5"/>
         </Grid>
-        <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="230" Grid.Column="0" Grid.Row="1" Margin="10,5,0,0">
-            <Rectangle   
-                Stroke="#02486e"  
-                RadiusX="8" 
-                RadiusY="8" 
-                StrokeThickness="2" 
-                Margin="0,4,0,-4" />
-
-            <TextBlock Text="To" 
+        <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="1" >
+            <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
+                   HorizontalAlignment="Stretch"
+                    Height="235" 
+                    Margin="10,5,0,0">
+                <Grid HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="135*"/>
+                        <ColumnDefinition Width="90*"/>
+                        <ColumnDefinition Width="90*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="180*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="27*"/>
+                        <RowDefinition Height="44*"/>
+                        <RowDefinition Height="44*"/>
+                        <RowDefinition Height="44*"/>
+                        <RowDefinition Height="44*"/>
+                        <RowDefinition Height="44*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="To" 
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                       Padding="12,5,0,0" 
-                       Margin="207,10,0,0" 
-                       VerticalAlignment="Top"/>
+                       Padding="5,5,0,0" Grid.Column="1" Grid.Row="0" Height="22" Width="21"/>
+                    <TextBlock Text="Away" Style="{StaticResource ResourceKey=WhiteLable15pt}" 
+                       Padding="5,5,0,0" 
+                       VerticalAlignment="Top"
+		HorizontalAlignment="Stretch" Grid.Column="2" Grid.Row="0" Height="22"/>
 
-            <TextBlock Text="Mean (cm/s)" 
+                    <TextBlock Text="Mean (cm/s)" 
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                       Padding="20" 
-                       Margin="0,22,0,0"/>
+                       Margin="10,5,0,0" Grid.Column="0" Grid.Row="1" Height="17" Width="83"/>
 
-            <TextBlock Text="Min (cm/s)" 
+                    <TextBlock Text="Min (cm/s)" 
                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                       Padding="20,5,0,0" 
-                       Margin="0,78,0,0"/>
+                       Margin="10,5,0,0" Grid.Column="0" Grid.Row="2" Height="17" Width="70"/>
 
-            <TextBox Height="29" 
+                    <TextBlock Text="Max (cm/s)" 
+                       Style="{StaticResource ResourceKey=WhiteLable15pt}" 
+                       Margin="10,5,0,0" Grid.Column="0" Grid.Row="3" Height="17" Width="74"/>
+
+                    <TextBlock Text="PI" 
+                       Style="{StaticResource ResourceKey=WhiteLable15pt}" 
+                       Margin="10,5,0,0" Grid.Column="0" Grid.Row="4" Height="17" Width="14"/>
+                    <TextBlock Text="TIC" 
+                       Style="{StaticResource ResourceKey=WhiteLable15pt}" 
+                       Margin="10,5,0,0" Grid.Column="0" Grid.Row="5" Height="17" Width="24"/>
+
+                    <TextBox 
                      Text="{Binding Path=PosMean, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                      FontSize="18" 
                      Style="{StaticResource ResourceKey=TexboxDisable}" 
-                     Margin="217,37,273,0" 
-                     VerticalAlignment="Top" 
-                     Padding="5,2,3,0" 
-                     Width="90" 
-                     TextAlignment="Center"  
+                     Margin="10,6" 
+                             Grid.Column="1" Grid.Row="1"
                      IsReadOnly="True">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
 
-                <TextBox.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="5"/>
-                    </Style>
-                </TextBox.Resources>
-            </TextBox>
-            <TextBlock Text="Max (cm/s)" 
-                       Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                       Padding="20,5,0,0" 
-                       Margin="0,116,0,0"/>
-
-            <TextBlock Text="PI" 
-                       Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                       Padding="20,5,0,0" 
-                       Margin="0,153,0,0"/>
-
-            <TextBlock Text="TIC" 
-                       Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                       Padding="20,5,0,0" 
-                       Margin="0,193,0,0"/>
-
-            <TextBox Height="29" 
+                    <TextBox 
                      Text="{Binding Path=PosMin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                      FontSize="18" 
-                     Margin="217,75,273,0" 
-                     VerticalAlignment="Top" 
-                     Padding="5,2,3,0" 
-                     Width="90" 
-                     TextAlignment="Center"  
+                     Margin="10,4"
+                             Grid.Column="1" Grid.Row="2"
                      IsReadOnly="True">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <StaticResource ResourceKey="TexboxDisable"/>
+                        </TextBox.Style>
+                    </TextBox>
 
-                <TextBox.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="5"/>
-                    </Style>
-                </TextBox.Resources>
-                <TextBox.Style>
-                    <StaticResource ResourceKey="TexboxDisable"/>
-                </TextBox.Style>
-            </TextBox>
-            <TextBox Height="29" 
+                    <TextBox 
                      Text="{Binding Path=PosMax, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                      FontSize="18" 
-                     Margin="217,113,273,0"
-                     VerticalAlignment="Top" 
-                     Padding="5,2,3,0" 
-                     Width="90" 
+                    Margin="10,4"
+                    Grid.Column="1" Grid.Row="3"
                      TextAlignment="Center"  
                      IsReadOnly="True">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <StaticResource ResourceKey="TexboxDisable"/>
+                        </TextBox.Style>
+                    </TextBox>
 
-                <TextBox.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="5"/>
-                    </Style>
-                </TextBox.Resources>
-                <TextBox.Style>
-                    <StaticResource ResourceKey="TexboxDisable"/>
-                </TextBox.Style>
-            </TextBox>
-            <TextBox Height="29"
+                    <TextBox
                      Text="{Binding Path=PosPI, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      FontSize="18" 
-                     Margin="217,152,273,0"
-                     VerticalAlignment="Top" 
-                     Padding="5,2,3,0"
-                     Width="90" 
-                     TextAlignment="Center"  
+                     Margin="10,4"
+                    Grid.Column="1" Grid.Row="4" 
                      IsReadOnly="True">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <StaticResource ResourceKey="TexboxDisable"/>
+                        </TextBox.Style>
+                    </TextBox>
 
-                <TextBox.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="5"/>
-                    </Style>
-                </TextBox.Resources>
-                <TextBox.Style>
-                    <StaticResource ResourceKey="TexboxDisable"/>
-                </TextBox.Style>
-            </TextBox>
-            <TextBox Height="29" 
+                    <TextBox 
                      Text="{Binding Path=TIC, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                      FontSize="18"
-                     Margin="217,190,273,0" 
-                     VerticalAlignment="Top" 
-                     Padding="5,2,3,0" 
-                     Width="90" 
-                     TextAlignment="Center"  
+                     Margin="10,4"
+                    Grid.Column="1" Grid.Row="5"  
                      IsReadOnly="True">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <StaticResource ResourceKey="TexboxDisable"/>
+                        </TextBox.Style>
+                    </TextBox>
 
-                <TextBox.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="5"/>
-                    </Style>
-                </TextBox.Resources>
-                <TextBox.Style>
-                    <StaticResource ResourceKey="TexboxDisable"/>
-                </TextBox.Style>
-            </TextBox>
-            <TextBlock Text="Away" Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                       Padding="12,5,0,0" 
-                       Margin="327,6,0,0" 
-                       VerticalAlignment="Top"
-					   HorizontalAlignment="Left"/>
-
-            <TextBox Height="29" 
+                    <TextBox 
                      Text="{Binding Path=NegMean, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                      FontSize="18" 
-                     Margin="338,37,152,0" 
-                     VerticalAlignment="Top" 
-                     Padding="5,2,3,0" 
-                     Width="90" 
-                     TextAlignment="Center"  
+                    Margin="10,6" 
+                    Grid.Column="2" Grid.Row="1"
                      IsReadOnly="True">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <StaticResource ResourceKey="TexboxDisable"/>
+                        </TextBox.Style>
+                    </TextBox>
 
-                <TextBox.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="5"/>
-                    </Style>
-                </TextBox.Resources>
-                <TextBox.Style>
-                    <StaticResource ResourceKey="TexboxDisable"/>
-                </TextBox.Style>
-            </TextBox>
-
-            <TextBox Height="29"
+                    <TextBox
                      Text="{Binding Path=NegMin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                      FontSize="18" 
-                     Margin="338,76,152,0" 
-                     VerticalAlignment="Top" 
-                     Padding="5,2,3,0" 
-                     Width="90" 
-                     TextAlignment="Center"  
+                     Margin="10,4" 
+                    Grid.Column="2" Grid.Row="2"  
                      IsReadOnly="True">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <StaticResource ResourceKey="TexboxDisable"/>
+                        </TextBox.Style>
+                    </TextBox>
 
-                <TextBox.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="5"/>
-                    </Style>
-                </TextBox.Resources>
-                <TextBox.Style>
-                    <StaticResource ResourceKey="TexboxDisable"/>
-                </TextBox.Style>
-            </TextBox>
-
-            <TextBox Height="29"
+                    <TextBox
                      Text="{Binding Path=NegMax, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      FontSize="18" 
-                     Margin="338,114,152,0" 
-                     VerticalAlignment="Top" 
-                     Padding="5,2,3,0" 
-                     Width="90" 
-                     TextAlignment="Center"  
+                   Margin="10,4" 
+                    Grid.Column="2" Grid.Row="3"  
                      IsReadOnly="True">
 
-                <TextBox.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="5"/>
-                    </Style>
-                </TextBox.Resources>
-                <TextBox.Style>
-                    <StaticResource ResourceKey="TexboxDisable"/>
-                </TextBox.Style>
-            </TextBox>
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <StaticResource ResourceKey="TexboxDisable"/>
+                        </TextBox.Style>
+                    </TextBox>
 
-            <TextBox Height="29" 
+                    <TextBox 
                      Text="{Binding Path=NegPI, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                      FontSize="18" 
-                	 Margin="338,153,152,0" 
-                     VerticalAlignment="Top" 
-                     Padding="5,2,3,0" Width="90" 
-                     TextAlignment="Center"  
+                	 Margin="10,4" 
+                    Grid.Column="2" Grid.Row="4"  
                      IsReadOnly="True">
 
-                <TextBox.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="5"/>
-                    </Style>
-                </TextBox.Resources>
-                <TextBox.Style>
-                    <StaticResource ResourceKey="TexboxDisable"/>
-                </TextBox.Style>
-            </TextBox>
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <StaticResource ResourceKey="TexboxDisable"/>
+                        </TextBox.Style>
+                    </TextBox>
 
+                    <Line Stretch="Fill" 
+                  Stroke="#FF1C2040" 
+                  Y1="1" Grid.RowSpan="6"
+                          Grid.Column="3"
+                  Margin="5,0,5,0"/>
 
-            <Border  Style="{StaticResource ResourceKey=RoundedBorderMainpageCombo}" 
-                             Grid.Column="0"  
-                             HorizontalAlignment="Right" Width="121" Height="30" Margin="0,149,16,51" Background="#FFEEEEEE"/>
-            <ComboBox ItemsSource="{Binding Path=FFTList, Mode=TwoWay}"
+                    <ToggleButton x:Name="btnEnvelop" Content="Envelope On" 
+                    Style="{StaticResource ResourceKey=ButtonStyle2}" 
+                    Margin="0,0,5,0" 
+                     Grid.Column="4" Grid.Row="1"  Height="Auto"                                      
+                    HorizontalAlignment = "Stretch"
+                    Checked="BtnEnvelopChecked"
+                    Unchecked="BtnEnvelopUnchecked" Width="Auto"/>
+
+                    <ToggleButton x:Name = "toggleLimits" 
+                      Margin="0,0,5,36" 
+                     Grid.Column="4" Grid.Row="2"  
+                      HorizontalAlignment = "Stretch"
+                      Content = "Limits On"
+                      Height="Auto"
+                      Click="ToggleLimitsClick"
+                      Style="{StaticResource ResourceKey=ButtonStyle2}" Grid.RowSpan="2" Width="Auto" />
+
+                    <TextBlock Text="Spectrum Bin" 
+                       Style="{StaticResource ResourceKey=WhiteLable15pt}" 
+                                Grid.Column="4" Grid.Row="3"
+                               Margin="5,18,0,0" Height="17"
+                               HorizontalAlignment="Stretch"
+                      />
+
+                    <Border  Style="{StaticResource ResourceKey=RoundedBorderMainpageCombo}" 
+                              Grid.Column="4" Grid.Row="4"
+                             Margin="3,4,10,4" 
+                             HorizontalAlignment="Stretch" Height="Auto" Background="#FFEEEEEE"/>
+
+                    <ComboBox ItemsSource="{Binding Path=FFTList, Mode=TwoWay}"
                       SelectedItem="{Binding Path=SelectedFFT, UpdateSourceTrigger=PropertyChanged}"
                               Style="{StaticResource ResourceKey=ComboBoxBorder}" 
-                              SelectionChanged="SpectrumBinComboboxSelectionChanged" Height="25" Margin="450,152,23,53"/>
+                              SelectionChanged="SpectrumBinComboboxSelectionChanged" Grid.Column="4" Grid.Row="4"
+                             Margin="10,7,15,6" />
 
-            <TextBlock Text="Spectrum Bin" 
-                       Style="{StaticResource ResourceKey=WhiteLable15pt}" 
-                       Padding="12,5,0,0"
-                       Margin="431,120,0,0"/>
+                </Grid>
 
-
-
-            <ToggleButton x:Name="btnEnvelop" Content="Envelope On" 
-                    Style="{StaticResource ResourceKey=ButtonStyle2}" 
-                    Margin="0,31,10,0" 
-                    VerticalAlignment="Top" 
-                    Width="133" Height="40"                                      
-                    HorizontalAlignment = "Right"
-                    Checked="BtnEnvelopChecked"
-                    Unchecked="BtnEnvelopUnchecked"/>
-
-            <ToggleButton x:Name = "toggleLimits" Margin="0,72,10,0"
-                      VerticalAlignment="Top"  
-                      HorizontalAlignment = "Right"
-                      Content = "Limits On"
-                      Width="134" Height="40"
-                          Click="ToggleLimitsClick"
-
-                      Style="{StaticResource ResourceKey=ButtonStyle2}" />
-
+            </Border>
         </Grid>
 
         <Grid VerticalAlignment="Top" 
-              HorizontalAlignment="Left"
+              HorizontalAlignment="Stretch"
               Name="SpectrumGrid"
               Grid.Column="1"
-              Width="{Binding Path=Column2Width}"
                
-              Grid.Row="0" Margin="10,-0,10,0">
-            
-            <Slider HorizontalAlignment="Left" 
+              Grid.Row="0" Margin="10,0,10,0" Height="256" >
+
+            <Slider HorizontalAlignment="Stretch" 
                     OverridesDefaultStyle="True" 
                     Value="{Binding Path=SliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                     Maximum="{Binding Path=SliderMax, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                     Minimum="0"
-                    Width="{Binding Path=Column2Width}"
                Height="{Binding RelativeSource={RelativeSource FindAncestor,
                            AncestorType={x:Type Grid}},
                            Path=RowDefinitions[0].ActualHeight}"
@@ -608,7 +590,7 @@
                     <clr:String  x:Key="textValue">0</clr:String>
                 </Slider.Resources>
             </Slider>
-            <Grid x:Name="scaleGrid" Width="55" HorizontalAlignment="Left" Height="215" Canvas.ZIndex="1" VerticalAlignment="Center" >
+            <Grid x:Name="scaleGrid" Width="55" HorizontalAlignment="Left" Height="215" Canvas.ZIndex="1">
 
             </Grid>
             <Image Grid.Row="0" 
@@ -616,7 +598,6 @@
                    x:Name="imageSpectrogram" 
                    Stretch="Fill" 
                    Height="205" 
-                   Width="{Binding Path=Column2Width}"
                    Panel.ZIndex="2" >
 
             </Image>
@@ -633,25 +614,25 @@
                   HorizontalAlignment="Left" 
                   Margin="60,0,0,0" />
         </Grid>
-        <Grid HorizontalAlignment="Stretch" Grid.Column="1" VerticalAlignment="top" Height="230" Grid.Row="1" Margin="10,10,10,0">
+        <Grid HorizontalAlignment="Left" Grid.Column="1" VerticalAlignment="top" Height="235" Grid.Row="1" Margin="10,5,0,0">
 
             <Slider Name="customDepthSlider" 
-                    HorizontalAlignment="Left" 
+                    HorizontalAlignment="Stretch" 
                   OverridesDefaultStyle="True" 
                     Value="50" 
                     Maximum="87" 
                     Minimum="23" 
                     IsHitTestVisible="False"
-                Height="232" Width="705" Orientation="Vertical" Grid.Column="1" VerticalAlignment="Stretch"  
-                Style="{StaticResource SliderStyle}"  Canvas.ZIndex="3">
+                Height="232" Orientation="Vertical" Grid.Column="1"  
+                Style="{StaticResource SliderStyle}"  Canvas.ZIndex="3" Margin="0,5,10,0">
                 <Slider.Resources>
                     <clr:String  x:Key="textValue">50</clr:String>
                     <clr:String  x:Key="textUnit">mm</clr:String>
                 </Slider.Resources>
             </Slider>
-            <Grid x:Name="scaleDepthGrid" Height="210" Width="55" HorizontalAlignment="Left"  
+            <Grid x:Name="scaleDepthGrid" Height="230" Width="55" HorizontalAlignment="Left"
                   Grid.Row="1"
-                  Canvas.ZIndex="1" VerticalAlignment="Center" >
+                  Canvas.ZIndex="1">
 
             </Grid>
             <Image Grid.Row="1" 
@@ -667,7 +648,7 @@
                        RadiusX="8" 
                        RadiusY="8" 
                        StrokeThickness="2" 
-                       Fill="Black"/>
+                       Fill="Black" />
 
             <Line Stretch="Fill" 
                   Stroke="#FF1C2040" 

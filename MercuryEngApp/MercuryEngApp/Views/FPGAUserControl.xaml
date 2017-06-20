@@ -33,9 +33,8 @@
 
                 <Grid Margin="0,0,5,2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="270*"/>
-                        <ColumnDefinition Width="315*"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="350*"/>
+                        <ColumnDefinition Width="1010*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -57,7 +56,7 @@
 
                     <Border  Style="{StaticResource ResourceKey=RoundedBorderCombo}" 
                                  Grid.Row="1" HorizontalAlignment="Stretch"
-                                 Grid.Column="1"  Margin="0,5,10,4" Width="310" Height="33"/>
+                                 Grid.Column="1"  Margin="0,5,10,4" Height="33"/>
                     <ComboBox
                               IsReadOnly="False"
                               IsEditable="True"
@@ -68,7 +67,7 @@
                               Style="{StaticResource ResourceKey=ComboBoxBorder}"                                 
                               Grid.Row="1" 
                               Grid.Column="1" 
-                              Margin="6,7,15,6" Width="290"/>
+                              Margin="6,7,15,6" />
 
                     <TextBox
                                   Style="{StaticResource ResourceKey=MainTextbox}"
@@ -120,14 +119,13 @@
                     Click="btnReset_Click"/>
 
 
-                        <Button x:Name="btnSetAllDefault" Content="Set All Defaults" 
+                        <Button x:Name="btnSetAllDefault" Content="Set Defaults" 
                     Style="{StaticResource ResourceKey=ButtonStyle1}" 
                     Grid.Column="1" 
                     Grid.Row="4" 
                     Height="45" 
                     HorizontalAlignment="Stretch"
                     Grid.ColumnSpan="1"
-                    VerticalAlignment="top"
                      Margin="1,0,10,10" 
                     Click="btnSetAllDefault_Click"/>
 
@@ -143,9 +141,9 @@
                     Margin="10,5,10,0" 
                     Grid.Column="1" Height="505">
 
-                <Grid Name="rightPanelInfoTop" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Grid Name="rightPanelInfoTop" VerticalAlignment="Stretch" >
                     <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" Height="40" VerticalAlignment="Top" 
-                                Margin="-3,-2,-1,0" HorizontalAlignment="Right"/>
+                                Margin="-3,-2,-1,0" HorizontalAlignment="Stretch"/>
                     <TextBlock Height="17" Margin="13,8,0,0" Text="User Guide" Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
 
                 </Grid>
