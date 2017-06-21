@@ -6,38 +6,37 @@
              xmlns:validator="clr-namespace:MercuryEngApp.Validators"
              xmlns:local="clr-namespace:MercuryEngApp"
              mc:Ignorable="d" 
-            VerticalAlignment="Stretch"  HorizontalAlignment="Stretch">
+           VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
     <UserControl.Resources>
         <CollectionViewSource x:Key="ItemCollectionViewSource"  CollectionViewType="ListCollectionView"/>
     </UserControl.Resources>
-    
-    <Grid>
+
+    <Grid HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="353"/>
-            <ColumnDefinition Width="350"/>
-            <ColumnDefinition Width="625"/>
+            <ColumnDefinition Width="323*"/>
+            <ColumnDefinition Width="380*"/>
+            <ColumnDefinition Width="725*"/>
         </Grid.ColumnDefinitions>
-        <Grid Name="LeftPanlePacket" HorizontalAlignment="Left" Width="350">
+        <Grid Name="LeftPanlePacket" >
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
-                    Width="345"
                     Height="495" 
                     VerticalAlignment="Top" 
-                    Margin="5,5,0,0" >
+                    Margin="5,5,0,0" 
+                    Grid.Column="0"
+                    HorizontalAlignment="Stretch">
                 <Grid>
 
                     <Border Style="{StaticResource ResourceKey=RoundedRectangleBlue}" 
                             Height="40" 
                             VerticalAlignment="Top" 
-                            Width="345" 
-                            Margin="-1,-1,0,0"
-                            HorizontalAlignment="Left">
+                            HorizontalAlignment="Stretch">
 
                         <TextBlock Height="21" 
                                Margin="13,8,0,0" 
                                Text="Setting" 
                                Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
                     </Border>
-                    <Grid Margin="0,40,0,5" >
+                    <Grid Margin="0,40,0,5">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="58"/>
                             <RowDefinition Height="74"/>
@@ -46,13 +45,13 @@
                             <RowDefinition Height="60"/>
                             <RowDefinition Height="90"/>
                         </Grid.RowDefinitions>
-                        <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" Width="323" Margin="7,15,0,6" Grid.RowSpan="3" Grid.Row="0"></Border>
+                        <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" HorizontalAlignment="Stretch" Margin="7,15,7,6" Grid.RowSpan="3" Grid.Row="0"></Border>
                         <TextBlock  Grid.Row="0" 
                                     Text="Packet Refresh Interval"
-                                    Margin="10,15,0,0"
+                                    Margin="10,15,10,0"
                                     Style="{StaticResource ResourceKey=Lable25size}"/>
 
-                        <StackPanel VerticalAlignment="Center" Margin="20,16,15,20" Grid.Row="1" Height="40" Width="260" HorizontalAlignment="Left">
+                        <StackPanel VerticalAlignment="Center" Margin="20,16,56,20" Grid.Row="1" Height="40" HorizontalAlignment="Stretch">
                             <Slider Name="IntervalSilder"                                                                        
                                     AutoToolTipPlacement="TopLeft" 
                                     AutoToolTipPrecision="1" 
@@ -74,16 +73,23 @@
                                  Margin="0,0,20,30" 
                                  Height="30"
                                  IsReadOnly="True"/>
-
-                        <Button Content="Refresh" 
+                        <Grid Grid.Row="2" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*"/>
+                                <ColumnDefinition Width="5*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Content="Refresh" 
                                 Style="{StaticResource ResourceKey=ButtonStyle1}" 
-                                Grid.Row="2" 
-                                Width="115" 
+                                Grid.Column="1"
+                                Padding="10,0,10,0"
                                 Height="35"
-                                Margin="0,8,23,18"
-                                HorizontalAlignment="Right"
+                                Margin="10,8,23,18"
+                                HorizontalAlignment="Stretch"
                                 Click="RefreshClick"/>
-                            <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" Width="323" Margin="7,10,0,6" Grid.RowSpan="2" Grid.Row="4"/>
+
+                        </Grid>
+
+                        <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" HorizontalAlignment="Stretch" Margin="7,10,7,6" Grid.RowSpan="2" Grid.Row="4"/>
                          
                         <TextBlock  Grid.Row="4" 
                                     Text="No. Of Packet Export"
@@ -91,63 +97,69 @@
                                     Margin="10,10,0,0"
                                     Style="{StaticResource ResourceKey=Lable25size}"/>
 
-                        <Button Content="Export" 
+                        <Grid  Grid.Row="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*"/>
+                                <ColumnDefinition Width="5*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button Content="Export" 
                                 Style="{StaticResource ResourceKey=ButtonStyle1}" 
                                 Grid.Row="5" 
-                                Width="115" 
                                 Height="35"
-                                Margin="0,28,23,28"
-                                HorizontalAlignment="Right"
+                               Grid.Column="1"
+                                Margin="10,28,23,28"
+                                HorizontalAlignment="Stretch"
                                 Click="ExportClick"/>
 
-                        <TextBox Grid.Row="5" 
-                                 HorizontalAlignment="Left"
+                            <TextBox Grid.Row="5" 
+                                 HorizontalAlignment="Stretch"
                                  Width="180"
                                  Name="NoOfPacket"
-                                 Margin="17,31,0,28"
+                                 Margin="15,31,0,28"
                                  Validation.ErrorTemplate="{x:Null}"
                                   Style="{StaticResource ResourceKey=MainTextbox}">
-                            <TextBox.Text>
-                                <Binding Path="PacketNumber" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
-                                    <Binding.ValidationRules>
-                                        <validator:BlankValidationRule ValidatesOnTargetUpdated="True" ControlName="{x:Static local:Resources.NoOfPacket}" ErrorMessage="{x:Static local:Resources.TextBoxBlank}" />
-                                        <validator:NumberValidationRule ControlName="{x:Static local:Resources.NoOfPacket}" ErrorMessage="{x:Static local:Resources.MustBeNumber}"/>
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </TextBox.Text>
-                        </TextBox>
+                                <TextBox.Text>
+                                    <Binding Path="PacketNumber" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
+                                        <Binding.ValidationRules>
+                                            <validator:BlankValidationRule ValidatesOnTargetUpdated="True" ControlName="{x:Static local:Resources.NoOfPacket}" ErrorMessage="{x:Static local:Resources.TextBoxBlank}" />
+                                            <validator:NumberValidationRule ControlName="{x:Static local:Resources.NoOfPacket}" ErrorMessage="{x:Static local:Resources.MustBeNumber}"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                        </Grid>
+
                     </Grid>
 
                 </Grid>
 
             </Border>
         </Grid>
-        <Grid Name="CenterPanlePacket" Grid.ColumnSpan="2">
+        <Grid Name="CenterPanlePacket"  HorizontalAlignment="Stretch" Grid.Column="1">
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
-                    Width="343"
+                   HorizontalAlignment="Stretch"
                     Height="495" 
                     VerticalAlignment="Top" 
                     Margin="10,5,0,0" 
                     Grid.Column="1" 
-                    Grid.Row="0"
-                    HorizontalAlignment="Right">
+                    Grid.Row="0">
                 <Grid Name="CentoerPanelPacketTop" >
 
                     <Border Style="{StaticResource ResourceKey=RoundedRectangleBlue}" 
                             Height="40" 
                             VerticalAlignment="Top" 
-                            Width="343" 
-                            HorizontalAlignment="Left"
-                            Margin="-1,-1,-1,0">
+                            HorizontalAlignment="Stretch">
 
                         <TextBlock Height="21" 
-                               Margin="13,8,0,0" 
+                   Margin="13,8,10,0" 
+
                                Text="Packet Tree" 
                                Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
                     </Border>
 
                     <Grid  Margin="1,40,0,5">
-                        <TreeView Name="trvMenu" TreeViewItem.Expanded="TreeViewItemExpanded" TreeViewItem.Collapsed="TreeViewItemExpanded" ItemsSource="{Binding FirstGeneration}"  Width="340" HorizontalAlignment="Center">
+                        <TreeView Name="trvMenu" TreeViewItem.Expanded="TreeViewItemExpanded" TreeViewItem.Collapsed="TreeViewItemExpanded" ItemsSource="{Binding FirstGeneration}" HorizontalAlignment="Stretch">
 
                             <TreeView.ItemTemplate>
                                 <HierarchicalDataTemplate DataType="{x:Type local:ItemsMenu}" ItemsSource="{Binding Items}">
@@ -157,20 +169,18 @@
                                             </RowDefinition>
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="120"></ColumnDefinition>
-                                            <ColumnDefinition Width="135"></ColumnDefinition>
+                                            <ColumnDefinition Width="120*"></ColumnDefinition>
+                                            <ColumnDefinition Width="135*"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
 
                                         <TextBlock Text="{Binding Title}"  
                                                    VerticalAlignment="Center" 
                                                    Background="Transparent" 
-                                                   HorizontalAlignment="Left" 
                                                    Grid.Column="0" 
                                                    Padding="2,0,2,0"/>
                                         <TextBlock Text="{Binding PakcetValue}"  
                                                    VerticalAlignment="Center" 
                                                    Background="Transparent" 
-                                                   HorizontalAlignment="Left" 
                                                    Grid.Column="1" 
                                                    Padding="2,0,2,0"/>
 
@@ -195,17 +205,17 @@
                 </Grid>
             </Border>
         </Grid>
-        <Grid Grid.Column="2">
+        <Grid Grid.Column="2" HorizontalAlignment="Stretch">
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
-                    Width="605"
                     Height="495" 
                     VerticalAlignment="Top" 
                     Margin="10,5,10,0" 
-                    Grid.Column="0">
+                    Grid.Column="0"
+                    HorizontalAlignment="Stretch">
 
                 <Grid Name="rightPanelPacketTop" >
                     <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" Height="40" VerticalAlignment="Top" 
-                               Width="605" Margin="-1,-1,-1,0" HorizontalAlignment="Right"/>
+                               HorizontalAlignment="Stretch"/>
                     <TextBlock Height="27" Margin="13,8,0,0" Text="Hex Viewer " Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
                     <Grid Margin="0,40,0,5" >
 
@@ -218,25 +228,25 @@
                                   ItemsSource="{Binding}" 
                                   IsReadOnly="True"
                                   CanUserSortColumns="False"
-                                  Width="604">
+                                  HorizontalAlignment="Stretch">
                             <DataGrid.Columns >
-                                <DataGridTextColumn x:Name="Offset" Width="100" Binding="{Binding Path=Offset}" Header="Offset" />
-                                <DataGridTextColumn x:Name="cHx_00" Binding="{Binding Path=Hx_00}" Header="00" Width="30" />
-                                <DataGridTextColumn x:Name="cHx_01" Binding="{Binding Path=Hx_01}" Header="01" Width="30"/>
-                                <DataGridTextColumn x:Name="cHx_02" Binding="{Binding Path=Hx_02}" Header="02" Width="30" />
-                                <DataGridTextColumn x:Name="cHx_03" Binding="{Binding Path=Hx_03}" Header="03" Width="30" />
-                                <DataGridTextColumn x:Name="cHx_04" Binding="{Binding Path=Hx_04}" Header="04" Width="30" />
-                                <DataGridTextColumn x:Name="cHx_05" Binding="{Binding Path=Hx_05}" Header="05" Width="30" />
-                                <DataGridTextColumn x:Name="cHx_06" Binding="{Binding Path=Hx_06}" Header="06" Width="30" />
-                                <DataGridTextColumn x:Name="cHx_07" Binding="{Binding Path=Hx_07}" Header="07" Width="30" />
-                                <DataGridTextColumn x:Name="cHx_08" Binding="{Binding Path=Hx_08}" Header="08" Width="30" />
-                                <DataGridTextColumn x:Name="cHx_09" Binding="{Binding Path=Hx_09}" Header="09" Width="30" />
-                                <DataGridTextColumn x:Name="cHx_0a" Binding="{Binding Path=Hx_0a}" Header="0a" Width="30" />
-                                <DataGridTextColumn x:Name="cHx_0b" Binding="{Binding Path=Hx_0b}" Header="0b" Width="30" />
-                                <DataGridTextColumn x:Name="cHx_0c" Binding="{Binding Path=Hx_0c}" Header="0c" Width="30" />
-                                <DataGridTextColumn x:Name="cHx_0d" Binding="{Binding Path=Hx_0d}" Header="0d" Width="30" />
-                                <DataGridTextColumn x:Name="cHx_0e" Binding="{Binding Path=Hx_0e}" Header="0e" Width="30" />
-                                <DataGridTextColumn x:Name="cHx_0f" Binding="{Binding Path=Hx_0f}" Header="0f" Width="30" />
+                                <DataGridTextColumn x:Name="Offset" Binding="{Binding Path=Offset}" Header="Offset" />
+                                <DataGridTextColumn x:Name="cHx_00" Binding="{Binding Path=Hx_00}" Header="00" />
+                                <DataGridTextColumn x:Name="cHx_01" Binding="{Binding Path=Hx_01}" Header="01" />
+                                <DataGridTextColumn x:Name="cHx_02" Binding="{Binding Path=Hx_02}" Header="02"  />
+                                <DataGridTextColumn x:Name="cHx_03" Binding="{Binding Path=Hx_03}" Header="03"  />
+                                <DataGridTextColumn x:Name="cHx_04" Binding="{Binding Path=Hx_04}" Header="04"  />
+                                <DataGridTextColumn x:Name="cHx_05" Binding="{Binding Path=Hx_05}" Header="05"  />
+                                <DataGridTextColumn x:Name="cHx_06" Binding="{Binding Path=Hx_06}" Header="06"  />
+                                <DataGridTextColumn x:Name="cHx_07" Binding="{Binding Path=Hx_07}" Header="07"  />
+                                <DataGridTextColumn x:Name="cHx_08" Binding="{Binding Path=Hx_08}" Header="08"  />
+                                <DataGridTextColumn x:Name="cHx_09" Binding="{Binding Path=Hx_09}" Header="09"  />
+                                <DataGridTextColumn x:Name="cHx_0a" Binding="{Binding Path=Hx_0a}" Header="0a"  />
+                                <DataGridTextColumn x:Name="cHx_0b" Binding="{Binding Path=Hx_0b}" Header="0b"  />
+                                <DataGridTextColumn x:Name="cHx_0c" Binding="{Binding Path=Hx_0c}" Header="0c"  />
+                                <DataGridTextColumn x:Name="cHx_0d" Binding="{Binding Path=Hx_0d}" Header="0d"  />
+                                <DataGridTextColumn x:Name="cHx_0e" Binding="{Binding Path=Hx_0e}" Header="0e"  />
+                                <DataGridTextColumn x:Name="cHx_0f" Binding="{Binding Path=Hx_0f}" Header="0f"  />
                             </DataGrid.Columns>
                             <DataGrid.Resources>
                                 <Style TargetType="DataGridCell">

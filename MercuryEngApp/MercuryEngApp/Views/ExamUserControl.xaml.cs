@@ -838,6 +838,12 @@ namespace MercuryEngApp
             }
             Helper.logger.Debug("--");
         }
+
+        private void ExamControlSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            examViewModelObj.Column1Width = ParentGrid.ColumnDefinitions[0].ActualWidth;
+            examViewModelObj.Column2Width = ParentGrid.ColumnDefinitions[1].ActualWidth;
+        }
        
     }
 

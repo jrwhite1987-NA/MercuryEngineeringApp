@@ -99,8 +99,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-
     <Style  x:Key="TexboxDisable" TargetType="{x:Type TextBox}">
         <Setter Property="Background" Value="#FFBBC7CD"/>
             <Style.Triggers>
@@ -108,7 +106,6 @@
             </Trigger>
             </Style.Triggers>
     </Style>
-
     <Style x:Key="RunningText" TargetType="TextBox">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="White"/>
@@ -565,7 +562,6 @@
             </Setter.Value>
         </Setter>
         <Setter Property="Height" Value="60"/>
-        <Setter Property="Width" Value="160"/>
         <Setter Property="FontFamily" Value="Arial" />
         <Setter Property="FontSize" Value="17" />
         <Setter Property="Foreground" Value="WhiteSmoke" />
@@ -760,34 +756,32 @@
         <Setter Property="Padding" Value="8"/>
         
     </Style>
-
     <Style x:Key="RoundedBorderCombo" TargetType="Border">
         <Setter Property="Control.BorderBrush" Value="#FFABADB3" />
         <Setter Property="Control.BorderThickness" Value="1" />
         <Setter Property="CornerRadius" Value="6"/>
         <Setter Property="Height" Value="27"/>
-        <Setter Property="Width" Value="290"/>
         <Setter Property="Background" Value="#FFEBEBEB"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
     </Style>
-
+    
     <Style x:Key="RoundedBorderMainpageCombo" TargetType="Border">
         <Setter Property="Control.BorderBrush" Value="#FFABADB3" />
         <Setter Property="Control.BorderThickness" Value="1" />
         <Setter Property="CornerRadius" Value="6"/>
         <Setter Property="Height" Value="37"/>
-        <Setter Property="Width" Value="110"/>
         <Setter Property="Background" Value="White"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
     </Style>
 
 
-
+    <!--Rounded corners combo box-->
     <Style TargetType="{x:Type ComboBox}" x:Key="roundedCornersComboBox">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBox}">
                     <Border Name="roundedCornerComboBoxBorder" BorderThickness="1" CornerRadius="3" ClipToBounds="True" Background="White">
+
                         <Border.Style>
                             <Style TargetType="Border">
                                 <Style.Triggers>
@@ -876,5 +870,6 @@
             </Setter.Value>
         </Setter>
     </Style>
+
 
 </ResourceDictionary>
