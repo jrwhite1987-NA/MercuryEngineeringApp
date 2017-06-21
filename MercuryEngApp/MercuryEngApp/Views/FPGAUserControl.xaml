@@ -12,7 +12,7 @@
         </Grid.ColumnDefinitions>
         <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
                HorizontalAlignment="Stretch"
-                    Height="505" 
+                    Height="495" 
                     VerticalAlignment="top" 
                     Margin="10,5,0,0" 
                     Grid.Column="0" 
@@ -124,7 +124,6 @@
                     Height="45" 
 HorizontalAlignment="Stretch"
                     Grid.ColumnSpan="1"
-                     Margin="1,0,10,10" 
                     VerticalAlignment="Top"
                     Click="SetAllDefaultsClick"/>
                     </Grid>
@@ -138,7 +137,7 @@ HorizontalAlignment="Stretch"
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
                     VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                     Margin="10,5,10,0" 
-                    Grid.Column="1" Height="505">
+                    Grid.Column="1" Height="495">
 
                 <Grid Name="rightPanelInfoTop" VerticalAlignment="Stretch" >
                     <Border  Style="{StaticResource ResourceKey=RoundedRectangleBlue}" Height="40" VerticalAlignment="Top" 
