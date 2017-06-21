@@ -12,7 +12,7 @@
 
     <Grid x:Name="ParentGrid" HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="400*"/>
+            <ColumnDefinition Width="600*"/>
             <ColumnDefinition Width="700*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -34,10 +34,10 @@
               Grid.Row="0" Height="232" >
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="240*"/>
-                <ColumnDefinition Width="90*"/>
-                <ColumnDefinition Width="90*"/>
-                <ColumnDefinition Width="90*"/>
+                <ColumnDefinition Width="220*"/>
+                <ColumnDefinition Width="110*"/>
+                <ColumnDefinition Width="110*"/>
+                <ColumnDefinition Width="110*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -335,9 +335,9 @@
                     Margin="10,5,0,0">
                 <Grid HorizontalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="135*"/>
-                        <ColumnDefinition Width="90*"/>
-                        <ColumnDefinition Width="90*"/>
+                        <ColumnDefinition Width="120*"/>
+                        <ColumnDefinition Width="100*"/>
+                        <ColumnDefinition Width="100*"/>
                         <ColumnDefinition Width="30*"/>
                         <ColumnDefinition Width="170*"/>
                     </Grid.ColumnDefinitions>
