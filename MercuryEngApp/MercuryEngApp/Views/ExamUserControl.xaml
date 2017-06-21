@@ -609,7 +609,7 @@
                   HorizontalAlignment="Left" 
                   Margin="60,0,0,0" />
         </Grid>
-        <Grid HorizontalAlignment="Left" Grid.Column="1" VerticalAlignment="top" Height="235" Grid.Row="1" Margin="10,5,0,0">
+        <Grid HorizontalAlignment="Left" Grid.Column="1" VerticalAlignment="top" Height="235" Grid.Row="1" Margin="10,5,10,0">
 
             <Slider Name="customDepthSlider" 
                     HorizontalAlignment="Stretch" 
