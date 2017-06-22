@@ -1138,12 +1138,12 @@ namespace UsbTcdLibrary
         /// <returns>Task&lt;TCDResponse&gt;.</returns>
         public async Task<TCDResponse> ApplyMeasurementToBoardAsync(TCDRequest request)
         {
-            TCDResponse response = new TCDResponse();
+            TCDResponse response = new TCDResponse(); 
             try
             {
                 if (TCDHandler.Current.isTCDWorking)
                 {
-                    response.Result = await dopplerModule.ApplyMeasurementToBoard(request.ChannelID, (uint)request.Value, request.Value3);
+                    response.Result = await dopplerModule.ApplyMeasurementToBoard(request.ChannelID, (ushort)request.Value, (ushort)request.Value3);
                 }
             }
             catch (Exception ex)

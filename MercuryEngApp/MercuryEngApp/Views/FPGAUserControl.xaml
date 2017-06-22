@@ -100,7 +100,6 @@
                         <Button x:Name="btnWrite" Content="Write" 
                                     Style="{StaticResource ResourceKey=ButtonStyle1}" 
                                     Grid.Column="1" 
-                                IsEnabled="False"
                                     Height="45" 
                                     VerticalAlignment="Top" 
                                 HorizontalAlignment="Stretch"

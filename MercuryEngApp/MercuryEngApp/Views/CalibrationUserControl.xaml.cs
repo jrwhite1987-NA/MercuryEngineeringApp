@@ -468,7 +468,7 @@ namespace MercuryEngApp
                     LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.SafetyStop);
                 }
                 ClearSafetyStatus();
-                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.SafetyStart);
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.SafetyStop);
                 using (TCDRequest request = new TCDRequest())
                 {
                     request.Value = Constants.VALUE_10;

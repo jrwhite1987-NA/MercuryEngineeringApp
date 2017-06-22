@@ -2113,7 +2113,7 @@ namespace UsbTcdLibrary
         /// <param name="m1">The m1.</param>
         /// <param name="m2">The m2.</param>
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
-        internal async Task<bool> ApplyMeasurementToBoard(TCDHandles channelID, uint m1, uint m2)
+        internal async Task<bool> ApplyMeasurementToBoard(TCDHandles channelID, ushort m1, ushort m2)
         {
             bool result = false;
             uint bytesTransferred = 0;
@@ -2126,7 +2126,7 @@ namespace UsbTcdLibrary
                     uint value = 0;
                     uint bufferLength = 4;
 
-                    List<byte> bufferData = new List<byte>(4);
+                    List<byte> bufferData = new List<byte>();
                     bufferData.AddRange(BitConverter.GetBytes(m1));
                     bufferData.AddRange(BitConverter.GetBytes(m2));
 

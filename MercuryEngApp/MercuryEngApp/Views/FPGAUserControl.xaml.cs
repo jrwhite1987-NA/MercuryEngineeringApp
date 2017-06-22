@@ -1,4 +1,5 @@
-﻿using Core.Constants;
+﻿using Core.Common;
+using Core.Constants;
 using MercuryEngApp.Common;
 using System;
 using System.Collections.Generic;
@@ -55,14 +56,22 @@ namespace MercuryEngApp.Views
         /// <param name="e"></param>
         void FPGAUserControlLoaded(object sender, RoutedEventArgs e)
         {
-            txtUserGuide.Text = fpgaViewModel.GetFPGAUserGuideContent();
-            if(PowerController.Instance.IsControllerOn)
+            Helper.logger.Debug("++");
+            try
             {
-                this.IsEnabled = true;
+                txtUserGuide.Text = fpgaViewModel.GetFPGAUserGuideContent();
+                if (PowerController.Instance.IsControllerOn)
+                {
+                    this.IsEnabled = true;
+                }
+                else
+                {
+                    this.IsEnabled = false;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                this.IsEnabled = false;
+                Helper.logger.Warn("Exception: ", ex);
             }
         }
 
@@ -76,60 +85,66 @@ namespace MercuryEngApp.Views
         /// <returns></returns>
         public async Task<bool> StartFixedTransmit(int channel, int DAC, int PRF, int sampleLen)
         {
-
-            const int TX_CYCLES_PER_SECOND = 2000000; // 2MHz transmit carrier
-            int txCyclesPerPRF;
-            int txBurstCycles;
-            int txRegister;
-
-            await UsbTcd.TCDObj.SetModeAsync(App.CurrentChannel, TCDModes.Service);
-
-            // Start by putting the FPGA into reset to clear any previous state.
-            await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = Constants.VALUE_1 });
-            // Pull the FPGA out of reset.  Note that this calls AcqHW_Sleep in the
-            // Doppler module software, which also initializes the sample clock and
-            // transmit clock for a 2MHz carrier.
-            TCDResponse response = await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = Constants.VALUE_0 });
-
-            if (!response.Result)
+            Helper.logger.Debug("++");
+            try
             {
-                return false;
-            }
+                const int TX_CYCLES_PER_SECOND = 2000000; // 2MHz transmit carrier
+                int txCyclesPerPRF;
+                int txBurstCycles;
+                int txRegister;
 
+                await UsbTcd.TCDObj.SetModeAsync(App.CurrentChannel, TCDModes.Service);
 
-            // Set as self-master because we don't want to depend on another
-            // module or have another module depend on us.
-            if (!(await UsbTcd.TCDObj.WriteValueToFPGAAsync
-                (new TCDRequest() { ChannelID = App.CurrentChannel, Value3 = Constants.INTERMODULE_ADDRESS, Value = Constants.PRIORITY_SELF_MASTER })).Result)
-            {
+                // Start by putting the FPGA into reset to clear any previous state.
                 await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = Constants.VALUE_1 });
-                return false;
-            }
+                // Pull the FPGA out of reset.  Note that this calls AcqHW_Sleep in the
+                // Doppler module software, which also initializes the sample clock and
+                // transmit clock for a 2MHz carrier.
+                TCDResponse response = await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = Constants.VALUE_0 });
 
+                if (!response.Result)
+                {
+                    return false;
+                }
 
-            // *** Calculate the transmit control register *** //
-            // Convert PRF from pulse per second to tx cycles per pulse
-            txCyclesPerPRF = TX_CYCLES_PER_SECOND / PRF;
-            // See module software for explanation of the conversion from mm to cycles
-            txBurstCycles = ((Constants.VALUE_24 * sampleLen) / Constants.VALUE_9) + Constants.VALUE_1;
-
-            // See module software for explanation of the transmit register format
-            if (txCyclesPerPRF == (Constants.VALUE_1 << Constants.VALUE_12) && txBurstCycles == (Constants.VALUE_1 << Constants.VALUE_8) && DAC == (Constants.VALUE_1 << Constants.VALUE_12))
-            {
-                txRegister = (txBurstCycles << Constants.VALUE_24) + (txCyclesPerPRF << Constants.VALUE_12) + DAC;
-
-                // Set the transmit control register
-                if (!(await UsbTcd.TCDObj.WriteValueToFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value3 = Constants.TX_PULSE_ADDRESS, Value = txRegister })).Result)
+                // Set as self-master because we don't want to depend on another
+                // module or have another module depend on us.
+                if (!(await UsbTcd.TCDObj.WriteValueToFPGAAsync
+                    (new TCDRequest() { ChannelID = App.CurrentChannel, Value3 = Constants.INTERMODULE_ADDRESS, Value = Constants.PRIORITY_SELF_MASTER })).Result)
                 {
                     await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = Constants.VALUE_1 });
                     return false;
                 }
-                return true;
+
+                // *** Calculate the transmit control register *** //
+                // Convert PRF from pulse per second to tx cycles per pulse
+                txCyclesPerPRF = TX_CYCLES_PER_SECOND / PRF;
+                // See module software for explanation of the conversion from mm to cycles
+                txBurstCycles = ((Constants.VALUE_24 * sampleLen) / Constants.VALUE_9) + Constants.VALUE_1;
+
+                // See module software for explanation of the transmit register format
+                if (txCyclesPerPRF == (Constants.VALUE_1 << Constants.VALUE_12) && txBurstCycles == (Constants.VALUE_1 << Constants.VALUE_8) && DAC == (Constants.VALUE_1 << Constants.VALUE_12))
+                {
+                    txRegister = (txBurstCycles << Constants.VALUE_24) + (txCyclesPerPRF << Constants.VALUE_12) + DAC;
+
+                    // Set the transmit control register
+                    if (!(await UsbTcd.TCDObj.WriteValueToFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value3 = Constants.TX_PULSE_ADDRESS, Value = txRegister })).Result)
+                    {
+                        await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = Constants.VALUE_1 });
+                        return false;
+                    }
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
+            catch (Exception ex)
             {
+                Helper.logger.Warn("Exception: ", ex);
                 return false;
-            }              
+            }
         }
 
         /// <summary>
@@ -149,17 +164,26 @@ namespace MercuryEngApp.Views
         /// <param name="e"></param>
         private async void ReadRegisterClick(object sender, RoutedEventArgs e)
         {
-            uint address = Convert.ToUInt32(fpgaViewModel.SelectedRegister.MemoryLocation, Constants.VALUE_16);
-            TCDResponse response = await UsbTcd.TCDObj.ReadFPGAValueAsync(new TCDRequest { ChannelID = App.CurrentChannel, Value3 = address });
-            if(response.Result)
+            Helper.logger.Debug("++");
+            try
             {
-                fpgaViewModel.SelectedRegister.Value = (int)response.Value;
-                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FPGAReadSuccess);               
+                uint address = Convert.ToUInt32(fpgaViewModel.SelectedRegister.MemoryLocation, Constants.VALUE_16);
+                TCDResponse response = await UsbTcd.TCDObj.ReadFPGAValueAsync(new TCDRequest { ChannelID = App.CurrentChannel, Value3 = address });
+                if (response.Result)
+                {
+                    fpgaViewModel.SelectedRegister.Value = (int)response.Value;
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FPGAReadSuccess);
+                }
+                else
+                {
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FPGAReadFailure);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FPGAReadFailure);  
+                Helper.logger.Warn("Exception: ", ex);
             }
+            Helper.logger.Debug("--");
         }
 
         /// <summary>
@@ -169,15 +193,24 @@ namespace MercuryEngApp.Views
         /// <param name="e"></param>
         private async void WriteRegisterClick(object sender, RoutedEventArgs e)
         {
-            TCDResponse response = await UsbTcd.TCDObj.WriteValueToFPGAAsync(new TCDRequest { ChannelID = App.CurrentChannel, Value = fpgaViewModel.SelectedRegister.Value, Value3 = Convert.ToUInt32(fpgaViewModel.SelectedRegister.MemoryLocation) });
-            if (response.Result)
+            Helper.logger.Debug("++");
+            try
             {
-                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FPGAWriteSuccess);               
+                TCDResponse response = await UsbTcd.TCDObj.WriteValueToFPGAAsync(new TCDRequest { ChannelID = App.CurrentChannel, Value = fpgaViewModel.SelectedRegister.Value, Value3 = Convert.ToUInt32(fpgaViewModel.SelectedRegister.MemoryLocation) });
+                if (response.Result)
+                {
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FPGAWriteSuccess);
+                }
+                else
+                {
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FPGAWriteFailure);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FPGAWriteFailure);               
+                Helper.logger.Warn("Exception: ", ex);
             }
+            Helper.logger.Debug("--");
         }
 
         /// <summary>
@@ -187,16 +220,25 @@ namespace MercuryEngApp.Views
         /// <param name="e"></param>
         private async void ResetRegisterClick(object sender, RoutedEventArgs e)
         {
-            TCDResponse response = await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = Constants.VALUE_1 });
+            Helper.logger.Debug("++");
+            try
+            {
+                TCDResponse response = await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = Constants.VALUE_1 });
 
-            if (response.Result)
-            {
-                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FPGAResetSuccess);
+                if (response.Result)
+                {
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FPGAResetSuccess);
+                }
+                else
+                {
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FPGAResetFailure);
+                }
             }
-            else
+            catch(Exception ex)
             {
-                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FPGAResetFailure);
+                Helper.logger.Warn("Exception: ", ex);
             }
+            Helper.logger.Debug("--");
         }
 
         /// <summary>
@@ -206,22 +248,37 @@ namespace MercuryEngApp.Views
         /// <param name="e"></param>
         private async void SetAllDefaultsClick(object sender, RoutedEventArgs e)
         {
-            TCDResponse response;
-            var isSuccess = true;
-            foreach (var register in fpgaViewModel.FPGARegisterList)
+            Helper.logger.Debug("++");
+            try
             {
-                response = await UsbTcd.TCDObj.WriteValueToFPGAAsync(new TCDRequest { ChannelID = App.CurrentChannel, Value = Convert.ToInt32(register.DefaultValue), Value3 = Convert.ToUInt32(register.MemoryLocation) });
-                if (!response.Result)
+                TCDResponse response;
+                var isSuccess = true;
+                foreach (var register in fpgaViewModel.FPGARegisterList)
                 {
-                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FPGASetDefaultFailure + " " + register.Name );
-                    isSuccess = false;
+                    TCDRequest requestObj = new TCDRequest
+                    {
+                        ChannelID = App.CurrentChannel,
+                        Value = Convert.ToInt32(register.DefaultValue),
+                        Value3 = Convert.ToUInt32(register.MemoryLocation)
+                    };
+                    response = await UsbTcd.TCDObj.WriteValueToFPGAAsync(requestObj);
+                    if (!response.Result)
+                    {
+                        LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FPGASetDefaultFailure + " " + register.Name);
+                        isSuccess = false;
+                    }
+                }
+
+                if (isSuccess)
+                {
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FPGASetAllDefaultSuccess);
                 }
             }
-
-            if (isSuccess)
+            catch(Exception ex)
             {
-                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FPGASetAllDefaultSuccess);
+                Helper.logger.Warn("Exception: ", ex);
             }
+            Helper.logger.Debug("--");
         }
     }
 }
