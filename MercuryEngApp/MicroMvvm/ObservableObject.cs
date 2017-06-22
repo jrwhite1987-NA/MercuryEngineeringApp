@@ -11,9 +11,16 @@ namespace MicroMvvm
     [Serializable]
     public abstract class ObservableObject : INotifyPropertyChanged
     {
+        /// <summary>
+        /// PropertyChanged
+        /// </summary>
         [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// OnPropertyChanged
+        /// </summary>
+        /// <param name="e"></param>
         protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
         {
             var handler = this.PropertyChanged;
@@ -23,12 +30,21 @@ namespace MicroMvvm
             }
         }
 
+        /// <summary>
+        /// RaisePropertyChanged
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="propertyExpresssion"></param>
         protected void RaisePropertyChanged<T>(Expression<Func<T>> propertyExpresssion)
         {
             var propertyName = PropertySupport.ExtractPropertyName(propertyExpresssion);
             this.RaisePropertyChanged(propertyName);
         }
 
+        /// <summary>
+        /// RaisePropertyChanged
+        /// </summary>
+        /// <param name="propertyName"></param>
         protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             VerifyPropertyName(propertyName);

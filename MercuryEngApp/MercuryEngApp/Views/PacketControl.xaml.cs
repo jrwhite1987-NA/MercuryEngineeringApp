@@ -40,6 +40,9 @@ namespace MercuryEngApp
         List<DMIPmdDataPacket> ListDMIPmdDataPacket;
         int count = 0;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public PacketControl()
         {
             
@@ -49,6 +52,10 @@ namespace MercuryEngApp
             this.DataContext = packetViewModelObj;
         }
 
+        /// <summary>
+        /// TCDObjOnProbeUnplugged event
+        /// </summary>
+        /// <param name="probe"></param>
         void TCDObjOnProbeUnplugged(TCDHandles probe)
         {
             if (probe == App.CurrentChannel)
@@ -58,6 +65,11 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Screen Unloaded
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void PacketControlUnloaded(object sender, RoutedEventArgs e)
         {
             MainWindow.TurnTCDON -= MainWindowTurnTCDON;
@@ -70,6 +82,11 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Screen Loaded
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void PacketControlLoaded(object sender, RoutedEventArgs e)
         {
             MainWindow.TurnTCDON += MainWindowTurnTCDON;
@@ -82,6 +99,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// TCD sets to off from MainWindow
+        /// </summary>
         void MainWindowTurnTCDOFF()
         {
             UsbTcd.TCDObj.OnPacketFormed -= TCDObjOnPacketFormed;
@@ -89,6 +109,9 @@ namespace MercuryEngApp
             this.IsEnabled = false;
         }
 
+        /// <summary>
+        /// TCD On from Main window
+        /// </summary>
         async void MainWindowTurnTCDON()
         {
             await UsbTcd.TCDObj.TurnTCDPowerOnAsync();
@@ -118,6 +141,10 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Event for TCD Apcket Formed
+        /// </summary>
+        /// <param name="packets"></param>
         void TCDObjOnPacketFormed(DMIPmdDataPacket[] packets)
         {
             Helper.logger.Debug("++");
@@ -178,6 +205,10 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Load the Tree view from byte array
+        /// </summary>
+        /// <param name="byteArray"></param>
         private void LoadTreeView(byte[] byteArray)
         {
             Helper.logger.Debug("++");
@@ -340,6 +371,12 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Get the strring from array
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        /// <returns></returns>
         public string GetStringFromArray<T>(IList<T> array)
         {
             string arrayValues = "[";
@@ -352,6 +389,11 @@ namespace MercuryEngApp
             return arrayValues + array[Constants.VALUE_3] + "..]";
         }
 
+        /// <summary>
+        /// Calls when the Tree item  is selected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void TreeItemSelected(object sender, RoutedEventArgs e)
         {
             ItemsMenu item = (ItemsMenu)trvMenu.SelectedItem; 
@@ -363,6 +405,11 @@ namespace MercuryEngApp
             SelectCellsByIndexes(fromIndex, toIndex);
         }
         
+        /// <summary>
+        /// Called when Tree Item is expanded
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TreeViewItemExpanded(object sender, RoutedEventArgs e)
         {
             TreeViewItem tvi = e.OriginalSource as TreeViewItem;
@@ -381,11 +428,24 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Is Item Expanded
+        /// </summary>
+        /// <param name="header"></param>
+        /// <returns></returns>
         public bool IsItemExpanded(string header)
         {
             return TList.Contains(header);
         }
 
+        /// <summary>
+        /// Gets the Items Menu with details
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="postion"></param>
+        /// <param name="type"></param>
+        /// <param name="packetValue"></param>
+        /// <returns></returns>
         public ItemsMenu GetMenuItem(string title, int postion, string type, string packetValue = "0")
         {
             ItemsMenu item = new ItemsMenu();
@@ -404,6 +464,11 @@ namespace MercuryEngApp
             return item;
         }
 
+        /// <summary>
+        /// Get the Byte Size of type
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public int GetByteSize(string type)
         {
             int byteSize = Constants.VALUE_0;
@@ -492,6 +557,10 @@ namespace MercuryEngApp
             return byteSize;
         }
 
+        /// <summary>
+        /// Load the Binary data from byte array
+        /// </summary>
+        /// <param name="byteArray"></param>
         public void LoadBinaryData(byte[] byteArray)
         {
 
@@ -613,6 +682,11 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Selects Cell by Indexes
+        /// </summary>
+        /// <param name="fromIndex"></param>
+        /// <param name="toIndex"></param>
         private void SelectCellsByIndexes(KeyValuePair<int, int> fromIndex, KeyValuePair<int, int> toIndex)
         {
             grdMailbag.SelectedItems.Clear();
@@ -647,6 +721,11 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Selects Cell by Index
+        /// </summary>
+        /// <param name="rowIndex"></param>
+        /// <param name="columnIndex"></param>
         public void SelectCellByIndex(int rowIndex, int columnIndex)
         {
             object item = grdMailbag.Items[rowIndex]; //=Product X
@@ -671,6 +750,13 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Get the cell from the datagrid
+        /// </summary>
+        /// <param name="dataGrid"></param>
+        /// <param name="rowContainer"></param>
+        /// <param name="column"></param>
+        /// <returns></returns>
         public DataGridCell GetCell(DataGrid dataGrid, DataGridRow rowContainer, int column)
         {
             if (rowContainer != null)
@@ -700,6 +786,12 @@ namespace MercuryEngApp
             return null;
         }
 
+        /// <summary>
+        /// Find Visual Child of grid
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public T FindVisualChild<T>(DependencyObject obj) where T : DependencyObject
         {
             for (int i = Constants.VALUE_0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
@@ -722,6 +814,11 @@ namespace MercuryEngApp
             return null;
         }       
 
+        /// <summary>
+        /// Called when refresh clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RefreshClick(object sender, RoutedEventArgs e)
         {
             ClearRecentTimer();
@@ -730,6 +827,10 @@ namespace MercuryEngApp
             ReloadHexViewer(byteArray);
         }
 
+        /// <summary>
+        /// Reaload the Hex Viewer
+        /// </summary>
+        /// <param name="byteArray"></param>
         public async void ReloadHexViewer(List<byte[]> byteArray)
         {
             Helper.logger.Debug("++");
@@ -770,6 +871,11 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Called when Slider value is changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="er"></param>
         private void SliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double> er)
         {
             double sliderValue = (double)IntervalSilder.Value;
@@ -789,6 +895,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Clear the timer
+        /// </summary>
         private void ClearRecentTimer()
         {
             if (GrabTimer != null)
@@ -798,6 +907,11 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Grab the Packet
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GrabPacket(object sender, EventArgs e)
         {
             Helper.logger.Debug("++");
@@ -815,6 +929,7 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        //Called when Export isa clicked
         private void ExportClick(object sender, RoutedEventArgs e)
         {
             Helper.logger.Debug("++");
@@ -846,6 +961,11 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Validate the Export of Packet
+        /// </summary>
+        /// <param name="errorMessage"></param>
+        /// <returns></returns>
         private bool ValidatePacketExport(out string errorMessage)
         {
             bool isValid = true;
@@ -856,6 +976,12 @@ namespace MercuryEngApp
             return isValid;
         }
 
+        /// <summary>
+        /// Validate Objects
+        /// </summary>
+        /// <param name="objects"></param>
+        /// <param name="validationMessage"></param>
+        /// <returns></returns>
         private bool ValidateObjects(List<DependencyObject> objects, out string validationMessage)
         {
             bool isValid = true;

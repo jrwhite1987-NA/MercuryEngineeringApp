@@ -24,7 +24,7 @@ namespace MercuryEngApp.Views
     /// </summary>
     public partial class FPGAUserControl : UserControl
     {
-
+        //Constants
         const int ADC_FREQ_ADDRESS = 0x020;
         const int INTERMODULE_ADDRESS = 0x080;
         const int RX_GAIN_ADDRESS = 0x010;
@@ -38,6 +38,9 @@ namespace MercuryEngApp.Views
         const int TX_PULSE_DEFAULT = 0x100FA400;  // 16 cycle sample, 250 cycle PRF (8KHz)      
         FPGAViewModel fpgaViewModel = new FPGAViewModel();
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public FPGAUserControl()
         {
             InitializeComponent();
@@ -45,6 +48,11 @@ namespace MercuryEngApp.Views
             this.DataContext = fpgaViewModel;
         }
 
+        /// <summary>
+        /// Screen Loaded
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void FPGAUserControlLoaded(object sender, RoutedEventArgs e)
         {
             txtUserGuide.Text = fpgaViewModel.GetFPGAUserGuideContent();
@@ -58,6 +66,14 @@ namespace MercuryEngApp.Views
             }
         }
 
+        /// <summary>
+        /// Start Fixed transmit 
+        /// </summary>
+        /// <param name="channel"></param>
+        /// <param name="DAC"></param>
+        /// <param name="PRF"></param>
+        /// <param name="sampleLen"></param>
+        /// <returns></returns>
         public async Task<bool> StartFixedTransmit(int channel, int DAC, int PRF, int sampleLen)
         {
 
@@ -116,11 +132,21 @@ namespace MercuryEngApp.Views
             }              
         }
 
+        /// <summary>
+        /// Stpo the fixed transmit
+        /// </summary>
+        /// <param name="channel"></param>
+        /// <returns></returns>
         public async Task<bool> StopFixedTransmit(int channel)
         {
             return (await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = Constants.VALUE_1 })).Result;
         }
 
+        /// <summary>
+        /// Read the register on click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void ReadRegisterClick(object sender, RoutedEventArgs e)
         {
             uint address = Convert.ToUInt32(fpgaViewModel.SelectedRegister.MemoryLocation, Constants.VALUE_16);
@@ -136,6 +162,11 @@ namespace MercuryEngApp.Views
             }
         }
 
+        /// <summary>
+        /// write the register on click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void WriteRegisterClick(object sender, RoutedEventArgs e)
         {
             TCDResponse response = await UsbTcd.TCDObj.WriteValueToFPGAAsync(new TCDRequest { ChannelID = App.CurrentChannel, Value = fpgaViewModel.SelectedRegister.Value, Value3 = Convert.ToUInt32(fpgaViewModel.SelectedRegister.MemoryLocation) });
@@ -149,6 +180,11 @@ namespace MercuryEngApp.Views
             }
         }
 
+        /// <summary>
+        /// Reset the register
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void ResetRegisterClick(object sender, RoutedEventArgs e)
         {
             TCDResponse response = await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = Constants.VALUE_1 });
@@ -163,6 +199,11 @@ namespace MercuryEngApp.Views
             }
         }
 
+        /// <summary>
+        /// set all defaults
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void SetAllDefaultsClick(object sender, RoutedEventArgs e)
         {
             TCDResponse response;

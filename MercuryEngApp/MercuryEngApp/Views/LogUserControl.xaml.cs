@@ -20,6 +20,9 @@ namespace MercuryEngApp.Views
     /// </summary>
     public partial class LogUserControl : UserControl
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public LogUserControl()
         {
             InitializeComponent();
@@ -28,17 +31,32 @@ namespace MercuryEngApp.Views
             
         }
 
+        /// <summary>
+        /// Page Loaded
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnLogLoaded(object sender, RoutedEventArgs e)
         {
             this.LogTabControl.SelectedIndex = App.mainWindow.LogSelectedTabIndex;
         }
 
+        /// <summary>
+        /// Event when page closes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CloseClick(object sender, RoutedEventArgs e)
         {
             App.mainWindow.NavigationTabs.SelectedIndex = App.mainWindow.previousIndex;
             App.mainWindow.FooterTextBox.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Clear the logs
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ClearLogClick(object sender, RoutedEventArgs e)
         {
             App.mainWindow.mainViewModel.TCDLog = "";

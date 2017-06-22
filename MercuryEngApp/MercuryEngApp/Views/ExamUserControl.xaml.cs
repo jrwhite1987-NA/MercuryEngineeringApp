@@ -50,6 +50,9 @@ namespace MercuryEngApp
 
         #endregion
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public ExamUserControl()
         {
             Helper.logger.Debug("++");           
@@ -67,6 +70,10 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// TCD Probe Unplugged
+        /// </summary>
+        /// <param name="probe"></param>
         void TCDObjOnProbeUnplugged(TCDHandles probe)
         {
             if (probe == App.CurrentChannel)
@@ -76,6 +83,11 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Page UnLoaded
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void ExamUserControlUnloaded(object sender, RoutedEventArgs e)
         {
             Helper.logger.Debug("++");
@@ -98,6 +110,11 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Page loaded
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void ExamUserControlLoaded(object sender, RoutedEventArgs e)
         {
             Helper.logger.Debug("++");
@@ -172,6 +189,10 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Disable the probe
+        /// </summary>
+        /// <param name="channel"></param>
         private async void DisableProbe(TCDHandles channel)
         {
             TCDRequest requestObject = null;
@@ -197,6 +218,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// TCD Off from Main Window
+        /// </summary>
         async void MainWindowTurnTCDOFF()
         {
             Helper.logger.Debug("++");
@@ -227,6 +251,9 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// TCD On from Main Window
+        /// </summary>
         async void MainWindowTurnTCDON()
         {
             Helper.logger.Debug("++");
@@ -243,6 +270,9 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Create the vertical Scales
+        /// </summary>
         private void CreateVerticalScales()
         {
             Helper.logger.Debug("++");            
@@ -269,6 +299,10 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Plot the Graphs
+        /// </summary>
+        /// <returns></returns>
         async Task PlotGraph()
         {
             Helper.logger.Debug("++");
@@ -316,7 +350,10 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
-
+        /// <summary>
+        /// TCD on Packet Formed
+        /// </summary>
+        /// <param name="packets"></param>
         void TCDObjOnPacketFormed(DMIPmdDataPacket[] packets)
         {
             Helper.logger.Debug("++");
@@ -333,6 +370,10 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Add the Packets to Audio Collectuion
+        /// </summary>
+        /// <param name="packets"></param>
         private void AddPacketsToAudioCollection(DMIPmdDataPacket[] packets)
         {
             Helper.logger.Debug("++");
@@ -363,6 +404,11 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// CompositionTargetRendering
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void CompositionTargetRendering(object sender, EventArgs e)
         {
             Helper.logger.Debug("++");
@@ -440,6 +486,9 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Initialize the Bit Map
+        /// </summary>
         private void InitializeBitmap()
         {
             Helper.logger.Debug("++");
@@ -470,6 +519,11 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Send the Power to TCD
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void SendPower(object sender, RoutedEventArgs e)
         {
             Helper.logger.Debug("++");
@@ -508,6 +562,11 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Send the Depth to TCD
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void SendDepth(object sender, RoutedEventArgs e)
         {
             Helper.logger.Debug("++");
@@ -554,6 +613,11 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Send the Filter to TCD
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void SendFilter(object sender, RoutedEventArgs e)
         {
             Helper.logger.Debug("++");
@@ -590,6 +654,11 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Send the Length to TCD
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void SendLength(object sender, RoutedEventArgs e)
         {
             Helper.logger.Debug("++");
@@ -626,6 +695,11 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Send the PRF to TCD
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void SendPRF(object sender, RoutedEventArgs e)
         {
             Helper.logger.Debug("++");
@@ -679,6 +753,11 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
         
+        /// <summary>
+        /// Custom Slider Mouse Lost Focus
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CusomSliderLostMouseCapture(object sender, MouseEventArgs e)
         {
             Helper.logger.Debug("++");
@@ -709,6 +788,9 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Gets the Thumb
+        /// </summary>
         public Thumb Thumb
         {
             get
@@ -717,6 +799,11 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Get the Thumb
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
         private DependencyObject GetThumb(DependencyObject root)
         {
             Helper.logger.Debug("++");
@@ -749,6 +836,11 @@ namespace MercuryEngApp
             return thumb;
         }
 
+        /// <summary>
+        /// Toggle Limits clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ToggleLimitsClick(object sender, RoutedEventArgs e)
         {
             Helper.logger.Debug("++");
@@ -802,12 +894,22 @@ namespace MercuryEngApp
             LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.EnvelopeRangeSet);
         }
 
+        /// <summary>
+        /// Spectrum Bin Combo Box selection changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SpectrumBinComboboxSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             CusomSliderLostMouseCapture(null, null);
             InitializeBitmap();
         }
 
+        /// <summary>
+        /// Envelope Click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EnvelopeClick(object sender, RoutedEventArgs e)
         {
             Helper.logger.Debug("++");
@@ -839,6 +941,11 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Screen Size changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ExamControlSizeChanged(object sender, SizeChangedEventArgs e)
         {
             examViewModelObj.Column1Width = ParentGrid.ColumnDefinitions[0].ActualWidth;

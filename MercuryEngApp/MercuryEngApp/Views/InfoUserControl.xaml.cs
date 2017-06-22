@@ -33,6 +33,9 @@ namespace MercuryEngApp
         public System.Xml.XmlReader stream { get; set; }
         XDocument xmlDoc;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public InfoUserControl()
         {
             InitializeComponent();
@@ -53,6 +56,11 @@ namespace MercuryEngApp
 
         }
 
+        /// <summary>
+        /// Page loaded
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         async void InfoUserControlLoaded(object sender, RoutedEventArgs e)
         {
             Helper.logger.Debug("++");
@@ -82,6 +90,11 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Read the service log
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         private static async Task ReadServiceLog(TCDRequest request)
         {
             request.Value = Constants.VALUE_10;
@@ -95,6 +108,11 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Read Board Info on clikc
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void ReadBoardInfoClick(object sender, RoutedEventArgs e)
         {
             Helper.logger.Debug("++");
@@ -132,6 +150,11 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Write Board Info Click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void WriteBoardInfoClick(object sender, RoutedEventArgs e)
         {
             Helper.logger.Debug("++");
@@ -179,6 +202,11 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Validate the Board Info controls
+        /// </summary>
+        /// <param name="validationMessage"></param>
+        /// <returns></returns>
         private bool ValidateBoardInfo(out string validationMessage)
         {
             bool isValid = true;
@@ -195,6 +223,12 @@ namespace MercuryEngApp
             
         }
 
+        /// <summary>
+        /// Validate the objects
+        /// </summary>
+        /// <param name="objects"></param>
+        /// <param name="validationMessage"></param>
+        /// <returns></returns>
         private bool ValidateObjects(List<DependencyObject> objects, out string validationMessage)
         {
             bool isValid = true;
@@ -216,6 +250,11 @@ namespace MercuryEngApp
             return errorCount > 0 ? false : true;
         }
 
+        /// <summary>
+        /// Read the chanel on click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void ReadChannelClick(object sender, RoutedEventArgs e)
         {
             Helper.logger.Debug("++");
@@ -242,6 +281,11 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Write the channel click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void WriteChannelClick(object sender, RoutedEventArgs e)
         {
             Helper.logger.Debug("++");
@@ -272,6 +316,11 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Is Valid to be checked
+        /// </summary>
+        /// <param name="dependencyObject"></param>
+        /// <returns></returns>
         private bool IsValid(DependencyObject dependencyObject)
         {
             DependencyObject obj = ChannelPartNumber;
@@ -280,6 +329,11 @@ namespace MercuryEngApp
             return !Validation.GetHasError(dependencyObject) && LogicalTreeHelper.GetChildren(dependencyObject).OfType<DependencyObject>().All(IsValid);
         }
 
+        /// <summary>
+        /// Read the Probe Infor on click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void ReadProbeInfoClick(object sender, RoutedEventArgs e)
         {
             Helper.logger.Debug("++");
@@ -337,6 +391,11 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Wriet the Probe Info click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void WriteProbeInfoClick(object sender, RoutedEventArgs e)
         {
             Helper.logger.Debug("++");
@@ -384,6 +443,11 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Validate the Probe info objects
+        /// </summary>
+        /// <param name="validationMessage"></param>
+        /// <returns></returns>
         private bool ValidateProbeInfo(out string validationMessage)
         {
             bool isValid = true;
@@ -407,6 +471,11 @@ namespace MercuryEngApp
             return isValid;
         }
 
+        /// <summary>
+        /// Validate the Channel Assignements controls
+        /// </summary>
+        /// <param name="errorMessage"></param>
+        /// <returns></returns>
         private bool ValidateChannelAssignment(out string errorMessage)
         {
             bool isValid = true;
@@ -417,6 +486,11 @@ namespace MercuryEngApp
             return isValid;
         }
 
+        /// <summary>
+        /// Read Operating Minutes on click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void ReadOperatingMinutesClick(object sender, RoutedEventArgs e)
         {
             Helper.logger.Debug("++");

@@ -49,7 +49,9 @@ namespace MicroMvvm
         #endregion
 
         #region ICommand Members
-
+        /// <summary>
+        /// Eventhandler CanExecuteChanged
+        /// </summary>
         public event EventHandler CanExecuteChanged
         {
             add
@@ -70,12 +72,21 @@ namespace MicroMvvm
             }
         }
 
+        /// <summary>
+        /// CanExecute
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
         [DebuggerStepThrough]
         public Boolean CanExecute(Object parameter)
         {
             return _canExecute == null ? true : _canExecute((T)parameter);
         }
 
+        /// <summary>
+        /// Execute
+        /// </summary>
+        /// <param name="parameter"></param>
         public void Execute(Object parameter)
         {
             _execute((T)parameter);
@@ -129,6 +140,9 @@ namespace MicroMvvm
 
         #region ICommand Members
 
+        /// <summary>
+        /// CanExecuteChanged
+        /// </summary>
         public event EventHandler CanExecuteChanged
         {
             add
@@ -148,13 +162,22 @@ namespace MicroMvvm
                 }
             }
         }
-
+        
+        /// <summary>
+        /// CanExecute
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
         [DebuggerStepThrough]
         public Boolean CanExecute(Object parameter)
         {
             return _canExecute == null ? true : _canExecute();
         }
 
+        /// <summary>
+        /// Execute
+        /// </summary>
+        /// <param name="parameter"></param>
         public void Execute(Object parameter)
         {
             _execute();

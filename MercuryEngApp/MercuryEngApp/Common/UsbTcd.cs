@@ -7,6 +7,9 @@ using UsbTcdLibrary;
 
 namespace MercuryEngApp.Common
 {
+    /// <summary>
+    /// Internal Class
+    /// </summary>
     internal class UsbTcd
     {
         private static IUsbTcd handleForTCD;
@@ -24,10 +27,12 @@ namespace MercuryEngApp.Common
         {
             get
             {
+                //Lock
                 lock (singletonCreationLock)
                 {
                     if (handleForTCD == null)
                     {
+                        //Create new object
                         handleForTCD = new UsbTcdDll();
                     }
                 }

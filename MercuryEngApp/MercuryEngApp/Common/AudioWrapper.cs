@@ -15,6 +15,9 @@ using Core.Common;
 
 namespace MercuryEngApp.Common
 {
+    /// <summary>
+    /// Audio Wrapper Class
+    /// </summary>
     public class AudioWrapper : IDisposable
     {
 
@@ -54,6 +57,9 @@ namespace MercuryEngApp.Common
 
         private bool isAudioFirst = true;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public AudioWrapper()
         {
             wrapper = new AudioLib.AudioWrapper();

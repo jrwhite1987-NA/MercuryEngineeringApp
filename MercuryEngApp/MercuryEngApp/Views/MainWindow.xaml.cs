@@ -25,11 +25,21 @@ namespace MercuryEngApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Event for TCD On
+        /// </summary>
         public static event TCDPower TurnTCDON;
+        /// <summary>
+        /// Event for TCD Off
+        /// </summary>
         public static event TCDPower TurnTCDOFF;
         public int previousIndex = 0;
         public int LogSelectedTabIndex = 0;
         public MainViewModel mainViewModel = new MainViewModel();
+
+        /// <summary>
+        /// Gets or sets the Is Power CHecked
+        /// </summary>
         internal bool? IsPowerChecked
         {
             get
@@ -42,6 +52,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Probe 1 Hit test visible
+        /// </summary>
         internal bool IsProbe1HitTestVisible
         {
             get
@@ -53,6 +66,9 @@ namespace MercuryEngApp
                 BtnLeftProbe.IsHitTestVisible = value;
             }
         }
+        /// <summary>
+        /// Gets or sets the Probe 2 Hit test visible
+        /// </summary>
         internal bool IsProbe2HitTestVisible
         {
             get
@@ -65,6 +81,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public MainWindow()
         {
             Helper.logger.Debug("++");
@@ -78,6 +97,10 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Event for TCD Probe plugged
+        /// </summary>
+        /// <param name="probe"></param>
         void TCDObjOnProbePlugged(UsbTcdLibrary.TCDHandles probe)
         {
             if(probe==UsbTcdLibrary.TCDHandles.Channel1)
@@ -112,6 +135,10 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Event for TCD probe unplugged
+        /// </summary>
+        /// <param name="probe"></param>
         internal void TCDObjOnProbeUnplugged(UsbTcdLibrary.TCDHandles probe)
         {
             if (probe == UsbTcdLibrary.TCDHandles.Channel1)
@@ -146,6 +173,11 @@ namespace MercuryEngApp
             }
         }       
 
+        /// <summary>
+        /// Main Window load event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void MainWindowLoaded(object sender, RoutedEventArgs e)
         {
             Helper.logger.Debug("++");
@@ -168,6 +200,10 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// State change for Micro Controller
+        /// </summary>
+        /// <param name="flag"></param>
         private async void MicrocontrollerOnDeviceStateChanged(bool flag)
         {
             Helper.logger.Debug("++");
@@ -224,6 +260,11 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// TCD Power button click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void TCDPowerClick(object sender, RoutedEventArgs e)
         {
             Helper.logger.Debug("++");
@@ -261,16 +302,31 @@ namespace MercuryEngApp
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Left Probe icon click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LeftProbeClick(object sender, RoutedEventArgs e)
         {
             App.ActiveChannels = UsbTcdLibrary.ActiveChannels.Channel1;
         }
 
+        /// <summary>
+        /// right probe icon click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RightProbeClick(object sender, RoutedEventArgs e)
         {
             App.ActiveChannels = UsbTcdLibrary.ActiveChannels.Channel2;
         }
 
+        /// <summary>
+        /// expand click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ExpandClick(object sender, RoutedEventArgs e)
         {
             previousIndex = NavigationTabs.SelectedIndex;
@@ -279,12 +335,22 @@ namespace MercuryEngApp
             FooterTextBox.Visibility = Visibility.Collapsed;
         }
 
+        /// <summary>
+        /// clear the logs
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ClearLogClick(object sender, RoutedEventArgs e)
         {
             mainViewModel.TCDLog = "";
             mainViewModel.ApplicationLog = "";
         }
 
+        /// <summary>
+        /// Navigation on different tabs
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NavigationTabsSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             if (e.Source is TabControl)

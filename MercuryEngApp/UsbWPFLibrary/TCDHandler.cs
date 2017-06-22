@@ -602,6 +602,12 @@ namespace UsbTcdLibrary
             }
         }
 
+        /// <summary>
+        /// Write Data in TCD
+        /// </summary>
+        /// <param name="channel"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
        internal  async Task<bool> WriteData(TCDHandles channel, byte[] data)
         {
             _currentChannel = (int)channel;

@@ -9,10 +9,16 @@ using System.Threading.Tasks;
 
 namespace MercuryEngApp.Test.MercuryEngApp.Common
 {
+    /// <summary>
+    /// Test Class
+    /// </summary>
     [TestClass]
     public class MmodeSettingTest
     {
-
+        /// <summary>
+        /// Test Method
+        /// for getting depth range
+        /// </summary>
         [TestMethod]
         [HostTypeAttribute("Moles")]
         public void GetDepthRangeForDepth48()

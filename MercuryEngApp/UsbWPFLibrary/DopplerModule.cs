@@ -95,6 +95,9 @@ namespace UsbTcdLibrary
         /// The counter packet write
         /// </summary>
         private static int counterPacketWrite = 0;
+        /// <summary>
+        /// Export Packet Count
+        /// </summary>
         internal int exportPacketCount = 0;
         /// <summary>
         /// The sequence left packet
@@ -463,6 +466,12 @@ namespace UsbTcdLibrary
             return result;
         }
 
+        /// <summary>
+        /// Read Packet from File
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="offsetByte"></param>
+        /// <param name="byteArray"></param>
         internal void ReadPacketFromFile(string fileName, int offsetByte, ref byte[] byteArray)
         {
             Helper.logger.Debug("++");
@@ -919,6 +928,12 @@ namespace UsbTcdLibrary
             }
         }
 
+        /// <summary>
+        /// Load Data from File
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="offsetByte"></param>
+        /// <param name="byteArray"></param>
         private void LoadDataFromFile(string filePath, int offsetByte, ref byte[] byteArray)
         {
             Helper.logger.Debug("++");
@@ -963,6 +978,11 @@ namespace UsbTcdLibrary
             }
         }
 
+        /// <summary>
+        /// Get Packet Details
+        /// </summary>
+        /// <param name="byteArray"></param>
+        /// <returns></returns>
         public DMIPmdDataPacket GetPacketDetails(byte[] byteArray)
         {
             Helper.logger.Debug("++");

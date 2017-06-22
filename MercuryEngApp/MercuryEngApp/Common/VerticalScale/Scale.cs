@@ -10,20 +10,30 @@ using System.Windows.Media;
 using Core.Common;
 namespace MercuryEngApp.Common
 {
+    /// <summary>
+    /// Scale Class
+    /// </summary>
     public class Scale
     {
         private int Interval { get; set; }
 
         private double TickPosition { get; set; }
 
+        /// <summary>
+        /// Method to create Scale
+        /// </summary>
+        /// <param name="param"></param>
         public  void CreateScale(ScaleParameters param)
         {
             Helper.logger.Debug("++");
+
+            //Switch case to verify the scale type
             switch (param.ScaleType)
             {
                 case ScaleTypeEnum.MMode:
                     break;
                 case ScaleTypeEnum.Spectrogram:
+                    //Create Scale for Spectogram
                     CreateScaleForSpectrogram(param);
                     break;
                 case ScaleTypeEnum.None:
@@ -34,13 +44,21 @@ namespace MercuryEngApp.Common
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Create Scale for Spectogram
+        /// </summary>
+        /// <param name="param"></param>
         private void CreateScaleForSpectrogram(ScaleParameters param)
         {
             Helper.logger.Debug("++");
             try
             {
                 param.ParentControl.Children.Clear();
+
+                //Get Scale Interval
                 var interval = GetScaleInterval(param.VelocityRange);
+
+                //Get Tick Posituion
                 var tickPosition = GetTickPosition((double)param.VelocityRange,(double)interval,param.BitmapHeight);
                 TextBlock txtBlock;
                 int counter = 0;
@@ -86,6 +104,12 @@ namespace MercuryEngApp.Common
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Create MMode Scale
+        /// </summary>
+        /// <param name="parentGrid"></param>
+        /// <param name="minimum"></param>
+        /// <param name="maximum"></param>
         public void CreateMmodeScale(Grid parentGrid, double minimum, double maximum)
         {
             try
@@ -136,11 +160,22 @@ namespace MercuryEngApp.Common
             Helper.logger.Debug("--");
         }
 
+        /// <summary>
+        /// Round of to Cieling value
+        /// </summary>
+        /// <param name="maximum"></param>
+        /// <returns></returns>
         private double RoundOffCeiling(double maximum)
         {
+            //Return rounded value
             return (Math.Ceiling(maximum / Constants.VALUE_DOUBLE_10) * Constants.VALUE_10);
         }
 
+        /// <summary>
+        /// Round of to Floor valaue
+        /// </summary>
+        /// <param name="minimum"></param>
+        /// <returns></returns>
         private double RoundOffFloor(double minimum)
         {
             return (Math.Floor(minimum / Constants.VALUE_DOUBLE_10) * Constants.VALUE_10);
@@ -168,6 +203,7 @@ namespace MercuryEngApp.Common
             Helper.logger.Debug("++");
             var interval = Constants.VALUE_0;
 
+            //Switch case for Velocity Range
             switch (velocityRange)
             {
                 case Constants.VALUE_192:

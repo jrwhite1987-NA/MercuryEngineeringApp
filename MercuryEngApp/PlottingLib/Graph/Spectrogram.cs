@@ -38,6 +38,9 @@ namespace PlottingLib
             }
         }
 
+        /// <summary>
+        /// Spectrum Envelope
+        /// </summary>
         public Envolope SpectrumEnvolope { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="Spectrogram"/> class.
@@ -49,6 +52,9 @@ namespace PlottingLib
             SpectrumEnvolope = new Envolope();
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         protected Spectrogram() { }
        
         /// <summary>
@@ -105,6 +111,11 @@ namespace PlottingLib
             }            
         }
        
+        /// <summary>
+        /// Get Index for Base Line
+        /// </summary>
+        /// <param name="baseLinePosition"></param>
+        /// <returns></returns>
         public static int GetIndexforBaseline(int baseLinePosition)
         {
             Constants.DefaultBaseline = Constants.SpectrumBin / Constants.VALUE_2;

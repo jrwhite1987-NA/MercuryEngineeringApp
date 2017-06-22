@@ -24,6 +24,9 @@ namespace MercuryEngApp
 
         private double col1Width;
 
+        /// <summary>
+        /// Column1Width Property
+        /// </summary>
         public double Column1Width
         {
             get { return col1Width; }
@@ -34,6 +37,9 @@ namespace MercuryEngApp
 
         private double col2Width;
 
+        /// <summary>
+        /// Column2Width Property
+        /// </summary>
         public double Column2Width
         {
             get { return col2Width; }
@@ -42,8 +48,9 @@ namespace MercuryEngApp
             }
         }
         
-        
-        
+        /// <summary>
+        /// FFTList Property
+        /// </summary>
         public List<int> FFTList { get; internal set; }
 
         /// <summary>
@@ -64,6 +71,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public ExamViewModel()
         {
             OutputMetrics = new OutputMetrics();
@@ -76,6 +86,9 @@ namespace MercuryEngApp
             ScreenCoords = new System.Windows.Point(-Constants.VALUE_17, Constants.VALUE_107);
         }
 
+        /// <summary>
+        /// Selected FFT Property
+        /// </summary>
         public int SelectedFFT
         {
             get
@@ -96,6 +109,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Slider Max Property
+        /// </summary>
         public int SliderMax
         {
             get
@@ -112,6 +128,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Slider Value Property
+        /// </summary>
         public int SliderValue
         {
             get
@@ -129,6 +148,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// TIC Property
+        /// </summary>
         public ushort TIC
         {
             get
@@ -145,6 +167,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Gets or Sets the Power
+        /// </summary>
         public uint Power
         {
             get
@@ -161,6 +186,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Depth
+        /// </summary>
         public uint Depth
         {
             get
@@ -177,6 +205,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Filter
+        /// </summary>
         public uint Filter
         {
             get
@@ -193,6 +224,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Gets or sets the S Volume
+        /// </summary>
         public uint SVol
         {
             get
@@ -209,6 +243,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Start Depth
+        /// </summary>
         public ushort StartDepth
         {
             get
@@ -225,7 +262,9 @@ namespace MercuryEngApp
             }
         }
 
-        
+        /// <summary>
+        /// Gets or sets the Selected PRF
+        /// </summary>
         public uint SelectedPRF
         {
             get
@@ -242,6 +281,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Packet Power
+        /// </summary>
         public uint PacketPower
         {
             get
@@ -258,6 +300,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Packet Depth
+        /// </summary>
         public uint PacketDepth
         {
             get
@@ -274,6 +319,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Packet Filter
+        /// </summary>
         public uint PacketFilter
         {
             get
@@ -290,6 +338,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Packet S Volume
+        /// </summary>
         public uint PacketSVol
         {
             get
@@ -306,6 +357,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Packet Start Depth
+        /// </summary>
         public ushort PacketStartDepth
         {
             get
@@ -322,11 +376,14 @@ namespace MercuryEngApp
             }
         }
 
-        
-
-
+        /// <summary>
+        /// Gets or sets the Screen Co-ordinates
+        /// </summary>
         public System.Windows.Point ScreenCoords { get; set; }
 
+        /// <summary>
+        /// Gets or sets the Packet PRF
+        /// </summary>
         public uint PacketPRF
         {
             get
@@ -343,6 +400,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Max Positive value
+        /// </summary>
         public int PosMax
         {
             get { return OutputMetrics.PosMax;}
@@ -356,6 +416,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Mean Positive value
+        /// </summary>
         public int PosMean
         {
             get { return OutputMetrics.PosMean; }
@@ -369,6 +432,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Minimum Positive value
+        /// </summary>
         public int PosMin
         {
             get { return OutputMetrics.PosMin; }
@@ -382,6 +448,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Gets or sets the PI Positive value
+        /// </summary>
         public int PosPI
         {
             get { return OutputMetrics.PosPI; }
@@ -395,6 +464,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Max Negative value
+        /// </summary>
         public int NegMax
         {
             get { return OutputMetrics.NegMax; }
@@ -408,6 +480,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Mean Negative Value
+        /// </summary>
         public int NegMean
         {
             get { return OutputMetrics.NegMean; }
@@ -421,6 +496,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Minimum Negative Value
+        /// </summary>
         public int NegMin
         {
             get { return OutputMetrics.NegMin; }
@@ -434,6 +512,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Gets or sets the PI Negative Value
+        /// </summary>
         public int NegPI
         {
             get { return OutputMetrics.NegPI; }

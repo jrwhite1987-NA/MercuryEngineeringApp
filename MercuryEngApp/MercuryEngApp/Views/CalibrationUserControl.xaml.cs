@@ -30,6 +30,9 @@ namespace MercuryEngApp
         int lastSafetyTrip;
         bool isSafetyCalibrationInProgress;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public CalibrationUserControl()
         {
             calViewModel = new CalibrationViewModel();
@@ -39,6 +42,11 @@ namespace MercuryEngApp
             this.DataContext = calViewModel;
         }
 
+        /// <summary>
+        /// Page Unloaded
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         async void CalibrationUserControlUnloaded(object sender, RoutedEventArgs e)
         {
             // Make sure FPGA is in reset
@@ -48,6 +56,9 @@ namespace MercuryEngApp
             SafetyStopClick(null, null);
         }
 
+        /// <summary>
+        /// Clear Safety Status
+        /// </summary>
         void ClearSafetyStatus()
         {
             if (App.CurrentChannel == TCDHandles.Channel1 || App.CurrentChannel == TCDHandles.Channel2)
@@ -61,6 +72,11 @@ namespace MercuryEngApp
 
         }
 
+        /// <summary>
+        /// Page Loaded
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void CalibrationUserControlLoaded(object sender, RoutedEventArgs e)
         {
             try
@@ -80,7 +96,11 @@ namespace MercuryEngApp
             }
         }
 
-
+        /// <summary>
+        /// Read Claibration on click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void ReadCalibrationClick(object sender, RoutedEventArgs e)
         {
             if (App.CurrentChannel == TCDHandles.Channel1 || App.CurrentChannel == TCDHandles.Channel2)
@@ -102,6 +122,11 @@ namespace MercuryEngApp
             lastSafetyTrip = 0;
         }
 
+        /// <summary>
+        /// Override the Calibration click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OverrideCalClick(object sender, RoutedEventArgs e)
         {
             //Change the edits
@@ -112,6 +137,11 @@ namespace MercuryEngApp
             calViewModel.IsWriteCalEnabled = (bool)OverrideCalibration.IsChecked;
         }
 
+        /// <summary>
+        /// Override the Calibration click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void OverrideCalibrationClick(object sender, RoutedEventArgs e)
         {
             try
@@ -132,6 +162,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Reset the Measurements
+        /// </summary>
         private void ResetMeasurements()
         {
             calViewModel.Measurement1 = 0;
@@ -142,6 +175,11 @@ namespace MercuryEngApp
             calViewModel.IsMeasurement2ClickEnabled = false;
         }
 
+        /// <summary>
+        /// Start the Measurement 1 on click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void StartMeasurement1Click(object sender, RoutedEventArgs e)
         {
             // Make sure that if a safety calibration is in progress it is stopped
@@ -159,6 +197,11 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Start the Measurement 2 on click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void StartMeasurement2Click(object sender, RoutedEventArgs e)
         {
             // Make sure that if a safety calibration is in progress it is stopped
@@ -178,6 +221,11 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Apply Measurements
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void ApplyMeasurementsClick(object sender, RoutedEventArgs e)
         {
             bool m1Valid, m2Valid;
@@ -227,6 +275,11 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Start the Consistency check
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void ConsistencyCheckStartClick(object sender, RoutedEventArgs e)
         {
             const int CONSISTENCY_CHECK_DAC_DA1085 = 1705;
@@ -240,6 +293,13 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Start the Fix Transmit
+        /// </summary>
+        /// <param name="DAC"></param>
+        /// <param name="PRF"></param>
+        /// <param name="sampleLength"></param>
+        /// <returns></returns>
         private async Task<bool> StartFixedTransmit(int DAC, int PRF, int sampleLength)
         {
             const int TX_CYCLES_PER_SECOND = 2000000; // 2MHz transmit carrier
@@ -288,11 +348,21 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Stop Consitency check
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void ConsistencyCheckStopClick(object sender, RoutedEventArgs e)
         {
             await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = Constants.VALUE_1 });
         }
 
+        /// <summary>
+        /// Start Safety on click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void SafetyStartClick(object sender, RoutedEventArgs e)
         {
             // Make sure we're not in the middle of acoustic calibration
@@ -316,6 +386,11 @@ namespace MercuryEngApp
             // but only if the module is actually capable of performing verification.
         }
 
+        /// <summary>
+        /// Stop Safety click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void SafetyStopClick(object sender, RoutedEventArgs e)
         {
             if(isSafetyCalibrationInProgress)

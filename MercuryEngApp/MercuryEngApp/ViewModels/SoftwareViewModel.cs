@@ -21,6 +21,9 @@ namespace MercuryEngApp.ViewModels
         private uint bytesWritten;
         private uint bytesReceivedErased;
 
+        /// <summary>
+        /// Gets of sets the Software Version
+        /// </summary>
         public string SoftwareVersion
         {
             get
@@ -37,6 +40,9 @@ namespace MercuryEngApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets of sets the Boot Version
+        /// </summary>
         public string BootVersion
         {
             get
@@ -53,6 +59,9 @@ namespace MercuryEngApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets of sets the Hardware revision
+        /// </summary>
         public string HardwareRevision
         {
             get
@@ -69,6 +78,9 @@ namespace MercuryEngApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets of sets the Perform Upadate Enabled
+        /// </summary>
         public bool IsPerformUpdateEnabled
         {
             get
@@ -82,6 +94,9 @@ namespace MercuryEngApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets of sets the Is Browse Enabled
+        /// </summary>
         public bool IsBrowseEnabled
         {
             get
@@ -95,6 +110,9 @@ namespace MercuryEngApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets of sets the Is the Abort Enabled
+        /// </summary>
         public bool IsAbortEnabled
         {
             get
@@ -108,6 +126,9 @@ namespace MercuryEngApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets of sets the Progress Position
+        /// </summary>
         public uint ProgressPosition
         {
             get
@@ -121,6 +142,9 @@ namespace MercuryEngApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets of sets the show warning labels
+        /// </summary>
         public bool ShowWarningLabels
         {
             get
@@ -134,6 +158,9 @@ namespace MercuryEngApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets of sets the Update Status
+        /// </summary>
         public string UpdateStatus
         {
             get
@@ -147,6 +174,9 @@ namespace MercuryEngApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets of sets the Bytes Written
+        /// </summary>
         public uint BytesWritten
         {
             get
@@ -160,6 +190,9 @@ namespace MercuryEngApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets of sets the Bytes Receivbed
+        /// </summary>
         public uint BytesReceivedErased
         {
             get

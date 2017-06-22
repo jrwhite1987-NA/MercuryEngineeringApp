@@ -19,6 +19,9 @@ namespace MercuryEngApp
         private byte channelNumber;
         private uint operatingMins;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public InfoViewModel()
         {
             BoardInfo = new BoardInfo();
@@ -26,6 +29,9 @@ namespace MercuryEngApp
             ProbePartNumberList = new List<string>();
         }
 
+        /// <summary>
+        /// OperatingMinutes Property
+        /// </summary>
         public uint OperatingMinutes
         {
             get
@@ -42,7 +48,14 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// ChannelNumberList Property
+        /// </summary>
         public List<byte> ChannelNumberList { get; internal set; }
+
+        /// <summary>
+        /// SelectedChannelNumber Property
+        /// </summary>
         public byte SelectedChannelNumber
         {
             get
@@ -59,7 +72,14 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// BoardPartNumberList Property
+        /// </summary>
         public List<String> BoardPartNumberList { get; internal set; }
+
+        /// <summary>
+        /// SelectedBoardPartNumber Property
+        /// </summary>
         public string SelectedBoardPartNumber
         {
             get
@@ -76,7 +96,14 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// BoardModelNameList Property
+        /// </summary>
         public List<String> BoardModelNameList { get; internal set; }
+
+        /// <summary>
+        /// SelectedBoardModelName Property
+        /// </summary>
         public string SelectedBoardModelName
         {
             get
@@ -93,7 +120,14 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// BoardHardwareRevisionList Property
+        /// </summary>
         public List<String> BoardHardwareRevisionList { get; internal set; }
+
+        /// <summary>
+        /// SelectedHardwareRevision Property
+        /// </summary>
         public string SelectedHardwareRevision
         {
             get
@@ -110,6 +144,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// BoardSerialNumber Property
+        /// </summary>
         public string BoardSerialNumber
         {
             get
@@ -126,7 +163,14 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// ProbePartNumberList Property
+        /// </summary>
         public List<string> ProbePartNumberList { get; internal set; }
+
+        /// <summary>
+        /// SelectedProbePartNumber Property
+        /// </summary>
         public string SelectedProbePartNumber
         {
             get
@@ -143,8 +187,14 @@ namespace MercuryEngApp
             }
         }
 
-
+        /// <summary>
+        /// ProbeModelNameList Property
+        /// </summary>
         public List<string> ProbeModelNameList { get; internal set; }
+        
+        /// <summary>
+        /// ProbeModelName Property
+        /// </summary>
         public string ProbeModelName
         {
             get
@@ -161,6 +211,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// ProbeSerialNumber Property
+        /// </summary>
         public string ProbeSerialNumber
         {
             get
@@ -177,7 +230,14 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// ProbePhysicalIDList Property
+        /// </summary>
         public List<byte> ProbePhysicalIDList { get; internal set; }
+
+        /// <summary>
+        /// PhysicalID Property
+        /// </summary>
         public byte PhysicalID
         {
             get
@@ -194,7 +254,14 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// ProbeFormatIDList Property
+        /// </summary>
         public List<byte> ProbeFormatIDList { get; internal set; }
+        
+        /// <summary>
+        /// FormatID Property
+        /// </summary>
         public byte FormatID
         {
             get
@@ -211,6 +278,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// CenterFrequency Property
+        /// </summary>
         public ushort CenterFrequency
         {
             get
@@ -227,6 +297,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Diameter Property
+        /// </summary>
         public ushort Diameter
         {
             get
@@ -243,6 +316,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// TankFocalLength Property
+        /// </summary>
         public ushort TankFocalLength
         {
             get
@@ -259,6 +335,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// InsertionLoss Property
+        /// </summary>
         public ushort InsertionLoss
         {
             get
@@ -275,6 +354,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// TIC Property
+        /// </summary>
         public ushort TIC
         {
             get
@@ -291,6 +373,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Fractional3dbBW Property
+        /// </summary>
         public ushort Fractional3dbBW
         {
             get
@@ -307,6 +392,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Impedance Property
+        /// </summary>
         public ushort Impedance
         {
             get
@@ -323,6 +411,9 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// PhaseAngle Property
+        /// </summary>
         public ushort PhaseAngle
         {
             get

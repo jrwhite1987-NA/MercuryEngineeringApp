@@ -26,6 +26,9 @@ namespace MercuryEngApp.ViewModels
         private bool isApplyMeasurementEnabled;
         private bool isMeasurement2ClickEnabled;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public CalibrationViewModel()
         {
             IsTxOffsetEnabled = true;
@@ -42,6 +45,9 @@ namespace MercuryEngApp.ViewModels
             Power = Constants.SAFETY_CAL_START_POWER;
         }
 
+        /// <summary>
+        /// Gets or sets the if the Measurement 2 Button is Enabled
+        /// </summary>
         public bool IsMeasurement2ClickEnabled
         {
             get
@@ -55,6 +61,9 @@ namespace MercuryEngApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Measuremnet Enabled
+        /// </summary>
         public bool IsApplyMeasurementEnabled
         {
             get
@@ -68,6 +77,9 @@ namespace MercuryEngApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Measurement 2 Edit Enabled
+        /// </summary>
         public bool IsMeasurement2EditEnabled
         {
             get
@@ -81,6 +93,9 @@ namespace MercuryEngApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Measurement 1 Edit Enabeld
+        /// </summary>
         public bool IsMeasurement1EditEnabled
         {
             get
@@ -94,6 +109,9 @@ namespace MercuryEngApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Safety Strip Status
+        /// </summary>
         public string SafetyTripStatus
         {
             get 
@@ -110,6 +128,9 @@ namespace MercuryEngApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Is Write Call Enabled
+        /// </summary>
         public bool IsWriteCalEnabled
         {
             get
@@ -126,6 +147,9 @@ namespace MercuryEngApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Is Tx Energy Enabled
+        /// </summary>
         public bool IsTxEnergyEnabled
         {
             get
@@ -142,6 +166,9 @@ namespace MercuryEngApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Is Tx Offset Enabled
+        /// </summary>
         public bool IsTxOffsetEnabled
         {
             get
@@ -158,6 +185,9 @@ namespace MercuryEngApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Power
+        /// </summary>
         public int Power
         {
             get 
@@ -181,6 +211,9 @@ namespace MercuryEngApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Selected SVol
+        /// </summary>
         public uint SelectedSVOL
         {
             get
@@ -197,6 +230,9 @@ namespace MercuryEngApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Selected PRF
+        /// </summary>
         public uint SelectedPRF
         {
             get
@@ -213,9 +249,19 @@ namespace MercuryEngApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the PRF List
+        /// </summary>
         public List<uint> PRFList { get; internal set; }
+
+        /// <summary>
+        /// Gets or sets the S Volume List
+        /// </summary>
         public List<uint> SVOLList { get; internal set; }
 
+        /// <summary>
+        /// Gets or sets the TxOffset
+        /// </summary>
         public ushort TxOffset
         {
             get 
@@ -232,6 +278,9 @@ namespace MercuryEngApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the TxEnergy
+        /// </summary>
         public ushort TxEnergy
         {
             get 
@@ -248,6 +297,9 @@ namespace MercuryEngApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Measurement1
+        /// </summary>
         public int Measurement1
         {
             get 
@@ -266,6 +318,9 @@ namespace MercuryEngApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Measurement2
+        /// </summary>
         public int Measurement2
         {
             get 

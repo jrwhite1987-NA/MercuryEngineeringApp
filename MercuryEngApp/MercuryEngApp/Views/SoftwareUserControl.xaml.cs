@@ -28,6 +28,9 @@ namespace MercuryEngApp.Views
     public partial class SoftwareUserControl : UserControl
     {
         SoftwareViewModel softwareViewModel;
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public SoftwareUserControl()
         {
             softwareViewModel = new SoftwareViewModel();
@@ -36,6 +39,11 @@ namespace MercuryEngApp.Views
             this.DataContext = softwareViewModel;
         }
 
+        /// <summary>
+        /// Screen Loaded
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void SoftwareUserControlLoaded(object sender, RoutedEventArgs e)
         {
             if (PowerController.Instance.IsControllerOn)
@@ -133,6 +141,10 @@ namespace MercuryEngApp.Views
             }
         }
 
+        /// <summary>
+        /// Abort the update
+        /// </summary>
+        /// <returns></returns>
         private async Task<bool> AbortUpdate()
         {
             TCDResponse response = await UsbTcd.TCDObj.EndUpdateProcessAsync(new TCDRequest() { ChannelID = App.CurrentChannel });
@@ -146,6 +158,9 @@ namespace MercuryEngApp.Views
             }
         }
 
+        /// <summary>
+        /// Execute the update
+        /// </summary>
         private async void ExecuteUpdate()
         {
             TCDReadInfoResponse response = await UsbTcd.TCDObj.GetModuleInfo(new TCDRequest() { ChannelID = App.CurrentChannel });
@@ -178,6 +193,12 @@ namespace MercuryEngApp.Views
             }
         }
 
+        /// <summary>
+        /// Load the module update
+        /// </summary>
+        /// <param name="tCDHandles"></param>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
         private async Task<bool> LoadModuleUpdate(TCDHandles tCDHandles, string fileName)
         {
             bool result = false;
@@ -351,6 +372,11 @@ namespace MercuryEngApp.Views
             }
         }
 
+        /// <summary>
+        /// Init module update to validate
+        /// </summary>
+        /// <param name="currentChannel"></param>
+        /// <returns></returns>
         private async Task<bool> InitModuleUpdate(TCDHandles currentChannel)
         {
             //Command the module to update mode and wait for it to get there
@@ -371,12 +397,28 @@ namespace MercuryEngApp.Views
 
     public class Converter : IValueConverter
     {
+        /// <summary>
+        /// Convert
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             bool ShowWarningLabels = (bool)value;
             return ShowWarningLabels ? Visibility.Visible : Visibility.Hidden;
         }
 
+        /// <summary>
+        /// Convertback
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns></returns>
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             throw new NotImplementedException();

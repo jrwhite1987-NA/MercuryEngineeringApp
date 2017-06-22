@@ -10,11 +10,19 @@ namespace MercuryEngApp
 {
     public class FPGAViewModel : ObservableObject
     {
-
+        /// <summary>
+        /// Gets or sets the FPGA Register List
+        /// </summary>
         public List<FPGARegister> FPGARegisterList { get; set; }
 
+        /// <summary>
+        /// Gets or sets the Selected Register
+        /// </summary>
         public FPGARegister SelectedRegister { get; set; }
 
+        /// <summary>
+        /// Gets or sets the Value
+        /// </summary>
         public int Value
         {
             get { return SelectedRegister.Value; }
@@ -25,7 +33,9 @@ namespace MercuryEngApp
             }
         }
 
-
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public FPGAViewModel()
         {
             FPGARegisterList = FillRegisterList();
@@ -35,6 +45,10 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Fill the Register List
+        /// </summary>
+        /// <returns></returns>
         private List<FPGARegister> FillRegisterList()
         {
             try
@@ -57,6 +71,10 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// Get the FPGA User Guide Content
+        /// </summary>
+        /// <returns></returns>
         public string GetFPGAUserGuideContent()
         {            
             return System.IO.File.ReadAllText("LocalFolder/FPGAUserGuide.txt");

@@ -555,7 +555,11 @@ namespace UsbTcdLibrary
             }
         }
 
-
+        /// <summary>
+        /// Get Packet Details from byte array
+        /// </summary>
+        /// <param name="byteArray"></param>
+        /// <returns></returns>
         public DMIPmdDataPacket GetPacketDetails(byte[] byteArray)
         {
             try
@@ -1530,7 +1534,12 @@ namespace UsbTcdLibrary
             OnPacketFormed = null;         
         }
 
-
+        /// <summary>
+        /// Set Mode Async
+        /// </summary>
+        /// <param name="channelId"></param>
+        /// <param name="modeToSet"></param>
+        /// <returns></returns>
         public async Task<bool> SetModeAsync(TCDHandles channelId, TCDModes modeToSet)
         {
             if (TCDHandler.Current.isTCDWorking)
@@ -1543,7 +1552,11 @@ namespace UsbTcdLibrary
             return false;
         }
 
-
+        /// <summary>
+        /// Get the Channel Number
+        /// </summary>
+        /// <param name="requestObj"></param>
+        /// <returns></returns>
         public async Task<byte> GetChannelNumber(TCDRequest requestObj)
         {
             byte channelNumber = 0;
@@ -1561,11 +1574,20 @@ namespace UsbTcdLibrary
             return channelNumber;
         }
 
+        /// <summary>
+        /// Grab Packet from TCD
+        /// </summary>
+        /// <returns></returns>
         public List<byte[]> GrabPacket()
         {
             return dopplerModule.GrabSinglePacket();
         }
 
+        /// <summary>
+        /// Get mode of channel
+        /// </summary>
+        /// <param name="channel"></param>
+        /// <returns></returns>
         public TCDModes GetMode(TCDHandles channel)
         {
             if (channel == TCDHandles.Channel1)
@@ -1582,6 +1604,11 @@ namespace UsbTcdLibrary
             }
         }
 
+        /// <summary>
+        /// Write data in TCD
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task<TCDResponse> WriteData(TCDWriteInfoRequest request)
         {
             TCDResponse response = new TCDResponse();

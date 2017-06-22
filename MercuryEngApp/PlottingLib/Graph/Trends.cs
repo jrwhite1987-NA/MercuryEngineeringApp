@@ -28,22 +28,41 @@ namespace PlottingLib
     /// </summary>
     public class TrendCollection : IDisposable
     {
+        /// <summary>
+        /// LeftPosMeanList
+        /// </summary>
         public List<int> LeftPosMeanList { get; set; }
-
+        /// <summary>
+        /// LeftPosPiList
+        /// </summary>
         public List<int> LeftPosPiList { get; set; }
-
+        /// <summary>
+        /// /LeftPosPiList
+        /// </summary>
         public List<int> RightPosMeanList { get; set; }
-
+        /// <summary>
+        /// RightPosPiList
+        /// </summary>
         public List<int> RightPosPiList { get; set; }
-
+        /// <summary>
+        /// LeftPosMinList
+        /// </summary>
         public List<int> LeftPosMinList { get; set; }
-
+        /// <summary>
+        /// RightPosMinList
+        /// </summary>
         public List<int> RightPosMinList { get; set; }
-
+        /// <summary>
+        /// LeftPosMaxList
+        /// </summary>
         public List<int> LeftPosMaxList { get; set; }
-
+        /// <summary>
+        /// RightPosMaxList
+        /// </summary>
         public List<int> RightPosMaxList { get; set; }
-
+        /// <summary>
+        /// Count
+        /// </summary>
         public double Count { get; set; }
 
         public void Dispose()

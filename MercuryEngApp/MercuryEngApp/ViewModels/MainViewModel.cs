@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace MercuryEngApp
 {
+    /// <summary>
+    /// Class Main View Model
+    /// </summary>
     public  class MainViewModel : ObservableObject
     {
         private string appLog;
@@ -37,11 +40,21 @@ namespace MercuryEngApp
             }
         }
 
+        /// <summary>
+        /// GetLoginByUserID
+        /// </summary>
+        /// <param name="NA_TECH_ID"></param>
+        /// <returns></returns>
         internal MainWindow GetLoginByUserID(int NA_TECH_ID)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// GetMainWindowByUserID
+        /// </summary>
+        /// <param name="NA_TECH_ID"></param>
+        /// <returns></returns>
         internal MainWindow GetMainWindowByUserID(int NA_TECH_ID)
         {
             throw new NotImplementedException();

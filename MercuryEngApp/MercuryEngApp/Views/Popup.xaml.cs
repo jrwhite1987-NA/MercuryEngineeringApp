@@ -16,11 +16,16 @@ namespace MercuryEngApp.Views
 {
     /// <summary>
     /// Interaction logic for Popup.xaml
+    /// Popup class
     /// </summary>
     public partial class Popup : Window
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public Popup()
         {
+            //Initialize Component
             InitializeComponent();
         }
     }
