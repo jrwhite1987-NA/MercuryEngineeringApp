@@ -228,69 +228,93 @@ namespace MercuryEngApp
         /// <param name="e"></param>
         private async void ApplyMeasurementsClick(object sender, RoutedEventArgs e)
         {
-            bool m1Valid, m2Valid;
-            double m1AdjustmentFactor, m2AdjustmentFactor;
-            TCDRequest requestObj = new TCDRequest();
-            requestObj.ChannelID = App.CurrentChannel;
-            // Make sure that if a safety calibration is in progress it is stopped
-            SafetyStopClick(null, null);
+            Helper.logger.Debug("++");
+            try
+            {
+                bool m1Valid, m2Valid;
+                double m1AdjustmentFactor, m2AdjustmentFactor;
+                TCDRequest requestObj = new TCDRequest();
+                requestObj.ChannelID = App.CurrentChannel;
+                // Make sure that if a safety calibration is in progress it is stopped
+                SafetyStopClick(null, null);
 
-            m1AdjustmentFactor = Constants.M1AdjustmentFactor;
-            m2AdjustmentFactor = Constants.M2AdjustmentFactor;
+                m1AdjustmentFactor = Constants.M1AdjustmentFactor;
+                m2AdjustmentFactor = Constants.M2AdjustmentFactor;
 
-            m1Valid = false;
-            if (calViewModel.Measurement1 > Constants.VALUE_0)
-            {
-                requestObj.Value = (int)(m1AdjustmentFactor * calViewModel.Measurement1);
-                m1Valid = true;
-            }
-            if (!m1Valid)
-            {
-                LogWrapper.Log(Constants.APPLog, "Invalid value for measurement #1.");
-            }
-
-            m2Valid = false;
-            if (calViewModel.Measurement2 > Constants.VALUE_0)
-            {
-                requestObj.Value = (int)(m2AdjustmentFactor * calViewModel.Measurement2);
-                m2Valid = true;
-            }
-            if (!m2Valid)
-            {
-                LogWrapper.Log(Constants.APPLog, "Invalid value for measurement #2.");
-            }
-
-            if (m1Valid & m2Valid)
-            {
-                if ((await UsbTcd.TCDObj.ApplyMeasurementToBoardAsync(requestObj)).Result)
+                m1Valid = false;
+                if (calViewModel.Measurement1 > Constants.VALUE_0)
                 {
-                    calViewModel.IsMeasurement1EditEnabled = false;
-                    calViewModel.IsMeasurement2EditEnabled = false;
-                    calViewModel.IsApplyMeasurementEnabled = false;
+                    requestObj.Value = (int)(m1AdjustmentFactor * calViewModel.Measurement1);
+                    m1Valid = true;
                 }
-                else
+                if (!m1Valid)
                 {
-                    LogWrapper.Log(Constants.APPLog, "Could not apply calibration.");
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.InvalidMeasurement1);
+                }
+
+                m2Valid = false;
+                if (calViewModel.Measurement2 > Constants.VALUE_0)
+                {
+                    requestObj.Value = (int)(m2AdjustmentFactor * calViewModel.Measurement2);
+                    m2Valid = true;
+                }
+                if (!m2Valid)
+                {
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.InvalidMeasurement2);
+                }
+
+                if (m1Valid & m2Valid)
+                {
+                    if ((await UsbTcd.TCDObj.ApplyMeasurementToBoardAsync(requestObj)).Result)
+                    {
+                        calViewModel.IsMeasurement1EditEnabled = false;
+                        calViewModel.IsMeasurement2EditEnabled = false;
+                        calViewModel.IsApplyMeasurementEnabled = false;
+                    }
+                    else
+                    {
+                        LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.CalibrationFailed);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                Helper.logger.Warn("Exception: ", ex);
+            }
+            Helper.logger.Debug("--");
         }
 
-        /// <summary>
-        /// Start the Consistency check
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private async void ConsistencyCheckStartClick(object sender, RoutedEventArgs e)
         {
-            const int CONSISTENCY_CHECK_DAC_DA1085 = 1705;
-            const int CONSISTENCY_CHECK_PRF = 8000;
-            const int CONSISTENCY_CHECK_SAMPLE_LENGTH = 9;
-
-
-            if(!await StartFixedTransmit(CONSISTENCY_CHECK_DAC_DA1085, CONSISTENCY_CHECK_PRF, CONSISTENCY_CHECK_SAMPLE_LENGTH))
+            Helper.logger.Debug("++");
+            try
             {
-                LogWrapper.Log(Constants.APPLog, "Unable to start transmit.");
+                const int CONSISTENCY_CHECK_DAC_DA1085 = 1705;
+                const int CONSISTENCY_CHECK_PRF = 8000;
+                const int CONSISTENCY_CHECK_SAMPLE_LENGTH = 9;
+
+                if (!await StartFixedTransmit(CONSISTENCY_CHECK_DAC_DA1085, CONSISTENCY_CHECK_PRF, CONSISTENCY_CHECK_SAMPLE_LENGTH))
+                {
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.StartTransmitFailed);
+                }
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.ConsistencyCheckStart);
+                using (TCDRequest request = new TCDRequest())
+                {
+                    request.Value = Constants.VALUE_10;
+                    request.ChannelID = App.CurrentChannel;
+                    TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
+
+                    foreach (var item in response.ServicePacketList)
+                    {
+                        LogWrapper.Log(Constants.TCDLog, item.Message);
+                    }
+                }
             }
+            catch (Exception ex)
+            {
+                Helper.logger.Warn("Exception: ", ex);
+            }
+            Helper.logger.Debug("--");
         }
 
         /// <summary>
@@ -355,7 +379,28 @@ namespace MercuryEngApp
         /// <param name="e"></param>
         private async void ConsistencyCheckStopClick(object sender, RoutedEventArgs e)
         {
-            await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = Constants.VALUE_1 });
+            Helper.logger.Debug("++");
+            try
+            {
+                await UsbTcd.TCDObj.ResetFPGAAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = Constants.VALUE_1 });
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.ConsistencyCheckStop);
+                using (TCDRequest request = new TCDRequest())
+                {
+                    request.Value = Constants.VALUE_10;
+                    request.ChannelID = App.CurrentChannel;
+                    TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
+
+                    foreach (var item in response.ServicePacketList)
+                    {
+                        LogWrapper.Log(Constants.TCDLog, item.Message);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Helper.logger.Warn("Exception: ", ex);
+            }
+            Helper.logger.Debug("--");
         }
 
         /// <summary>
@@ -365,25 +410,44 @@ namespace MercuryEngApp
         /// <param name="e"></param>
         private async void SafetyStartClick(object sender, RoutedEventArgs e)
         {
-            // Make sure we're not in the middle of acoustic calibration
-            ResetMeasurements();
-
-            // Check for probe
-            ClearSafetyStatus();
-            if((await UsbTcd.TCDObj.GetProbeInfo(new TCDRequest() { ChannelID = App.CurrentChannel })).Probe==null)
+            Helper.logger.Debug("++");
+            try
             {
-                return;
-            }
-            BtnSafetyStart.IsEnabled = false;
-            isSafetyCalibrationInProgress = true;
-            await UsbTcd.TCDObj.EnableTransmitTestControlAsync(new TCDRequest() { ChannelID = App.CurrentChannel });
-            await Task.Delay(Constants.VALUE_100);
-            await UsbTcd.TCDObj.TransmitTestPowerAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = calViewModel.Power });
-            await UsbTcd.TCDObj.TransmitTestSampleLengthAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = (int)calViewModel.SelectedSVOL });
-            await UsbTcd.TCDObj.TransmitTestPRFAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = (int)calViewModel.SelectedPRF });
+                // Make sure we're not in the middle of acoustic calibration
+                ResetMeasurements();
 
-            // Warn the user if they leave tab without performing safety verification,
-            // but only if the module is actually capable of performing verification.
+                // Check for probe
+                ClearSafetyStatus();
+                if ((await UsbTcd.TCDObj.GetProbeInfo(new TCDRequest() { ChannelID = App.CurrentChannel })).Probe == null)
+                {
+                    return;
+                }
+                BtnSafetyStart.IsEnabled = false;
+                isSafetyCalibrationInProgress = true;
+                await UsbTcd.TCDObj.EnableTransmitTestControlAsync(new TCDRequest() { ChannelID = App.CurrentChannel });
+                await Task.Delay(Constants.VALUE_100);
+                await UsbTcd.TCDObj.TransmitTestPowerAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = calViewModel.Power });
+                await UsbTcd.TCDObj.TransmitTestSampleLengthAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = (int)calViewModel.SelectedSVOL });
+                await UsbTcd.TCDObj.TransmitTestPRFAsync(new TCDRequest() { ChannelID = App.CurrentChannel, Value = (int)calViewModel.SelectedPRF });
+
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.SafetyStart);
+                using (TCDRequest request = new TCDRequest())
+                {
+                    request.Value = Constants.VALUE_10;
+                    request.ChannelID = App.CurrentChannel;
+                    TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
+
+                    foreach (var item in response.ServicePacketList)
+                    {
+                        LogWrapper.Log(Constants.TCDLog, item.Message);
+                    }
+                }
+             }
+            catch(Exception ex)
+            {
+                Helper.logger.Warn("Exception: ", ex);
+            }
+            Helper.logger.Debug("--");
         }
 
         /// <summary>
@@ -393,13 +457,35 @@ namespace MercuryEngApp
         /// <param name="e"></param>
         private async void SafetyStopClick(object sender, RoutedEventArgs e)
         {
-            if(isSafetyCalibrationInProgress)
+            Helper.logger.Debug("++");
+            try
             {
-                isSafetyCalibrationInProgress = false;
-                BtnSafetyStart.IsEnabled = true;
-                await UsbTcd.TCDObj.EnableTransmitTestControlAsync(new TCDRequest() { ChannelID = App.CurrentChannel });
+                if (isSafetyCalibrationInProgress)
+                {
+                    isSafetyCalibrationInProgress = false;
+                    BtnSafetyStart.IsEnabled = true;
+                    await UsbTcd.TCDObj.DisableTransmitTestControlAsync(new TCDRequest() { ChannelID = App.CurrentChannel });
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.SafetyStop);
+                }
+                ClearSafetyStatus();
+                LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.SafetyStart);
+                using (TCDRequest request = new TCDRequest())
+                {
+                    request.Value = Constants.VALUE_10;
+                    request.ChannelID = App.CurrentChannel;
+                    TCDReadInfoResponse response = await UsbTcd.TCDObj.ReadServiceLogAsync(request);
+
+                    foreach (var item in response.ServicePacketList)
+                    {
+                        LogWrapper.Log(Constants.TCDLog, item.Message);
+                    }
+                }
             }
-            ClearSafetyStatus();
+            catch(Exception ex)
+            {
+                Helper.logger.Warn("Exception: ", ex);
+            }
+            Helper.logger.Debug("--");
         }
 
         

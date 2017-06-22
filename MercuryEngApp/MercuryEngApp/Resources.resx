@@ -393,4 +393,31 @@
   <data name="NoOfPacket" xml:space="preserve">
     <value>Number of Packet</value>
   </data>
+  <data name="CalibrationFailed" xml:space="preserve">
+    <value>Could not apply calibration.</value>
+  </data>
+  <data name="ConsistencyCheckStart" xml:space="preserve">
+    <value>Consistency test started.</value>
+  </data>
+  <data name="ConsistencyCheckStop" xml:space="preserve">
+    <value>Consistency test stopped.</value>
+  </data>
+  <data name="InvalidMeasurement1" xml:space="preserve">
+    <value>Invalid value for measurement #1.</value>
+  </data>
+  <data name="InvalidMeasurement2" xml:space="preserve">
+    <value>Invalid value for measurement #2.</value>
+  </data>
+  <data name="MicrocontrollerConnected" xml:space="preserve">
+    <value>Microcontroller was connected.</value>
+  </data>
+  <data name="SafetyStart" xml:space="preserve">
+    <value>Safety test started.</value>
+  </data>
+  <data name="SafetyStop" xml:space="preserve">
+    <value>Safety test stopped.</value>
+  </data>
+  <data name="StartTransmitFailed" xml:space="preserve">
+    <value>Unable to start transmit.</value>
+  </data>
 </root>

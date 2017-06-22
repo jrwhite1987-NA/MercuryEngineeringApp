@@ -219,6 +219,7 @@ namespace MercuryEngApp
                     await PowerController.Instance.UpdatePowerParameters(true, true, false, false, true);
                     await Task.Delay(Constants.TimeForTCDtoLoad);
                     App.ActiveChannels = (await UsbTcd.TCDObj.GetProbesConnectedAsync()).ActiveChannel;
+                    LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.MicrocontrollerConnected);
                     this.Dispatcher.Invoke(() => 
                     {
                         switch (App.ActiveChannels)

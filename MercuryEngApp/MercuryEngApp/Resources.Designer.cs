@@ -160,6 +160,15 @@ namespace MercuryEngApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not apply calibration..
+        /// </summary>
+        public static string CalibrationFailed {
+            get {
+                return ResourceManager.GetString("CalibrationFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Center Frequency.
         /// </summary>
         public static string CenterFrequency {
@@ -228,6 +237,24 @@ namespace MercuryEngApp {
         public static string Confirming {
             get {
                 return ResourceManager.GetString("Confirming", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Consistency test started..
+        /// </summary>
+        public static string ConsistencyCheckStart {
+            get {
+                return ResourceManager.GetString("ConsistencyCheckStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Consistency test stopped..
+        /// </summary>
+        public static string ConsistencyCheckStop {
+            get {
+                return ResourceManager.GetString("ConsistencyCheckStop", resourceCulture);
             }
         }
         
@@ -484,6 +511,24 @@ namespace MercuryEngApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid value for measurement #1..
+        /// </summary>
+        public static string InvalidMeasurement1 {
+            get {
+                return ResourceManager.GetString("InvalidMeasurement1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid value for measurement #2..
+        /// </summary>
+        public static string InvalidMeasurement2 {
+            get {
+                return ResourceManager.GetString("InvalidMeasurement2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update Table Invalid.
         /// </summary>
         public static string InvalidTable {
@@ -516,6 +561,15 @@ namespace MercuryEngApp {
         public static string MaxLength {
             get {
                 return ResourceManager.GetString("MaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Microcontroller was connected..
+        /// </summary>
+        public static string MicrocontrollerConnected {
+            get {
+                return ResourceManager.GetString("MicrocontrollerConnected", resourceCulture);
             }
         }
         
@@ -727,6 +781,24 @@ namespace MercuryEngApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Safety test started..
+        /// </summary>
+        public static string SafetyStart {
+            get {
+                return ResourceManager.GetString("SafetyStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Safety test stopped..
+        /// </summary>
+        public static string SafetyStop {
+            get {
+                return ResourceManager.GetString("SafetyStop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sending....
         /// </summary>
         public static string Sending {
@@ -741,6 +813,15 @@ namespace MercuryEngApp {
         public static string StartDepth {
             get {
                 return ResourceManager.GetString("StartDepth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to start transmit..
+        /// </summary>
+        public static string StartTransmitFailed {
+            get {
+                return ResourceManager.GetString("StartTransmitFailed", resourceCulture);
             }
         }
         
