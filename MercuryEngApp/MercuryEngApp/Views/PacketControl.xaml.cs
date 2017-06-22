@@ -56,6 +56,11 @@ namespace MercuryEngApp
         /// TCDObjOnProbeUnplugged event
         /// </summary>
         /// <param name="probe"></param>
+        public PacketControl(bool IsTest)
+        {
+
+        }
+
         void TCDObjOnProbeUnplugged(TCDHandles probe)
         {
             if (probe == App.CurrentChannel)
@@ -214,17 +219,38 @@ namespace MercuryEngApp
             Helper.logger.Debug("++");
 
             try
-            {   
-                DMIPmdDataPacket dMIPmdDataPacket = UsbTcd.TCDObj.GetPacketDetails(byteArray);
-                ItemsMenu PacketRoot = new ItemsMenu();
+            {
                 trvMenu.Items.Clear();
+
+                ItemsMenu PacketRoot = GetTreeStructure(byteArray);
+                trvMenu.Items.Add(PacketRoot);
+
+                trvMenu.SelectedItemChanged += TreeItemSelected;    
+
+                Helper.logger.Debug("TreeView Created");
+            }
+            catch (Exception ex)
+            {
+                Helper.logger.Warn("Exception:" + ex);
+            }
+
+            Helper.logger.Debug("--");
+        }
+
+        public ItemsMenu GetTreeStructure(byte[] byteArray)
+        {
+            ItemsMenu PacketRoot = new ItemsMenu();
+            if (byteArray != null)
+            {
+                DMIPmdDataPacket dMIPmdDataPacket = UsbTcd.TCDObj.GetPacketDetails(byteArray);
+
                 //Root Item
-                PacketRoot = GetMenuItem("Packet", 0, "packet","");
+                PacketRoot = GetMenuItem("Packet", 0, "packet", "");
                 PacketRoot.IsExpanded = true;
 
                 DMIPktHeader dmiPktHeader = dMIPmdDataPacket.header;
 
-                ItemsMenu ChildHeader = GetMenuItem("Header", ServiceHeader.sync, "header","");
+                ItemsMenu ChildHeader = GetMenuItem("Header", ServiceHeader.sync, "header", "");
                 ChildHeader.Items.Add(GetMenuItem("Sync", ServiceHeader.sync, "long", Convert.ToString(dmiPktHeader.sync)));
                 ChildHeader.Items.Add(GetMenuItem("SystemID", ServiceHeader.systemId, "byte", Convert.ToString(dmiPktHeader.systemID)));
                 ChildHeader.Items.Add(GetMenuItem("DataSource", ServiceHeader.dataSource, "byte", Convert.ToString(dmiPktHeader.dataSource)));
@@ -243,7 +269,7 @@ namespace MercuryEngApp
                 DMIParameter dmiParameter = dMIPmdDataPacket.parameter;
                 // 4th Element 
                 ItemsMenu ChildParameter = GetMenuItem("Parameter", Parameter.LeftTimeStamp, "parameter", "");
-                ChildParameter.Items.Add(GetMenuItem("TimestampL",Parameter.LeftTimeStamp, "uint",Convert.ToString(dmiParameter.timestampL)));
+                ChildParameter.Items.Add(GetMenuItem("TimestampL", Parameter.LeftTimeStamp, "uint", Convert.ToString(dmiParameter.timestampL)));
                 ChildParameter.Items.Add(GetMenuItem("TimestampH", Parameter.RightTimeStamp, "uint", Convert.ToString(dmiParameter.timestampH)));
                 ChildParameter.Items.Add(GetMenuItem("EventFlags", Parameter.EventFlags, "ushort", Convert.ToString(dmiParameter.eventFlags)));
                 ChildParameter.Items.Add(GetMenuItem("OperatingState", Parameter.OperatingState, "byte", Convert.ToString(dmiParameter.operatingState)));
@@ -280,7 +306,7 @@ namespace MercuryEngApp
 
                 DMISpectrum dMISpectrum = dMIPmdDataPacket.spectrum;
                 // 7th Element 
-                ItemsMenu ChildSpectrum = GetMenuItem("Spectrum", Spectrum.Depth, "spectrum","");
+                ItemsMenu ChildSpectrum = GetMenuItem("Spectrum", Spectrum.Depth, "spectrum", "");
                 ChildSpectrum.Items.Add(GetMenuItem("Depth", Spectrum.Depth, "ushort", Convert.ToString(dMISpectrum.depth)));
                 ChildSpectrum.Items.Add(GetMenuItem("ClutterFilter", Spectrum.ClutterFilter, "ushort", Convert.ToString(dMISpectrum.clutterFilter)));
                 ChildSpectrum.Items.Add(GetMenuItem("AutoGainOffset", Spectrum.AutoGainOffset, "short", Convert.ToString(dMISpectrum.autoGainOffset)));
@@ -289,11 +315,11 @@ namespace MercuryEngApp
                 ChildSpectrum.Items.Add(GetMenuItem("PointsPerColumn", Spectrum.PointsPerColumn, "ushort", Convert.ToString(dMISpectrum.pointsPerColumn)));
                 ChildSpectrum.Items.Add(GetMenuItem("Points", Spectrum.Points, "points", GetStringFromArray(dMISpectrum.points)));
                 PacketRoot.Items.Add(ChildSpectrum);
-                
+
 
                 DMIMMode dMIMMode = dMIPmdDataPacket.mmode;
                 // 8th Element 
-                ItemsMenu ChildMmode = GetMenuItem("Mmode", MMode.AutoGainOffset, "Mmode","");
+                ItemsMenu ChildMmode = GetMenuItem("Mmode", MMode.AutoGainOffset, "Mmode", "");
                 ChildMmode.Items.Add(GetMenuItem("AutoGainOffset", MMode.AutoGainOffset, "short", Convert.ToString(dMIMMode.autoGainOffset)));
                 ChildMmode.Items.Add(GetMenuItem("StartDepth", MMode.StartDepth, "ushort", Convert.ToString(dMIMMode.startDepth)));
                 ChildMmode.Items.Add(GetMenuItem("EndDepth", MMode.EndDepth, "ushort", Convert.ToString(dMIMMode.endDepth)));
@@ -304,7 +330,7 @@ namespace MercuryEngApp
 
                 DMIAudio dMIAudio = dMIPmdDataPacket.audio;
                 // 9rd Element 
-                ItemsMenu ChildAudio = GetMenuItem("Audio", Audio.Depth, "audio","");
+                ItemsMenu ChildAudio = GetMenuItem("Audio", Audio.Depth, "audio", "");
                 ChildAudio.Items.Add(GetMenuItem("Depth", Audio.Depth, "ushort", Convert.ToString(dMIAudio.depth)));
                 ChildAudio.Items.Add(GetMenuItem("RFU", Audio.RFU, "ushort", Convert.ToString(dMIAudio.rfu)));
                 ChildAudio.Items.Add(GetMenuItem("SampleRate", Audio.SampleRate, "ushort", Convert.ToString(dMIAudio.sampleRate)));
@@ -315,7 +341,7 @@ namespace MercuryEngApp
 
                 DMIEDetectResults dMIEDetectResults = dMIPmdDataPacket.edetectResults;
                 // 10th Element 
-                ItemsMenu ChildEdetect = GetMenuItem("EdetectResult", EDetect.PhaseA_MQ, "EdetectResult","");
+                ItemsMenu ChildEdetect = GetMenuItem("EdetectResult", EDetect.PhaseA_MQ, "EdetectResult", "");
                 ItemsMenu phaseA = GetMenuItem("PhaseA", EDetect.PhaseA_MQ, "PhaseA", "");
                 phaseA.Items.Add(GetMenuItem("MQ", EDetect.PhaseA_MQ, "uint", Convert.ToString(dMIEDetectResults.phaseA.MQ)));
                 phaseA.Items.Add(GetMenuItem("ClutCount", EDetect.PhaseA_ClutCount, "uint", Convert.ToString(dMIEDetectResults.phaseA.ClutCount)));
@@ -341,10 +367,10 @@ namespace MercuryEngApp
 
                 DMIArchive dMIArchive = dMIPmdDataPacket.archive;
                 // 2nd Element
-                ItemsMenu ChildArchive = GetMenuItem("Archive", Archive.TimeSeriesDepth, "Archive", ""); 
-                ChildArchive.Items.Add(GetMenuItem("TimeseriesDepth", Archive.TimeSeriesDepth, "ushort", dMIArchive!=null ?Convert.ToString(dMIArchive.timeseriesDepth): ""));
-                ChildArchive.Items.Add(GetMenuItem("Rfu", Archive.RFU, "ushort", dMIArchive!=null ?Convert.ToString(dMIArchive.rfu): ""));                
-                ChildArchive.Items.Add(GetMenuItem("Timeseries", Archive.TimeseriesI, "ushort", dMIArchive!=null ?GetStringFromArray(dMIArchive.timeseries):""));
+                ItemsMenu ChildArchive = GetMenuItem("Archive", Archive.TimeSeriesDepth, "Archive", "");
+                ChildArchive.Items.Add(GetMenuItem("TimeseriesDepth", Archive.TimeSeriesDepth, "ushort", dMIArchive != null ? Convert.ToString(dMIArchive.timeseriesDepth) : ""));
+                ChildArchive.Items.Add(GetMenuItem("Rfu", Archive.RFU, "ushort", dMIArchive != null ? Convert.ToString(dMIArchive.rfu) : ""));
+                ChildArchive.Items.Add(GetMenuItem("Timeseries", Archive.TimeseriesI, "ushort", dMIArchive != null ? GetStringFromArray(dMIArchive.timeseries) : ""));
                 ItemsMenu mmodeData = GetMenuItem("MmodeData", Archive.MmodePhaseA, "ArchiveMmode", "");
                 mmodeData.Items.Add(GetMenuItem("MmodePhaseA", Archive.MmodePhaseA, "FloatMmode", dMIArchive != null ? GetStringFromArray(dMIArchive.mmodeData.mmodePhaseA) : ""));
                 mmodeData.Items.Add(GetMenuItem("MmodePhaseB", Archive.mmodePhaseB, "FloatMmode", dMIArchive != null ? GetStringFromArray(dMIArchive.mmodeData.mmodePhaseB) : ""));
@@ -353,22 +379,11 @@ namespace MercuryEngApp
                 ChildArchive.Items.Add(mmodeData);
                 //Add to root
                 PacketRoot.Items.Add(ChildArchive);
-               
+
                 // 4th Element
                 PacketRoot.Items.Add(GetMenuItem("CheckSum", Checksum.ChecksumPos, "int", Convert.ToString(dMIPmdDataPacket.checksum)));
-                trvMenu.Items.Add(PacketRoot);
-
-                trvMenu.SelectedItemChanged += TreeItemSelected;    
-                
-
-                Helper.logger.Debug("TreeView Created");
             }
-            catch (Exception ex)
-            {
-                Helper.logger.Warn("Exception:" + ex);
-            }
-
-            Helper.logger.Debug("--");
+            return PacketRoot;
         }
 
         /// <summary>
@@ -446,7 +461,7 @@ namespace MercuryEngApp
         /// <param name="type"></param>
         /// <param name="packetValue"></param>
         /// <returns></returns>
-        public ItemsMenu GetMenuItem(string title, int postion, string type, string packetValue = "0")
+        private ItemsMenu GetMenuItem(string title, int postion, string type, string packetValue = "0")
         {
             ItemsMenu item = new ItemsMenu();
 
@@ -469,7 +484,7 @@ namespace MercuryEngApp
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public int GetByteSize(string type)
+        private int GetByteSize(string type)
         {
             int byteSize = Constants.VALUE_0;
 
@@ -561,110 +576,15 @@ namespace MercuryEngApp
         /// Load the Binary data from byte array
         /// </summary>
         /// <param name="byteArray"></param>
-        public void LoadBinaryData(byte[] byteArray)
+        private void LoadBinaryData(byte[] byteArray)
         {
 
             Helper.logger.Debug("++");
 
-            int hexIn;
-            int count = Constants.VALUE_1;
-            ObservableCollection<HexRecord> listHexRecord = new ObservableCollection<HexRecord>();           
-            BigInteger InitailBInt = BigInteger.Parse("00000000", NumberStyles.HexNumber);
-            BigInteger ConstantBInt = BigInteger.Parse("00000010", NumberStyles.HexNumber);
-            HexRecord hexRecord = null;
-
             try
             {
 
-                for (int i = Constants.VALUE_0; i < byteArray.Length; i++)
-                {
-                    hexIn = byteArray[i];
-
-                    if (count == Constants.VALUE_1)
-                    {
-                        hexRecord = new HexRecord();
-                    }
-
-                    switch (count)
-                    {
-                        case Constants.VALUE_1:
-                            hexRecord.Hx_00 = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case Constants.VALUE_2:
-                            hexRecord.Hx_01 = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case Constants.VALUE_3:
-                            hexRecord.Hx_02 = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case Constants.VALUE_4:
-                            hexRecord.Hx_03 = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case Constants.VALUE_5:
-                            hexRecord.Hx_04 = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case Constants.VALUE_6:
-                            hexRecord.Hx_05 = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case Constants.VALUE_7:
-                            hexRecord.Hx_06 = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case Constants.VALUE_8:
-                            hexRecord.Hx_07 = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case Constants.VALUE_9:
-                            hexRecord.Hx_08 = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case Constants.VALUE_10:
-                            hexRecord.Hx_09 = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case Constants.VALUE_11:
-                            hexRecord.Hx_0a = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case Constants.VALUE_12:
-                            hexRecord.Hx_0b = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case Constants.VALUE_13:
-                            hexRecord.Hx_0c = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case Constants.VALUE_14:
-                            hexRecord.Hx_0d = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case Constants.VALUE_15:
-                            hexRecord.Hx_0e = string.Format("{0:X2}", hexIn);
-                            count++;
-                            break;
-                        case Constants.VALUE_16:
-                            hexRecord.Hx_0f = string.Format("{0:X2}", hexIn);
-                            hexRecord.Offset = string.Format("{0:X8}", InitailBInt);
-                            InitailBInt = BigInteger.Add(InitailBInt, ConstantBInt);
-                            listHexRecord.Add(hexRecord);
-                            count = Constants.VALUE_1;
-                            break;
-                        default:
-                            break;
-
-                    }
-                }
-
-                if (byteArray.Length % Constants.NumberOfCloumn != Constants.VALUE_0)
-                {
-                    hexRecord.Offset = string.Format("{0:X8}", InitailBInt);
-                    listHexRecord.Add(hexRecord);
-                }
+                ObservableCollection<HexRecord> listHexRecord = GetBinaryData(byteArray);    
 
                 this.Dispatcher.Invoke(() =>
                 {
@@ -687,6 +607,106 @@ namespace MercuryEngApp
         /// </summary>
         /// <param name="fromIndex"></param>
         /// <param name="toIndex"></param>
+        public ObservableCollection<HexRecord> GetBinaryData(byte[] byteArray)
+        {
+            int hexIn;
+            int count = Constants.VALUE_1;
+            ObservableCollection<HexRecord> listHexRecord = new ObservableCollection<HexRecord>();           
+            HexRecord hexRecord = null;
+            BigInteger InitailBInt = BigInteger.Parse("00000000", NumberStyles.HexNumber);
+            BigInteger ConstantBInt = BigInteger.Parse("00000010", NumberStyles.HexNumber);
+
+            for (int i = Constants.VALUE_0; i < byteArray.Length; i++)
+            {
+                hexIn = byteArray[i];
+
+                if (count == Constants.VALUE_1)
+                {
+                    hexRecord = new HexRecord();
+                }
+
+                switch (count)
+                {
+                    case Constants.VALUE_1:
+                        hexRecord.Hx_00 = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case Constants.VALUE_2:
+                        hexRecord.Hx_01 = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case Constants.VALUE_3:
+                        hexRecord.Hx_02 = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case Constants.VALUE_4:
+                        hexRecord.Hx_03 = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case Constants.VALUE_5:
+                        hexRecord.Hx_04 = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case Constants.VALUE_6:
+                        hexRecord.Hx_05 = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case Constants.VALUE_7:
+                        hexRecord.Hx_06 = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case Constants.VALUE_8:
+                        hexRecord.Hx_07 = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case Constants.VALUE_9:
+                        hexRecord.Hx_08 = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case Constants.VALUE_10:
+                        hexRecord.Hx_09 = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case Constants.VALUE_11:
+                        hexRecord.Hx_0a = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case Constants.VALUE_12:
+                        hexRecord.Hx_0b = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case Constants.VALUE_13:
+                        hexRecord.Hx_0c = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case Constants.VALUE_14:
+                        hexRecord.Hx_0d = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case Constants.VALUE_15:
+                        hexRecord.Hx_0e = string.Format("{0:X2}", hexIn);
+                        count++;
+                        break;
+                    case Constants.VALUE_16:
+                        hexRecord.Hx_0f = string.Format("{0:X2}", hexIn);
+                        hexRecord.Offset = string.Format("{0:X8}", InitailBInt);
+                        InitailBInt = BigInteger.Add(InitailBInt, ConstantBInt);
+                        listHexRecord.Add(hexRecord);
+                        count = Constants.VALUE_1;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            if (byteArray.Length % Constants.NumberOfCloumn != Constants.VALUE_0)
+            {
+                hexRecord.Offset = string.Format("{0:X8}", InitailBInt);
+                listHexRecord.Add(hexRecord);
+            }
+            return listHexRecord;
+        }
+
         private void SelectCellsByIndexes(KeyValuePair<int, int> fromIndex, KeyValuePair<int, int> toIndex)
         {
             grdMailbag.SelectedItems.Clear();
@@ -726,7 +746,7 @@ namespace MercuryEngApp
         /// </summary>
         /// <param name="rowIndex"></param>
         /// <param name="columnIndex"></param>
-        public void SelectCellByIndex(int rowIndex, int columnIndex)
+        private void SelectCellByIndex(int rowIndex, int columnIndex)
         {
             object item = grdMailbag.Items[rowIndex]; //=Product X
             DataGridRow row = grdMailbag.ItemContainerGenerator.ContainerFromIndex(rowIndex) as DataGridRow;
@@ -757,7 +777,7 @@ namespace MercuryEngApp
         /// <param name="rowContainer"></param>
         /// <param name="column"></param>
         /// <returns></returns>
-        public DataGridCell GetCell(DataGrid dataGrid, DataGridRow rowContainer, int column)
+        private DataGridCell GetCell(DataGrid dataGrid, DataGridRow rowContainer, int column)
         {
             if (rowContainer != null)
             {
@@ -792,7 +812,7 @@ namespace MercuryEngApp
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public T FindVisualChild<T>(DependencyObject obj) where T : DependencyObject
+        private T FindVisualChild<T>(DependencyObject obj) where T : DependencyObject
         {
             for (int i = Constants.VALUE_0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
             {
@@ -915,7 +935,6 @@ namespace MercuryEngApp
         private void GrabPacket(object sender, EventArgs e)
         {
             Helper.logger.Debug("++");
-
             try
             {
                 List<byte[]> byteArray = UsbTcd.TCDObj.GrabPacket();
