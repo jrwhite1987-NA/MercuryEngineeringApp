@@ -420,7 +420,7 @@ namespace MercuryEngApp
                     {
                         DMIPmdDataPacket[] packet = PacketCollection.Dequeue();
 
-                        if (App.ActiveChannels == ActiveChannels.Channel1 && packet[0] != null)
+                        if (App.CurrentChannel == TCDHandles.Channel1 && packet[0] != null)
                         {
                             counterPacketCh1 = 0;
                             examViewModelObj.PosMean = packet[0].envelope.posMEAN / Constants.VALUE_10;
@@ -443,7 +443,7 @@ namespace MercuryEngApp
                         }
                         else
                         {
-                            if (packet[1] != null && App.ActiveChannels == ActiveChannels.Channel2)
+                            if (packet[1] != null && App.CurrentChannel == TCDHandles.Channel2)
                             {
                                 examViewModelObj.PosMean = packet[1].envelope.posMEAN / Constants.VALUE_10;
                                 examViewModelObj.PosMin = packet[1].envelope.posDIAS / Constants.VALUE_10;

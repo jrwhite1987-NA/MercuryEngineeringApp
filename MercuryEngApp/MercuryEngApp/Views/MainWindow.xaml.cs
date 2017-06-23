@@ -227,7 +227,6 @@ namespace MercuryEngApp
                             case UsbTcdLibrary.ActiveChannels.Both:
                                 BtnLeftProbe.IsEnabled = true;
                                 BtnRightProbe.IsEnabled = true;
-                                App.ActiveChannels = UsbTcdLibrary.ActiveChannels.Channel2; //Temp for xoriant TCD since channel 1 doesn't work
                                 break;
                             case UsbTcdLibrary.ActiveChannels.Channel1:
                                 BtnLeftProbe.IsEnabled = true;
