@@ -196,7 +196,7 @@ namespace MercuryEngApp.Views
             Helper.logger.Debug("++");
             try
             {
-                TCDResponse response = await UsbTcd.TCDObj.WriteValueToFPGAAsync(new TCDRequest { ChannelID = App.CurrentChannel, Value = fpgaViewModel.SelectedRegister.Value, Value3 = Convert.ToUInt32(fpgaViewModel.SelectedRegister.MemoryLocation) });
+                TCDResponse response = await UsbTcd.TCDObj.WriteValueToFPGAAsync(new TCDRequest { ChannelID = App.CurrentChannel, Value = fpgaViewModel.SelectedRegister.Value, Value3 = Convert.ToUInt32(fpgaViewModel.SelectedRegister.MemoryLocation,16) });
                 if (response.Result)
                 {
                     LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.FPGAWriteSuccess);
@@ -258,8 +258,8 @@ namespace MercuryEngApp.Views
                     TCDRequest requestObj = new TCDRequest
                     {
                         ChannelID = App.CurrentChannel,
-                        Value = Convert.ToInt32(register.DefaultValue),
-                        Value3 = Convert.ToUInt32(register.MemoryLocation)
+                        Value = Convert.ToInt32(register.DefaultValue,16),
+                        Value3 = Convert.ToUInt32(register.MemoryLocation,16)
                     };
                     response = await UsbTcd.TCDObj.WriteValueToFPGAAsync(requestObj);
                     if (!response.Result)
