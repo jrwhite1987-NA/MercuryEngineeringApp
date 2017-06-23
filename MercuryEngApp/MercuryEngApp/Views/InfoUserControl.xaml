@@ -85,7 +85,7 @@
                         <Border  Style="{StaticResource ResourceKey=RoundedBorderCombo}" 
                                  Grid.Row="1"
                                  Grid.Column="1"  HorizontalAlignment="Stretch" Height="25" Margin="0,0,10,0"/>
-                        <ComboBox Height="25"
+                        <ComboBox Height="21"
                                     IsReadOnly="False"
                                       IsEditable="False"
                                       ItemsSource="{Binding Path=BoardPartNumberList, Mode=TwoWay}"
@@ -93,7 +93,7 @@
                                   Style="{StaticResource ResourceKey=ComboBoxBorder}"
                                  Grid.Row="1" 
                                  Grid.Column="2" 
-                                 Margin="7,5,15,5"
+                                 Margin="7,5,15,7"
                                    HorizontalAlignment="Stretch">
                             <ComboBox.SelectedItem>
                                 <Binding Path="SelectedBoardPartNumber">
@@ -107,7 +107,7 @@
                         <Border  Style="{StaticResource ResourceKey=RoundedBorderCombo}" 
                                  Grid.Row="2"
                                  Grid.Column="1"  HorizontalAlignment="Stretch" Height="25"  Margin="0,0,10,0"/>
-                        <ComboBox Height="25"
+                        <ComboBox Height="21"
                                     IsReadOnly="False"
                                       IsEditable="False"
                                       ItemsSource="{Binding Path=BoardModelNameList, Mode=TwoWay}"
@@ -115,7 +115,7 @@
                                  Style="{StaticResource ResourceKey=ComboBoxBorder}"
                                  Grid.Row="2" 
                                  Grid.Column="1" 
-                                 Margin="7,5,15,5">
+                                Margin="7,5,15,7">
                             <ComboBox.SelectedItem>
                                 <Binding Path="SelectedBoardModelName">
                                     <Binding.ValidationRules>
@@ -128,7 +128,7 @@
                         <Border  Style="{StaticResource ResourceKey=RoundedBorderCombo}" 
                                  Grid.Row="3"
                                  Grid.Column="1"  HorizontalAlignment="Stretch" Height="25"  Margin="0,0,10,0"/>
-                        <ComboBox Height="25"
+                        <ComboBox Height="21"
                                     IsReadOnly="False"
                                       IsEditable="False"
                                       ItemsSource="{Binding Path=BoardHardwareRevisionList, Mode=TwoWay}"
@@ -136,7 +136,7 @@
                                  Style="{StaticResource ResourceKey=ComboBoxBorder}"
                                  Grid.Row="3" 
                                  Grid.Column="1" 
-                                 Margin="7,5,15,5" 
+                                Margin="7,5,15,7" 
                                  Background="White">
                             <ComboBox.SelectedItem>
                                 <Binding Path="SelectedHardwareRevision">
@@ -240,7 +240,7 @@
                                   Grid.Column="1" 
                                   ItemsSource="{Binding Path=ChannelNumberList, Mode=TwoWay}"
 
-                                  Margin="7,0,15,0" Height="25">
+                                  Margin="7,5,15,7" Height="21">
                             <ComboBox.SelectedItem>
                                 <Binding Path="SelectedChannelNumber">
                                     <Binding.ValidationRules>

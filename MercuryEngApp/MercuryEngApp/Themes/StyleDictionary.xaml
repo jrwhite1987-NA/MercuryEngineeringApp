@@ -660,6 +660,7 @@
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="FontSize" Value="17" />
         <Setter Property="FontFamily" Value="Arial" />
+        <Setter Property="Background" Value="{x:Null}"/>
         <Style.Resources>
             <Style TargetType="{x:Type Border}">
                 <Setter Property="CornerRadius" Value="3" />

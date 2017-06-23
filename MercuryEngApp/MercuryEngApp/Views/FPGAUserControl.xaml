@@ -6,6 +6,10 @@
              mc:Ignorable="d" 
               VerticalAlignment="Stretch"  HorizontalAlignment="Stretch">
     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="13*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2.7*"/>
@@ -16,7 +20,7 @@
                     VerticalAlignment="top" 
                     Margin="10,5,0,0" 
                     Grid.Column="0" 
-                    Grid.Row="0">
+                    Grid.Row="0" Grid.RowSpan="2">
 
             <Grid Name="LeftPanelInfoBottom" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
                 <Border Height="40" HorizontalAlignment="Stretch"
@@ -56,7 +60,7 @@
 
                     <Border  Style="{StaticResource ResourceKey=RoundedBorderCombo}" 
                                  Grid.Row="1" HorizontalAlignment="Stretch"
-                                 Grid.Column="1"  Margin="0,5,10,4" Height="33"/>
+                                 Grid.Column="1"  Margin="0,5,0,4" Height="33"/>
                     <ComboBox
                               IsReadOnly="False"
                               IsEditable="False"
@@ -67,7 +71,7 @@
                               Style="{StaticResource ResourceKey=ComboBoxBorder}"                                 
                               Grid.Row="1" 
                               Grid.Column="1" 
-                              Margin="6,7,15,6" />
+                              Margin="6,7,5,6" />
 
                     <TextBox
                                   Style="{StaticResource ResourceKey=MainTextbox}"
@@ -75,13 +79,13 @@
                                   Text="{Binding Path=Value , Mode=TwoWay}"
                                   Grid.Row="2" 
                                   Grid.Column="1" 
-                                  Margin="0,6,10,6" />
+                                  Margin="0,6,0,6" />
 
                     <Grid Grid.Row="3" Grid.Column="1" Grid.RowSpan="4">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="160*"/>
-                        <ColumnDefinition Width="160*"/>
-                    </Grid.ColumnDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="160*"/>
+                            <ColumnDefinition Width="160*"/>
+                        </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="55"/>
@@ -93,7 +97,7 @@
                                     Grid.Column="0" 
                                     Height="45" 
                                     VerticalAlignment="Top" 
-                                Margin="1,0,10,10" 
+                                Margin="0,0,10,10" 
                                 HorizontalAlignment="Stretch"
                                    Click="ReadRegisterClick"/>
 
@@ -113,7 +117,7 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Top"
                    Grid.ColumnSpan="1"
-                     Margin="1,0,10,10" 
+                     Margin="0,0,10,10" 
                     Click="ResetRegisterClick"/>
 
                         <Button x:Name="btnSetAllDefault" Content="Set Defaults" 
@@ -132,7 +136,7 @@ HorizontalAlignment="Stretch"
             </Grid>
         </Border>
 
-        <Grid Grid.Column="1" VerticalAlignment="Top">
+        <Grid Grid.Column="1" VerticalAlignment="Top" Grid.RowSpan="2">
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
                     VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                     Margin="10,5,10,0" 
@@ -143,7 +147,7 @@ HorizontalAlignment="Stretch"
                                 Margin="-3,-2,-1,0" HorizontalAlignment="Stretch"/>
                     <TextBlock Height="17" Margin="13,8,0,0" Text="User Guide" Style="{StaticResource ResourceKey=WhiteLable15ptBold}"/>
 
-                  <TextBox x:Name="txtUserGuide" 
+                    <TextBox x:Name="txtUserGuide" 
                            TextWrapping="Wrap" 
                            AcceptsReturn="True" 
                            VerticalScrollBarVisibility="Auto" 
