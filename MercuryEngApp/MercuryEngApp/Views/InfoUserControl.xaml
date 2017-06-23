@@ -15,13 +15,13 @@
         </Grid.ColumnDefinitions>
         <Grid Name="LeftPanleInfo">
             <Grid.RowDefinitions>
-                <RowDefinition Height="255"/>
-                <RowDefinition Height="145"/>
+                <RowDefinition Height="253"/>
+                <RowDefinition Height="150"/>
                 <RowDefinition Height="127"/>
             </Grid.RowDefinitions>
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
                    HorizontalAlignment="Stretch"
-                    Height="230" 
+                    Height="226" 
                     VerticalAlignment="Top" 
                     Margin="10,5,0,0" 
                     Grid.Column="0" 
@@ -50,12 +50,12 @@
                             <ColumnDefinition Width="332*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition Height="34"/>
-                            <RowDefinition Height="34"/>
-                            <RowDefinition Height="34"/>
                             <RowDefinition Height="41"/>
-                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="36"/>
+                            <RowDefinition Height="34"/>
+                            <RowDefinition Height="34"/>
+                            <RowDefinition Height="32"/>
+                            <RowDefinition Height="39"/>
                         </Grid.RowDefinitions>
 
                         <TextBlock Height="17" 
@@ -192,7 +192,7 @@
 
             <Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
                     HorizontalAlignment="Stretch"
-                    Height="120" 
+                    Height="130" 
                     VerticalAlignment="Center" 
                     Margin="10,-42,0,0" 
                     Grid.Column="0" 
@@ -216,7 +216,7 @@
                             <ColumnDefinition Width="332*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="34"/>
+                            <RowDefinition Height="43"/>
                             <RowDefinition Height="40"/>
                             <RowDefinition Height="6*"/>
                         </Grid.RowDefinitions>
