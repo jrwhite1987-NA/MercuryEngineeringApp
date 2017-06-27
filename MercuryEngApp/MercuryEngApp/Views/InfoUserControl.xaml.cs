@@ -242,11 +242,13 @@ namespace MercuryEngApp
                 if (!isValid)
                 {
                     errorCount++;
-                    message.Append(errorMessage);
+                    message.Append(errorMessage + Environment.NewLine);
                 }
             }
 
-            validationMessage = message.ToString();
+            validationMessage =
+                message.ToString().Remove(message.ToString().LastIndexOf(Environment.NewLine));
+
             return errorCount > 0 ? false : true;
         }
 
