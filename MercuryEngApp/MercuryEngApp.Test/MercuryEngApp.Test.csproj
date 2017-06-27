@@ -72,6 +72,7 @@
     <Compile Include="MercuryEngApp\Common\SpectrogramSettingTest.cs" />
     <Compile Include="MercuryEngApp\Common\PacketTest.cs" />
     <Compile Include="MercuryEngApp\Validators\ValidationsTest.cs" />
+    <Compile Include="MicroControllerWPF\PowerMicrocontrollerTest.cs" />
     <Compile Include="PlottingLib\NAGraphTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsbWPFLibrary\CommunicationProtocol\TCDTest.cs" />
@@ -87,6 +88,10 @@
     <ProjectReference Include="..\MercuryEngApp\MercuryEngApp.csproj">
       <Project>{f661f29a-d4b1-4ff0-9e3f-12f1ebadc985}</Project>
       <Name>MercuryEngApp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MicroControllerWPF\MicroControllerWPF.csproj">
+      <Project>{897a4c91-af25-4778-b841-a8f64baa8cb8}</Project>
+      <Name>MicroControllerWPF</Name>
     </ProjectReference>
     <ProjectReference Include="..\PlottingLib\PlottingLib.csproj">
       <Project>{760a7c26-b324-4aef-8dea-48aa4d22e991}</Project>

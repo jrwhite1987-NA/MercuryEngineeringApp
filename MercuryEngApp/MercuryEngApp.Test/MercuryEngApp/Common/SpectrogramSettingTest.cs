@@ -73,7 +73,8 @@ namespace MercuryEngApp.Test.MercuryEngApp.Common
         [TestMethod]
         public void GetTotalVelocityRangeTest()
         {
-            PRFOptions.GetTotalVelocityRange(1);
+            int velocityRange = PRFOptions.GetTotalVelocityRange(1);
+            string str = velocityRange.ToString();
         }
     }
 }
