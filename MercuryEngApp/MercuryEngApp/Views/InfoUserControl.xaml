@@ -151,8 +151,7 @@
                             <TextBox.Text>
                                 <Binding Path="BoardSerialNumber" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
                                     <Binding.ValidationRules>
-                                        <validator:BlankValidationRule ValidatesOnTargetUpdated="True" ControlName="{x:Static local:Resources.BoardSerialNumber}" ErrorMessage="Filter cannot be blank."/>
-                                        <validator:NumberValidationRule ControlName="{x:Static local:Resources.BoardSerialNumber}" ErrorMessage="{x:Static local:Resources.MustBeNumber}"/>
+                                        <validator:BlankValidationRule ValidatesOnTargetUpdated="True" ControlName="{x:Static local:Resources.BoardSerialNumber}" ErrorMessage="Filter cannot be blank."/>                                       
                                         <validator:MaxLengthValidationRule ControlName="{x:Static local:Resources.BoardSerialNumber}" ErrorMessage="{x:Static local:Resources.MaxLength}" MaxLength="20" />
                                     </Binding.ValidationRules>
                                 </Binding>
