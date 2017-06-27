@@ -66,6 +66,7 @@
                                  Grid.Row="1" 
                                  Grid.Column="1" 
                             Margin="0,5,15,0" 
+                            Height="33"
                                  Text="{Binding Path=SoftwareVersion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                  IsReadOnly="True"/>
 
@@ -78,7 +79,7 @@
 
                         <TextBox 
                                  Style="{StaticResource ResourceKey=MainTextboxwithoutBorder}"
-
+                                 Height="33"
                                  Grid.Row="1" 
                                  Grid.Column="3" 
                                  Margin="0,5,15,0" 
@@ -92,7 +93,8 @@
                                    Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                    Grid.Row="1" Grid.Column="4" />
                         <TextBox Style="{StaticResource ResourceKey=MainTextboxwithoutBorder}"
-       Grid.Row="1" 
+                                 Height="33"
+                                 Grid.Row="1" 
                                  Grid.Column="5" 
                                  Margin="0,5,15,0" 
                                  IsReadOnly="True"
