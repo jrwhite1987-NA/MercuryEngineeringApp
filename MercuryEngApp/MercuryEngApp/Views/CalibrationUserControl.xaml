@@ -299,28 +299,16 @@
                                    Grid.Column="0" 
                                    HorizontalAlignment="Stretch" VerticalAlignment="Bottom"/>
 
-                        <Border  Style="{StaticResource ResourceKey=RoundedBorderCombo}" 
-                                Grid.Row="2" 
-                                 Grid.Column="1" 
-                                 Height="36"
-                                 HorizontalAlignment="Stretch"
-                                 Margin="10,4,10,-1"/>
-
+                      
                         <ComboBox HorizontalAlignment="Stretch"
                                   Height="32"
                                   ItemsSource="{Binding Path=SVOLList, Mode=TwoWay}"
                                   SelectedItem="{Binding Path=SelectedSVOL}"
                                  Grid.Row="2" 
                                  Grid.Column="1" 
-                                 Margin="20,5,20,0" 
-                                 Style="{StaticResource ResourceKey=ComboBoxBorder}"/>
+                                 Margin="10,4,10,0" 
+                                 Style="{StaticResource ResourceKey=theComboBox}"/>
 
-                        <Border  Style="{StaticResource ResourceKey=RoundedBorderCombo}" 
-                                Grid.Row="2" 
-                                Grid.Column="2"  
-                                 Height="36"
-                                  HorizontalAlignment="Stretch"
-                                 Margin="10,4,10,-1"/>
 
                         <ComboBox  HorizontalAlignment="Stretch"
                                  Height="32" 
@@ -328,8 +316,8 @@
                                  SelectedItem="{Binding Path=SelectedPRF}"
                                  Grid.Row="2" 
                                  Grid.Column="2" 
-                                 Margin="20,5,20,0" 
-                                 Style="{StaticResource ResourceKey=ComboBoxBorder}"/>
+                                 Margin="10,4,10,0" 
+                                 Style="{StaticResource ResourceKey=theComboBox}"/>
 
                         <TextBox HorizontalAlignment="Stretch" 
                                  Height="35"

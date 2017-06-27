@@ -58,9 +58,7 @@
                                      Margin="13,15,0,0" 
                                     Style="{StaticResource ResourceKey=WhiteLable15pt}" />
 
-                    <Border  Style="{StaticResource ResourceKey=RoundedBorderCombo}" 
-                                 Grid.Row="1" HorizontalAlignment="Stretch"
-                                 Grid.Column="1"  Margin="0,5,0,4" Height="33"/>
+                  
                     <ComboBox
                               IsReadOnly="False"
                               IsEditable="False"
@@ -68,10 +66,10 @@
                               DisplayMemberPath="Name"
                               SelectedValuePath="Name"
                               SelectedItem="{Binding Path=SelectedRegister}"
-                              Style="{StaticResource ResourceKey=ComboBoxBorder}"                                 
+                              Style="{StaticResource ResourceKey=theComboBox}"                                 
                               Grid.Row="1" 
                               Grid.Column="1" 
-                              Margin="6,7,5,6" />
+                              Margin="0,5,0,4"/>
 
                     <TextBox
                                   Style="{StaticResource ResourceKey=MainTextbox}"

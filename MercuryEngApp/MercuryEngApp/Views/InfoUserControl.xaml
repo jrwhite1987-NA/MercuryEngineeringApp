@@ -50,11 +50,11 @@
                             <ColumnDefinition Width="332*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="41"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="34"/>
+                            <RowDefinition Height="34"/>
+                            <RowDefinition Height="34"/>
                             <RowDefinition Height="36"/>
-                            <RowDefinition Height="34"/>
-                            <RowDefinition Height="34"/>
-                            <RowDefinition Height="32"/>
                             <RowDefinition Height="39"/>
                         </Grid.RowDefinitions>
 
@@ -82,18 +82,16 @@
                                    Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                    Grid.Row="4" />
 
-                        <Border  Style="{StaticResource ResourceKey=RoundedBorderCombo}" 
-                                 Grid.Row="1"
-                                 Grid.Column="1"  HorizontalAlignment="Stretch" Height="25" Margin="0,0,10,0"/>
-                        <ComboBox Height="21"
+                       
+                        <ComboBox Height="24"
                                     IsReadOnly="False"
                                       IsEditable="False"
                                       ItemsSource="{Binding Path=BoardPartNumberList, Mode=TwoWay}"
                                       Name="BoardPartNumberCombo" 
-                                  Style="{StaticResource ResourceKey=ComboBoxBorder}"
+                                  Style="{StaticResource ResourceKey=theComboBox}"
                                  Grid.Row="1" 
-                                 Grid.Column="2" 
-                                 Margin="7,5,15,7"
+                                 Grid.Column="1" 
+                                 Margin="0,0,10,0"
                                    HorizontalAlignment="Stretch">
                             <ComboBox.SelectedItem>
                                 <Binding Path="SelectedBoardPartNumber">
@@ -104,18 +102,16 @@
                             </ComboBox.SelectedItem>
                         </ComboBox>
 
-                        <Border  Style="{StaticResource ResourceKey=RoundedBorderCombo}" 
-                                 Grid.Row="2"
-                                 Grid.Column="1"  HorizontalAlignment="Stretch" Height="25"  Margin="0,0,10,0"/>
-                        <ComboBox Height="21"
+                       
+                        <ComboBox Height="24"
                                     IsReadOnly="False"
                                       IsEditable="False"
                                       ItemsSource="{Binding Path=BoardModelNameList, Mode=TwoWay}"
                                       Name="BoardModelNameCombo"
-                                 Style="{StaticResource ResourceKey=ComboBoxBorder}"
+                                 Style="{StaticResource ResourceKey=theComboBox}"
                                  Grid.Row="2" 
                                  Grid.Column="1" 
-                                Margin="7,5,15,7">
+                                Margin="0,0,10,0">
                             <ComboBox.SelectedItem>
                                 <Binding Path="SelectedBoardModelName">
                                     <Binding.ValidationRules>
@@ -125,18 +121,16 @@
                             </ComboBox.SelectedItem>
                         </ComboBox>
 
-                        <Border  Style="{StaticResource ResourceKey=RoundedBorderCombo}" 
-                                 Grid.Row="3"
-                                 Grid.Column="1"  HorizontalAlignment="Stretch" Height="25"  Margin="0,0,10,0"/>
-                        <ComboBox Height="21"
+                        
+                        <ComboBox Height="24"
                                     IsReadOnly="False"
                                       IsEditable="False"
                                       ItemsSource="{Binding Path=BoardHardwareRevisionList, Mode=TwoWay}"
                                       Name="BoardHardwareRevCombo"
-                                 Style="{StaticResource ResourceKey=ComboBoxBorder}"
+                                 Style="{StaticResource ResourceKey=theComboBox}"
                                  Grid.Row="3" 
                                  Grid.Column="1" 
-                                Margin="7,5,15,7" 
+                                Margin="0,0,10,0" 
                                  Background="White">
                             <ComboBox.SelectedItem>
                                 <Binding Path="SelectedHardwareRevision">
@@ -152,7 +146,8 @@
                                  Grid.Row="4"
                                  Style="{StaticResource ResourceKey=MainTextbox}"
                                  Grid.Column="1" 
-                                 Margin="0,8,10,8">
+                                 Height="24"
+                                 Margin="0,4,10,8">
                             <TextBox.Text>
                                 <Binding Path="BoardSerialNumber" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
                                     <Binding.ValidationRules>
@@ -228,19 +223,15 @@
                                    Grid.Row="1" />
 
 
-                        <Border  Style="{StaticResource ResourceKey=RoundedBorderCombo}" 
-                                 Grid.Row="1"
-                                 Margin="0,0,10,0"
-                                 Grid.Column="1" HorizontalAlignment="Stretch"/>
+                       
 
                         <ComboBox
-                                  Style="{StaticResource ResourceKey=ComboBoxBorder}"
+                                  Style="{StaticResource ResourceKey=theComboBox}"
                                   Name="ChannelPartNumber"
                                   Grid.Row="1" 
                                   Grid.Column="1" 
                                   ItemsSource="{Binding Path=ChannelNumberList, Mode=TwoWay}"
-
-                                  Margin="7,5,15,7" Height="21">
+                                  Margin="0,0,10,0" Height="25">
                             <ComboBox.SelectedItem>
                                 <Binding Path="SelectedChannelNumber">
                                     <Binding.ValidationRules>
@@ -450,19 +441,16 @@
                                        Text="Phase Angle (degrees)" 
                                        Style="{StaticResource ResourceKey=WhiteLable15pt}" 
                                        Grid.Row="13"/>
-                        <Border  Style="{StaticResource ResourceKey=RoundedBorderCombo}" 
-                                 Grid.Row="1"
-                                 Grid.Column="1"  
-                                 HorizontalAlignment="Stretch" Margin="10,0,10,0"/>
+                        
                         <ComboBox 
                                   Grid.Row="1" 
                                   Grid.Column="1"
                                       IsReadOnly="False"
                                       IsEditable="False"
                                       ItemsSource="{Binding Path=ProbePartNumberList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                       
-                                      Margin="20,5,20,7" 
+                                      Margin="10,0,10,0"
                                       Name="ProbePartNumberCombo"
-                                      Style="{StaticResource ResourceKey=ComboBoxBorder}"  HorizontalAlignment="Stretch">
+                                      Style="{StaticResource ResourceKey=theComboBox}"  HorizontalAlignment="Stretch">
                             <ComboBox.SelectedItem>
                                 <Binding Path="SelectedProbePartNumber">
                                     <Binding.ValidationRules>
@@ -472,19 +460,15 @@
                             </ComboBox.SelectedItem>
                         </ComboBox>
 
-                        <Border  Style="{StaticResource ResourceKey=RoundedBorderCombo}" 
-                                 Grid.Row="2"
-                                 Grid.Column="1"   HorizontalAlignment="Stretch"
-                                 Margin="10,0,10,0"/>
-
+                      
                         <ComboBox Height="25"
                                   Name="ProbeModelName"
                                   IsEditable="False"
                                   ItemsSource="{Binding Path=ProbeModelNameList, Mode=TwoWay}"
-                                  Style="{StaticResource ResourceKey=ComboBoxBorder}" 
+                                  Style="{StaticResource ResourceKey=theComboBox}" 
                                    HorizontalAlignment="Stretch"
                                   Grid.Row="2" 
-                                  Grid.Column="1" Margin="20,5,20,7">
+                                  Grid.Column="1" Margin="10,0,10,0">
                             <ComboBox.SelectedItem>
                                 <Binding Path="ProbeModelName">
                                     <Binding.ValidationRules>
@@ -510,21 +494,15 @@
                             </TextBox.Text>
                         </TextBox>
 
-                        <Border  Style="{StaticResource ResourceKey=RoundedBorderCombo}" 
-                                 Grid.Row="4"
-                                 Grid.Column="1"
-                                 Margin="10,0,10,0"
-                                 HorizontalAlignment="Stretch"/>
-
-                        <ComboBox Height="25"
+                            <ComboBox Height="25"
                                      Name="PhysicalID"
-                                     Style="{StaticResource ResourceKey=ComboBoxBorder}" 
+                                     Style="{StaticResource ResourceKey=theComboBox}" 
                                       HorizontalAlignment="Stretch"
                                   IsEditable="False"
                                   ItemsSource="{Binding Path=ProbePhysicalIDList, Mode=TwoWay}"
                                      Grid.Row="4" 
                                      Grid.Column="1"
-                                   Margin="20,5,20,7" >
+                                    Margin="10,0,10,0">
                             <ComboBox.SelectedItem>
                                 <Binding Path="PhysicalID" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
                                     <Binding.ValidationRules>
@@ -534,15 +512,11 @@
                             </ComboBox.SelectedItem>
                         </ComboBox>
 
-                        <Border  Style="{StaticResource ResourceKey=RoundedBorderCombo}" 
-                                 Grid.Row="5"
-                                 Grid.Column="1"
-                                 Margin="10,0,10,0"
-                                 HorizontalAlignment="Stretch"/>
+                       
                         <ComboBox Height="25"
                                      Name="FormatID"
-                                     Style="{StaticResource ResourceKey=ComboBoxBorder}" 
-                                      Margin="20,5,20,7" 
+                                     Style="{StaticResource ResourceKey=theComboBox}" 
+                                     Margin="10,0,10,0"
                                   IsEditable="False"
                                   ItemsSource="{Binding Path=ProbeFormatIDList, Mode=TwoWay}"
                                      Grid.Row="5" 

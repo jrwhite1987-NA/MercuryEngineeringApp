@@ -258,20 +258,15 @@
                     Grid.RowSpan="2"
                     Height="80"
                     Click="SendPRF"/>
-            <Border  Style="{StaticResource ResourceKey=RoundedBorderCombo}" 
-                     Grid.Column="1"
-                     Grid.Row="5"
-                     HorizontalAlignment="Stretch"
-                     Margin="5,2,5,0"
-                    Height="30"  />
-            <ComboBox Height="25" 
-                      Margin="15,2,15,0"
+           
+            <ComboBox Height="30" 
+                       Margin="5,2,5,0"
                       IsReadOnly="False"
                       Grid.Row="5"
                       IsEditable="False"
                       ItemsSource="{Binding Path=PRFList, Mode=TwoWay}"
                       Name="PRFCombo"
-                     Style="{StaticResource ResourceKey=ComboBoxBorder}"
+                     Style="{StaticResource ResourceKey=theComboBox}"
                      FontSize="18"
                       Grid.Column="1"
                       Validation.ErrorTemplate="{x:Null}">
@@ -543,16 +538,12 @@
                                HorizontalAlignment="Stretch"
                       />
 
-                    <Border  Style="{StaticResource ResourceKey=RoundedBorderMainpageCombo}" 
-                              Grid.Column="4" Grid.Row="4"
-                             Margin="3,4,10,4" 
-                             HorizontalAlignment="Stretch" Height="Auto" Background="#FFEEEEEE"/>
-
-                    <ComboBox ItemsSource="{Binding Path=FFTList, Mode=TwoWay}"
+                                      <ComboBox ItemsSource="{Binding Path=FFTList, Mode=TwoWay}"
                       SelectedItem="{Binding Path=SelectedFFT, UpdateSourceTrigger=PropertyChanged}"
-                              Style="{StaticResource ResourceKey=ComboBoxBorder}" 
+                              Style="{StaticResource ResourceKey=theComboBox}" 
                               SelectionChanged="SpectrumBinComboboxSelectionChanged" Grid.Column="4" Grid.Row="4"
-                             Margin="10,7,15,6" />
+                             Margin="3,4,10,4" 
+                                                Height="33"/>
                     <Line Stretch="Fill" 
                     	Stroke="#FF3F4257" Grid.RowSpan="6"
                     	Grid.Column="3"
