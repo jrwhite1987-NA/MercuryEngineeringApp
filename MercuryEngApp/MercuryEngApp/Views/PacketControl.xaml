@@ -114,9 +114,8 @@
 
                             <TextBox Grid.Row="5" 
                                  HorizontalAlignment="Stretch"
-                                 Width="180"
                                  Name="NoOfPacket"
-                                 Margin="15,31,0,28"
+                                 Margin="12,31,0,28"
                                  Validation.ErrorTemplate="{x:Null}"
                                   Style="{StaticResource ResourceKey=MainTextbox}">
                                 <TextBox.Text>
