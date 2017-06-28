@@ -5,9 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              VerticalAlignment="Stretch"  HorizontalAlignment="Stretch">
-    
-        <!--<Border Style="{StaticResource ResourceKey=RoundedBorderBlue}" 
-                      Width="1310" HorizontalAlignment="Center" Grid.ColumnSpan="2" Margin="5,1,5,32"/>-->
+  
     <Grid>
 
         <Grid Name="MaximizeLog" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch"

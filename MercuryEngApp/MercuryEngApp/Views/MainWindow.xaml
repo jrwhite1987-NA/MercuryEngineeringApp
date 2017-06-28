@@ -12,12 +12,7 @@
     </Window.Background>
 
     <Grid x:Name="LayoutRoot" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="20,10,20,0">
-        <!--<ContentControl VerticalAlignment="Top" 
-                        HorizontalAlignment="Left" 
-                        VerticalContentAlignment="Stretch" 
-                        HorizontalContentAlignment="Stretch" 
-                        Content="{Binding Path=ChildView}" 
-                        Margin="10"/>-->
+    
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>

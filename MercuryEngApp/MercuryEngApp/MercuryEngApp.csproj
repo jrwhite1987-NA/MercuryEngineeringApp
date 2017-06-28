@@ -172,9 +172,6 @@
     <Compile Include="Views\PacketControl.xaml.cs">
       <DependentUpon>PacketControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Popup.xaml.cs">
-      <DependentUpon>Popup.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\SoftwareUserControl.xaml.cs">
       <DependentUpon>SoftwareUserControl.xaml</DependentUpon>
     </Compile>
@@ -210,10 +207,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\PacketControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Popup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -653,42 +653,6 @@
         <Setter Property="Width" Value="48" />
     </Style>
 
-
-    <!--ComboBox Style-->
-    <Style x:Key="ComboBoxBorder" TargetType="ComboBox">
-        <Setter Property="BorderBrush" Value="#FF049FDF"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="FontSize" Value="17" />
-        <Setter Property="FontFamily" Value="Arial" />
-        <Setter Property="Background" Value="{x:Null}"/>
-        <Style.Triggers>
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Opacity" Value="0.46"/>
-            </Trigger>
-            <Trigger Property="IsFocused" Value="True">
-                <Setter Property="BorderBrush" Value="#049fdf"/>
-                <Setter Property="BorderThickness" Value="3"/>
-            </Trigger>
-        </Style.Triggers>
-        <Style.Resources>
-            <Style TargetType="{x:Type Border}">
-                <Setter Property="CornerRadius" Value="6" />
-            </Style>
-        </Style.Resources>
-    </Style>
-
-
-
-    <!--<Style TargetType="{x:Type ComboBox}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ComboBox}">
-                    <Border CornerRadius="5">
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>-->
     
     <!--Windows background color change -->
 
@@ -743,21 +707,6 @@
         </Style.Triggers>
     </Style>
 
-    <!--Hex Viewer--><!--
-
-    <Style TargetType="DataGridCell" x:Key="ActiveCellStyle">
-        <Setter Property="Foreground" Value="#FF0074FF"/>
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding IsActive}" Value="{x:Null}">
-                <Setter Property="Foreground" Value="White"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding IsActive}" Value="True">
-                <Setter Property="Foreground" Value="Red"/>
-            </DataTrigger>
-        </Style.Triggers>
-    </Style>-->
-
-   
     <!--Lable Font-->
     
      <Style x:Key="Lable25size" TargetType="{x:Type TextBlock}">
