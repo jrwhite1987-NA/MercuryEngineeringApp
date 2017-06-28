@@ -92,6 +92,7 @@
 					Height="33"
                     Margin="5,2,5,0"
                     Grid.Column="2"
+                    Click="SendPower"
                     />
             <TextBox   Height="29" Style="{StaticResource ResourceKey=MainTextboxwithoutBorder}"
                        FontSize="18" 
