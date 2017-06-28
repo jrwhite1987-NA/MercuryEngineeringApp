@@ -384,11 +384,11 @@ namespace UsbTcdLibrary
         /// Inputs:
         /// Returns:
         /// </summary>
-        public void StartTCDReading()
+        public void StartTCDReading(string pageType)
         {
             if (TCDHandler.Current.isTCDWorking)
             {
-                dopplerModule.PacketsFromTCD();
+                dopplerModule.PacketsFromTCD(pageType);
             }
         }
 

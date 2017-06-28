@@ -1265,7 +1265,7 @@ namespace UsbTcdLibrary
         /// <summary>
         /// Add event listeners and start reading from TCD
         /// </summary>
-        internal void PacketsFromTCD()
+        internal void PacketsFromTCD(string pageType)
         {
             Helper.logger.Debug("async PacketsFromTCD begins");
             try
@@ -1276,7 +1276,19 @@ namespace UsbTcdLibrary
                     TCDHandler.OnTCDReadDual += FormPacketsFromArray;                   
                     TCDHandler.ChannelMessage += DecodeMessage;
                     t1.Start();
-                    TCDHandler.Current.ReadTCDData().Start();                    
+                    if (pageType == Constants.ExamPage)
+                    {
+                        TCDHandler.Current.ReadTCDData().Start();
+                    }
+                    else if (pageType == Constants.PacketPage)
+                    {
+                        var task = Task.Run(async () => { await TCDHandler.Current.ReadTCDData(); });
+                        task.Wait();
+                    }
+                    else
+                    {
+                        TCDHandler.Current.ReadTCDData().Start();
+                    }
                 }
             }
             catch (Exception ex)

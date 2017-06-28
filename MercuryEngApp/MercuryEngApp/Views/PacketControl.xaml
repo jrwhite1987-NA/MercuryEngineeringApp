@@ -159,7 +159,7 @@
                     </Border>
 
                     <Grid  Margin="1,40,0,5">
-                        <TreeView Name="trvMenu" TreeViewItem.Expanded="TreeViewItemExpanded" TreeViewItem.Collapsed="TreeViewItemExpanded" ItemsSource="{Binding FirstGeneration}" HorizontalAlignment="Stretch">
+                        <TreeView Name="trvMenu" TreeViewItem.Expanded="TreeViewItemExpanded" TreeViewItem.Collapsed="TreeViewItemExpanded" SelectedItemChanged="TreeItemSelected" ItemsSource="{Binding FirstGeneration}" HorizontalAlignment="Stretch">
 
                             <TreeView.ItemTemplate>
                                 <HierarchicalDataTemplate DataType="{x:Type local:ItemsMenu}" ItemsSource="{Binding Items}">

@@ -77,6 +77,8 @@ namespace MercuryEngApp
         /// <param name="e"></param>
         void PacketControlUnloaded(object sender, RoutedEventArgs e)
         {
+            ClearRecentTimer();
+            IntervalSilder.Value = 0;
             MainWindow.TurnTCDON -= MainWindowTurnTCDON;
             MainWindow.TurnTCDOFF -= MainWindowTurnTCDOFF;
             UsbTcd.TCDObj.OnProbeUnplugged -= TCDObjOnProbeUnplugged;
@@ -141,7 +143,7 @@ namespace MercuryEngApp
                 await UsbTcd.TCDObj.SetPRF(request);
 
                 
-                UsbTcd.TCDObj.StartTCDReading();
+                UsbTcd.TCDObj.StartTCDReading(Constants.PacketPage);
                 this.IsEnabled = true;
             }
         }
@@ -224,8 +226,6 @@ namespace MercuryEngApp
 
                 ItemsMenu PacketRoot = GetTreeStructure(byteArray);
                 trvMenu.Items.Add(PacketRoot);
-
-                trvMenu.SelectedItemChanged += TreeItemSelected;    
 
                 Helper.logger.Debug("TreeView Created");
             }
@@ -411,13 +411,16 @@ namespace MercuryEngApp
         /// <param name="e"></param>
         void TreeItemSelected(object sender, RoutedEventArgs e)
         {
-            ItemsMenu item = (ItemsMenu)trvMenu.SelectedItem; 
-            item.IsExpanded = true;
-            KeyValuePair<int, int> fromIndex;
-            KeyValuePair<int, int> toIndex;
-            fromIndex = new KeyValuePair<int, int>(item.StartRow, item.StartColumn);
-            toIndex = new KeyValuePair<int, int>(item.EndRow, item.EndColumn);
-            SelectCellsByIndexes(fromIndex, toIndex);
+            if (trvMenu.SelectedItem != null)
+            {
+                ItemsMenu item = (ItemsMenu)trvMenu.SelectedItem;
+                item.IsExpanded = true;
+                KeyValuePair<int, int> fromIndex;
+                KeyValuePair<int, int> toIndex;
+                fromIndex = new KeyValuePair<int, int>(item.StartRow, item.StartColumn);
+                toIndex = new KeyValuePair<int, int>(item.EndRow, item.EndColumn);
+                SelectCellsByIndexes(fromIndex, toIndex);
+            }
         }
         
         /// <summary>

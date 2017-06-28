@@ -198,7 +198,7 @@ namespace UsbTcdLibrary
         /// Inputs:
         /// Returns:
         /// </summary>
-        void StartTCDReading();
+        void StartTCDReading(string pageType);
 
         #endregion PacketsRelated
 

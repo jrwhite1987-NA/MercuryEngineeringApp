@@ -339,7 +339,7 @@ namespace MercuryEngApp
                     LogWrapper.Log(Constants.APPLog, MercuryEngApp.Resources.PRFSet);
 
                     UsbTcd.TCDObj.OnPacketFormed += TCDObjOnPacketFormed;
-                    UsbTcd.TCDObj.StartTCDReading();
+                    UsbTcd.TCDObj.StartTCDReading(Constants.ExamPage);
                     TCDAudio.AudioCollection.CollectionChanged += TCDAudio.AudioCollectionCollectionChanged;
                 }
             }

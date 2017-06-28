@@ -1418,6 +1418,9 @@ namespace Core.Constants
         /// </summary>
         public const int PACKETS_PER_SEC = 125;
 
+        public const string ExamPage = "Exam";
+        public const string PacketPage = "Packet";
+
         /// <summary>
         /// Enum LoggingLevel
         /// </summary>
