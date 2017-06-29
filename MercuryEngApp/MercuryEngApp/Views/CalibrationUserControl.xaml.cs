@@ -40,6 +40,7 @@ namespace MercuryEngApp
             this.Loaded += CalibrationUserControlLoaded;
             this.Unloaded += CalibrationUserControlUnloaded;
             this.DataContext = calViewModel;
+            OverrideCalibration.IsChecked = true;
         }
 
         /// <summary>
