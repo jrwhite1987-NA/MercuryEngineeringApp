@@ -101,6 +101,8 @@ namespace MercuryEngApp
                     MainWindowTurnTCDOFF();
                     App.mainWindow.IsPowerChecked = false;
                 }
+                App.mainWindow.IsProbe1HitTestVisible = true;
+                App.mainWindow.IsProbe2HitTestVisible = true;
                 //Clear graph data
             }
             catch (Exception ex)

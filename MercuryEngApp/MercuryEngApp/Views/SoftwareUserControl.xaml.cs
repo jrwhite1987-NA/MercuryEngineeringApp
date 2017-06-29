@@ -36,7 +36,18 @@ namespace MercuryEngApp.Views
             softwareViewModel = new SoftwareViewModel();
             InitializeComponent();
             this.Loaded += SoftwareUserControlLoaded;
+            this.Unloaded += SoftwareUserControlUnloaded;
             this.DataContext = softwareViewModel;
+        }
+
+        void SoftwareUserControlUnloaded(object sender, RoutedEventArgs e)
+        {
+            if ((bool)App.mainWindow.IsPowerChecked)
+            {
+                App.mainWindow.IsPowerChecked = false;
+            }
+            App.mainWindow.IsProbe1HitTestVisible = true;
+            App.mainWindow.IsProbe2HitTestVisible = true;
         }
 
         /// <summary>

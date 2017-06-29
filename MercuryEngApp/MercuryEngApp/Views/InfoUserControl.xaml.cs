@@ -40,6 +40,7 @@ namespace MercuryEngApp
         {
             InitializeComponent();
             this.Loaded += InfoUserControlLoaded;
+            this.Unloaded += InfoUserControlUnloaded;
             this.DataContext = infoViewModelObj;
             xmlDoc = XDocument.Load("LocalFolder/InfoConfig.xml");
             infoViewModelObj.ProbePartNumberList = xmlDoc.Root.Elements("ProbePartNumbers").Elements("PartNumber").Select(element => element.Value).ToList();
@@ -88,6 +89,16 @@ namespace MercuryEngApp
                 Helper.logger.Warn("Exception: ", ex);
             }
             Helper.logger.Debug("--");
+        }
+
+        async void InfoUserControlUnloaded(object sender, RoutedEventArgs e)
+        {
+            if ((bool)App.mainWindow.IsPowerChecked)
+            {
+                App.mainWindow.IsPowerChecked = false;
+            }
+            App.mainWindow.IsProbe1HitTestVisible = true;
+            App.mainWindow.IsProbe2HitTestVisible = true;
         }
 
         /// <summary>

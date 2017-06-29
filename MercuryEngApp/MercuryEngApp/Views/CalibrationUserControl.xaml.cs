@@ -55,6 +55,13 @@ namespace MercuryEngApp
 
             // Make sure that if a safety calibration is in progress it is stopped
             SafetyStopClick(null, null);
+
+            if ((bool)App.mainWindow.IsPowerChecked)
+            {
+                App.mainWindow.IsPowerChecked = false;
+            }
+            App.mainWindow.IsProbe1HitTestVisible = true;
+            App.mainWindow.IsProbe2HitTestVisible = true;
         }
 
         /// <summary>

@@ -46,7 +46,18 @@ namespace MercuryEngApp.Views
         {
             InitializeComponent();
             this.Loaded += FPGAUserControlLoaded;
+            this.Unloaded += FPGAUserControlUnloaded;
             this.DataContext = fpgaViewModel;
+        }
+
+        void FPGAUserControlUnloaded(object sender, RoutedEventArgs e)
+        {
+            if ((bool)App.mainWindow.IsPowerChecked)
+            {
+                App.mainWindow.IsPowerChecked = false;
+            }
+            App.mainWindow.IsProbe1HitTestVisible = true;
+            App.mainWindow.IsProbe2HitTestVisible = true;
         }
 
         /// <summary>
